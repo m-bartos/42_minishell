@@ -1,4 +1,6 @@
-a.out
+*.out
 .vscode/*
 .DS_Store
 *.txt
+*.o
+*.a
