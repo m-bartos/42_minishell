@@ -3,13 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2023/12/02 14:35:45 by mbartos          ###   ########.fr       */
+/*   Updated: 2023/12/02 16:27:00 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 /* added comment */
 /* added second comment */
 /* added third comment */
+
+#include "./minishell.h"
+
+int	main(void)
+{
+	write(1, "This is Minishell", ft_strlen("This is Minishell"));
+	return (0);
+}
