@@ -2,6 +2,9 @@
 CC = cc
 CFLAGS = -Wall -Werror -Wextra
 
+# readline() flag to link the library for compiler (MacOS only)
+READLINE_FLAGS = -L/opt/homebrew/opt/readline/lib -lreadline
+
 # Directories
 SRC_DIR = ./utils
 OBJ_DIR = ./obj
@@ -22,7 +25,7 @@ all: $(LIBFT) $(NAME)
 
 # Rule to make the program
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft
+	$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -L$(LIBFT_DIR) -lft $(READLINE_FLAGS)
 
 # Generic rule for objects
 $(OBJ_DIR)/%.o: %.c
