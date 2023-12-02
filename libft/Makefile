@@ -60,17 +60,21 @@ SOURCES =	ft_atoi.c \
 			\
 			get_next_line.c \
 
-MY_OBJECTS = $(SOURCES:.c=.o)
+OBJ_DIR = ./obj
+
+MY_OBJECTS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SOURCES))
 
 all:	$(NAME)
-	
-%.o: %.c
+
+$(OBJ_DIR)/%.o: %.c
+	mkdir -p $(@D)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(MY_OBJECTS)
 	ar rcs $(NAME) $(MY_OBJECTS)
 
 clean:
+	rm -rf $(OBJ_DIR)
 	rm -f $(MY_OBJECTS)
 
 fclean: clean
