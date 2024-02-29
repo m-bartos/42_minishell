@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/02/29 10:14:18 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/02/29 12:50:38 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,6 @@ typedef struct s_node
 typedef struct s_tabulcicka
 {
 	t_node	*first_node;
-}		t_tabulcicka
+}		t_tabulcicka;
 
 #endif
