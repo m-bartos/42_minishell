@@ -6,12 +6,15 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:24:52 by mbartos           #+#    #+#             */
-/*   Updated: 2024/02/29 12:43:49 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/02/29 15:34:46 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+// #include "../minishell.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
 
 int	num_of_strings(char *str, char c)
 {
@@ -209,21 +212,20 @@ char	*handle_single_quotes(char *str, size_t *index)
 	size_t	j;
 	char	*str_out;
 
-	str++;
-	size_to_malloc = 0;
+	size_to_malloc = 1;
 	while (str[size_to_malloc] != '\'' && str[size_to_malloc] != '\0')
 		size_to_malloc++;
 	str_out = (char *) malloc(sizeof(char) * (size_to_malloc + 1));
 	if (!str_out)
 		return (NULL);
 	j = 0;
-	while (j < size_to_malloc)
+	while (j < size_to_malloc + 1)
 	{
 		str_out[j] = str[j];
 		j++;
 	}
 	str_out[j] = '\0';
-	*index = *index + size_to_malloc + 2;
+	*index = *index + size_to_malloc + 1;
 	return (str_out);
 }
 
@@ -233,21 +235,20 @@ char	*handle_double_quotes(char *str, size_t *index)
 	size_t	j;
 	char	*str_out;
 
-	str++;
-	size_to_malloc = 0;
+	size_to_malloc = 1;
 	while (str[size_to_malloc] != '\"' && str[size_to_malloc] != '\0')
 		size_to_malloc++;
 	str_out = (char *) malloc(sizeof(char) * (size_to_malloc + 1));
 	if (!str_out)
 		return (NULL);
 	j = 0;
-	while (j < size_to_malloc)
+	while (j < size_to_malloc + 1)
 	{
 		str_out[j] = str[j];
 		j++;
 	}
 	str_out[j] = '\0';
-	*index = *index + size_to_malloc + 2;
+	*index = *index + size_to_malloc + 1;
 	return (str_out);
 }
 
@@ -344,6 +345,9 @@ int	main(void)
 
 	line = readline("Write command: ");
 	printf("What I got:    %s\n", line);
-	split2(line);	
+	split2(line);
+
+	// char	*args[] = {"/bin/echo", "\\n", NULL};
+	// execve(args[0], args, NULL);
 	return (0);
 }
