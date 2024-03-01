@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/02/29 12:50:38 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/01 19:13:44 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,31 @@
 # define FALSE 0
 # define TRUE 1
 
-typedef enum s_tokens
+typedef enum s_type
 {
-	COMAND,
-	ARGUMENT,
+	COMMAND,
+	ARG,
 	PIPE,
-	REDIRECT_IN,
-	REDIRECT_OUT,
-	REDIRECT_OUT_APPEND,
+	R_IN,
+	R_OUT,
+	R_OUT_APPND,
 	HERE_DOC
-}		t_tokens;
+}		t_type;
 
 typedef struct s_node
 {
 	char		*text;
-	t_tokens	token;
+	t_type		type;
 	t_node		*next;
 }		t_node;
 
-// is it necessary to have s_tabulcicka struct?
-typedef struct s_tabulcicka
+/* --- LINKED LIST EXAMPLE (non-sense command) ---
+echo	/	aaa 	/	bbb		/	|		/	<		/	file.txt	/	cat			/
+COMMAND	/	ARG		/	ARG		/	PIPE	/	R_IN	/	ARG			/	COMMAND		/
+*/
+typedef struct s_command_table
 {
 	t_node	*first_node;
-}		t_tabulcicka;
+}		t_command_table;
 
 #endif
