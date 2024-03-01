@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:33:30 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/01 19:14:08 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/01 22:35:15 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ char	*get_variable_name(char	*str)
 	size_t	size_to_malloc;
 	size_t	index;
 	char	*str_variable;
-	char	*str_out;	
+	char	*str_out;
 
 	str_variable = ft_strchr(str, '$') + 1;
 	size_to_malloc = end_of_variable(str_variable) - str_variable;
@@ -69,7 +69,7 @@ char	*expander(char *str)
 	size_t	j;
 	size_t	size_to_malloc;
 	char	*str_out;
-	char	*str_variable;
+	//char	*str_variable;
 	char	*str_expanded_variable;
 	char	*str_rest;
 	char	*str_old;
@@ -110,17 +110,17 @@ char	*expander(char *str)
 
 // cc expander.c ../libft/ft_strchr.c ../libft/ft_strlen.c ../libft/ft_strdup.c
 
-int	main (void)
-{
-	char	str[] = "a/$PATH/a";
-	char	*str_dynamic;
+// int	main (void)
+// {
+// 	char	str[] = "a/$PATH/a";
+// 	char	*str_dynamic;
 
-	str_dynamic = ft_strdup(str);
-	printf("INPUT:\n%s\n\n", str_dynamic);
-	str_dynamic = expander(str_dynamic);
-	printf("OUTPUT:\n%s\n", str_dynamic);
-	free(str_dynamic);
-}
+// 	str_dynamic = ft_strdup(str);
+// 	printf("INPUT:\n%s\n\n", str_dynamic);
+// 	str_dynamic = expander(str_dynamic);
+// 	printf("OUTPUT:\n%s\n", str_dynamic);
+// 	free(str_dynamic);
+// }
 
 
 // ---CHECKERS BEFORE EXECUTION---

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/01 19:13:44 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/01 22:33:15 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,12 @@ typedef enum s_type
 	HERE_DOC
 }		t_type;
 
+// chaning declaration of *next from t_node to struct s_node due to compilation error on Mac
 typedef struct s_node
 {
-	char		*text;
-	t_type		type;
-	t_node		*next;
+	char			*text;
+	t_type			type;
+	struct s_node	*next;
 }		t_node;
 
 /* --- LINKED LIST EXAMPLE (non-sense command) ---
