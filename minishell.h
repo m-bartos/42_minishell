@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/01 22:33:15 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/02 00:12:51 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,10 @@ typedef enum s_type
 // chaning declaration of *next from t_node to struct s_node due to compilation error on Mac
 typedef struct s_node
 {
-	char			*text;
+	char			*token;
 	t_type			type;
 	struct s_node	*next;
+	struct s_node	*prev;
 }		t_node;
 
 /* --- LINKED LIST EXAMPLE (non-sense command) ---
@@ -54,6 +55,14 @@ COMMAND	/	ARG		/	ARG		/	PIPE	/	R_IN	/	ARG			/	COMMAND		/
 typedef struct s_command_table
 {
 	t_node	*first_node;
+	t_node	*last_node;
+	int		size;
 }		t_command_table;
 
+// command_table functions
+void	ft_init_command_table(t_command_table *cmd_table);
+void	ft_rotate_token(t_command_table *cmd_table);
+void	ft_push_token(t_command_table *cmd_table, char *token);
+void	ft_push_rotate_token(t_command_table *cmd_table, char *token);
+void	ft_delete_nodes(t_command_table *cmd_table);
 #endif
