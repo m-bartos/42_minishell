@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:33:30 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/01 17:11:06 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/01 19:14:08 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 char	*end_of_variable(char *str)
 {
-	while (*str != '$' && *str != '\0' && *str != '/' && *str != ':'
-		&& *str != ';' && *str != '-' && *str != '%')
+	while (*str != '$' && *str != '\0' && *str != '/' && *str != ':' && *str != '^'
+		&& *str != ';' && *str != '-' && *str != '%' && *str != '&' && *str != '*' && *str != '#' && *str != '@')
 		str++;
 	return (str);
 }
@@ -55,6 +55,14 @@ char	*find_and_expand_var(char *str)
 	return (str_extended_variable);
 }
 
+	// WHILE LOOP (until all variables are expanded in the string)
+	// search str until '$' character is found
+	// get the variable name (behind $)
+	// find it with getenv() function
+	// compute the size to allocate new string
+	// malloc
+	// make a new string with expanded variable
+	// WHILE LOOP
 char	*expander(char *str)
 {
 	size_t	index;
@@ -66,11 +74,6 @@ char	*expander(char *str)
 	char	*str_rest;
 	char	*str_old;
 
-	// search str until '$' character is found
-	// get the variable name
-	// find it in getenv
-	// compute the size to allocate new string
-	// malloc
 	while (ft_strchr(str, '$'))
 	{
 		str_expanded_variable = find_and_expand_var(str);
@@ -105,9 +108,11 @@ char	*expander(char *str)
 	return (str);
 }
 
+// cc expander.c ../libft/ft_strchr.c ../libft/ft_strlen.c ../libft/ft_strdup.c
+
 int	main (void)
 {
-	char	str[] = "aha$PATH/a\naa123/$PATH$PATH-/B";
+	char	str[] = "a/$PATH/a";
 	char	*str_dynamic;
 
 	str_dynamic = ft_strdup(str);
@@ -116,3 +121,9 @@ int	main (void)
 	printf("OUTPUT:\n%s\n", str_dynamic);
 	free(str_dynamic);
 }
+
+
+// ---CHECKERS BEFORE EXECUTION---
+// folder permission check
+// double PIPE, double < <, double > >
+// INFILE checker
