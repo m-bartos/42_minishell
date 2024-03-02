@@ -6,16 +6,16 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/02 12:52:56 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/02 13:18:05 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+# include <stdlib.h>
+# include <stdio.h>
 # include <unistd.h>
-#include <stdlib.h>
-#include <stdio.h>
 # include "./libft/libft.h"
 // rl_clear_history, rl_on_new_line,
 // rl_replace_line, rl_redisplay, add_history,
@@ -76,6 +76,15 @@ char	*get_expanded_var(char *str);
 // expander.c
 char	*expand_all_vars_in_str(char *str);
 
+// splitter.c
+void	splitter(char *line);
+
+// splitter_utils.c
+int		is_whitespace(char c);
+int		is_quote(char c);
+int		is_token(char c);
+int		is_end_of_word(char c);
+size_t	word_length(char *str);
 
 
 #endif
