@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/02 14:48:40 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/02 14:57:57 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	*handle_word(char *str, size_t *index);
 // splitter_utils.c
 int		is_whitespace(char c);
 int		is_quote(char c);
-int		is_token(char c);
+int		is_operator(char c);
 int		is_end_of_word(char c);
 size_t	word_length(char *str);
 
