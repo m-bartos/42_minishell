@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/02 00:12:51 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/02 12:52:42 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,7 @@ void	ft_rotate_token(t_command_table *cmd_table);
 void	ft_push_token(t_command_table *cmd_table, char *token);
 void	ft_push_rotate_token(t_command_table *cmd_table, char *token);
 void	ft_delete_nodes(t_command_table *cmd_table);
+
+// helper functions
+void	ft_print_cmd(t_command_table *cmd_table);
 #endif
