@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/02 13:18:05 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/02 13:45:08 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*get_expanded_var(char *str);
 char	*expand_all_vars_in_str(char *str);
 
 // splitter.c
-void	splitter(char *line);
+char	**splitter(char *line);
 
 // splitter_utils.c
 int		is_whitespace(char c);
