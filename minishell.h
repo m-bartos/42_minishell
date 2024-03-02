@@ -3,17 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/02 00:12:51 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/02 12:52:56 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "unistd.h"
+# include <unistd.h>
+#include <stdlib.h>
+#include <stdio.h>
 # include "./libft/libft.h"
 // rl_clear_history, rl_on_new_line,
 // rl_replace_line, rl_redisplay, add_history,
@@ -65,4 +67,15 @@ void	ft_rotate_token(t_command_table *cmd_table);
 void	ft_push_token(t_command_table *cmd_table, char *token);
 void	ft_push_rotate_token(t_command_table *cmd_table, char *token);
 void	ft_delete_nodes(t_command_table *cmd_table);
+
+// expander_var.c
+char	*end_of_var(char *str);
+char	*get_variable_name(char	*str);
+char	*get_expanded_var(char *str);
+
+// expander.c
+char	*expand_all_vars_in_str(char *str);
+
+
+
 #endif
