@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:33:30 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/02 13:03:13 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/02 14:54:52 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,16 +101,3 @@ char	*expand_all_vars_in_str(char *str)
 	}
 	return (str);
 }
-
-// cc expander.c ../libft/ft_strchr.c ../libft/ft_strlen.c ../libft/ft_strdup.c
-// int	main (void)
-// {
-// 	char	str[] = "a/$PATH:a";
-// 	char	*str_dynamic;
-
-// 	str_dynamic = ft_strdup(str);
-// 	printf("INPUT:\n%s\n\n", str_dynamic);
-// 	str_dynamic = expand_all_vars_in_str(str_dynamic);
-// 	printf("OUTPUT:\n%s\n", str_dynamic);
-// 	free(str_dynamic);
-// }
