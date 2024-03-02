@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:33:30 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/02 12:59:53 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/02 13:03:13 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,3 @@ char	*expand_all_vars_in_str(char *str)
 // 	printf("OUTPUT:\n%s\n", str_dynamic);
 // 	free(str_dynamic);
 // }
-// ---CHECKERS BEFORE EXECUTION---
-// folder permission check
-// double PIPE, double < <, double > >
-// INFILE checker
