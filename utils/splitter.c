@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:24:52 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/02 13:17:13 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/02 13:39:17 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ Parse by <, >, |, <<, >> (if not in quotes)
 - kdyz najdu "<" - kouknu se co je dal, jestli je tam dalsi "<", tak beru "<<", pokud neni, beru jen "<"
 - stejne pro ">" a ">>"
 - kdyz najdu |, beru | jen jednou
-- kdyz najdu space/tab, kouknu jestli je dalsi taky space/tab, pokud jo, jdu dal dokud nenajdu neco jineho
-- kdyz najdu " -> beru hned jako novy string prvni co je za " a beru az nez najdu ending " (uz jsem predtim ceknul, ze je tam spravny pocet "" a '')
+- kdyz najdu space/tab, preskakuju a prictu index
+- kdyz najdu " -> beru hned jako novy string prvni co je za " a beru vse dokud nenajdu dalsi " (uz jsem predtim ceknul, ze je tam spravny pocet "" a '')
 - stejne pokud najdu '
 
 */
@@ -171,37 +171,19 @@ void	splitter(char *line)
 	while (line[i])
 	{
 		if (line[i] == '<')
-		{
-			array_of_words[j] = handle_redirect_input(&line[i], &i);
-			j++;
-		}
+			array_of_words[j++] = handle_redirect_input(&line[i], &i);
 		else if (line[i] == '>')
-		{
-			array_of_words[j] = handle_redirect_output(&line[i], &i);
-			j++;
-		}
+			array_of_words[j++] = handle_redirect_output(&line[i], &i);
 		else if (line[i] == '|')
-		{
-			array_of_words[j] = handle_pipe(&line[i], &i);
-			j++;
-		}
+			array_of_words[j++] = handle_pipe(&line[i], &i);
 		else if (line[i] == '\'')
-		{
-			array_of_words[j] = handle_single_quotes(&line[i], &i);
-			j++;
-		}
+			array_of_words[j++] = handle_single_quotes(&line[i], &i);
 		else if (line[i] == '\"')
-		{
-			array_of_words[j] = handle_double_quotes(&line[i], &i);
-			j++;
-		}
+			array_of_words[j++] = handle_double_quotes(&line[i], &i);
 		else if (is_whitespace(line[i]))
 			i++;
 		else
-		{
-			array_of_words[j] = handle_word_outside_quotes(&line[i], &i);
-			j++;
-		}
+			array_of_words[j++] = handle_word_outside_quotes(&line[i], &i);
 	}
 	array_of_words[j] = NULL;
 
