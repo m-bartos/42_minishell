@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   splitter.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:24:52 by mbartos           #+#    #+#             */
-/*   Updated: 2024/02/29 15:34:46 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/01 22:35:42 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ char	*handle_redirect_input(char *str, size_t *index)
 	while (j < size_to_malloc)
 	{
 		str_out[j] = str[j];
-		j++; 
+		j++;
 	}
 	*index = *index + size_to_malloc;
 	return (str_out);
@@ -187,7 +187,7 @@ char	*handle_redirect_output(char *str, size_t *index)
 	while (j < size_to_malloc)
 	{
 		str_out[j] = str[j];
-		j++; 
+		j++;
 	}
 	*index = *index + size_to_malloc;
 	return (str_out);
@@ -338,16 +338,16 @@ void	split2 (char *line)
 // cc splitter.c -Wall -Wextra -Werror -L/opt/homebrew/opt/readline/lib -lreadline
 
 
-int	main(void)
-{
-	char	*line;
-	// char line[] = "a | b";
+// int	main(void)
+// {
+// 	char	*line;
+// 	// char line[] = "a | b";
 
-	line = readline("Write command: ");
-	printf("What I got:    %s\n", line);
-	split2(line);
+// 	line = readline("Write command: ");
+// 	printf("What I got:    %s\n", line);
+// 	split2(line);
 
-	// char	*args[] = {"/bin/echo", "\\n", NULL};
-	// execve(args[0], args, NULL);
-	return (0);
-}
+// 	// char	*args[] = {"/bin/echo", "\\n", NULL};
+// 	// execve(args[0], args, NULL);
+// 	return (0);
+// }
