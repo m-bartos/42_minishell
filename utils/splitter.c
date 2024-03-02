@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:24:52 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/02 14:49:43 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/02 14:54:12 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,13 @@ Parse by <, >, |, <<, >> (if not in quotes)
 
 
 1. hledam <, >, <<, >>, space/tab, quotes
-- kdyz najdu "<" - kouknu se co je dal, jestli je tam dalsi "<", tak beru "<<", pokud neni, beru jen "<"
+- kdyz najdu "<" - kouknu se co je dal, jestli je tam dalsi "<", tak beru "<<",
+ pokud neni, beru jen "<"
 - stejne pro ">" a ">>"
 - kdyz najdu |, beru | jen jednou
 - kdyz najdu space/tab, preskakuju a prictu index
-- kdyz najdu " -> beru hned jako novy string prvni co je za " a beru vse dokud nenajdu dalsi " (uz jsem predtim ceknul, ze je tam spravny pocet "" a '')
+- kdyz najdu " -> beru hned jako novy string prvni co je za " a beru vse dokud
+ nenajdu dalsi " (uz jsem predtim ceknul, ze je tam spravny pocet "" a '')
 - stejne pokud najdu '
 
 */
@@ -99,43 +101,4 @@ char	**splitter(char *line)
 			array_of_words[j++] = handle_word(&line[i], &i);
 	}
 	return (array_of_words);
-}
-
-// cc splitter.c splitter_handlers.c splitter_utils.c ../libft/ft_putnbr_fd.c ../libft/ft_putchar_fd.c -Wall -Wextra -Werror -L/opt/homebrew/opt/readline/lib -lreadline
-int	main(void)
-{
-	char	*line;
-	char	**array_of_words;
-	// char line[] = "a | b";
-
-	line = readline("Write command: ");
-	printf("What I got:    %s\n", line);
-	array_of_words = splitter(line);
-	// testing:
-	int	j;
-	printf("-----------------------------------\n");
-	printf("----EACH WORD ON SEPERATED LINE----\n");
-	printf("-----------------------------------\n");
-	j = 0;
-	while (array_of_words[j] != NULL)
-	{
-		printf("%s", array_of_words[j]);
-		printf("\n");
-		j++;
-	}
-	printf("-----------------------------------\n");
-	printf("-----------------END---------------\n");
-	printf("-----------------------------------\n");
-	j = 0;
-	while (array_of_words[j] != NULL)
-	{
-		free(array_of_words[j]);
-		j++;
-	}
-	free(array_of_words[j]);
-	free(array_of_words);
-	free(line);
-	// char	*args[] = {"/bin/echo", "\\n", NULL};
-	// execve(args[0], args, NULL);
-	return (0);
 }
