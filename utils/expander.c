@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:33:30 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/02 14:54:52 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/03 10:54:32 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,13 +62,13 @@ char	*get_str_with_one_expanded_var(char *str, char *expanded_var)
 		return (NULL);
 	index = 0;
 	while (str[index] != '$')
-		str_out[index++] = str[index];
-	j = 0;
-	if (expanded_var != NULL)
 	{
-		while (expanded_var[j] != '\0')
-			str_out[index++] = expanded_var[j++];
+		str_out[index] = str[index];
+		index++;
 	}
+	j = 0;
+	while (expanded_var != NULL && expanded_var[j] != '\0')
+		str_out[index++] = expanded_var[j++];
 	str_rest = end_of_var(ft_strchr(str, '$') + 1);
 	j = 0;
 	while (str_rest[j] != '\0')
