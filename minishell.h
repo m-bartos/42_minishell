@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/02 14:57:57 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/03 12:31:49 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,10 @@ int		is_operator(char c);
 int		is_end_of_word(char c);
 size_t	word_length(char *str);
 
+// cmd_tab_filler.c
+void	init_and_fill_cmd_tab(t_command_table *ptr_cmd_tab, char **arr_of_tokens);
+void	print_cmd_tab(t_command_table *ptr_cmd_tab);
+void	assign_types_to_tokens(t_command_table *ptr_cmd_tab);
+void	expand_cmd_table(t_command_table *ptr_cmd_tab);
 
 #endif
