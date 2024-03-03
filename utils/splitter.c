@@ -6,34 +6,35 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:24:52 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/02 14:54:12 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/03 10:32:10 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// SPLITTER
+/* --------- SPLITTER LOGIC --------- */
 /*
+<, >, <<, >>, |, space/tab, and quotes ('', "") are being searched for:
 
-Parse by space
-parse by quotes
-Parse by <, >, |, <<, >> (if not in quotes)
-
-
-< infile.txt cat | cat > outfile.txt
-
-
-1. hledam <, >, <<, >>, space/tab, quotes
-- kdyz najdu "<" - kouknu se co je dal, jestli je tam dalsi "<", tak beru "<<",
- pokud neni, beru jen "<"
-- stejne pro ">" a ">>"
-- kdyz najdu |, beru | jen jednou
-- kdyz najdu space/tab, preskakuju a prictu index
-- kdyz najdu " -> beru hned jako novy string prvni co je za " a beru vse dokud
- nenajdu dalsi " (uz jsem predtim ceknul, ze je tam spravny pocet "" a '')
-- stejne pokud najdu '
-
+* When "<" is found, what comes next is examined. If there is another "<",
+  "<<" is taken; if not, only "<" is taken.
+* The same procedure is followed for ">" and ">>".
+* When | is found, it is taken only once.
+* Upon encountering a space/tab, it is skipped, and the index is incremented.
+* Upon finding ", the next string is immediately captured, starting 
+  from the character following ", and continues until another " is encountered
+  (ensuring the correct number of "" and '' has been verified prior).
+* The same process applies when ' is encountered.
+* When whitespace is encoutered, continue to the next character.
+* If none of above is encoutered, save the token until whitespace is found.
 */
+
+/**
+ * Counts the number of tokens in a given line.
+ *
+ * @param line The input line to be split into tokens.
+ * @return The number of tokens found in the line.
+ */
 int	count_tokens(char *line)
 {
 	size_t	count;
@@ -63,42 +64,56 @@ int	count_tokens(char *line)
 	return (count);
 }
 
-char	**init_arr_of_strs(char *line)
+/**
+ * Initializes an array of tokens for line to be split 
+ *  - counts tokens in string and allocates memory.
+ *
+ * @param line The line to be split into an array of tokens.
+ * @return An array of strings containing the split tokens from the line.
+ */
+char	**init_arr_of_tokens(char *line)
 {
 	int		count;
-	char	**array_of_words;
+	char	**array_of_tokens;
 
 	count = count_tokens(line);
-	array_of_words = (char **) malloc (sizeof(char *) * (count + 1));
-	if (!array_of_words)
+	array_of_tokens = (char **) malloc (sizeof(char *) * (count + 1));
+	if (!array_of_tokens)
 		return (NULL);
-	array_of_words[count] = NULL;
-	return (array_of_words);
+	array_of_tokens[count] = NULL;
+	return (array_of_tokens);
 }
 
+/**
+ * Splits a given string into an array of tokens based on certain delimiters.
+ *
+ * @param line The input string to be split.
+ * @return An array of strings, where each element represents a token
+ *         from the input string. Returns NULL if memory allocation fails.
+ */
 char	**splitter(char *line)
 {
-	char	**array_of_words;
+	char	**array_of_tokens;
 	size_t	i;
 	size_t	j;
 
-	array_of_words = init_arr_of_strs(line);
-	if (!array_of_words)
+	array_of_tokens = init_arr_of_tokens(line);
+	if (!array_of_tokens)
 		return (NULL);
 	i = 0;
 	j = 0;
 	while (line[i])
 	{
 		if (line[i] == '<' || line[i] == '>')
-			array_of_words[j++] = handle_redirections(&line[i], &i, line[i]);
+			array_of_tokens[j++] = handle_redirections(&line[i], &i, line[i]);
 		else if (line[i] == '|')
-			array_of_words[j++] = handle_pipe(&line[i], &i);
+			array_of_tokens[j++] = handle_pipe(&line[i], &i);
 		else if (line[i] == '\'' || line[i] == '\"')
-			array_of_words[j++] = handle_quotes(&line[i], &i, line[i]);
+			array_of_tokens[j++] = handle_quotes(&line[i], &i, line[i]);
 		else if (is_whitespace(line[i]))
 			i++;
 		else
-			array_of_words[j++] = handle_word(&line[i], &i);
+			array_of_tokens[j++] = handle_word(&line[i], &i);
 	}
-	return (array_of_words);
+	return (array_of_tokens);
 }
