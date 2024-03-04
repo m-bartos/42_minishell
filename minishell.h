@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/04 12:32:26 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/04 14:46:58 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,11 @@ char	*get_variable_name(char	*str);
 char	*get_expanded_var(char *str);
 
 // expander.c
-char	*expand_all_vars_in_str(char *str);
+// char	*expand_all_vars_in_str(char *str);
+void	expand_cmd_tab(t_command_table *ptr_cmd_tab);
+
+// parser.c
+void	parser(t_command_table *ptr_cmd_tab, char *line);
 
 // splitter.c
 char	**splitter(char *line);
@@ -92,11 +96,22 @@ int		is_operator(char c);
 int		is_end_of_word(char c);
 size_t	word_length(char *str);
 
+// cmd_tab_assign_types.c
+void	assign_types_to_tokens(t_command_table *ptr_cmd_tab);
+
+
 // cmd_tab_filler.c
 void	init_and_fill_cmd_tab(t_command_table *ptr_cmd_tab, char **arr_of_tokens);
 void	print_cmd_tab(t_command_table *ptr_cmd_tab);
-void	assign_types_to_tokens(t_command_table *ptr_cmd_tab);
-void	expand_cmd_table(t_command_table *ptr_cmd_tab);
-void	remove_quotes_from_cmd_table(t_command_table *ptr_cmd_tab);
+
+// cmd_tab_filler_utils.c
+int		is_pipe_type(t_node *ptr_node);
+int		is_redirection_type(t_node *ptr_node);
+int		is_operator_type(t_node *ptr_node);
+int		is_in_single_quotes(t_node *ptr_node);
+int		is_in_double_quotes(t_node *ptr_node);
+
+// cmd_tab_remove_quotes.c
+void	remove_quotes_from_cmd_tab(t_command_table *ptr_cmd_tab);
 
 #endif
