@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 14:53:47 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/04 14:53:25 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/04 16:35:37 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,38 @@
 // 	printf("What I got:    %s\n", line);
 // 	parser(&cmd_tab, line);
 // 	print_cmd_tab(&cmd_tab);
-// 	return (0);
+
+// 	//THIS IS JUST TEST - needs to be rewritten!!
+// 	char	*user;
+// 	char	*session_manager;
+// 	char	*old_session_manager;
+// 	char	*computer;
+// 	char	*display_line;
+// 	char	*old_display_line;
+
+// 	user = getenv("USER");
+// 	session_manager = getenv("SESSION_MANAGER");
+// 	session_manager = ft_strdup(session_manager);
+// 	old_session_manager = session_manager;
+// 	session_manager = ft_strchr(session_manager, '/') + 1;
+// 	session_manager[6] = '\0';
+// 	computer = ft_strdup(session_manager);
+// 	free(old_session_manager);
+// 	display_line = ft_strjoin(user, "@");
+// 	old_display_line = display_line;
+// 	display_line = ft_strjoin(display_line, computer);
+// 	free(old_display_line);
+// 	free(computer);
+// 	old_display_line = display_line;
+// 	display_line = ft_strjoin(display_line, ":~");
+// 	old_display_line = display_line;
+// 	display_line = ft_strjoin(display_line, getenv("PWD")); // PWD needs to be cut
+// 	free(old_display_line);
+// 	printf("%s", display_line);
+// 	printf("\n");
+// 	free(display_line);
+// 	//THIS IS JUST TEST - needs to be rewritten!!
+
+// 	return (0); 
 // }
 
