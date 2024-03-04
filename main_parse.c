@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 14:53:47 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/04 12:45:08 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/04 14:53:25 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,33 +69,16 @@
 // }
 
 // ---- FILLING THE STRUCT------ 
-
+// echo "jojo" 'nene' > outfile.txt | < infile.txt echo "jojo" 'nene' aha "$USER" '$USER' $USER >> test.out
 // int	main (void)
 // {
 // 	char			*line;
-// 	char			**array_of_tokens;
 // 	t_command_table	cmd_tab;
-// 	t_command_table	*ptr_cmd_tab;
-
-// 	ptr_cmd_tab = &cmd_tab;
 
 // 	line = readline("Write command: ");
 // 	printf("What I got:    %s\n", line);
-
-// 	// line = ft_strdup("< << < > >> > | aha 'jojo$PATH><' \"$USER\" $USER$PAPERSIZE");
-// 	array_of_tokens = splitter(line);
-// 	// printf("INITIAL FILLING OF CMD TABLE: \n");
-// 	init_and_fill_cmd_tab(ptr_cmd_tab, array_of_tokens);
-// 	// print_cmd_tab(ptr_cmd_tab);
-// 	// printf("TYPES ASSIGNED IN CMD TABLE: \n");
-// 	assign_types_to_tokens(ptr_cmd_tab);
-// 	// print_cmd_tab(ptr_cmd_tab);
-// 	// printf("CMD TABLE EXPANDED: \n");
-// 	expand_cmd_table(ptr_cmd_tab);
-// 	// print_cmd_tab(ptr_cmd_tab);
-// 	printf("CMD TABLE without quotes: \n");
-// 	remove_quotes_from_cmd_table(ptr_cmd_tab);
-// 	print_cmd_tab(ptr_cmd_tab);
+// 	parser(&cmd_tab, line);
+// 	print_cmd_tab(&cmd_tab);
 // 	return (0);
 // }
 
