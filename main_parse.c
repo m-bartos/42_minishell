@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 14:53:47 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/03 12:35:04 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/04 12:45:08 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,17 @@
 
 // 	// line = ft_strdup("< << < > >> > | aha 'jojo$PATH><' \"$USER\" $USER$PAPERSIZE");
 // 	array_of_tokens = splitter(line);
-// 	printf("INITIAL FILLING OF CMD TABLE: \n");
+// 	// printf("INITIAL FILLING OF CMD TABLE: \n");
 // 	init_and_fill_cmd_tab(ptr_cmd_tab, array_of_tokens);
-// 	print_cmd_tab(ptr_cmd_tab);
-// 	printf("TYPES ASSIGNED IN CMD TABLE: \n");
+// 	// print_cmd_tab(ptr_cmd_tab);
+// 	// printf("TYPES ASSIGNED IN CMD TABLE: \n");
 // 	assign_types_to_tokens(ptr_cmd_tab);
-// 	print_cmd_tab(ptr_cmd_tab);
-// 	printf("CMD TABLE EXPANDED: \n");
+// 	// print_cmd_tab(ptr_cmd_tab);
+// 	// printf("CMD TABLE EXPANDED: \n");
 // 	expand_cmd_table(ptr_cmd_tab);
+// 	// print_cmd_tab(ptr_cmd_tab);
+// 	printf("CMD TABLE without quotes: \n");
+// 	remove_quotes_from_cmd_table(ptr_cmd_tab);
 // 	print_cmd_tab(ptr_cmd_tab);
 // 	return (0);
 // }
