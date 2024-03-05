@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:36:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/02 22:30:13 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/05 23:21:23 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,17 @@ int	main(void)
 		arr++;
 	}
 
+	char *cmd8[] = {"<", NULL};
+	char *cmd9[] = {"infile.txt", NULL};
+	char *cmd0[] = {"/bin/cat", NULL};
 	char *cmd1[] = {"/bin/ls", "-la", NULL};
 	char *cmd2[] = {"/usr/bin/wc", "-l", NULL};
 	char *cmd3[] = {"/usr/bin/wc", "-c", NULL};
-	char **cmds[] = {cmd1, cmd2, cmd3, NULL};
+	char *cmd4[] = {"/bin/cat", NULL};
+	char **cmds[] = {cmd8, cmd9, cmd0, cmd1, cmd2, cmd3, cmd4, NULL};
+	//char **cmds[] = {cmd8, cmd9, cmd0, NULL};
 
 	ft_exec_commands(cmds);
+
 	return (0);
 }
