@@ -6,13 +6,13 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:20:49 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/04 14:29:49 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/06 09:39:37 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	parser(t_command_table *ptr_cmd_tab, char *line)
+void	parser(t_cmd_tab *ptr_cmd_tab, char *line)
 {
 	char			**array_of_tokens;
 

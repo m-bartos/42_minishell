@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:44:37 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/04 14:45:45 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/06 09:39:11 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	remove_quotes(t_node *ptr_node)
 	}
 }
 
-void	remove_quotes_from_cmd_tab(t_command_table *ptr_cmd_tab)
+void	remove_quotes_from_cmd_tab(t_cmd_tab *ptr_cmd_tab)
 {
 	t_node	*ptr_node;
 

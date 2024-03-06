@@ -6,13 +6,13 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:37:34 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/04 14:38:00 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/06 09:45:49 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	assign_operator_types(t_command_table *ptr_cmd_tab)
+void	assign_operator_types(t_cmd_tab *ptr_cmd_tab)
 {
 	t_node	*ptr_node;
 
@@ -33,7 +33,7 @@ void	assign_operator_types(t_command_table *ptr_cmd_tab)
 	}
 }
 
-void	assign_cmds_and_args(t_command_table *ptr_cmd_tab)
+void	assign_cmds_and_args(t_cmd_tab *ptr_cmd_tab)
 {
 	t_node	*ptr_node;
 	int		search_cmd;
@@ -63,7 +63,7 @@ void	assign_cmds_and_args(t_command_table *ptr_cmd_tab)
 	}
 }
 
-void	assign_types_to_tokens(t_command_table *ptr_cmd_tab)
+void	assign_types_to_tokens(t_cmd_tab *ptr_cmd_tab)
 {
 	assign_operator_types(ptr_cmd_tab);
 	assign_cmds_and_args(ptr_cmd_tab);
