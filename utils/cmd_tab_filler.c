@@ -6,14 +6,14 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:04:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/04 14:47:50 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/06 09:36:01 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 // this function will not be needed
-void	print_cmd_tab(t_command_table *ptr_cmd_tab)
+void	print_cmd_tab(t_cmd_tab *ptr_cmd_tab)
 {
 	t_node	*ptr_node;
 	int		i;
@@ -31,7 +31,7 @@ void	print_cmd_tab(t_command_table *ptr_cmd_tab)
 	printf("-------------\n");
 }
 
-void	init_and_fill_cmd_tab(t_command_table *ptr_cmd_tab, char **arr_of_tokens)
+void	init_and_fill_cmd_tab(t_cmd_tab *ptr_cmd_tab, char **arr_of_tokens)
 {
 	size_t	index;
 

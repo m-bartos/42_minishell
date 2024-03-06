@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:33:30 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/04 14:56:50 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/06 09:36:01 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ char	*expand_all_vars_in_str(char *str)
  * @param str The input string to expand variables in.
  * @return The string with all variables expanded.
  */
-void	expand_cmd_tab(t_command_table *ptr_cmd_tab)
+void	expand_cmd_tab(t_cmd_tab *ptr_cmd_tab)
 {
 	t_node	*ptr_node;
 
