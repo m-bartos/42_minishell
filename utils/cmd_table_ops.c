@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 22:46:28 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/06 09:36:01 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/06 15:03:35 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ void	ft_delete_nodes(t_cmd_tab *cmd_table)
 	while (current != NULL)
 	{
 		temp = current->next;
+		free(current->token);
 		free(current);
 		current = temp;
 		temp = NULL;
