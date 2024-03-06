@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/06 09:36:01 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/06 09:38:09 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@
 
 typedef enum s_type
 {
-	COMMAND,
+	CMD,
+	CMD_ERR,
 	ARG,
 	PIPE,
 	R_IN,
@@ -52,7 +53,7 @@ typedef struct s_node
 
 /* --- LINKED LIST EXAMPLE (non-sense command) ---
 echo	/	aaa 	/	bbb		/	|		/	<		/	file.txt	/	cat			/
-COMMAND	/	ARG		/	ARG		/	PIPE	/	R_IN	/	ARG			/	COMMAND		/
+CMD	/	ARG		/	ARG		/	PIPE	/	R_IN	/	ARG			/	CMD		/
 */
 typedef struct s_command_table
 {

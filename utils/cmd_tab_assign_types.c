@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:37:34 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/06 09:45:49 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/06 09:46:48 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	assign_cmds_and_args(t_cmd_tab *ptr_cmd_tab)
 	{
 		if (search_cmd == 1 && redir_file == 0 && !is_operator_type(ptr_node))
 		{
-			ptr_node->type = COMMAND;
+			ptr_node->type = CMD;
 			search_cmd = 0;
 		}
 		else if (is_redirection_type(ptr_node))
