@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/06 09:38:09 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/06 15:25:06 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 # include <readline/readline.h>
 // adds rl_clear_history()
 # include <readline/history.h>
+
+# define RESET   "\x1B[0m"
+# define BLUE    "\x1B[34m"
 
 # define STDIN 0
 # define STDOUT 1
@@ -77,6 +80,9 @@ char	*get_expanded_var(char *str);
 // expander.c
 // char	*expand_all_vars_in_str(char *str);
 void	expand_cmd_tab(t_cmd_tab *ptr_cmd_tab);
+
+// get_prompt.c
+char	*get_prompt(void);
 
 // parser.c
 void	parser(t_cmd_tab *ptr_cmd_tab, char *line);
