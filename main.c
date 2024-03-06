@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/06 16:17:47 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/06 16:30:53 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,28 +31,28 @@ void	check_exit(t_cmd_tab *cmd_tab, char *line, char *prompt)
 }
 
 // echo "jojo" 'nene' > outfile.txt | < infile.txt echo "jojo" 'nene' aha "$USER" '$USER' $USER >> test.out
-int	main (void)
-{
-	char		*line;
-	char		*prompt;
-	t_cmd_tab	cmd_tab;
+// int	main (void)
+// {
+// 	char		*line;
+// 	char		*prompt;
+// 	t_cmd_tab	cmd_tab;
 
-	line = NULL;
-	while (1)
-	{
-		prompt = get_prompt();
-		printf(BLUE);
-		line = readline(prompt);
-		printf(RESET);
-		if (*line)
-			add_history(line);
-		check_exit(&cmd_tab, line, prompt);
-		parser(&cmd_tab, line);
-		print_cmd_tab(&cmd_tab); // just show table
-		free_program(&cmd_tab, line, prompt);
-	}
-	return (0);
-}
+// 	line = NULL;
+// 	while (1)
+// 	{
+// 		prompt = get_prompt();
+// 		printf(BLUE);
+// 		line = readline(prompt);
+// 		printf(RESET);
+// 		if (*line)
+// 			add_history(line);
+// 		check_exit(&cmd_tab, line, prompt);
+// 		parser(&cmd_tab, line);
+// 		print_cmd_tab(&cmd_tab); // just show table
+// 		free_program(&cmd_tab, line, prompt);
+// 	}
+// 	return (0);
+// }
 // int main() {
 //     t_command_table cmd_table;
 // 	char 	*prompt;

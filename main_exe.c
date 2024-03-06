@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:36:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/05 23:21:23 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/06 16:31:23 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	main(void)
 {
-	t_command_table cmd_table;
+	t_cmd_tab cmd_table;
 	char	**arr;
 
 	ft_init_command_table(&cmd_table);
