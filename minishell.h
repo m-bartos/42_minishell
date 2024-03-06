@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/06 15:25:06 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/06 16:22:13 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,4 +121,18 @@ int		is_in_double_quotes(t_node *ptr_node);
 // cmd_tab_remove_quotes.c
 void	remove_quotes_from_cmd_tab(t_cmd_tab *ptr_cmd_tab);
 
+void	ft_init_command_table(t_cmd_tab *cmd_table);
+void	ft_rotate_token(t_cmd_tab *cmd_table);
+void	ft_push_token(t_cmd_tab *cmd_table, char *token);
+void	ft_push_rotate_token(t_cmd_tab *cmd_table, char *token);
+void	ft_delete_nodes(t_cmd_tab *cmd_table);
+
+// helper functions
+void	ft_print_cmd(t_cmd_tab *cmd_table);
+
+// exec functions
+void	ft_exec_commands(char ***cmds);
+
+// input output
+int		ft_input_file(char *file_name);
 #endif
