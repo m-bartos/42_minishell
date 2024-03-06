@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:18:05 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/04 14:21:16 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/06 09:40:44 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,6 @@ int	is_redirection_type(t_node *ptr_node)
 
 int	is_operator_type(t_node *ptr_node)
 {
-	int	type;
-
-	type = ptr_node->type;
 	if (is_pipe_type(ptr_node) || is_redirection_type(ptr_node))
 		return (1);
 	return (0);
