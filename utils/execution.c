@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/05 23:40:26 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/08 16:42:05 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,6 @@ void	ft_exec_commands(char ***cmds)
 	while (cmds[process_count])
 	{
 		pipe(fd);
-// test code
-		if (ft_strncmp(cmds[process_count][0], "<", 1) == 0)
-		{
-			process_count++;
-			if (ft_input_file("infile.txt") != -1)
-			{
-				prev_in_fd = ft_input_file("infile.txt");
-				process_count++;
-			}
-			else
-			{
-				perror(cmds[process_count][0]);
-				return ;
-			}
-		}
-//////////////////
 		if (fork() == 0)
 		{
 			dup2(prev_in_fd, STDIN);
