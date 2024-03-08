@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 10:42:14 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 10:50:05 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,13 @@ typedef enum s_type
 	ARG,
 	PIPE,
 	R_IN,
+	R_INFILE,
 	R_OUT,
-	R_OUT_APPND,
-	HERE_DOC
+	R_OUTFILE,
+	R_OUT_APP,
+	R_OUTFILE_APP,
+	HERE_DOC,
+	HERE_DOC_EOF
 }		t_type;
 
 // chaning declaration of *next from t_node to struct s_node due to compilation error on Mac

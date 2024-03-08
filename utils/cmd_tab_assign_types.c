@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:37:34 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/06 09:46:48 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 10:48:46 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	assign_operator_types(t_cmd_tab *ptr_cmd_tab)
 		else if (!ft_strncmp(ptr_node->token, "<", 2))
 			ptr_node->type = R_IN;
 		else if (!ft_strncmp(ptr_node->token, ">>", 3))
-			ptr_node->type = R_OUT_APPND;
+			ptr_node->type = R_OUT_APP;
 		else if (!ft_strncmp(ptr_node->token, ">", 2))
 			ptr_node->type = R_OUT;
 		ptr_node = ptr_node->next;

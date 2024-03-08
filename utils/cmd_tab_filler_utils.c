@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:18:05 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/06 09:40:44 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 10:48:59 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	is_redirection_type(t_node *ptr_node)
 
 	type = ptr_node->type;
 	if (type == R_IN || type == HERE_DOC
-		|| type == R_OUT || type == R_OUT_APPND)
+		|| type == R_OUT || type == R_OUT_APP)
 		return (1);
 	return (0);
 }
