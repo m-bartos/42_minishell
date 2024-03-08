@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 16:54:23 by orezek           ###   ########.fr       */
+/*   Updated: 2024/03/08 19:54:45 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,17 +67,20 @@ typedef struct s_command
 
 typedef struct s_cmd_tab
 {
-	t_command	*first_command;
-	t_command	*last_command;
+	t_command	*first_cmd;
+	t_command	*last_cmd;
 	int			size;
 }		t_cmd_tab;
 
-// command_table functions
+// OLD!! command_table functions
 void	ft_init_command_table(t_cmd_tab *cmd_table);
 void	ft_rotate_token(t_cmd_tab *cmd_table);
 void	ft_push_token(t_cmd_tab *cmd_table, char *token);
 void	ft_push_rotate_token(t_cmd_tab *cmd_table, char *token);
 void	ft_delete_nodes(t_cmd_tab *cmd_table);
+
+// NEW!! command table functions
+
 
 // exec functions
 void	ft_exec_commands(char ***cmds);
@@ -87,4 +90,12 @@ int		ft_input_file(char *file_name);
 int		ft_output_file(char *file_name);
 int		ft_append_file(char *file_name);
 
+// NEW command table ops
+void	ft_init_token(t_token *token);
+void	ft_init_cmd(t_command *cmd);
+void	ft_init_cmd_table(t_cmd_tab *cmd_tab);
+void	ft_push_cmd_to_tab(t_cmd_tab *cmd_table, t_command *cmd);
+void	ft_append_cmd_to_tab(t_cmd_tab *cmd_table, t_command *cmd);
+void	ft_append_token_to_cmd(t_command *cmd, t_token *token);
+t_token	*ft_create_token(char *text, t_type type);
 #endif
