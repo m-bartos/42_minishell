@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/06 16:22:13 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/08 10:42:14 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,12 +65,38 @@ typedef struct s_command_table
 	int		size;
 }		t_cmd_tab;
 
-// command_table functions
+// cmd_tab_assign_types.c
+void	assign_operator_types(t_cmd_tab *ptr_cmd_tab);
+void	assign_cmds_and_args(t_cmd_tab *ptr_cmd_tab);
+void	assign_types_to_tokens(t_cmd_tab *ptr_cmd_tab);
+
+// cmd_tab_filler_utils.c
+int		is_pipe_type(t_node *ptr_node);
+int		is_redirection_type(t_node *ptr_node);
+int		is_operator_type(t_node *ptr_node);
+int		is_in_single_quotes(t_node *ptr_node);
+int		is_in_double_quotes(t_node *ptr_node);
+
+// cmd_tab_filler.c
+void	print_cmd_tab(t_cmd_tab *ptr_cmd_tab);
+void	init_and_fill_cmd_tab(t_cmd_tab *ptr_cmd_tab, char **arr_of_tokens);
+
+// cmd_tab_remove_quotes.c
+void	remove_quotes(t_node *ptr_node);
+void	remove_quotes_from_cmd_tab(t_cmd_tab *ptr_cmd_tab);
+
+// cmd_table_ops
 void	ft_init_command_table(t_cmd_tab *cmd_table);
 void	ft_rotate_token(t_cmd_tab *cmd_table);
 void	ft_push_token(t_cmd_tab *cmd_table, char *token);
 void	ft_push_rotate_token(t_cmd_tab *cmd_table, char *token);
 void	ft_delete_nodes(t_cmd_tab *cmd_table);
+
+// error_check.c
+int		is_unclosed_quotes (char *str);
+
+// exececution.c
+void	ft_exec_commands(char ***cmds);
 
 // expander_var.c
 char	*end_of_var(char *str);
@@ -78,17 +104,22 @@ char	*get_variable_name(char	*str);
 char	*get_expanded_var(char *str);
 
 // expander.c
-// char	*expand_all_vars_in_str(char *str);
+char	*malloc_new_expanded_str(char *str, char *str_expanded_variable);
+char	*get_str_with_one_expanded_var(char *str, char *expanded_var);
+char	*expand_all_vars_in_str(char *str);
 void	expand_cmd_tab(t_cmd_tab *ptr_cmd_tab);
 
 // get_prompt.c
 char	*get_prompt(void);
 
+// helpers.c
+void	ft_print_cmd(t_cmd_tab *cmd_table);
+
+// input_output.c
+int		ft_input_file(char *file_name);
+
 // parser.c
 void	parser(t_cmd_tab *ptr_cmd_tab, char *line);
-
-// splitter.c
-char	**splitter(char *line);
 
 // splitter_handlers.c
 char	*handle_redirections(char *str, size_t *index, char redir_type);
@@ -103,36 +134,9 @@ int		is_operator(char c);
 int		is_end_of_word(char c);
 size_t	word_length(char *str);
 
-// cmd_tab_assign_types.c
-void	assign_types_to_tokens(t_cmd_tab *ptr_cmd_tab);
+// splitter.c
+int		count_tokens(char *line);
+char	**init_arr_of_tokens(char *line);
+char	**splitter(char *line);
 
-
-// cmd_tab_filler.c
-void	init_and_fill_cmd_tab(t_cmd_tab *ptr_cmd_tab, char **arr_of_tokens);
-void	print_cmd_tab(t_cmd_tab *ptr_cmd_tab);
-
-// cmd_tab_filler_utils.c
-int		is_pipe_type(t_node *ptr_node);
-int		is_redirection_type(t_node *ptr_node);
-int		is_operator_type(t_node *ptr_node);
-int		is_in_single_quotes(t_node *ptr_node);
-int		is_in_double_quotes(t_node *ptr_node);
-
-// cmd_tab_remove_quotes.c
-void	remove_quotes_from_cmd_tab(t_cmd_tab *ptr_cmd_tab);
-
-void	ft_init_command_table(t_cmd_tab *cmd_table);
-void	ft_rotate_token(t_cmd_tab *cmd_table);
-void	ft_push_token(t_cmd_tab *cmd_table, char *token);
-void	ft_push_rotate_token(t_cmd_tab *cmd_table, char *token);
-void	ft_delete_nodes(t_cmd_tab *cmd_table);
-
-// helper functions
-void	ft_print_cmd(t_cmd_tab *cmd_table);
-
-// exec functions
-void	ft_exec_commands(char ***cmds);
-
-// input output
-int		ft_input_file(char *file_name);
 #endif
