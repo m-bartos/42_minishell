@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_tab_errors.c                                   :+:      :+:    :+:   */
+/*   cmd_struct_errors.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:23:21 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/08 16:23:12 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 23:30:33 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,9 @@ void	check_double_redirect(t_cmd *ptr_cmd, char *line, char *prompt)
 	ptr_node = ptr_node->next;
 	while (ptr_node != NULL)
 	{
-		if ((is_operator_type(ptr_node) || is_pipe_type(ptr_node))
-			&& is_redirection_type(ptr_node->prev))
+		if (((is_operator_type(ptr_node) || is_pipe_type(ptr_node))
+			&& is_redirection_type(ptr_node->prev)) ||
+			(is_pipe_type(ptr_node) && is_pipe_type(ptr_node->prev)))
 		{
 			printf("minishell: syntax error near unexpected token '%s'\n", 
 				ptr_node->text);
