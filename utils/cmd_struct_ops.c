@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_table_ops.c                                    :+:      :+:    :+:   */
+/*   cmd_struct_ops.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 22:46:28 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 16:29:10 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 16:41:29 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ ft_init_cmd_struct(&cmd)
 */
 void	ft_init_cmd_struct(t_cmd *cmd)
 {
+	cmd->execve_cmd = NULL;
+	cmd->next = NULL;
+	cmd->prev = NULL;
 	cmd->first_token = NULL;
 	cmd->last_token = NULL;
 	cmd->size = 0;
