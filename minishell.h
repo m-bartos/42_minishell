@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 16:29:10 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 16:56:14 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,35 +81,42 @@ typedef struct s_cmd_tab
 	int		size;
 }	t_cmd_tab;
 
-// cmd_tab_assign_types.c
+// cmd_struct_assign_types.c
 void	assign_operator_types(t_cmd *ptr_cmd_tab);
 void	assign_cmds_and_args(t_cmd *ptr_cmd_tab);
 void	assign_types_to_tokens(t_cmd *ptr_cmd_tab);
 
-// cmd_tab_errors.c
+// cmd_struct_errors.c
 void	check_double_redirect(t_cmd *cmd_tab, char *line, char *prompt);
 
-// cmd_tab_filler_utils.c
+// cmd_struct_filler_utils.c
 int		is_pipe_type(t_token *ptr_node);
 int		is_redirection_type(t_token *ptr_node);
 int		is_operator_type(t_token *ptr_node);
 int		is_in_single_quotes(t_token *ptr_node);
 int		is_in_double_quotes(t_token *ptr_node);
 
-// cmd_tab_filler.c
+// cmd_struct_filler.c
 void	print_cmd_tab(t_cmd *ptr_cmd_tab);
 void	fill_cmd_tab(t_cmd *ptr_cmd_tab, char **arr_of_tokens);
 
-// cmd_tab_remove_quotes.c
-void	remove_quotes(t_token *ptr_node);
-void	remove_quotes_from_cmd_tab(t_cmd *ptr_cmd_tab);
-
-// cmd_table_ops
+// cmd_struct_ops
 void	ft_init_cmd_struct(t_cmd *cmd_table);
 void	ft_rotate_token(t_cmd *cmd_table);
 void	ft_push_token(t_cmd *cmd_table, char *token);
 void	ft_push_rotate_token(t_cmd *cmd_table, char *token);
 void	ft_delete_nodes(t_cmd *cmd_table);
+
+// cmd_struct_remove_quotes.c
+void	remove_quotes(t_token *ptr_node);
+void	remove_quotes_from_cmd_tab(t_cmd *ptr_cmd_tab);
+
+// cmd_tab_struct_ops.c
+void	ft_init_cmd_tab_struct(t_cmd_tab *cmd_tab);
+void	ft_rotate_cmd(t_cmd_tab *cmd_tab);
+void	ft_push_cmd(t_cmd_tab *cmd_tab, t_cmd *ptr_cmd);
+void	ft_push_rotate_cmd(t_cmd_tab *cmd_tab, t_cmd *ptr_cmd);
+void	ft_delete_cmds_in_cmd_tab(t_cmd_tab *cmd_tab);
 
 // error_check.c
 int		is_unclosed_quotes (char *str);
