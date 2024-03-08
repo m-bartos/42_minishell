@@ -6,7 +6,7 @@
 /*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 16:52:29 by orezek           ###   ########.fr       */
+/*   Updated: 2024/03/08 16:54:23 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ typedef struct s_cmd_tab
 	int			size;
 }		t_cmd_tab;
 
-
 // command_table functions
 void	ft_init_command_table(t_cmd_tab *cmd_table);
 void	ft_rotate_token(t_cmd_tab *cmd_table);
@@ -83,6 +82,9 @@ void	ft_delete_nodes(t_cmd_tab *cmd_table);
 // exec functions
 void	ft_exec_commands(char ***cmds);
 
-// input output functions
+// I/O functions
 int		ft_input_file(char *file_name);
+int		ft_output_file(char *file_name);
+int		ft_append_file(char *file_name);
+
 #endif
