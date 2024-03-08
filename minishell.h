@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 16:56:14 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 22:24:40 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,8 +103,8 @@ void	fill_cmd_tab(t_cmd *ptr_cmd_tab, char **arr_of_tokens);
 // cmd_struct_ops
 void	ft_init_cmd_struct(t_cmd *cmd_table);
 void	ft_rotate_token(t_cmd *cmd_table);
-void	ft_push_token(t_cmd *cmd_table, char *token);
-void	ft_push_rotate_token(t_cmd *cmd_table, char *token);
+void	ft_push_token(t_cmd *cmd, char *token_text, t_type token_type);
+void	ft_push_rotate_token(t_cmd *cmd, char *token_text, t_type token_type);
 void	ft_delete_nodes(t_cmd *cmd_table);
 
 // cmd_struct_remove_quotes.c
@@ -114,8 +114,8 @@ void	remove_quotes_from_cmd_tab(t_cmd *ptr_cmd_tab);
 // cmd_tab_struct_ops.c
 void	ft_init_cmd_tab_struct(t_cmd_tab *cmd_tab);
 void	ft_rotate_cmd(t_cmd_tab *cmd_tab);
-void	ft_push_cmd(t_cmd_tab *cmd_tab, t_cmd *ptr_cmd);
-void	ft_push_rotate_cmd(t_cmd_tab *cmd_tab, t_cmd *ptr_cmd);
+void	ft_push_cmd(t_cmd_tab *cmd_tab);
+void	ft_push_rotate_cmd(t_cmd_tab *cmd_tab);
 void	ft_delete_cmds_in_cmd_tab(t_cmd_tab *cmd_tab);
 
 // error_check.c

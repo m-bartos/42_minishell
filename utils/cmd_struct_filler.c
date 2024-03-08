@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_tab_filler.c                                   :+:      :+:    :+:   */
+/*   cmd_struct_filler.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:04:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/08 16:24:18 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 21:46:12 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	fill_cmd_tab(t_cmd *ptr_cmd, char **arr_of_tokens)
 	index = 0;
 	while (arr_of_tokens[index])
 	{
-		ft_push_rotate_token(ptr_cmd, arr_of_tokens[index]);
+		ft_push_rotate_token(ptr_cmd, arr_of_tokens[index], -1);
 		index++;
 	}
 }

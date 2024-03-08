@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 22:46:28 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 16:41:29 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 21:45:51 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_rotate_token(t_cmd *cmd)
 	}
 }
 // insert token on top of a stack
-void	ft_push_token(t_cmd *cmd, char *token_text)
+void	ft_push_token(t_cmd *cmd, char *token_text, t_type token_type)
 {
 	t_token	*ptr_token;
 
@@ -56,7 +56,7 @@ void	ft_push_token(t_cmd *cmd, char *token_text)
 	ptr_token->text = token_text;
 	ptr_token->next = cmd->first_token;
 	ptr_token->prev = NULL;
-	ptr_token->type = -1;
+	ptr_token->type = token_type;
 	if (cmd->first_token != NULL)
 		cmd->first_token->prev = ptr_token;
 	if (cmd->first_token == NULL)
@@ -72,9 +72,9 @@ Two action function:
 	Moves the inserted node to the bottom and promotes the second to be first
 When applied to a loop it will always keep the very first inserted node to be first node in the cmd
 */
-void	ft_push_rotate_token(t_cmd *cmd, char *token_text)
+void	ft_push_rotate_token(t_cmd *cmd, char *token_text, t_type token_type)
 {
-	ft_push_token(cmd, token_text);
+	ft_push_token(cmd, token_text, token_type);
 	ft_rotate_token(cmd);
 }
 

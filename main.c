@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 17:28:15 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 22:36:20 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,17 +53,39 @@ void	check_unclosed_quotes(t_cmd *cmd, char *line, char *prompt)
 	}
 }
 
+void	make_cmd_tab(t_cmd_tab *cmd_tab, t_cmd *parsed_line)
+{
+	t_token	*token;
+
+	token = parsed_line->first_token;
+	ft_push_rotate_cmd(cmd_tab);
+	while(token != NULL)
+	{
+		if (is_pipe_type(token->prev))
+		{
+			ft_push_rotate_cmd(cmd_tab);
+			ft_push_rotate_token(cmd_tab->last_cmd, token->text, token->type);
+		}
+		else
+		{
+			ft_push_rotate_token(cmd_tab->last_cmd, token->text, token->type);
+		}
+		token = token->next;
+	}
+}
+
 // echo "jojo" 'nene' > outfile.txt | < infile.txt echo "jojo" 'nene' aha "$USER" '$USER' $USER >> test.out
 int	main (void)
 {
 	char		*line;
 	char		*prompt;
 	t_cmd		parsed_line;
-	// t_cmd_tab	cmd_tab;
+	t_cmd_tab	cmd_tab;
+	t_cmd		*cmd;
 
 	line = NULL;
 	ft_init_cmd_struct(&parsed_line);
-	// ft_init_cmd_tab_struct(&cmd_tab);
+	ft_init_cmd_tab_struct(&cmd_tab);
 	while (1)
 	{
 		printf(BLUE);
@@ -77,8 +99,15 @@ int	main (void)
 		check_double_redirect(&parsed_line, line, prompt);
 		handle_if_last_is_pipe(&parsed_line);
 		print_cmd_tab(&parsed_line); // just show table
-		// make_cmd_tab(&parsed_line, &cmd_tab);
+		make_cmd_tab(&cmd_tab, &parsed_line);
+		cmd = (&cmd_tab)->first_cmd;
+		while(cmd != NULL)
+		{
+			print_cmd_tab(cmd);
+			cmd = cmd->next;
+		}
 		free_program(&parsed_line, line, prompt);
+		ft_delete_cmds_in_cmd_tab(&cmd_tab);
 	}
 	return (0);
 }

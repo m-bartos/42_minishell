@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 16:42:04 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/08 17:18:22 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 22:35:08 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,9 @@ void	ft_rotate_cmd(t_cmd_tab *cmd_tab)
 	}
 }
 // insert token on top of a stack
-void	ft_push_cmd(t_cmd_tab *cmd_tab, t_cmd *ptr_cmd)
+void	ft_push_cmd(t_cmd_tab *cmd_tab)
 {
-	// t_cmd	*ptr_cmd;
+	t_cmd	*ptr_cmd;
 
 	ptr_cmd = malloc(sizeof(t_cmd));
 	if (!ptr_cmd)
@@ -61,9 +61,9 @@ Two action function:
 	Moves the inserted node to the bottom and promotes the second to be first
 When applied to a loop it will always keep the very first inserted node to be first node in the cmd
 */
-void	ft_push_rotate_cmd(t_cmd_tab *cmd_tab, t_cmd *ptr_cmd)
+void	ft_push_rotate_cmd(t_cmd_tab *cmd_tab)
 {
-	ft_push_cmd(cmd_tab, ptr_cmd);
+	ft_push_cmd(cmd_tab);
 	ft_rotate_cmd(cmd_tab);
 }
 
@@ -72,12 +72,21 @@ void	ft_delete_cmds_in_cmd_tab(t_cmd_tab *cmd_tab)
 {
 	t_cmd	*current;
 	t_cmd	*temp;
+	t_token	*current_token;
+	t_token	*temp_token;
 
 	current = cmd_tab->first_cmd;
 	while (current != NULL)
 	{
 		temp = current->next;
-		ft_delete_nodes(current);
+		current_token = current->first_token;
+		while(current_token != NULL)
+		{
+			temp_token = current_token->next;
+			free(current_token);
+			current_token = temp_token;
+		}
+		free(current);
 		current = temp;
 		temp = NULL;
 	}

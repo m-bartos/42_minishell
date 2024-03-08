@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_tab_filler_utils.c                             :+:      :+:    :+:   */
+/*   cmd_struct_filler_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:18:05 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/08 16:23:25 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 21:54:43 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ int	is_pipe_type(t_token *ptr_token)
 {
 	int	type;
 
+	if (ptr_token == NULL)
+		return (0);
 	type = ptr_token->type;
 	if (type == PIPE)
 		return (1);
