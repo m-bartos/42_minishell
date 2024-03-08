@@ -6,28 +6,28 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:37:34 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/08 16:14:58 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 16:23:01 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	assign_operator_types(t_cmd *ptr_cmd_tab)
+void	assign_operator_types(t_cmd *ptr_cmd)
 {
 	t_token	*ptr_node;
 
-	ptr_node = ptr_cmd_tab->first_token;
+	ptr_node = ptr_cmd->first_token;
 	while (ptr_node != NULL)
 	{
-		if (!ft_strncmp(ptr_node->token, "|", 2))
+		if (!ft_strncmp(ptr_node->text, "|", 2))
 			ptr_node->type = PIPE;
-		else if (!ft_strncmp(ptr_node->token, "<<", 3))
+		else if (!ft_strncmp(ptr_node->text, "<<", 3))
 			ptr_node->type = HERE_DOC;
-		else if (!ft_strncmp(ptr_node->token, "<", 2))
+		else if (!ft_strncmp(ptr_node->text, "<", 2))
 			ptr_node->type = R_IN;
-		else if (!ft_strncmp(ptr_node->token, ">>", 3))
+		else if (!ft_strncmp(ptr_node->text, ">>", 3))
 			ptr_node->type = R_OUT_APP;
-		else if (!ft_strncmp(ptr_node->token, ">", 2))
+		else if (!ft_strncmp(ptr_node->text, ">", 2))
 			ptr_node->type = R_OUT;
 		ptr_node = ptr_node->next;
 	}
@@ -46,7 +46,7 @@ int	assign_file_type(int type)
 	return (99);
 }
 
-void	assign_cmds_and_args(t_cmd *ptr_cmd_tab)
+void	assign_cmds_and_args(t_cmd *ptr_cmd)
 {
 	t_token	*ptr_node;
 	int		search_cmd;
@@ -54,7 +54,7 @@ void	assign_cmds_and_args(t_cmd *ptr_cmd_tab)
 
 	search_cmd = 1;
 	redir_file = 0;
-	ptr_node = ptr_cmd_tab->first_token;
+	ptr_node = ptr_cmd->first_token;
 	while (ptr_node != NULL)
 	{
 		if (search_cmd == 1 && redir_file == 0 && !is_operator_type(ptr_node))
@@ -77,8 +77,8 @@ void	assign_cmds_and_args(t_cmd *ptr_cmd_tab)
 	}
 }
 
-void	assign_types_to_tokens(t_cmd *ptr_cmd_tab)
+void	assign_types_to_tokens(t_cmd *ptr_cmd)
 {
-	assign_operator_types(ptr_cmd_tab);
-	assign_cmds_and_args(ptr_cmd_tab);
+	assign_operator_types(ptr_cmd);
+	assign_cmds_and_args(ptr_cmd);
 }

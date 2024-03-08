@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 16:18:43 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 16:29:10 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef enum s_type
 // chaning declaration of *next from t_token to struct s_token due to compilation error on Mac
 typedef struct s_token
 {
-	char			*token;
+	char			*text;
 	t_type			type;
 	struct s_token	*next;
 	struct s_token	*prev;
@@ -66,11 +66,11 @@ CMD	/	ARG		/	ARG		/	PIPE	/	R_IN	/	ARG			/	CMD		/
 
 typedef struct s_cmd
 {
-	char	**execve_cmd;
+	char			**execve_cmd;
 	struct s_cmd	*next;
 	struct s_cmd	*prev;
-	t_token	*first_token;
-	t_token	*last_token;
+	t_token			*first_token;
+	t_token			*last_token;
 	int		size;
 }		t_cmd;
 
@@ -105,7 +105,7 @@ void	remove_quotes(t_token *ptr_node);
 void	remove_quotes_from_cmd_tab(t_cmd *ptr_cmd_tab);
 
 // cmd_table_ops
-void	ft_init_command_table(t_cmd *cmd_table);
+void	ft_init_cmd_struct(t_cmd *cmd_table);
 void	ft_rotate_token(t_cmd *cmd_table);
 void	ft_push_token(t_cmd *cmd_table, char *token);
 void	ft_push_rotate_token(t_cmd *cmd_table, char *token);

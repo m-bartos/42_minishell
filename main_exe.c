@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:36:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 16:14:34 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 16:29:10 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 // 	t_cmd cmd_table;
 // 	char	**arr;
 
-// 	ft_init_command_table(&cmd_table);
+// 	ft_init_cmd_struct(&cmd_table);
 // 	char	*command = "ls -la | wc -l";
 // 	arr = ft_split(command, ' ');
 // 	while (*arr)
