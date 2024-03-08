@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 13:35:38 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 13:39:17 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,7 @@ int	main (void)
 		check_exit(&cmd_tab, line, prompt);
 		check_unclosed_quotes(&cmd_tab, line, prompt);
 		parser(&cmd_tab, line);
-		if (check_double_redirect(&cmd_tab))
-		{
-			free_program(&cmd_tab, line, prompt);
-			return (0);
-		}
+		check_double_redirect(&cmd_tab, line, prompt);
 		handle_if_last_is_pipe(&cmd_tab);
 		print_cmd_tab(&cmd_tab); // just show table
 		free_program(&cmd_tab, line, prompt);

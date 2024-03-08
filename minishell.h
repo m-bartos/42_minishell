@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 12:54:41 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 13:40:29 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	assign_cmds_and_args(t_cmd_tab *ptr_cmd_tab);
 void	assign_types_to_tokens(t_cmd_tab *ptr_cmd_tab);
 
 // cmd_tab_errors.c
-int		check_double_redirect(t_cmd_tab *ptr_cmd_tab);
+void	check_double_redirect(t_cmd_tab *cmd_tab, char *line, char *prompt);
 
 // cmd_tab_filler_utils.c
 int		is_pipe_type(t_node *ptr_node);
@@ -146,5 +146,8 @@ size_t	word_length(char *str);
 int		count_tokens(char *line);
 char	**init_arr_of_tokens(char *line);
 char	**splitter(char *line);
+
+// main.c
+void	free_program(t_cmd_tab *cmd_tab, char *line, char *prompt);
 
 #endif
