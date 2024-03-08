@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   input_output.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/05 22:05:51 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 16:35:31 by orezek           ###   ########.fr       */
+/*   Updated: 2024/03/09 00:46:56 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	ft_append_file(char *file_name)
 {
 	int	fd;
 
-	fd = open(file_name, O_APPEND | O_CREAT, S_IRWXU | S_IRGRP | S_IROTH);
+	fd = open(file_name, O_APPEND | O_CREAT | O_WRONLY, S_IRWXU | S_IRGRP | S_IROTH);
 	if (fd == -1)
 		return (-1);
 	else

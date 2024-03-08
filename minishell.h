@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 22:05:51 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/09 00:08:15 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,5 +97,6 @@ void	ft_init_cmd_table(t_cmd_tab *cmd_tab);
 void	ft_push_cmd_to_tab(t_cmd_tab *cmd_table, t_command *cmd);
 void	ft_append_cmd_to_tab(t_cmd_tab *cmd_table, t_command *cmd);
 void	ft_append_token_to_cmd(t_command *cmd, t_token *token);
+void	ft_append_token_to_cmd_v2(t_command *cmd, char *text, t_type type);
 t_token	*ft_create_token(char *text, t_type type);
 #endif

@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:36:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 23:58:33 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/09 00:28:03 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,6 @@
 int	main(void)
 {
 // Elements declaration
-	t_token	*token10;
-	t_token	*token11;
-	t_token *token12;
-
-	t_token	*token20;
-	t_token	*token21;
-	t_token	*token22;
-	t_token	*token23;
-
 	t_command	cmd1;
 	t_command	cmd2;
 
@@ -41,24 +32,17 @@ int	main(void)
 
 // First command
 	char *exec_cmd1[] = {"/bin/cat", NULL};
-	token10 = ft_create_token("<", R_IN);
-	token11 = ft_create_token("infile.txt", R_INFILE);
-	token12 = ft_create_token("echo", CMD);
-	ft_append_token_to_cmd(&cmd1, token10);
-	ft_append_token_to_cmd(&cmd1, token11);
-	ft_append_token_to_cmd(&cmd1, token12);
+	ft_append_token_to_cmd_v2(&cmd1, "<", R_IN);
+	ft_append_token_to_cmd_v2(&cmd1, "infile.txt", R_INFILE);
+	ft_append_token_to_cmd_v2(&cmd1, "cat", CMD);
 	cmd1.execve_cmd = exec_cmd1;
 
 // Second command
 	char *exec_cmd2[] = {"/usr/bin/wc", "-lc", NULL};
-	token20 = ft_create_token("wc", CMD);
-	token21 = ft_create_token("-lc", ARG);
-	token22 = ft_create_token(">", R_OUT);
-	token23 = ft_create_token("output.txt", R_OUTFILE);
-	ft_append_token_to_cmd(&cmd2, token20);
-	ft_append_token_to_cmd(&cmd2, token21);
-	ft_append_token_to_cmd(&cmd2, token22);
-	ft_append_token_to_cmd(&cmd2, token23);
+	ft_append_token_to_cmd_v2(&cmd2, "wc", CMD);
+	ft_append_token_to_cmd_v2(&cmd2, "-lc", ARG);
+	ft_append_token_to_cmd_v2(&cmd2,">>", R_OUT_APP);
+	ft_append_token_to_cmd_v2(&cmd2, "output.txt", R_OUTFILE_APP);
 	cmd2.execve_cmd = exec_cmd2;
 
 // Add comands to the table

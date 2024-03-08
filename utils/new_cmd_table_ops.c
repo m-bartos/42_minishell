@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 16:57:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/03/08 20:48:34 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/09 00:15:29 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ void	ft_append_cmd_to_tab(t_cmd_tab *cmd_table, t_command *cmd)
 	}
 	cmd_table->size++;
 }
-
+// adds token to the end = enqueue operation - FILO
 void	ft_append_token_to_cmd(t_command *cmd, t_token *token)
 {
 	if (!cmd || !token)
@@ -113,4 +113,31 @@ t_token	*ft_create_token(char *text, t_type type)
 	token->text = text;
 	token->type = type;
 	return (token);
+}
+
+
+// version II append token to cmd
+// adds token to the end = enqueue operation - FILO
+void	ft_append_token_to_cmd_v2(t_command *cmd, char *text, t_type type)
+{
+	t_token *token;
+
+	token = ft_create_token(text, type);
+	if (!cmd || !token)
+		return ;
+	if (cmd->first_token == NULL)
+	{
+		cmd->first_token = token;
+		cmd->last_token = token;
+		token->next = NULL;
+		token->prev = NULL;
+	}
+	else
+	{
+		token->prev = cmd->last_token;
+		token->next = NULL;
+		cmd->last_token->next = token;
+		cmd->last_token = token;
+	}
+	cmd->size++;
 }
