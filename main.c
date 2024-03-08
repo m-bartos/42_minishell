@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 23:34:45 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 23:51:21 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	free_program(t_cmd *cmd, char *line, char *prompt)
 
 void	check_exit(t_cmd *cmd, char *line, char *prompt)
 {
-	if (ft_strncmp(line, "exit", 4) == 0 && ft_strlen(line) == 4)
+	if (ft_strncmp(line, "exit", 5) == 0)
 	{
 		printf("exit\n");
 		free_program(cmd, line, prompt);
