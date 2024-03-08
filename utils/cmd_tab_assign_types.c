@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:37:34 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/08 10:48:46 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 11:13:38 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,19 @@ void	assign_operator_types(t_cmd_tab *ptr_cmd_tab)
 	}
 }
 
+int	assign_file_type(int type)
+{
+	if (type == R_IN)
+		return (R_INFILE);
+	else if (type == R_OUT)
+		return (R_OUTFILE);
+	else if (type == R_OUT_APP)
+		return (R_OUTFILE_APP);
+	else if (type == HERE_DOC)
+		return (HERE_DOC_EOF);
+	return (99);
+}
+
 void	assign_cmds_and_args(t_cmd_tab *ptr_cmd_tab)
 {
 	t_node	*ptr_node;
@@ -51,12 +64,13 @@ void	assign_cmds_and_args(t_cmd_tab *ptr_cmd_tab)
 		}
 		else if (is_redirection_type(ptr_node))
 			redir_file = 1;
-		else if ((search_cmd == 0 && !is_operator_type(ptr_node))
-			|| (search_cmd == 1 && redir_file == 1 && !is_operator_type(ptr_node)))
+		else if (redir_file == 1 && !is_operator_type(ptr_node))
 		{
-			ptr_node->type = ARG;
+			ptr_node->type = assign_file_type(ptr_node->prev->type);
 			redir_file = 0;
 		}
+		else if (search_cmd == 0 && !is_operator_type(ptr_node))
+			ptr_node->type = ARG;
 		else if (is_pipe_type(ptr_node))
 			search_cmd = 1;
 		ptr_node = ptr_node->next;
