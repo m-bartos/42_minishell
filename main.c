@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 13:03:12 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 13:35:38 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,16 @@ void	handle_if_last_is_pipe(t_cmd_tab *cmd_tab)
 	}
 }
 
+void	check_unclosed_quotes(t_cmd_tab *cmd_tab, char *line, char *prompt)
+{
+	if (is_unclosed_quotes(line) == 1)
+	{
+		printf("Minishell cannot handle open quotes (\", \').\n");
+		free_program(cmd_tab, line, prompt);
+		exit(0);
+	}
+}
+
 // echo "jojo" 'nene' > outfile.txt | < infile.txt echo "jojo" 'nene' aha "$USER" '$USER' $USER >> test.out
 int	main (void)
 {
@@ -51,6 +61,7 @@ int	main (void)
 	t_cmd_tab	cmd_tab;
 
 	line = NULL;
+	ft_init_command_table(&cmd_tab);
 	while (1)
 	{
 		printf(BLUE);
@@ -59,8 +70,7 @@ int	main (void)
 		if (*line)
 			add_history(line);
 		check_exit(&cmd_tab, line, prompt);
-		//check for unclosed quotes
-		ft_init_command_table(&cmd_tab);
+		check_unclosed_quotes(&cmd_tab, line, prompt);
 		parser(&cmd_tab, line);
 		if (check_double_redirect(&cmd_tab))
 		{
