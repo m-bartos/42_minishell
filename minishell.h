@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 19:54:45 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/08 22:05:51 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	ft_delete_nodes(t_cmd_tab *cmd_table);
 
 
 // exec functions
-void	ft_exec_commands(char ***cmds);
+void	ft_exec_commands(t_cmd_tab *tab);
 
 // I/O functions
 int		ft_input_file(char *file_name);

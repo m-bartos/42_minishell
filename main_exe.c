@@ -6,15 +6,21 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:36:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 21:57:27 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/08 22:36:21 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+	// char *cmd1[] = {"/bin/ls", "-la", NULL};
+	// char *cmd2[] = {"/usr/bin/wc", "-l", NULL};
+	// char **cmds[] = {cmd1, cmd2, NULL};
+*/
 
 int	main(void)
 {
+// Elements declaration
 	t_token	*token10;
 	t_token	*token11;
 	t_token *token12;
@@ -55,9 +61,11 @@ int	main(void)
 	ft_append_token_to_cmd(&cmd2, token23);
 	cmd2.execve_cmd = exec_cmd2;
 
+// Add comands to the table
 	ft_append_cmd_to_tab(&tab, &cmd1);
 	ft_append_cmd_to_tab(&tab, &cmd2);
 
+// Test print various values from the table
 	t_command	*command;
 	t_token		*token;
 	command = tab.first_cmd;
@@ -94,11 +102,12 @@ int	main(void)
 		if (command != NULL)
 			ft_printf(" | ");
 	}
-	// char *cmd1[] = {"/bin/ls", "-la", NULL};
-	// char *cmd2[] = {"/usr/bin/wc", "-l", NULL};
-	// char **cmds[] = {cmd1, cmd2, NULL};
 
-	// ft_exec_commands(cmds);
+	ft_putstr_fd("\n", 1);
+// End of test
+
+// Execute the commands from the table
+	ft_exec_commands(&tab);
 
 	return (0);
 }
