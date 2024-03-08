@@ -1,44 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_tab_filler.c                                   :+:      :+:    :+:   */
+/*   cmd_tab_errors.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/02 13:04:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/08 12:59:19 by mbartos          ###   ########.fr       */
+/*   Created: 2024/03/08 11:23:21 by mbartos           #+#    #+#             */
+/*   Updated: 2024/03/08 12:43:23 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// this function will not be needed
-void	print_cmd_tab(t_cmd_tab *ptr_cmd_tab)
+int	check_double_redirect(t_cmd_tab *ptr_cmd_tab)
 {
 	t_node	*ptr_node;
-	int		i;
 
 	ptr_node = ptr_cmd_tab->first_node;
-	i = 0;
-	printf("-------------\n");
+	ptr_node = ptr_node->next;
 	while (ptr_node != NULL)
 	{
-		printf("%*i. Token: |%*s|     ", 2, i, 20, ptr_node->token);
-		printf("Type: %i\n", ptr_node->type);
+		if ((is_operator_type(ptr_node) || is_pipe_type(ptr_node))
+			&& is_redirection_type(ptr_node->prev))
+		{
+			printf("minishell: syntax error near unexpected token '%s'\n", 
+				ptr_node->token);
+			return (1);
+		}
 		ptr_node = ptr_node->next;
-		i++;
 	}
-	printf("-------------\n");
-}
-
-void	fill_cmd_tab(t_cmd_tab *ptr_cmd_tab, char **arr_of_tokens)
-{
-	size_t	index;
-
-	index = 0;
-	while (arr_of_tokens[index])
-	{
-		ft_push_rotate_token(ptr_cmd_tab, arr_of_tokens[index]);
-		index++;
-	}
+	return (0);
 }

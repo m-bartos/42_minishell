@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 10:50:58 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 12:54:41 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,9 @@ void	assign_operator_types(t_cmd_tab *ptr_cmd_tab);
 void	assign_cmds_and_args(t_cmd_tab *ptr_cmd_tab);
 void	assign_types_to_tokens(t_cmd_tab *ptr_cmd_tab);
 
+// cmd_tab_errors.c
+int		check_double_redirect(t_cmd_tab *ptr_cmd_tab);
+
 // cmd_tab_filler_utils.c
 int		is_pipe_type(t_node *ptr_node);
 int		is_redirection_type(t_node *ptr_node);
@@ -84,7 +87,7 @@ int		is_in_double_quotes(t_node *ptr_node);
 
 // cmd_tab_filler.c
 void	print_cmd_tab(t_cmd_tab *ptr_cmd_tab);
-void	init_and_fill_cmd_tab(t_cmd_tab *ptr_cmd_tab, char **arr_of_tokens);
+void	fill_cmd_tab(t_cmd_tab *ptr_cmd_tab, char **arr_of_tokens);
 
 // cmd_tab_remove_quotes.c
 void	remove_quotes(t_node *ptr_node);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/06 16:30:53 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/08 13:03:12 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	free_program(t_cmd_tab *cmd_tab, char *line, char *prompt)
 	ft_delete_nodes(cmd_tab);
 	free(line);
 	free(prompt);
+	printf(RESET);
 }
 
 void	check_exit(t_cmd_tab *cmd_tab, char *line, char *prompt)
@@ -30,29 +31,48 @@ void	check_exit(t_cmd_tab *cmd_tab, char *line, char *prompt)
 	}
 }
 
-// echo "jojo" 'nene' > outfile.txt | < infile.txt echo "jojo" 'nene' aha "$USER" '$USER' $USER >> test.out
-// int	main (void)
-// {
-// 	char		*line;
-// 	char		*prompt;
-// 	t_cmd_tab	cmd_tab;
+void	handle_if_last_is_pipe(t_cmd_tab *cmd_tab)
+{
+	char	*line;
 
-// 	line = NULL;
-// 	while (1)
-// 	{
-// 		prompt = get_prompt();
-// 		printf(BLUE);
-// 		line = readline(prompt);
-// 		printf(RESET);
-// 		if (*line)
-// 			add_history(line);
-// 		check_exit(&cmd_tab, line, prompt);
-// 		parser(&cmd_tab, line);
-// 		print_cmd_tab(&cmd_tab); // just show table
-// 		free_program(&cmd_tab, line, prompt);
-// 	}
-// 	return (0);
-// }
+	while (is_pipe_type(cmd_tab->last_node))
+	{
+		line = readline("> ");
+		parser(cmd_tab, line);
+		free(line);
+	}
+}
+
+// echo "jojo" 'nene' > outfile.txt | < infile.txt echo "jojo" 'nene' aha "$USER" '$USER' $USER >> test.out
+int	main (void)
+{
+	char		*line;
+	char		*prompt;
+	t_cmd_tab	cmd_tab;
+
+	line = NULL;
+	while (1)
+	{
+		printf(BLUE);
+		prompt = get_prompt();
+		line = readline(prompt);
+		if (*line)
+			add_history(line);
+		check_exit(&cmd_tab, line, prompt);
+		//check for unclosed quotes
+		ft_init_command_table(&cmd_tab);
+		parser(&cmd_tab, line);
+		if (check_double_redirect(&cmd_tab))
+		{
+			free_program(&cmd_tab, line, prompt);
+			return (0);
+		}
+		handle_if_last_is_pipe(&cmd_tab);
+		print_cmd_tab(&cmd_tab); // just show table
+		free_program(&cmd_tab, line, prompt);
+	}
+	return (0);
+}
 // int main() {
 //     t_command_table cmd_table;
 // 	char 	*prompt;

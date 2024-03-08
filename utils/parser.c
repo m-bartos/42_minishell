@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:20:49 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/06 09:39:37 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 12:54:41 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	parser(t_cmd_tab *ptr_cmd_tab, char *line)
 
 	array_of_tokens = splitter(line);
 	// printf("INITIAL FILLING OF CMD TABLE: \n");
-	init_and_fill_cmd_tab(ptr_cmd_tab, array_of_tokens);
+	fill_cmd_tab(ptr_cmd_tab, array_of_tokens);
 	free(array_of_tokens);
 	// print_cmd_tab(ptr_cmd_tab);
 	// printf("TYPES ASSIGNED IN CMD TABLE: \n");
