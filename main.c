@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 23:17:56 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 23:27:39 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,12 @@ int	main (void)
 		parser(&parsed_line, line);
 		check_double_redirect(&parsed_line, line, prompt);
 		handle_if_last_is_pipe(&parsed_line);
-		print_cmd_tab(&parsed_line); // just show table
+		print_cmd(&parsed_line); // just show table
 		make_cmd_tab(&cmd_tab, &parsed_line);
 		cmd = (&cmd_tab)->first_cmd;
 		while(cmd != NULL)
 		{
-			print_cmd_tab(cmd);
+			print_cmd(cmd);
 			cmd = cmd->next;
 		}
 		free_program(&parsed_line, line, prompt);

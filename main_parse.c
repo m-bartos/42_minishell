@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 14:53:47 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/08 16:14:34 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 23:27:39 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@
 // 	line = readline("Write command: ");
 // 	printf("What I got:    %s\n", line);
 // 	parser(&cmd_tab, line);
-// 	print_cmd_tab(&cmd_tab);
+// 	print_cmd(&cmd_tab);
 
 // 	//THIS IS JUST TEST - needs to be rewritten!!
 // 	char	*user;

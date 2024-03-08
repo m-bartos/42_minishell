@@ -6,14 +6,14 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:04:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/08 21:46:12 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 23:27:39 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 // this function will not be needed
-void	print_cmd_tab(t_cmd *ptr_cmd)
+void	print_cmd(t_cmd *ptr_cmd)
 {
 	t_token	*ptr_token;
 	int		i;
