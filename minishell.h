@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 10:50:05 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 10:50:58 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <sys/wait.h>
 # include "./libft/libft.h"
 // rl_clear_history, rl_on_new_line,
 // rl_replace_line, rl_redisplay, add_history,
