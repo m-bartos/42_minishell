@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/06 16:22:13 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/08 13:18:37 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,51 @@ typedef struct s_command_table
 	t_node	*last_node;
 	int		size;
 }		t_cmd_tab;
+
+// new types to categorize tokens
+typedef enum s_type
+{
+	CMD,
+	CMD_ERR,
+	ARG,
+	PIPE,
+	R_IN,
+	R_INFILE,
+	R_OUT,
+	R_OUTFILE,
+	R_OUT_APP,
+	R_OUTFILE_APP,
+	HERE_DOC,
+	HERE_DOC_EOF
+}		t_type;
+
+// new struct to hold parsed token and commands
+typedef struct s_token
+{
+	char			*text;
+	t_type			type;
+	t_token			*next;
+	t_token			*prev;
+}		t_token;
+
+typedef struct s_command
+{
+	char		**execve_cmd;
+	t_command	*next_cmd;
+	t_command	*prev_cmd;
+	t_token		*first_token;
+	t_token		*last_token;
+	int			size;
+}		t_command;
+
+typedef struct s_cmd_tab
+{
+	t_command	*first_command;
+	t_command	*last_command;
+	int			size;
+}		t_cmd_tab;
+
+
 
 // command_table functions
 void	ft_init_command_table(t_cmd_tab *cmd_table);
