@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 22:24:40 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 23:10:17 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void	ft_rotate_token(t_cmd *cmd_table);
 void	ft_push_token(t_cmd *cmd, char *token_text, t_type token_type);
 void	ft_push_rotate_token(t_cmd *cmd, char *token_text, t_type token_type);
 void	ft_delete_nodes(t_cmd *cmd_table);
+void	ft_move_token(t_cmd *cmd, t_token *ptr_token);
 
 // cmd_struct_remove_quotes.c
 void	remove_quotes(t_token *ptr_node);

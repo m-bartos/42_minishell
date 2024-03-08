@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 22:46:28 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 21:45:51 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 23:09:41 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,4 +96,17 @@ void	ft_delete_nodes(t_cmd *cmd)
 	cmd->first_token = NULL;
 	cmd->last_token = NULL;
 	cmd->size = 0;
+}
+
+void	ft_move_token(t_cmd *cmd, t_token *ptr_token)
+{
+	ptr_token->next = cmd->first_token;
+	ptr_token->prev = NULL;
+	if (cmd->first_token != NULL)
+		cmd->first_token->prev = ptr_token;
+	if (cmd->first_token == NULL)
+		cmd->last_token = ptr_token;
+	cmd->first_token = ptr_token;
+	cmd->size++;
+	ft_rotate_token(cmd);
 }

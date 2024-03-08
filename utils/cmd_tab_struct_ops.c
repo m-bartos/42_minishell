@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 16:42:04 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/08 22:35:08 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 23:19:52 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	ft_delete_cmds_in_cmd_tab(t_cmd_tab *cmd_tab)
 		while(current_token != NULL)
 		{
 			temp_token = current_token->next;
+			free(current_token->text);
 			free(current_token);
 			current_token = temp_token;
 		}

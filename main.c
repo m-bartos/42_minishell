@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 22:36:20 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 23:17:56 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,22 +56,19 @@ void	check_unclosed_quotes(t_cmd *cmd, char *line, char *prompt)
 void	make_cmd_tab(t_cmd_tab *cmd_tab, t_cmd *parsed_line)
 {
 	t_token	*token;
+	t_token	*temp;
 
 	token = parsed_line->first_token;
 	ft_push_rotate_cmd(cmd_tab);
 	while(token != NULL)
 	{
+		temp = token->next;
 		if (is_pipe_type(token->prev))
-		{
 			ft_push_rotate_cmd(cmd_tab);
-			ft_push_rotate_token(cmd_tab->last_cmd, token->text, token->type);
-		}
-		else
-		{
-			ft_push_rotate_token(cmd_tab->last_cmd, token->text, token->type);
-		}
-		token = token->next;
+		ft_move_token(cmd_tab->last_cmd, token);
+		token = temp;
 	}
+	ft_init_cmd_struct(parsed_line);
 }
 
 // echo "jojo" 'nene' > outfile.txt | < infile.txt echo "jojo" 'nene' aha "$USER" '$USER' $USER >> test.out
