@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 23:27:39 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 23:34:45 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	main (void)
 	char		*prompt;
 	t_cmd		parsed_line;
 	t_cmd_tab	cmd_tab;
-	t_cmd		*cmd;
 
 	line = NULL;
 	ft_init_cmd_struct(&parsed_line);
@@ -97,12 +96,7 @@ int	main (void)
 		handle_if_last_is_pipe(&parsed_line);
 		print_cmd(&parsed_line); // just show table
 		make_cmd_tab(&cmd_tab, &parsed_line);
-		cmd = (&cmd_tab)->first_cmd;
-		while(cmd != NULL)
-		{
-			print_cmd(cmd);
-			cmd = cmd->next;
-		}
+		print_cmd_tab(&cmd_tab);
 		free_program(&parsed_line, line, prompt);
 		ft_delete_cmds_in_cmd_tab(&cmd_tab);
 	}
