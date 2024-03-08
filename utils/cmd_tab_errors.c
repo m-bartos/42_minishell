@@ -6,17 +6,17 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:23:21 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/08 13:40:04 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 16:14:58 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	check_double_redirect(t_cmd_tab *cmd_tab, char *line, char *prompt)
+void	check_double_redirect(t_cmd *cmd_tab, char *line, char *prompt)
 {
-	t_node	*ptr_node;
+	t_token	*ptr_node;
 
-	ptr_node = cmd_tab->first_node;
+	ptr_node = cmd_tab->first_token;
 	ptr_node = ptr_node->next;
 	while (ptr_node != NULL)
 	{

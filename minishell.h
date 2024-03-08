@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 13:40:29 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 16:18:43 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,55 +50,66 @@ typedef enum s_type
 	HERE_DOC_EOF
 }		t_type;
 
-// chaning declaration of *next from t_node to struct s_node due to compilation error on Mac
-typedef struct s_node
+// chaning declaration of *next from t_token to struct s_token due to compilation error on Mac
+typedef struct s_token
 {
 	char			*token;
 	t_type			type;
-	struct s_node	*next;
-	struct s_node	*prev;
-}		t_node;
+	struct s_token	*next;
+	struct s_token	*prev;
+}		t_token;
 
 /* --- LINKED LIST EXAMPLE (non-sense command) ---
 echo	/	aaa 	/	bbb		/	|		/	<		/	file.txt	/	cat			/
 CMD	/	ARG		/	ARG		/	PIPE	/	R_IN	/	ARG			/	CMD		/
 */
-typedef struct s_command_table
+
+typedef struct s_cmd
 {
-	t_node	*first_node;
-	t_node	*last_node;
+	char	**execve_cmd;
+	struct s_cmd	*next;
+	struct s_cmd	*prev;
+	t_token	*first_token;
+	t_token	*last_token;
 	int		size;
-}		t_cmd_tab;
+}		t_cmd;
+
+typedef struct s_cmd_tab
+{
+	t_cmd	*first_cmd;
+	t_cmd	*last_cmd;
+	int		size;
+}	t_cmd_tab;
 
 // cmd_tab_assign_types.c
-void	assign_operator_types(t_cmd_tab *ptr_cmd_tab);
-void	assign_cmds_and_args(t_cmd_tab *ptr_cmd_tab);
-void	assign_types_to_tokens(t_cmd_tab *ptr_cmd_tab);
+void	assign_operator_types(t_cmd *ptr_cmd_tab);
+void	assign_cmds_and_args(t_cmd *ptr_cmd_tab);
+void	assign_types_to_tokens(t_cmd *ptr_cmd_tab);
 
 // cmd_tab_errors.c
-void	check_double_redirect(t_cmd_tab *cmd_tab, char *line, char *prompt);
+void	check_double_redirect(t_cmd *cmd_tab, char *line, char *prompt);
 
 // cmd_tab_filler_utils.c
-int		is_pipe_type(t_node *ptr_node);
-int		is_redirection_type(t_node *ptr_node);
-int		is_operator_type(t_node *ptr_node);
-int		is_in_single_quotes(t_node *ptr_node);
-int		is_in_double_quotes(t_node *ptr_node);
+int		is_pipe_type(t_token *ptr_node);
+int		is_redirection_type(t_token *ptr_node);
+int		is_operator_type(t_token *ptr_node);
+int		is_in_single_quotes(t_token *ptr_node);
+int		is_in_double_quotes(t_token *ptr_node);
 
 // cmd_tab_filler.c
-void	print_cmd_tab(t_cmd_tab *ptr_cmd_tab);
-void	fill_cmd_tab(t_cmd_tab *ptr_cmd_tab, char **arr_of_tokens);
+void	print_cmd_tab(t_cmd *ptr_cmd_tab);
+void	fill_cmd_tab(t_cmd *ptr_cmd_tab, char **arr_of_tokens);
 
 // cmd_tab_remove_quotes.c
-void	remove_quotes(t_node *ptr_node);
-void	remove_quotes_from_cmd_tab(t_cmd_tab *ptr_cmd_tab);
+void	remove_quotes(t_token *ptr_node);
+void	remove_quotes_from_cmd_tab(t_cmd *ptr_cmd_tab);
 
 // cmd_table_ops
-void	ft_init_command_table(t_cmd_tab *cmd_table);
-void	ft_rotate_token(t_cmd_tab *cmd_table);
-void	ft_push_token(t_cmd_tab *cmd_table, char *token);
-void	ft_push_rotate_token(t_cmd_tab *cmd_table, char *token);
-void	ft_delete_nodes(t_cmd_tab *cmd_table);
+void	ft_init_command_table(t_cmd *cmd_table);
+void	ft_rotate_token(t_cmd *cmd_table);
+void	ft_push_token(t_cmd *cmd_table, char *token);
+void	ft_push_rotate_token(t_cmd *cmd_table, char *token);
+void	ft_delete_nodes(t_cmd *cmd_table);
 
 // error_check.c
 int		is_unclosed_quotes (char *str);
@@ -115,19 +126,19 @@ char	*get_expanded_var(char *str);
 char	*malloc_new_expanded_str(char *str, char *str_expanded_variable);
 char	*get_str_with_one_expanded_var(char *str, char *expanded_var);
 char	*expand_all_vars_in_str(char *str);
-void	expand_cmd_tab(t_cmd_tab *ptr_cmd_tab);
+void	expand_cmd_tab(t_cmd *ptr_cmd_tab);
 
 // get_prompt.c
 char	*get_prompt(void);
 
 // helpers.c
-void	ft_print_cmd(t_cmd_tab *cmd_table);
+void	ft_print_cmd(t_cmd *cmd_table);
 
 // input_output.c
 int		ft_input_file(char *file_name);
 
 // parser.c
-void	parser(t_cmd_tab *ptr_cmd_tab, char *line);
+void	parser(t_cmd *ptr_cmd_tab, char *line);
 
 // splitter_handlers.c
 char	*handle_redirections(char *str, size_t *index, char redir_type);
@@ -148,6 +159,6 @@ char	**init_arr_of_tokens(char *line);
 char	**splitter(char *line);
 
 // main.c
-void	free_program(t_cmd_tab *cmd_tab, char *line, char *prompt);
+void	free_program(t_cmd *cmd_tab, char *line, char *prompt);
 
 #endif

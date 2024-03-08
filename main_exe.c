@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:36:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 10:43:02 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 16:14:34 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 // int	main(void)
 // {
-// 	t_cmd_tab cmd_table;
+// 	t_cmd cmd_table;
 // 	char	**arr;
 
 // 	ft_init_command_table(&cmd_table);

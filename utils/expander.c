@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:33:30 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/06 09:36:01 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 16:14:58 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,11 @@ char	*expand_all_vars_in_str(char *str)
  * @param str The input string to expand variables in.
  * @return The string with all variables expanded.
  */
-void	expand_cmd_tab(t_cmd_tab *ptr_cmd_tab)
+void	expand_cmd_tab(t_cmd *ptr_cmd_tab)
 {
-	t_node	*ptr_node;
+	t_token	*ptr_node;
 
-	ptr_node = ptr_cmd_tab->first_node;
+	ptr_node = ptr_cmd_tab->first_token;
 	while (ptr_node != NULL)
 	{
 		if (!is_operator_type(ptr_node) && !is_in_single_quotes(ptr_node))

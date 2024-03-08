@@ -6,17 +6,17 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:37:34 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/08 11:13:38 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 16:14:58 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	assign_operator_types(t_cmd_tab *ptr_cmd_tab)
+void	assign_operator_types(t_cmd *ptr_cmd_tab)
 {
-	t_node	*ptr_node;
+	t_token	*ptr_node;
 
-	ptr_node = ptr_cmd_tab->first_node;
+	ptr_node = ptr_cmd_tab->first_token;
 	while (ptr_node != NULL)
 	{
 		if (!ft_strncmp(ptr_node->token, "|", 2))
@@ -46,15 +46,15 @@ int	assign_file_type(int type)
 	return (99);
 }
 
-void	assign_cmds_and_args(t_cmd_tab *ptr_cmd_tab)
+void	assign_cmds_and_args(t_cmd *ptr_cmd_tab)
 {
-	t_node	*ptr_node;
+	t_token	*ptr_node;
 	int		search_cmd;
 	int		redir_file;
 
 	search_cmd = 1;
 	redir_file = 0;
-	ptr_node = ptr_cmd_tab->first_node;
+	ptr_node = ptr_cmd_tab->first_token;
 	while (ptr_node != NULL)
 	{
 		if (search_cmd == 1 && redir_file == 0 && !is_operator_type(ptr_node))
@@ -77,7 +77,7 @@ void	assign_cmds_and_args(t_cmd_tab *ptr_cmd_tab)
 	}
 }
 
-void	assign_types_to_tokens(t_cmd_tab *ptr_cmd_tab)
+void	assign_types_to_tokens(t_cmd *ptr_cmd_tab)
 {
 	assign_operator_types(ptr_cmd_tab);
 	assign_cmds_and_args(ptr_cmd_tab);

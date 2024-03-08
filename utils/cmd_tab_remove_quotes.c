@@ -6,13 +6,13 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:44:37 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/06 09:39:11 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 16:14:58 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	remove_quotes(t_node *ptr_node)
+void	remove_quotes(t_token *ptr_node)
 {
 	char	*token;
 	int		len;
@@ -27,11 +27,11 @@ void	remove_quotes(t_node *ptr_node)
 	}
 }
 
-void	remove_quotes_from_cmd_tab(t_cmd_tab *ptr_cmd_tab)
+void	remove_quotes_from_cmd_tab(t_cmd *ptr_cmd_tab)
 {
-	t_node	*ptr_node;
+	t_token	*ptr_node;
 
-	ptr_node = ptr_cmd_tab->first_node;
+	ptr_node = ptr_cmd_tab->first_token;
 	while (ptr_node != NULL)
 	{
 		if (!is_operator_type(ptr_node))

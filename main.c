@@ -6,14 +6,14 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 13:39:17 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/08 16:15:19 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "./minishell.h"
 
-void	free_program(t_cmd_tab *cmd_tab, char *line, char *prompt)
+void	free_program(t_cmd *cmd_tab, char *line, char *prompt)
 {
 	ft_delete_nodes(cmd_tab);
 	free(line);
@@ -21,7 +21,7 @@ void	free_program(t_cmd_tab *cmd_tab, char *line, char *prompt)
 	printf(RESET);
 }
 
-void	check_exit(t_cmd_tab *cmd_tab, char *line, char *prompt)
+void	check_exit(t_cmd *cmd_tab, char *line, char *prompt)
 {
 	if (ft_strncmp(line, "exit", 4) == 0 && ft_strlen(line) == 4)
 	{
@@ -31,11 +31,11 @@ void	check_exit(t_cmd_tab *cmd_tab, char *line, char *prompt)
 	}
 }
 
-void	handle_if_last_is_pipe(t_cmd_tab *cmd_tab)
+void	handle_if_last_is_pipe(t_cmd *cmd_tab)
 {
 	char	*line;
 
-	while (is_pipe_type(cmd_tab->last_node))
+	while (is_pipe_type(cmd_tab->last_token))
 	{
 		line = readline("> ");
 		parser(cmd_tab, line);
@@ -43,7 +43,7 @@ void	handle_if_last_is_pipe(t_cmd_tab *cmd_tab)
 	}
 }
 
-void	check_unclosed_quotes(t_cmd_tab *cmd_tab, char *line, char *prompt)
+void	check_unclosed_quotes(t_cmd *cmd_tab, char *line, char *prompt)
 {
 	if (is_unclosed_quotes(line) == 1)
 	{
@@ -58,7 +58,7 @@ int	main (void)
 {
 	char		*line;
 	char		*prompt;
-	t_cmd_tab	cmd_tab;
+	t_cmd	cmd_tab;
 
 	line = NULL;
 	ft_init_command_table(&cmd_tab);
@@ -95,8 +95,8 @@ int	main (void)
 //         ft_printf("You entered: %s\n", input);
 // 		// Test the command_table and push_rotate ops - every input will be in the table
 // 		ft_push_rotate_token(&cmd_table, ft_strdup(input));
-//         t_node  *node;
-//         node = cmd_table.first_node;
+//         t_token  *node;
+//         node = cmd_table.first_token;
 //         while (node != NULL)
 //         {
 //             ft_printf("Content of cmd_table: %s\n", node->token);
