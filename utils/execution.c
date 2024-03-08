@@ -6,20 +6,28 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 22:31:53 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/08 23:55:08 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_redirects(t_command *cmd, int *fd_in, int *fd_out)
+int	ft_redirects(t_command *cmd, int *fd_in, int *fd_out)
 {
 	t_token *token;
 	token = cmd->first_token;
 	while (token)
 	{
 		if (token->type == R_INFILE)
-			*fd_in = ft_input_file(token->text);
+		{
+			if (ft_input_file(token->text) == -1)
+			{
+				perror(token->text);
+				return (-1);
+			}
+			else
+				*fd_in = ft_input_file(token->text);
+		}
 		else if (token->type == R_OUTFILE)
 			*fd_out = ft_output_file(token->text);
 		else if (token->type == R_OUTFILE_APP)
@@ -27,6 +35,7 @@ void	ft_redirects(t_command *cmd, int *fd_in, int *fd_out)
 
 		token = token->next;
 	}
+	return (0);
 }
 
 void	ft_exec_commands(t_cmd_tab *tab)
@@ -41,12 +50,16 @@ void	ft_exec_commands(t_cmd_tab *tab)
 	cmd = tab->first_cmd;
 	while (cmd)
 	{
-		ft_redirects(cmd, &prev_in_fd, &fd_out);
+		if (ft_redirects(cmd, &prev_in_fd, &fd_out) == -1)
+		{
+			cmd = cmd->next_cmd;
+			continue;
+		}
 		pipe(fd);
 		if (fork() == 0)
 		{
 			dup2(prev_in_fd, STDIN);
-			if ((cmd + 1) != NULL && fd_out > 1)
+			if ((cmd + 1) != NULL && fd_out == 1)
 				dup2(fd[1], STDOUT);
 			else
 				dup2(fd_out, STDOUT);

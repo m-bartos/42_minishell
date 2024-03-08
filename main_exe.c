@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:36:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 22:36:21 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/08 23:58:33 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,16 @@ int	main(void)
 	char *exec_cmd1[] = {"/bin/cat", NULL};
 	token10 = ft_create_token("<", R_IN);
 	token11 = ft_create_token("infile.txt", R_INFILE);
-	token12 = ft_create_token("cat", CMD);
+	token12 = ft_create_token("echo", CMD);
 	ft_append_token_to_cmd(&cmd1, token10);
 	ft_append_token_to_cmd(&cmd1, token11);
 	ft_append_token_to_cmd(&cmd1, token12);
 	cmd1.execve_cmd = exec_cmd1;
 
 // Second command
-	char *exec_cmd2[] = {"/usr/bin/wc", "-l", NULL};
+	char *exec_cmd2[] = {"/usr/bin/wc", "-lc", NULL};
 	token20 = ft_create_token("wc", CMD);
-	token21 = ft_create_token("-l", ARG);
+	token21 = ft_create_token("-lc", ARG);
 	token22 = ft_create_token(">", R_OUT);
 	token23 = ft_create_token("output.txt", R_OUTFILE);
 	ft_append_token_to_cmd(&cmd2, token20);
