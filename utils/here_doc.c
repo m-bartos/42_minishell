@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 10:17:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/09 17:11:27 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/09 21:55:26 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,35 +44,29 @@ char	*get_heredoc_file(char *eof, int index)
 	return (filename);
 }
 
-void	expand_heredocs(t_cmd_tab *cmd_tab)
+void	expand_heredocs(t_cmd *cmd)
 {
 	// while loop through cmd_tab
 	// check token if there is here_doc type and EOF
 	// handle one here doc - make new file, readline and write in it, close it
 	// if another here doc is in the same cmd - rewrite the file
 
-	t_cmd	*ptr_cmd;
 	t_token	*ptr_token;
 	int		index;
 
 	index = 0;
-	ptr_cmd = cmd_tab->first_cmd;
-	while (ptr_cmd != NULL)
+	ptr_token = cmd->first_token;
+	while(ptr_token != NULL)
 	{
-		ptr_token = ptr_cmd->first_token;
-		while(ptr_token != NULL)
+		if (ptr_token->type == HERE_DOC && ptr_token->next->type == HERE_DOC_EOF)
 		{
-			if (ptr_token->type == HERE_DOC && ptr_token->next->type == HERE_DOC_EOF)
-			{
-				free(ptr_token->text);
-				ptr_token->text = ft_strdup("<");
-				ptr_token->type = R_IN;
-				ptr_token->next->text = get_heredoc_file(ptr_token->next->text, index);
-				ptr_token->next->type = R_INFILE;
-			}
-			ptr_token = ptr_token->next;
+			free(ptr_token->text);
+			ptr_token->text = ft_strdup("<");
+			ptr_token->type = R_IN;
+			ptr_token->next->text = get_heredoc_file(ptr_token->next->text, index);
+			ptr_token->next->type = R_INFILE;
 		}
-		ptr_cmd = ptr_cmd->next;
+		ptr_token = ptr_token->next;
 		index++;
 	}
 	// how to unlink the files? When, where?

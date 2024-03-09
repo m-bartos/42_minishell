@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/09 21:24:21 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/09 21:55:26 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,15 +44,17 @@ void	free_array(char **arr_of_str)
 	free(arr_of_str);
 }
 
-void	handle_if_last_is_pipe(t_cmd *cmd)
+void	handle_if_last_is_pipe(t_cmd *cmd, char *line, char *prompt)
 {
-	char	*line;
+	char	*line_heredoc;
 
 	while (is_pipe_type(cmd->last_token))
 	{
-		line = readline("> ");
-		parser(cmd, line);
-		free(line);
+		line_heredoc = readline("> ");
+		parser(cmd, line_heredoc);
+		check_redirection_errors(cmd, line, prompt);
+		expand_heredocs(cmd);
+		free(line_heredoc);
 	}
 }
 
@@ -213,11 +215,11 @@ int	main (void)
 		check_unclosed_quotes(&parsed_line, line, prompt);
 		parser(&parsed_line, line);
 		check_redirection_errors(&parsed_line, line, prompt);
-		handle_if_last_is_pipe(&parsed_line);
+		expand_heredocs(&parsed_line);
+		handle_if_last_is_pipe(&parsed_line, line, prompt);
 		// print_cmd(&parsed_line); // just show table
 		make_cmd_tab(&cmd_tab, &parsed_line);
 		// print_cmd_tab(&cmd_tab);
-		expand_heredocs(&cmd_tab);
 		// print_cmd_tab(&cmd_tab);
 		make_cmd_paths(&cmd_tab);
 		make_execve_cmds(&cmd_tab);
