@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 16:42:04 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/09 17:17:37 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/09 18:21:54 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,11 +100,17 @@ void	ft_delete_cmds_in_cmd_tab(t_cmd_tab *cmd_tab)
 void	print_cmd_tab(t_cmd_tab *cmd_tab)
 {
 	t_cmd	*cmd;
+	int		index;
 
 	cmd = cmd_tab->first_cmd;
+	index = 0;
+	printf("************************************************\n");
 	while(cmd != NULL)
 	{
+		printf("%*i. CMD\n", 2, index);
 		print_cmd(cmd);
+		index++;
 		cmd = cmd->next;
 	}
+	printf("************************************************\n");
 }
