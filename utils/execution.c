@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/09 14:21:34 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/09 14:58:19 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,20 @@ int	ft_redirects(t_command *cmd, int *fd_in, int *fd_out)
 	while (token)
 	{
 		if (token->type == R_INFILE)
-			ft_input_redirection(token->text, fd_in);
+		{
+			if (ft_input_redirection(token->text, fd_in) == -1)
+				return (-1);
+		}
 		else if (token->type == R_OUTFILE)
-			ft_output_redirection(token->text, fd_out);
+		{
+			if (ft_output_redirection(token->text, fd_out) == -1)
+				return (-1);
+		}
 		else if (token->type == R_OUTFILE_APP)
-			ft_append_redirection(token->text, fd_out);
+		{
+			if (ft_append_redirection(token->text, fd_out) == -1)
+				return (-1);
+		}
 		token = token->next;
 	}
 	return (0);
@@ -87,6 +96,7 @@ void	ft_exec_commands(t_cmd_tab *tab)
 		if (ft_redirects(cmd, &prev_in_fd, &fd_out) == -1)
 		{
 			cmd = cmd->next_cmd;
+			ft_printf("Error");
 			continue;
 		}
 		pipe(fd);
