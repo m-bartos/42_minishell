@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/09 00:47:25 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/09 01:03:36 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_exec_commands(t_cmd_tab *tab)
 	int	fd[2];
 
 	prev_in_fd = 0;
-	fd_out = -10;
+	fd_out = FD_NULL;
 	cmd = tab->first_cmd;
 	while (cmd)
 	{
@@ -66,7 +66,7 @@ void	ft_exec_commands(t_cmd_tab *tab)
 		if (fork() == 0)
 		{
 			dup2(prev_in_fd, STDIN);
-			if ((cmd + 1) != NULL && fd_out == -10)
+			if ((cmd + 1) != NULL && fd_out == FD_NULL)
 				dup2(fd[1], STDOUT);
 			else
 				dup2(fd_out, STDOUT);

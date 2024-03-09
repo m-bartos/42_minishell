@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/09 00:08:15 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/09 01:00:42 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 # define FALSE 0
 # define TRUE 1
 
+# define FD_NULL -10
 
 // new types to categorize tokens
 typedef enum s_type
