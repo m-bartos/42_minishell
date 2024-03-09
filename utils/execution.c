@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/09 14:58:19 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/09 15:02:30 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ void	ft_exec_commands(t_cmd_tab *tab)
 		if (ft_redirects(cmd, &prev_in_fd, &fd_out) == -1)
 		{
 			cmd = cmd->next_cmd;
-			ft_printf("Error");
+			// testing
+			exit(1);
 			continue;
 		}
 		pipe(fd);
