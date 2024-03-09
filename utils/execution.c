@@ -6,40 +6,67 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/09 01:03:36 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/09 14:21:34 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+int	ft_input_redirection(char *file_name, int *fd_in)
+{
+	if (access(file_name, F_OK | R_OK) == 0)
+		*fd_in = ft_input_file(file_name);
+	else
+		{
+			perror(file_name);
+			return (-1);
+		}
+	return (0);
+}
+
+int	ft_output_redirection(char *file_name, int *fd_out)
+{
+	int	temp_fd;
+
+	temp_fd = ft_output_file(file_name);
+	if (temp_fd == -1)
+	{
+		perror(file_name);
+		return (-1);
+	}
+	else
+		*fd_out = temp_fd;
+	return (0);
+}
+
+int	ft_append_redirection(char *file_name, int *fd_out)
+{
+	int	temp_fd;
+
+	temp_fd = ft_append_file(file_name);
+	if (temp_fd == -1)
+	{
+		perror(file_name);
+		return (-1);
+	}
+	else
+		*fd_out = temp_fd;
+	return (0);
+}
+
 int	ft_redirects(t_command *cmd, int *fd_in, int *fd_out)
 {
 	t_token *token;
+
 	token = cmd->first_token;
 	while (token)
 	{
 		if (token->type == R_INFILE)
-		{
-			if (ft_input_file(token->text) == -1)
-			{
-				perror(token->text);
-				return (-1);
-			}
-			else
-				*fd_in = ft_input_file(token->text);
-		}
+			ft_input_redirection(token->text, fd_in);
 		else if (token->type == R_OUTFILE)
-			*fd_out = ft_output_file(token->text);
+			ft_output_redirection(token->text, fd_out);
 		else if (token->type == R_OUTFILE_APP)
-		{
-			if (ft_append_file(token->text) == -1)
-			{
-				perror(token->text);
-				return (-1);
-			}
-			else
-				*fd_out = ft_append_file(token->text);
-		}
+			ft_append_redirection(token->text, fd_out);
 		token = token->next;
 	}
 	return (0);

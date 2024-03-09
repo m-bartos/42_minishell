@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/09 01:00:42 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/09 14:33:03 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,12 @@ void	ft_exec_commands(t_cmd_tab *tab);
 int		ft_input_file(char *file_name);
 int		ft_output_file(char *file_name);
 int		ft_append_file(char *file_name);
+
+// Redurection functions
+int	ft_input_redirection(char *file_name, int *fd_in);
+int	ft_output_redirection(char *file_name, int *fd_out);
+int	ft_append_redirection(char *file_name, int *fd_out);
+
 
 // NEW command table ops
 void	ft_init_token(t_token *token);
