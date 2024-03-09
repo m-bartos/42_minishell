@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/09 10:59:01 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/09 17:11:27 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	main (void)
 		print_cmd(&parsed_line); // just show table
 		make_cmd_tab(&cmd_tab, &parsed_line);
 		print_cmd_tab(&cmd_tab);
-		expand_here_doc(&cmd_tab);
+		expand_heredocs(&cmd_tab);
 		print_cmd_tab(&cmd_tab);
 		free_program(&parsed_line, line, prompt);
 		ft_delete_cmds_in_cmd_tab(&cmd_tab);

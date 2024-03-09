@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 10:17:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/09 11:19:14 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/09 17:11:27 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	*get_heredoc_file(char *eof, int index)
 	return (filename);
 }
 
-void	expand_here_doc(t_cmd_tab *cmd_tab)
+void	expand_heredocs(t_cmd_tab *cmd_tab)
 {
 	// while loop through cmd_tab
 	// check token if there is here_doc type and EOF
