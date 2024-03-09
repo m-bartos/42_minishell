@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/09 18:23:30 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/09 21:24:21 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,19 @@ void	check_exit(t_cmd *cmd, char *line, char *prompt)
 		free_program(cmd, line, prompt);
 		exit(0);
 	}
+}
+
+void	free_array(char **arr_of_str)
+{
+	int	index;
+
+	index = 0;
+	while (arr_of_str[index] != NULL)
+	{
+		free(arr_of_str[index]);
+		index++;
+	}
+	free(arr_of_str);
 }
 
 void	handle_if_last_is_pipe(t_cmd *cmd)
@@ -98,7 +111,7 @@ void	expand_cmd_path(t_token *ptr_token)
 		free(ptr_token->text);
 		ptr_token->text = path;
 	}
-	free(arr_of_paths);
+	free_array(arr_of_paths);
 }
 
 void	make_cmd_paths(t_cmd_tab *cmd_tab)
@@ -140,26 +153,6 @@ int		count_cmd_length(t_cmd *cmd)
 	return (length);
 }
 
-// char	**fill_execve_array(t_cmd *cmd, char **arr_of_cmds)
-// {
-// 	t_token	*ptr_token;
-// 	int		index;
-
-// 	ptr_token = cmd->first_token;
-// 	index = 0;
-// 	while(ptr_token != NULL)
-// 	{
-// 		if (ptr_token->type == CMD || ptr_token->type == ARG)
-// 		{
-// 			arr_of_cmds[index] = ptr_token->text;
-// 			index++;
-// 		}
-// 		ptr_token = ptr_token->next;
-// 	}
-// 	arr_of_cmds[index] = NULL;
-// 	return (arr_of_cmds);
-// }
-
 void	make_execve_array(t_cmd *cmd)
 {
 	t_token	*ptr_token;
@@ -179,7 +172,7 @@ void	make_execve_array(t_cmd *cmd)
 	while(index < length)
 	{
 		if (ptr_token->type == CMD || ptr_token->type == ARG)
-			arr_of_cmds[index++] = ft_strdup(ptr_token->text);
+			arr_of_cmds[index++] = ptr_token->text;
 		ptr_token = ptr_token->next;
 	}
 	arr_of_cmds[index] = NULL;
