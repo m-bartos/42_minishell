@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/09 10:32:05 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/09 10:58:16 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,10 @@ char	*get_prompt(void);
 
 // helpers.c
 void	ft_print_cmd(t_cmd *cmd_table);
+
+// here_doc.c
+char	*get_heredoc_file(char *eof, int index);
+void	expand_here_doc(t_cmd_tab *cmd_tab);
 
 // input_output.c
 int		ft_input_file(char *file_name);
