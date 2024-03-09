@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/09 17:11:27 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/09 18:23:30 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,133 @@ void	make_cmd_tab(t_cmd_tab *cmd_tab, t_cmd *parsed_line)
 	ft_init_cmd_struct(parsed_line);
 }
 
+void	expand_cmd_path(t_token *ptr_token)
+{
+	char	*path;
+	char	*temp_path;
+	char	**arr_of_paths;
+	int		i;
+
+	temp_path = getenv("PATH");
+	arr_of_paths = ft_split(temp_path, ':');
+	i = 0;
+	while (arr_of_paths[i] != NULL)
+	{
+		temp_path = ft_strjoin(arr_of_paths[i], "/");
+		path = ft_strjoin(temp_path, ptr_token->text);
+		free(temp_path);
+		if (access(path, X_OK) == 0)
+			break ;
+		free(path);
+		i++;
+	}
+	if (arr_of_paths[i] == NULL)
+		ptr_token->type = CMD_ERR;
+	else
+	{
+		free(ptr_token->text);
+		ptr_token->text = path;
+	}
+	free(arr_of_paths);
+}
+
+void	make_cmd_paths(t_cmd_tab *cmd_tab)
+{
+	t_cmd	*ptr_cmd;
+	t_token	*ptr_token;
+
+	ptr_cmd = cmd_tab->first_cmd;
+	while (ptr_cmd != NULL)
+	{
+		ptr_token = ptr_cmd->first_token;
+		while(ptr_token != NULL)
+		{
+			if (ptr_token->type == CMD)
+			{
+				expand_cmd_path(ptr_token);
+			}
+			ptr_token = ptr_token->next;
+		}
+		ptr_cmd = ptr_cmd->next;
+	}
+}
+
+int		count_cmd_length(t_cmd *cmd)
+{
+	t_token	*ptr_token;
+	int		length;
+
+	ptr_token = cmd->first_token;
+	length = 0;
+	while(ptr_token != NULL)
+	{
+		if (ptr_token->type == CMD || ptr_token->type == ARG)
+			length++;
+		else if (ptr_token->type == CMD_ERR)
+			return (-1);
+		ptr_token = ptr_token->next;
+	}
+	return (length);
+}
+
+// char	**fill_execve_array(t_cmd *cmd, char **arr_of_cmds)
+// {
+// 	t_token	*ptr_token;
+// 	int		index;
+
+// 	ptr_token = cmd->first_token;
+// 	index = 0;
+// 	while(ptr_token != NULL)
+// 	{
+// 		if (ptr_token->type == CMD || ptr_token->type == ARG)
+// 		{
+// 			arr_of_cmds[index] = ptr_token->text;
+// 			index++;
+// 		}
+// 		ptr_token = ptr_token->next;
+// 	}
+// 	arr_of_cmds[index] = NULL;
+// 	return (arr_of_cmds);
+// }
+
+void	make_execve_array(t_cmd *cmd)
+{
+	t_token	*ptr_token;
+	char	**arr_of_cmds;
+	int		length;
+	int		index;
+
+	length = count_cmd_length(cmd);
+	if (length == -1)
+	{
+		cmd->execve_cmd = NULL;
+		return ;
+	}
+	arr_of_cmds = (char **) malloc(sizeof(char *) * (length + 1));
+	ptr_token = cmd->first_token;
+	index = 0;
+	while(index < length)
+	{
+		if (ptr_token->type == CMD || ptr_token->type == ARG)
+			arr_of_cmds[index++] = ft_strdup(ptr_token->text);
+		ptr_token = ptr_token->next;
+	}
+	arr_of_cmds[index] = NULL;
+	cmd->execve_cmd = arr_of_cmds;
+}
+
+void	make_execve_cmds(t_cmd_tab *cmd_tab)
+{
+	t_cmd	*ptr_cmd;
+
+	ptr_cmd = cmd_tab->first_cmd;
+	while (ptr_cmd != NULL)
+	{
+		make_execve_array(ptr_cmd);
+		ptr_cmd = ptr_cmd->next;
+	}
+}
+
 // echo "jojo" 'nene' > outfile.txt | < infile.txt echo "jojo" 'nene' aha "$USER" '$USER' $USER >> test.out
 int	main (void)
 {
@@ -94,10 +221,13 @@ int	main (void)
 		parser(&parsed_line, line);
 		check_redirection_errors(&parsed_line, line, prompt);
 		handle_if_last_is_pipe(&parsed_line);
-		print_cmd(&parsed_line); // just show table
+		// print_cmd(&parsed_line); // just show table
 		make_cmd_tab(&cmd_tab, &parsed_line);
-		print_cmd_tab(&cmd_tab);
+		// print_cmd_tab(&cmd_tab);
 		expand_heredocs(&cmd_tab);
+		// print_cmd_tab(&cmd_tab);
+		make_cmd_paths(&cmd_tab);
+		make_execve_cmds(&cmd_tab);
 		print_cmd_tab(&cmd_tab);
 		free_program(&parsed_line, line, prompt);
 		ft_delete_cmds_in_cmd_tab(&cmd_tab);
