@@ -6,13 +6,13 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:23:21 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/09 10:25:15 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/09 10:32:05 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	check_double_redirect(t_cmd *ptr_cmd, char *line, char *prompt)
+void	check_redirection_errors(t_cmd *ptr_cmd, char *line, char *prompt)
 {
 	t_token	*ptr_node;
 

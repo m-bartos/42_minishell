@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/08 23:34:20 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/09 10:32:05 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ void	assign_cmds_and_args(t_cmd *ptr_cmd_tab);
 void	assign_types_to_tokens(t_cmd *ptr_cmd_tab);
 
 // cmd_struct_errors.c
-void	check_double_redirect(t_cmd *cmd_tab, char *line, char *prompt);
+void	check_redirection_errors(t_cmd *cmd_tab, char *line, char *prompt);
 
 // cmd_struct_filler_utils.c
 int		is_pipe_type(t_token *ptr_node);
