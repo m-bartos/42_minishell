@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/10 10:30:28 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/10 10:47:41 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ void	assign_cmds_and_args(t_cmd *ptr_cmd_tab);
 void	assign_types_to_tokens(t_cmd *ptr_cmd_tab);
 
 // cmd_struct_errors.c
-void	check_redirection_errors(t_cmd *cmd_tab, char *line, char *prompt);
+void	check_redirection_errors(t_cmd *ptr_cmd, char *prompt);
 
 // cmd_struct_filler_utils.c
 int		is_pipe_type(t_token *ptr_node);
@@ -138,7 +138,7 @@ void	check_unclosed_quotes(t_cmd *cmd, char *line, char *prompt);
 void	ft_exec_commands(char ***cmds);
 
 // exit_free.c
-void	free_program(t_cmd *cmd, char *line, char *prompt);
+void	free_program(t_cmd *cmd, char *prompt);
 void	check_exit(t_cmd *cmd, char *line, char *prompt);
 void	free_array(char **arr_of_str);
 
@@ -167,7 +167,7 @@ void	expand_heredocs(t_cmd *cmd);
 int		ft_input_file(char *file_name);
 
 // parser.c
-void	parser(t_cmd *ptr_cmd_tab, char *line);
+void	parser(t_cmd *ptr_cmd, char **arr_of_tokens, char *prompt);
 
 // splitter_handlers.c
 char	*handle_redirections(char *str, size_t *index, char redir_type);
@@ -188,6 +188,6 @@ char	**init_arr_of_tokens(char *line);
 char	**splitter(char *line);
 
 // main.c
-void	free_program(t_cmd *cmd_tab, char *line, char *prompt);
+
 
 #endif
