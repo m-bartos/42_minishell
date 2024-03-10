@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 10:17:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/09 21:55:26 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/10 10:12:31 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,11 +46,6 @@ char	*get_heredoc_file(char *eof, int index)
 
 void	expand_heredocs(t_cmd *cmd)
 {
-	// while loop through cmd_tab
-	// check token if there is here_doc type and EOF
-	// handle one here doc - make new file, readline and write in it, close it
-	// if another here doc is in the same cmd - rewrite the file
-
 	t_token	*ptr_token;
 	int		index;
 
