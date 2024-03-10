@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/09 21:55:26 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/10 10:28:37 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,13 @@ typedef struct s_cmd_tab
 	int		size;
 }	t_cmd_tab;
 
+// cmd_path_and_execve_cmd.c
+void	expand_cmd_path(t_token *ptr_token);
+void	make_cmd_paths(t_cmd_tab *cmd_tab);
+int		count_cmd_length(t_cmd *cmd);
+void	make_execve_array(t_cmd *cmd);
+void	make_execve_cmds(t_cmd_tab *cmd_tab);
+
 // cmd_struct_assign_types.c
 void	assign_operator_types(t_cmd *ptr_cmd_tab);
 void	assign_cmds_and_args(t_cmd *ptr_cmd_tab);
@@ -120,11 +127,19 @@ void	ft_push_rotate_cmd(t_cmd_tab *cmd_tab);
 void	ft_delete_cmds_in_cmd_tab(t_cmd_tab *cmd_tab);
 void	print_cmd_tab(t_cmd_tab *cmd_tab);
 
+// cmd_tab_make.c
+void	make_cmd_tab(t_cmd_tab *cmd_tab, t_cmd *parsed_line);
+
 // error_check.c
 int		is_unclosed_quotes (char *str);
 
 // exececution.c
 void	ft_exec_commands(char ***cmds);
+
+// exit_free.c
+void	free_program(t_cmd *cmd, char *line, char *prompt);
+void	check_exit(t_cmd *cmd, char *line, char *prompt);
+void	free_array(char **arr_of_str);
 
 // expander_var.c
 char	*end_of_var(char *str);
