@@ -6,11 +6,26 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/09 15:02:30 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/10 16:13:17 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+int	ft_has_out_redir(t_command *cmd)
+{
+	t_token *token;
+
+	token = cmd->first_token;
+	while (token)
+	{
+		//ft_printf("Token: %d\n", token->type);
+		if (token->type == R_OUT || token->type == R_OUT_APP)
+			return (1);
+		token = token->next;
+	}
+	return (0);
+}
 
 int	ft_input_redirection(char *file_name, int *fd_in)
 {
@@ -93,6 +108,7 @@ void	ft_exec_commands(t_cmd_tab *tab)
 	cmd = tab->first_cmd;
 	while (cmd)
 	{
+		//ft_printf("%d\n", ft_has_out_redir(cmd));
 		if (ft_redirects(cmd, &prev_in_fd, &fd_out) == -1)
 		{
 			cmd = cmd->next_cmd;
@@ -104,9 +120,18 @@ void	ft_exec_commands(t_cmd_tab *tab)
 		if (fork() == 0)
 		{
 			dup2(prev_in_fd, STDIN);
-			if ((cmd + 1) != NULL && fd_out == FD_NULL)
+			// if current command is not last and current command does not have redirections = write to fd[1]
+			if (cmd->next_cmd != NULL && (ft_has_out_redir(cmd) == 0))
 				dup2(fd[1], STDOUT);
-			else
+			// // if current command is last and current command does not have redirections = write to stdout
+			// // basically do nothing = let it go to stdout
+			else if (cmd->next_cmd == NULL && ft_has_out_redir(cmd) == 0)
+				dup2(STDOUT, STDOUT);
+			// if current command is not the last and current command has redirection = write to fd_out
+			else if (cmd->next_cmd != NULL && ft_has_out_redir(cmd) == 1)
+				dup2(fd_out, STDOUT);
+			// if current command is last and the current command has redirection = write to fd_out
+			else if (cmd->next_cmd == NULL && ft_has_out_redir(cmd) == 1)
 				dup2(fd_out, STDOUT);
 			close(fd[0]);
 			execv(cmd->execve_cmd[0], cmd->execve_cmd);
