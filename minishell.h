@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/09 14:33:03 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/10 17:34:19 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@
 
 # define FALSE 0
 # define TRUE 1
-
-# define FD_NULL -10
 
 // new types to categorize tokens
 typedef enum s_type
@@ -96,6 +94,8 @@ int	ft_input_redirection(char *file_name, int *fd_in);
 int	ft_output_redirection(char *file_name, int *fd_out);
 int	ft_append_redirection(char *file_name, int *fd_out);
 
+// Redurection utils
+int	ft_has_out_redir(t_command *cmd);
 
 // NEW command table ops
 void	ft_init_token(t_token *token);

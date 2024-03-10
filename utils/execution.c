@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/10 16:13:17 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/10 18:13:02 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,16 @@ void	ft_exec_commands(t_cmd_tab *tab)
 	int	fd_out;
 	int	fd[2];
 
+	// testing inbuild
+	int is_build = 0;
+
 	prev_in_fd = 0;
-	fd_out = FD_NULL;
+	fd_out = STDOUT;
 	cmd = tab->first_cmd;
 	while (cmd)
 	{
+		if (ft_strncmp(cmd->execve_cmd[0], "echo", 4) == 0)
+			is_build = 1;
 		//ft_printf("%d\n", ft_has_out_redir(cmd));
 		if (ft_redirects(cmd, &prev_in_fd, &fd_out) == -1)
 		{
@@ -122,23 +127,35 @@ void	ft_exec_commands(t_cmd_tab *tab)
 			dup2(prev_in_fd, STDIN);
 			// if current command is not last and current command does not have redirections = write to fd[1]
 			if (cmd->next_cmd != NULL && (ft_has_out_redir(cmd) == 0))
+			{
+				fd_out = fd[1];
 				dup2(fd[1], STDOUT);
-			// // if current command is last and current command does not have redirections = write to stdout
-			// // basically do nothing = let it go to stdout
-			else if (cmd->next_cmd == NULL && ft_has_out_redir(cmd) == 0)
-				dup2(STDOUT, STDOUT);
+			}
 			// if current command is not the last and current command has redirection = write to fd_out
 			else if (cmd->next_cmd != NULL && ft_has_out_redir(cmd) == 1)
 				dup2(fd_out, STDOUT);
 			// if current command is last and the current command has redirection = write to fd_out
 			else if (cmd->next_cmd == NULL && ft_has_out_redir(cmd) == 1)
 				dup2(fd_out, STDOUT);
+			// // if current command is last and current command does not have redirections = write to stdout
+			// // basically do nothing = let it go to stdout
+			else if (cmd->next_cmd == NULL && ft_has_out_redir(cmd) == 0)
+				dup2(fd_out, STDOUT);
 			close(fd[0]);
-			execv(cmd->execve_cmd[0], cmd->execve_cmd);
+			if (is_build == 1)
+			{
+				ft_putstr_fd("echo command", fd_out);
+				close (fd_out);
+				exit(0);
+			}
+			else
+				execv(cmd->execve_cmd[0], cmd->execve_cmd);
 		}
 		else
 		{
 			wait(NULL);
+			is_build = 0;
+			fd_out = 1;
 			close(fd[1]);
 			prev_in_fd = fd[0];
 		}

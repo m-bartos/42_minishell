@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main_exe.c                                         :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:36:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/09 14:31:25 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/10 18:13:45 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,31 +23,42 @@ int	main(void)
 // Elements declaration
 	t_command	cmd1;
 	t_command	cmd2;
+	t_command	cmd3;
 
 	t_cmd_tab	tab;
 
 	ft_init_cmd(&cmd1);
 	ft_init_cmd(&cmd2);
+	ft_init_cmd(&cmd3);
 	ft_init_cmd_table(&tab);
+
+// Third command
+	char *exe_cmd3[] = {"echo"};
+	ft_append_token_to_cmd_v2(&cmd3, "echo", CMD);
+	ft_append_token_to_cmd_v2(&cmd3, "echo command", ARG);
+	cmd3.execve_cmd = exe_cmd3;
 
 // First command
 	char *exec_cmd1[] = {"/bin/cat", NULL};
-	ft_append_token_to_cmd_v2(&cmd1, "<", R_IN);
-	ft_append_token_to_cmd_v2(&cmd1, "infile.txt", R_INFILE);
+	// ft_append_token_to_cmd_v2(&cmd1, "<", R_IN);
+	// ft_append_token_to_cmd_v2(&cmd1, "infile.txt", R_INFILE);
 	ft_append_token_to_cmd_v2(&cmd1, "cat", CMD);
 	cmd1.execve_cmd = exec_cmd1;
 
 // Second command
-	char *exec_cmd2[] = {"/usr/bin/wc", "-lc", NULL};
+	char *exec_cmd2[] = {"/usr/bin/wc", "-lcw", NULL};
 	ft_append_token_to_cmd_v2(&cmd2, "wc", CMD);
 	ft_append_token_to_cmd_v2(&cmd2, "-lc", ARG);
-	ft_append_token_to_cmd_v2(&cmd2,">>", R_OUT_APP);
-	ft_append_token_to_cmd_v2(&cmd2, "output.txt", R_OUTFILE_APP);
+	// ft_append_token_to_cmd_v2(&cmd2,">>", R_OUT_APP);
+	// ft_append_token_to_cmd_v2(&cmd2, "output.txt", R_OUTFILE_APP);
 	cmd2.execve_cmd = exec_cmd2;
 
+
 // Add comands to the table
+	ft_append_cmd_to_tab(&tab, &cmd3);
 	ft_append_cmd_to_tab(&tab, &cmd1);
 	ft_append_cmd_to_tab(&tab, &cmd2);
+
 
 // Test print various values from the table
 	t_command	*command;
