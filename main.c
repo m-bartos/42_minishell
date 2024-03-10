@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/10 10:28:48 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/10 10:30:05 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,6 @@ void	handle_if_last_is_pipe(t_cmd *cmd, char *line, char *prompt)
 		check_redirection_errors(cmd, line, prompt);
 		expand_heredocs(cmd);
 		free(line_heredoc);
-	}
-}
-
-void	check_unclosed_quotes(t_cmd *cmd, char *line, char *prompt)
-{
-	if (is_unclosed_quotes(line) == 1)
-	{
-		printf("Minishell cannot handle open quotes (\", \').\n");
-		free_program(cmd, line, prompt);
-		exit(0);
 	}
 }
 
