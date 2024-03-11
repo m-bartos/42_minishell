@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:23:21 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/11 12:56:42 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/11 14:05:26 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	check_redirection_errors(t_cmd *ptr_cmd)
 			printf("minishell: syntax error near unexpected token '%s'\n", 
 				ptr_node->text);
 			ft_delete_cmd(ptr_cmd);
+			printf(RESET);
 			exit(0);
 		}
 		ptr_node = ptr_node->next;
@@ -35,6 +36,7 @@ void	check_redirection_errors(t_cmd *ptr_cmd)
 	{
 		printf("minishell: syntax error near unexpected token 'newline'\n");
 		ft_delete_cmd(ptr_cmd);
+		printf(RESET);
 		exit(0);
 	}
 }

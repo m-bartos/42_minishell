@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:29:43 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/10 10:56:31 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/11 14:05:06 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	check_unclosed_quotes(char *line)
 	{
 		printf("Minishell cannot handle open quotes (\", \').\n");
 		free(line);
+		printf(RESET);
 		exit(0);
 	}
 }
