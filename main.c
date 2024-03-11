@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:36:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/10 18:13:45 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/11 15:19:20 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int	main(void)
 	ft_init_cmd_table(&tab);
 
 // Third command
-	char *exe_cmd3[] = {"echo"};
+	char *exe_cmd3[] = {"echo", "lorem ipsum command\n"};
 	ft_append_token_to_cmd_v2(&cmd3, "echo", CMD);
-	ft_append_token_to_cmd_v2(&cmd3, "echo command", ARG);
+	ft_append_token_to_cmd_v2(&cmd3, "lorem ipsum command", ARG);
 	cmd3.execve_cmd = exe_cmd3;
 
 // First command
@@ -48,7 +48,7 @@ int	main(void)
 // Second command
 	char *exec_cmd2[] = {"/usr/bin/wc", "-lcw", NULL};
 	ft_append_token_to_cmd_v2(&cmd2, "wc", CMD);
-	ft_append_token_to_cmd_v2(&cmd2, "-lc", ARG);
+	ft_append_token_to_cmd_v2(&cmd2, "-lcw", ARG);
 	// ft_append_token_to_cmd_v2(&cmd2,">>", R_OUT_APP);
 	// ft_append_token_to_cmd_v2(&cmd2, "output.txt", R_OUTFILE_APP);
 	cmd2.execve_cmd = exec_cmd2;

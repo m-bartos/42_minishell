@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/10 18:13:02 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/11 15:18:56 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,7 @@ void	ft_exec_commands(t_cmd_tab *tab)
 			close(fd[0]);
 			if (is_build == 1)
 			{
-				ft_putstr_fd("echo command", fd_out);
+				ft_putstr_fd(cmd->execve_cmd[1], fd_out);
 				close (fd_out);
 				exit(0);
 			}
