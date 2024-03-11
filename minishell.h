@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/11 12:04:56 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/11 12:55:46 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,6 @@ void	check_unclosed_quotes(char *line);
 void	ft_exec_commands(char ***cmds);
 
 // exit_free.c
-void	free_program(t_cmd *cmd);
 void	check_exit(char *line);
 void	free_array(char **arr_of_str);
 
