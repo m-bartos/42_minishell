@@ -6,16 +6,11 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 10:24:15 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/11 10:15:21 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/11 12:05:40 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-void	free_program(t_cmd *cmd)
-{
-	ft_delete_nodes(cmd);
-}
 
 void	check_exit(char *line)
 {

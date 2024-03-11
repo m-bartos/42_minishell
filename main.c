@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/11 10:15:34 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/11 12:05:21 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	main (void)
 		handle_if_last_is_pipe(&parsed_line);
 		// print_cmd(&parsed_line); // just show table
 		make_cmd_tab(&cmd_tab, &parsed_line);
-		free_program(&parsed_line);
+		ft_delete_cmd(&parsed_line);
 		// print_cmd_tab(&cmd_tab);
 		// print_cmd_tab(&cmd_tab);
 		make_cmd_paths(&cmd_tab);
