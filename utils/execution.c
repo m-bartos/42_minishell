@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/11 15:18:56 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/11 22:11:52 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ft_append_redirection(char *file_name, int *fd_out)
 	return (0);
 }
 
-int	ft_redirects(t_command *cmd, int *fd_in, int *fd_out)
+int	ft_open_files(t_command *cmd, int *fd_in, int *fd_out)
 {
 	t_token *token;
 
@@ -114,7 +114,7 @@ void	ft_exec_commands(t_cmd_tab *tab)
 		if (ft_strncmp(cmd->execve_cmd[0], "echo", 4) == 0)
 			is_build = 1;
 		//ft_printf("%d\n", ft_has_out_redir(cmd));
-		if (ft_redirects(cmd, &prev_in_fd, &fd_out) == -1)
+		if (ft_open_files(cmd, &prev_in_fd, &fd_out) == -1)
 		{
 			cmd = cmd->next_cmd;
 			// testing
