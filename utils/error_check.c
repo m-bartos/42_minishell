@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:29:43 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/10 10:49:40 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/10 10:56:31 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,11 @@ int	is_unclosed_quotes (char *str)
 		return (1);
 }
 
-void	check_unclosed_quotes(t_cmd *cmd, char *line, char *prompt)
+void	check_unclosed_quotes(char *line)
 {
 	if (is_unclosed_quotes(line) == 1)
 	{
 		printf("Minishell cannot handle open quotes (\", \').\n");
-		free_program(cmd, prompt);
 		free(line);
 		exit(0);
 	}
