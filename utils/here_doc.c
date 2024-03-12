@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 10:17:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/10 10:14:00 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/12 12:57:33 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,22 +47,22 @@ char	*get_heredoc_file(char *eof, int index)
 
 void	expand_heredocs(t_cmd *cmd)
 {
-	t_token	*ptr_token;
+	t_token	*token;
 	int		index;
 
 	index = 0;
-	ptr_token = cmd->first_token;
-	while(ptr_token != NULL)
+	token = cmd->first_token;
+	while(token != NULL)
 	{
-		if (ptr_token->type == HERE_DOC && ptr_token->next->type == HERE_DOC_EOF)
+		if (token->type == HERE_DOC && token->next->type == HERE_DOC_EOF)
 		{
-			free(ptr_token->text);
-			ptr_token->text = ft_strdup("<");
-			ptr_token->type = R_IN;
-			ptr_token->next->text = get_heredoc_file(ptr_token->next->text, index);
-			ptr_token->next->type = R_INFILE;
+			free(token->text);
+			token->text = ft_strdup("<");
+			token->type = R_IN;
+			token->next->text = get_heredoc_file(token->next->text, index);
+			token->next->type = R_INFILE;
 		}
-		ptr_token = ptr_token->next;
+		token = token->next;
 		index++;
 	}
 	// how to unlink the files? When, where?
