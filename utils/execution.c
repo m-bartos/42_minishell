@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/12 15:37:23 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/12 16:13:55 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,19 +27,19 @@ int	ft_has_out_redir(t_command *cmd)
 	return (0);
 }
 
-int	ft_input_redirection(char *file_name, int *fd_in)
+void	ft_input_redirection(char *file_name, int *fd_in)
 {
 	if (access(file_name, F_OK | R_OK) == 0)
 		*fd_in = ft_input_file(file_name);
 	else
 		{
 			perror(file_name);
-			return (-1);
+			exit(EXIT_FAILURE);
 		}
-	return (0);
+	return ;
 }
 
-int	ft_output_redirection(char *file_name, int *fd_out)
+void	ft_output_redirection(char *file_name, int *fd_out)
 {
 	int	temp_fd;
 
@@ -47,14 +47,14 @@ int	ft_output_redirection(char *file_name, int *fd_out)
 	if (temp_fd == -1)
 	{
 		perror(file_name);
-		return (-1);
+		exit(EXIT_FAILURE);
 	}
 	else
 		*fd_out = temp_fd;
-	return (0);
+	return ;
 }
 
-int	ft_append_redirection(char *file_name, int *fd_out)
+void	ft_append_redirection(char *file_name, int *fd_out)
 {
 	int	temp_fd;
 
@@ -62,14 +62,14 @@ int	ft_append_redirection(char *file_name, int *fd_out)
 	if (temp_fd == -1)
 	{
 		perror(file_name);
-		return (-1);
+		exit(EXIT_FAILURE);
 	}
 	else
 		*fd_out = temp_fd;
-	return (0);
+	return ;
 }
 
-int	ft_open_files(t_command *cmd, int *fd_in, int *fd_out)
+void	ft_open_files(t_command *cmd, int *fd_in, int *fd_out)
 {
 	t_token *token;
 
@@ -77,23 +77,14 @@ int	ft_open_files(t_command *cmd, int *fd_in, int *fd_out)
 	while (token)
 	{
 		if (token->type == R_INFILE)
-		{
-			if (ft_input_redirection(token->text, fd_in) == -1)
-				return (-1);
-		}
+			ft_input_redirection(token->text, fd_in);
 		else if (token->type == R_OUTFILE)
-		{
-			if (ft_output_redirection(token->text, fd_out) == -1)
-				return (-1);
-		}
+			ft_output_redirection(token->text, fd_out);
 		else if (token->type == R_OUTFILE_APP)
-		{
-			if (ft_append_redirection(token->text, fd_out) == -1)
-				return (-1);
-		}
+			ft_append_redirection(token->text, fd_out);
 		token = token->next;
 	}
-	return (0);
+	return ;
 }
 
 void	ft_exec_built_cmds(t_command *cmd, int *fd_out)
@@ -103,7 +94,7 @@ void	ft_exec_built_cmds(t_command *cmd, int *fd_out)
 	{
 		ft_putstr_fd(cmd->execve_cmd[1], STDOUT);
 		close (*fd_out);
-		exit(0);
+		exit(EXIT_SUCCESS);
 	}
 
 }
@@ -133,7 +124,7 @@ void	ft_exec_commands(t_command *cmd, int *fd_out)
 	while (token)
 	{
 		if (token->type == CMD)
-			execv(cmd->execve_cmd[0], cmd->execve_cmd);
+			execve(cmd->execve_cmd[0], cmd->execve_cmd, NULL);
 		else if (token->type == CMD_BUILT)
 			ft_exec_built_cmds(cmd, fd_out);
 		else if (token->type == CMD_ERR)
@@ -161,8 +152,7 @@ void	ft_exec_input(t_cmd_tab *tab)
 		pipe(fd);
 		if (fork() == 0)
 		{
-			if (ft_open_files(cmd, &prev_in_fd, &fd_out) == -1)
-				exit(EXIT_FAILURE);
+			ft_open_files(cmd, &prev_in_fd, &fd_out);
 
 			dup2(prev_in_fd, STDIN);
 			// if current command is not last and current command does not have redirections = write to fd[1]
@@ -181,7 +171,7 @@ void	ft_exec_input(t_cmd_tab *tab)
 			prev_in_fd = fd[0];
 		}
 		cmd = cmd->next_cmd;
-		// ft_putstr_fd("\n", 1);
-		// ft_putnbr_fd(exit_status, 1);
 	}
+	// ft_putnbr_fd(exit_status, 1);
+	// ft_putstr_fd("\n", 1);
 }

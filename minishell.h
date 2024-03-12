@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/12 15:12:18 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/12 15:50:42 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,9 @@ int		ft_output_file(char *file_name);
 int		ft_append_file(char *file_name);
 
 // Redurection functions
-int	ft_input_redirection(char *file_name, int *fd_in);
-int	ft_output_redirection(char *file_name, int *fd_out);
-int	ft_append_redirection(char *file_name, int *fd_out);
+void	ft_input_redirection(char *file_name, int *fd_in);
+void	ft_output_redirection(char *file_name, int *fd_out);
+void	ft_append_redirection(char *file_name, int *fd_out);
 
 // Redurection utils
 int	ft_has_out_redir(t_command *cmd);
