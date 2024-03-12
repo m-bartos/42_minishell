@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/12 12:49:36 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/12 12:55:43 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ int		is_in_single_quotes(t_token *ptr_node);
 int		is_in_double_quotes(t_token *ptr_node);
 
 // cmd_struct_filler.c
-void	print_cmd(t_cmd *ptr_cmd_tab);
 void	fill_cmd_tab(t_cmd *ptr_cmd_tab, char **arr_of_tokens);
 
 // cmd_struct_ops
@@ -126,7 +125,6 @@ void	ft_rotate_cmd(t_cmd_tab *cmd_tab);
 void	ft_push_cmd(t_cmd_tab *cmd_tab);
 void	ft_push_rotate_cmd(t_cmd_tab *cmd_tab);
 void	ft_delete_cmds_in_cmd_tab(t_cmd_tab *cmd_tab);
-void	print_cmd_tab(t_cmd_tab *cmd_tab);
 
 // cmd_tab_make.c
 void	make_cmd_tab(t_cmd_tab *cmd_tab, t_cmd *parsed_line);
@@ -157,7 +155,9 @@ void	expand_cmd_tab(t_cmd *ptr_cmd_tab);
 char	*get_prompt(void);
 
 // helpers.c
+void	print_cmd(t_cmd *ptr_cmd_tab);
 void	ft_print_cmd(t_cmd *cmd_table);
+void	print_cmd_tab(t_cmd_tab *cmd_tab);
 
 // here_doc.c
 char	*get_heredoc_file(char *eof, int index);
