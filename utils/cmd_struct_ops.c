@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 22:46:28 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/11 12:04:56 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/12 12:42:47 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,36 +32,36 @@ void	ft_init_cmd_struct(t_cmd *cmd)
 // rotates token from top to bottom and promotes the second to be first
 void	ft_rotate_token(t_cmd *cmd)
 {
-	t_token	*temp_first_next;
+	t_token	*temp_first_next_token;
 	// prevents any action if there is nothing to rotata = cmd is empty or has one token
 	if (cmd->size > 1)
 	{
-		temp_first_next = cmd->first_token->next;
+		temp_first_next_token = cmd->first_token->next;
 		cmd->last_token->next = cmd->first_token;
 		cmd->first_token->next = NULL;
 		cmd->first_token->prev = cmd->last_token;
 		cmd->last_token = cmd->first_token;
-		temp_first_next->prev = NULL;
-		cmd->first_token = temp_first_next;
+		temp_first_next_token->prev = NULL;
+		cmd->first_token = temp_first_next_token;
 	}
 }
 // insert token on top of a stack
 void	ft_push_token(t_cmd *cmd, char *token_text, t_type token_type)
 {
-	t_token	*ptr_token;
+	t_token	*token;
 
-	ptr_token = malloc(sizeof(t_token));
-	if (!ptr_token)
+	token = malloc(sizeof(t_token));
+	if (!token)
 		return ;
-	ptr_token->text = token_text;
-	ptr_token->next = cmd->first_token;
-	ptr_token->prev = NULL;
-	ptr_token->type = token_type;
+	token->text = token_text;
+	token->next = cmd->first_token;
+	token->prev = NULL;
+	token->type = token_type;
 	if (cmd->first_token != NULL)
-		cmd->first_token->prev = ptr_token;
+		cmd->first_token->prev = token;
 	if (cmd->first_token == NULL)
-		cmd->last_token = ptr_token;
-	cmd->first_token = ptr_token;
+		cmd->last_token = token;
+	cmd->first_token = token;
 	cmd->size++;
 }
 
@@ -81,32 +81,32 @@ void	ft_push_rotate_token(t_cmd *cmd, char *token_text, t_type token_type)
 // cleanup method
 void	ft_delete_cmd(t_cmd *cmd)
 {
-	t_token	*current;
-	t_token	*temp;
+	t_token	*current_token;
+	t_token	*temp_token;
 
-	current = cmd->first_token;
-	while (current != NULL)
+	current_token = cmd->first_token;
+	while (current_token != NULL)
 	{
-		temp = current->next;
-		free(current->text);
-		free(current);
-		current = temp;
-		temp = NULL;
+		temp_token = current_token->next;
+		free(current_token->text);
+		free(current_token);
+		current_token = temp_token;
+		temp_token = NULL;
 	}
 	cmd->first_token = NULL;
 	cmd->last_token = NULL;
 	cmd->size = 0;
 }
 
-void	ft_move_token(t_cmd *cmd, t_token *ptr_token)
+void	ft_move_token(t_cmd *cmd, t_token *token)
 {
-	ptr_token->next = cmd->first_token;
-	ptr_token->prev = NULL;
+	token->next = cmd->first_token;
+	token->prev = NULL;
 	if (cmd->first_token != NULL)
-		cmd->first_token->prev = ptr_token;
+		cmd->first_token->prev = token;
 	if (cmd->first_token == NULL)
-		cmd->last_token = ptr_token;
-	cmd->first_token = ptr_token;
+		cmd->last_token = token;
+	cmd->first_token = token;
 	cmd->size++;
 	ft_rotate_token(cmd);
 }
