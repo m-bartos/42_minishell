@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_tab_assign_types.c                             :+:      :+:    :+:   */
+/*   cmd_struct_assign_types.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:37:34 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/08 16:23:01 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/12 11:26:03 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,24 @@ int	assign_file_type(int type)
 	return (99);
 }
 
+int	assign_cmd_type(char *text)
+{
+	if (ft_strncmp(text, "echo", 5) == 0)
+		return (CMD_BUILT);
+	else if (ft_strncmp(text, "cd", 3) == 0)
+		return (CMD_BUILT);
+	else if (ft_strncmp(text, "pwd", 4) == 0)
+		return (CMD_BUILT);
+	else if (ft_strncmp(text, "export", 7) == 0)
+		return (CMD_BUILT);
+	else if (ft_strncmp(text, "unset", 6) == 0)
+		return (CMD_BUILT);
+	else if (ft_strncmp(text, "env", 4) == 0)
+		return (CMD_BUILT);
+	else
+		return (CMD);
+}
+
 void	assign_cmds_and_args(t_cmd *ptr_cmd)
 {
 	t_token	*ptr_node;
@@ -59,7 +77,7 @@ void	assign_cmds_and_args(t_cmd *ptr_cmd)
 	{
 		if (search_cmd == 1 && redir_file == 0 && !is_operator_type(ptr_node))
 		{
-			ptr_node->type = CMD;
+			ptr_node->type = assign_cmd_type(ptr_node->text);
 			search_cmd = 0;
 		}
 		else if (is_redirection_type(ptr_node))

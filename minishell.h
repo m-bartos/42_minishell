@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/11 12:55:46 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/12 11:21:07 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 typedef enum s_type
 {
 	CMD,
+	CMD_BUILT,
 	CMD_ERR,
 	ARG,
 	PIPE,
