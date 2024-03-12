@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/12 15:50:42 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/12 21:16:28 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <fcntl.h>
 # include <sys/wait.h>
 # include <errno.h>
+# include <unistd.h>
 
 # define STDIN 0
 # define STDOUT 1
@@ -28,6 +29,8 @@
 
 # define FALSE 0
 # define TRUE 1
+
+# define EXIT_EXECVE_FAILURE 127
 
 // new types to categorize tokens
 typedef enum s_type

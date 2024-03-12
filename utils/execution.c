@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/12 20:51:54 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/12 21:24:13 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,14 +87,27 @@ void	ft_open_files(t_command *cmd, int *fd_in, int *fd_out)
 	return ;
 }
 
-void	ft_exec_built_cmds(t_command *cmd, int *fd_out)
+void	ft_exec_built_cmds(t_command *cmd)
 {
-	// echo test
+	char	*error;
+	char	*cmd_name;
+
+	cmd_name = cmd->execve_cmd[0];
+	error = ft_strjoin(cmd_name, ": command not found\n");
 	if (ft_strncmp(cmd->execve_cmd[0], "echo", 5) == 0)
 	{
 		ft_putstr_fd(cmd->execve_cmd[1], STDOUT);
-		close (*fd_out);
 		exit(EXIT_SUCCESS);
+	}
+	else
+	{
+		errno = ENOENT;
+		if (errno == ENOENT)
+		{
+			ft_putstr_fd(error, STDERR);
+			free(error);
+			exit(EXIT_EXECVE_FAILURE);
+		}
 	}
 
 }
@@ -131,12 +144,12 @@ void	ft_execve(t_command *cmd)
 		{
 			ft_putstr_fd(error, STDERR);
 			free(error);
-			exit(EXIT_FAILURE);
+			exit(EXIT_EXECVE_FAILURE);
 		}
 	}
 }
 
-void	ft_exec_commands(t_command *cmd, int *fd_out)
+void	ft_exec_commands(t_command *cmd)
 {
 	t_token	*token;
 	token = cmd->first_token;
@@ -145,14 +158,21 @@ void	ft_exec_commands(t_command *cmd, int *fd_out)
 		if (token->type == CMD)
 			ft_execve(cmd);
 		else if (token->type == CMD_BUILT)
-			ft_exec_built_cmds(cmd, fd_out);
+			ft_exec_built_cmds(cmd);
 		else if (token->type == CMD_ERR)
 			ft_cmd_not_found(cmd);
 		token = token->next;
 	}
 }
 
-
+void	ft_exit_status(int *status)
+{
+	if (WIFEXITED(*status))
+	{
+		ft_putnbr_fd(WEXITSTATUS(*status), 1);
+		ft_putstr_fd("\n", 1);
+	}
+}
 // exec function
 
 void	ft_exec_input(t_cmd_tab *tab)
@@ -180,7 +200,7 @@ void	ft_exec_input(t_cmd_tab *tab)
 			else
 				dup2(fd_out, STDOUT);
 			close(fd[0]);
-			ft_exec_commands(cmd, &fd_out);
+			ft_exec_commands(cmd);
 		}
 		else
 		{
@@ -191,6 +211,5 @@ void	ft_exec_input(t_cmd_tab *tab)
 		}
 		cmd = cmd->next_cmd;
 	}
-	// ft_putnbr_fd(exit_status, 1);
-	// ft_putstr_fd("\n", 1);
+	ft_exit_status(&exit_status);
 }
