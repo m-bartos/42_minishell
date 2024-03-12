@@ -6,36 +6,35 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 11:23:21 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/11 14:05:26 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/12 12:33:04 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	check_redirection_errors(t_cmd *ptr_cmd)
+void	check_redirection_errors(t_cmd *cmd)
 {
-	t_token	*ptr_node;
+	t_token	*token;
 
-	ptr_node = ptr_cmd->first_token;
-	ptr_node = ptr_node->next;
-	while (ptr_node != NULL)
+	token = cmd->first_token->next;
+	while (token != NULL)
 	{
-		if (((is_operator_type(ptr_node) || is_pipe_type(ptr_node))
-			&& is_redirection_type(ptr_node->prev)) ||
-			(is_pipe_type(ptr_node) && is_pipe_type(ptr_node->prev)))
+		if (((is_operator_type(token) || is_pipe_type(token))
+			&& is_redirection_type(token->prev)) ||
+			(is_pipe_type(token) && is_pipe_type(token->prev)))
 		{
 			printf("minishell: syntax error near unexpected token '%s'\n", 
-				ptr_node->text);
-			ft_delete_cmd(ptr_cmd);
+				token->text);
+			ft_delete_cmd(cmd);
 			printf(RESET);
 			exit(0);
 		}
-		ptr_node = ptr_node->next;
+		token = token->next;
 	}
-	if (is_redirection_type(ptr_cmd->last_token))
+	if (is_redirection_type(cmd->last_token))
 	{
 		printf("minishell: syntax error near unexpected token 'newline'\n");
-		ft_delete_cmd(ptr_cmd);
+		ft_delete_cmd(cmd);
 		printf(RESET);
 		exit(0);
 	}
