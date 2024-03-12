@@ -6,28 +6,28 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:04:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/09 18:22:28 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/12 12:39:52 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 // this function will not be needed
-void	print_cmd(t_cmd *ptr_cmd)
+void	print_cmd(t_cmd *cmd)
 {
-	t_token	*ptr_token;
+	t_token	*token;
 	char	**execve_cmd_arr;
 	int		i;
 
 	printf("-------------\n");
 	i = 0;
-	if (ptr_cmd->execve_cmd != NULL)
+	if (cmd->execve_cmd != NULL)
 	{
 		printf("Execve cmds: {");
-		execve_cmd_arr = ptr_cmd->execve_cmd;
-		while(execve_cmd_arr[i] != NULL)
+		execve_cmd_arr = cmd->execve_cmd;
+		while (execve_cmd_arr[i] != NULL)
 		{
-			printf("%s",execve_cmd_arr[i]);
+			printf("%s", execve_cmd_arr[i]);
 			if (execve_cmd_arr[i + 1] != NULL)
 				printf(", ");
 			execve_cmd_arr++;
@@ -35,26 +35,26 @@ void	print_cmd(t_cmd *ptr_cmd)
 		printf("}\n");
 		printf("-------------\n");
 	}
-	ptr_token = ptr_cmd->first_token;
+	token = cmd->first_token;
 	i = 0;
-	while (ptr_token != NULL)
+	while (token != NULL)
 	{
-		printf("%*i. Token: |%*s|     ", 2, i, 20, ptr_token->text);
-		printf("Type: %i\n", ptr_token->type);
-		ptr_token = ptr_token->next;
+		printf("%*i. Token: |%*s|     ", 2, i, 20, token->text);
+		printf("Type: %i\n", token->type);
+		token = token->next;
 		i++;
 	}
 	printf("-------------\n");
 }
 
-void	fill_cmd_tab(t_cmd *ptr_cmd, char **arr_of_tokens)
+void	fill_cmd_tab(t_cmd *cmd, char **arr_of_tokens)
 {
-	size_t	index;
+	size_t	i;
 
-	index = 0;
-	while (arr_of_tokens[index])
+	i = 0;
+	while (arr_of_tokens[i] != NULL)
 	{
-		ft_push_rotate_token(ptr_cmd, arr_of_tokens[index], -1);
-		index++;
+		ft_push_rotate_token(cmd, arr_of_tokens[i], -1);
+		i++;
 	}
 }
