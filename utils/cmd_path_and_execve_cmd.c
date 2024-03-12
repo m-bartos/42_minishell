@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 10:26:48 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/12 11:57:23 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/12 21:17:43 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ void	expand_token_cmd_path(t_token *token)
 	char	**arr_of_paths;
 	int		i;
 
+	if (access(token->text, X_OK) == 0)
+		return ;
 	temp_path = getenv("PATH");
 	arr_of_paths = ft_split(temp_path, ':');
 	i = 0;
