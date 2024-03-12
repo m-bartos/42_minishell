@@ -6,13 +6,13 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:20:49 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/12 14:19:06 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/12 14:48:35 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	handle_if_last_is_pipe(t_cmd *cmd)
+void	handle_if_last_token_is_pipe(t_cmd *cmd)
 {
 	char	*line_heredoc;
 	char	**arr_of_tokens;
@@ -48,7 +48,7 @@ void	parser(t_cmd_tab *cmd_tab, t_cmd *cmd, char **arr_of_tokens)
 {
 	parse_from_arr_of_tokens_to_one_cmd(cmd, arr_of_tokens);
 	// printf("INITIAL FILLING OF CMD TABLE: \n");
-	handle_if_last_is_pipe(cmd);
+	handle_if_last_token_is_pipe(cmd);
 	// print_cmd(&parsed_line);
 	make_cmd_tab(cmd_tab, cmd);
 	ft_delete_cmd(cmd);
