@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/11 14:07:23 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/12 09:21:03 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,12 @@ int	main (void)
 		check_exit(line);
 		check_unclosed_quotes(line);
 		arr_of_tokens = splitter(line);
+		if (*arr_of_tokens == NULL)
+		{
+			free(line);
+			free_array(arr_of_tokens);
+			continue ;
+		}
 		free(line);
 		parser(&parsed_line, arr_of_tokens);
 		handle_if_last_is_pipe(&parsed_line);
