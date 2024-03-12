@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/12 21:16:28 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/12 21:31:36 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,14 @@ typedef struct s_cmd_tab
 	t_command	*last_cmd;
 	int			size;
 }		t_cmd_tab;
+
+typedef struct s_exec_data
+{
+	int	exit_status;
+	int	fd_in;
+	int	fd_out;
+	int	pipe_fd[2];
+}		t_exec_data;
 
 // OLD!! command_table functions
 void	ft_init_command_table(t_cmd_tab *cmd_table);

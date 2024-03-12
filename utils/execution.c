@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/12 21:24:13 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/12 21:56:04 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,42 +174,50 @@ void	ft_exit_status(int *status)
 	}
 }
 // exec function
+void	ft_init_exec_data(t_exec_data *exec_data)
+{
+	exec_data->exit_status = 0;
+	exec_data->fd_in = STDIN;
+	exec_data->fd_out = STDOUT;
+}
+
+void	ft_redir_process_io(t_exec_data *data, t_command *cmd)
+{
+	dup2(data->fd_in, STDIN);
+	if (cmd->next_cmd != NULL && (ft_has_out_redir(cmd) == 0))
+		dup2(data->pipe_fd[1], STDOUT);
+	else
+		dup2(data->fd_out, STDOUT);
+	close(data->pipe_fd[0]);
+}
+
+void	ft_parent_process(t_exec_data *data)
+{
+	wait(&data->exit_status);
+	data->fd_out = 1;
+	close(data->pipe_fd[1]);
+	data->fd_in = data->pipe_fd[0];
+}
 
 void	ft_exec_input(t_cmd_tab *tab)
 {
-	int		exit_status;
+	t_exec_data data;
 	t_command	*cmd;
-	int	prev_in_fd;
-	int	fd_out;
-	int	fd[2];
 
-	prev_in_fd = 0;
-	fd_out = STDOUT;
+	ft_init_exec_data(&data);
 	cmd = tab->first_cmd;
 	while (cmd)
 	{
-		pipe(fd);
+		pipe(data.pipe_fd);
 		if (fork() == 0)
 		{
-			ft_open_files(cmd, &prev_in_fd, &fd_out);
-
-			dup2(prev_in_fd, STDIN);
-			// if current command is not last and current command does not have redirections = write to fd[1]
-			if (cmd->next_cmd != NULL && (ft_has_out_redir(cmd) == 0))
-				dup2(fd[1], STDOUT);
-			else
-				dup2(fd_out, STDOUT);
-			close(fd[0]);
+			ft_open_files(cmd, &data.fd_in, &data.fd_out);
+			ft_redir_process_io(&data, cmd);
 			ft_exec_commands(cmd);
 		}
 		else
-		{
-			wait(&exit_status);
-			fd_out = 1;
-			close(fd[1]);
-			prev_in_fd = fd[0];
-		}
+			ft_parent_process(&data);
 		cmd = cmd->next_cmd;
 	}
-	ft_exit_status(&exit_status);
+	ft_exit_status(&data.exit_status);
 }
