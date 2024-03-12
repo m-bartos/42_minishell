@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/12 09:21:03 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/12 12:49:36 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main (void)
 
 	line = NULL;
 	ft_init_cmd_struct(&parsed_line);
-	ft_init_cmd_tab_struct(&cmd_tab);
+	ft_init_cmd_tab(&cmd_tab);
 	printf(BLUE);
 	while (1)
 	{

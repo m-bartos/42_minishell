@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/12 11:57:10 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/12 12:49:36 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ void	remove_quotes(t_token *ptr_node);
 void	remove_quotes_from_cmd_tab(t_cmd *ptr_cmd_tab);
 
 // cmd_tab_struct_ops.c
-void	ft_init_cmd_tab_struct(t_cmd_tab *cmd_tab);
+void	ft_init_cmd_tab(t_cmd_tab *cmd_tab);
 void	ft_rotate_cmd(t_cmd_tab *cmd_tab);
 void	ft_push_cmd(t_cmd_tab *cmd_tab);
 void	ft_push_rotate_cmd(t_cmd_tab *cmd_tab);
