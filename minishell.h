@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/10 17:34:19 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/12 13:55:16 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef enum s_type
 {
 	CMD,
 	CMD_ERR,
+	CMD_BUILT,
 	ARG,
 	PIPE,
 	R_IN,

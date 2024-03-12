@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/11 22:20:23 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/12 14:05:54 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,23 +96,64 @@ int	ft_open_files(t_command *cmd, int *fd_in, int *fd_out)
 	return (0);
 }
 
+void	ft_exec_built_cmds(t_command *cmd, int *fd_out)
+{
+	// echo test
+	if (ft_strncmp(cmd->execve_cmd[0], "echo", 5) == 0)
+	{
+		ft_putstr_fd(cmd->execve_cmd[1], STDOUT);
+		close (*fd_out);
+		exit(0);
+	}
+
+}
+
+void	ft_cmd_not_found(t_command *cmd)
+{
+	char *str;
+
+	str = cmd->execve_cmd[0];
+	str = "command not found";
+	ft_putstr_fd(str, STDERR);
+}
+
+void	ft_run_commands(t_command *cmd, int *fd_out)
+{
+	t_token	*token;
+	token = cmd->first_token;
+	while (token)
+	{
+		if (token->type == CMD)
+			execv(cmd->execve_cmd[0], cmd->execve_cmd);
+		else if (token->type == CMD_BUILT)
+			ft_exec_built_cmds(cmd, fd_out);
+		else if (token->type == CMD_ERR)
+			ft_cmd_not_found(cmd);
+		token = token->next;
+	}
+}
+
+
+// exec function
+
 void	ft_exec_commands(t_cmd_tab *tab)
 {
+	int		exit_status;
 	t_command	*cmd;
 	int	prev_in_fd;
 	int	fd_out;
 	int	fd[2];
 
 	// testing inbuild
-	int is_build = 0;
+	//int is_build = 0;
 
 	prev_in_fd = 0;
 	fd_out = STDOUT;
 	cmd = tab->first_cmd;
 	while (cmd)
 	{
-		if (ft_strncmp(cmd->execve_cmd[0], "echo", 4) == 0)
-			is_build = 1;
+		// if (ft_strncmp(cmd->execve_cmd[0], "echo", 5) == 0)
+		// 	is_build = 1;
 		if (ft_open_files(cmd, &prev_in_fd, &fd_out) == -1)
 		{
 			cmd = cmd->next_cmd;
@@ -130,23 +171,26 @@ void	ft_exec_commands(t_cmd_tab *tab)
 			else
 				dup2(fd_out, STDOUT);
 			close(fd[0]);
-			if (is_build == 1)
-			{
-				ft_putstr_fd(cmd->execve_cmd[1], STDOUT);
-				close (fd_out);
-				exit(0);
-			}
-			else
-				execv(cmd->execve_cmd[0], cmd->execve_cmd);
+			ft_run_commands(cmd, &fd_out);
+			// if (is_build == 1)
+			// {
+			// 	ft_putstr_fd(cmd->execve_cmd[1], STDOUT);
+			// 	close (fd_out);
+			// 	exit(0);
+			// }
+			// else
+			// 	execv(cmd->execve_cmd[0], cmd->execve_cmd);
 		}
 		else
 		{
-			wait(NULL);
-			is_build = 0;
+			wait(&exit_status);
+			//is_build = 0;
 			fd_out = 1;
 			close(fd[1]);
 			prev_in_fd = fd[0];
 		}
 		cmd = cmd->next_cmd;
+		// ft_putstr_fd("\n", 1);
+		// ft_putnbr_fd(exit_status, 1);
 	}
 }
