@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/12 11:21:07 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/12 11:57:10 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ typedef struct s_cmd_tab
 }	t_cmd_tab;
 
 // cmd_path_and_execve_cmd.c
-void	expand_cmd_path(t_token *ptr_token);
+void	expand_token_cmd_path(t_token *ptr_token);
 void	make_cmd_paths(t_cmd_tab *cmd_tab);
 int		count_cmd_length(t_cmd *cmd);
-void	make_execve_array(t_cmd *cmd);
+void	make_one_execve_cmd(t_cmd *cmd);
 void	make_execve_cmds(t_cmd_tab *cmd_tab);
 
 // cmd_struct_assign_types.c

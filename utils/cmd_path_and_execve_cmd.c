@@ -6,15 +6,15 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 10:26:48 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/10 10:28:27 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/12 11:57:23 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	expand_cmd_path(t_token *ptr_token)
+void	expand_token_cmd_path(t_token *token)
 {
-	char	*path;
+	char	*str_path;
 	char	*temp_path;
 	char	**arr_of_paths;
 	int		i;
@@ -25,68 +25,68 @@ void	expand_cmd_path(t_token *ptr_token)
 	while (arr_of_paths[i] != NULL)
 	{
 		temp_path = ft_strjoin(arr_of_paths[i], "/");
-		path = ft_strjoin(temp_path, ptr_token->text);
+		str_path = ft_strjoin(temp_path, token->text);
 		free(temp_path);
-		if (access(path, X_OK) == 0)
+		if (access(str_path, X_OK) == 0)
 			break ;
-		free(path);
+		free(str_path);
 		i++;
 	}
 	if (arr_of_paths[i] == NULL)
-		ptr_token->type = CMD_ERR;
+		token->type = CMD_ERR;
 	else
 	{
-		free(ptr_token->text);
-		ptr_token->text = path;
+		free(token->text);
+		token->text = str_path;
 	}
 	free_array(arr_of_paths);
 }
 
 void	make_cmd_paths(t_cmd_tab *cmd_tab)
 {
-	t_cmd	*ptr_cmd;
-	t_token	*ptr_token;
+	t_cmd	*cmd;
+	t_token	*token;
 
-	ptr_cmd = cmd_tab->first_cmd;
-	while (ptr_cmd != NULL)
+	cmd = cmd_tab->first_cmd;
+	while (cmd != NULL)
 	{
-		ptr_token = ptr_cmd->first_token;
-		while(ptr_token != NULL)
+		token = cmd->first_token;
+		while(token != NULL)
 		{
-			if (ptr_token->type == CMD)
+			if (token->type == CMD)
 			{
-				expand_cmd_path(ptr_token);
+				expand_token_cmd_path(token);
 			}
-			ptr_token = ptr_token->next;
+			token = token->next;
 		}
-		ptr_cmd = ptr_cmd->next;
+		cmd = cmd->next;
 	}
 }
 
 int	count_cmd_length(t_cmd *cmd)
 {
-	t_token	*ptr_token;
+	t_token	*token;
 	int		length;
 
-	ptr_token = cmd->first_token;
+	token = cmd->first_token;
 	length = 0;
-	while(ptr_token != NULL)
+	while(token != NULL)
 	{
-		if (ptr_token->type == CMD || ptr_token->type == ARG)
+		if (token->type == CMD || token->type == ARG)
 			length++;
-		else if (ptr_token->type == CMD_ERR)
+		else if (token->type == CMD_ERR)
 			return (-1);
-		ptr_token = ptr_token->next;
+		token = token->next;
 	}
 	return (length);
 }
 
-void	make_execve_array(t_cmd *cmd)
+void	make_one_execve_cmd(t_cmd *cmd)
 {
-	t_token	*ptr_token;
-	char	**arr_of_cmds;
+	t_token	*token;
+	char	**execve_cmd;
 	int		length;
-	int		index;
+	int		i;
 
 	length = count_cmd_length(cmd);
 	if (length == -1)
@@ -94,27 +94,27 @@ void	make_execve_array(t_cmd *cmd)
 		cmd->execve_cmd = NULL;
 		return ;
 	}
-	arr_of_cmds = (char **) malloc(sizeof(char *) * (length + 1));
-	ptr_token = cmd->first_token;
-	index = 0;
-	while(index < length)
+	execve_cmd = (char **) malloc(sizeof(char *) * (length + 1));
+	token = cmd->first_token;
+	i = 0;
+	while(i < length)
 	{
-		if (ptr_token->type == CMD || ptr_token->type == ARG)
-			arr_of_cmds[index++] = ptr_token->text;
-		ptr_token = ptr_token->next;
+		if (token->type == CMD || token->type == ARG)
+			execve_cmd[i++] = token->text;
+		token = token->next;
 	}
-	arr_of_cmds[index] = NULL;
-	cmd->execve_cmd = arr_of_cmds;
+	execve_cmd[i] = NULL;
+	cmd->execve_cmd = execve_cmd;
 }
 
 void	make_execve_cmds(t_cmd_tab *cmd_tab)
 {
-	t_cmd	*ptr_cmd;
+	t_cmd	*cmd;
 
-	ptr_cmd = cmd_tab->first_cmd;
-	while (ptr_cmd != NULL)
+	cmd = cmd_tab->first_cmd;
+	while (cmd != NULL)
 	{
-		make_execve_array(ptr_cmd);
-		ptr_cmd = ptr_cmd->next;
+		make_one_execve_cmd(cmd);
+		cmd = cmd->next;
 	}
 }
