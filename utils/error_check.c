@@ -6,34 +6,34 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:29:43 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/11 14:05:06 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/12 12:52:11 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	is_unclosed_quotes (char *str)
+int	is_unclosed_quotes(char *str)
 {
-	int		search_single_quotes;
-	int		search_double_quotes;
+	int		search_single_q;
+	int		search_double_q;
 
-	search_single_quotes = 1;
-	search_double_quotes = 1;
+	search_single_q = 1;
+	search_double_q = 1;
 	if (str == NULL)
 		return (-1);
 	while (*str)
 	{
-		if (*str == '\"' && search_double_quotes == 1 && search_single_quotes == 1)
-			search_single_quotes = 0;
-		else if (*str == '\'' && search_double_quotes == 1 && search_single_quotes == 1)
-			search_double_quotes = 0;
-		else if (*str == '\"' && search_double_quotes == 1 && search_single_quotes == 0)
-			search_single_quotes = 1;
-		else if (*str == '\'' && search_double_quotes == 0 && search_single_quotes == 1)
-			search_double_quotes = 1;
+		if (*str == '\"' && search_double_q == 1 && search_single_q == 1)
+			search_single_q = 0;
+		else if (*str == '\'' && search_double_q == 1 && search_single_q == 1)
+			search_double_q = 0;
+		else if (*str == '\"' && search_double_q == 1 && search_single_q == 0)
+			search_single_q = 1;
+		else if (*str == '\'' && search_double_q == 0 && search_single_q == 1)
+			search_double_q = 1;
 		str++;
 	}
-	if (search_single_quotes == search_double_quotes)
+	if (search_single_q == search_double_q)
 		return (0);
 	else
 		return (1);
