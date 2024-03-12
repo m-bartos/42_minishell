@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:36:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/12 15:44:37 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/12 20:52:45 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int	main(void)
 	cmd3.execve_cmd = exe_cmd3;
 
 // First command
-	char *exec_cmd1[] = {"/bin/cat", NULL};
-	ft_append_token_to_cmd_v2(&cmd1, "<", R_IN);
-	ft_append_token_to_cmd_v2(&cmd1, "infile.txtt", R_INFILE);
+	char *exec_cmd1[] = {"/bin/cata", NULL};
+	// ft_append_token_to_cmd_v2(&cmd1, "<", R_IN);
+	// ft_append_token_to_cmd_v2(&cmd1, "infile.txtt", R_INFILE);
 	ft_append_token_to_cmd_v2(&cmd1, "cat", CMD);
 	cmd1.execve_cmd = exec_cmd1;
 
@@ -55,7 +55,7 @@ int	main(void)
 
 
 // Add comands to the table
-	//ft_append_cmd_to_tab(&tab, &cmd3);
+	ft_append_cmd_to_tab(&tab, &cmd3);
 	ft_append_cmd_to_tab(&tab, &cmd1);
 	ft_append_cmd_to_tab(&tab, &cmd2);
 

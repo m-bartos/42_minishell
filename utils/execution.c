@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/12 16:13:55 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/12 20:51:54 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	ft_cmd_not_found(t_command *cmd)
 
 	errno = ENOENT;
 	cmd_name = cmd->execve_cmd[0];
-	error = ft_strjoin(cmd_name, ": command not found");
+	error = ft_strjoin(cmd_name, ": command not found\n");
 	if (errno == ENOENT)
 	{
 		ft_putstr_fd(error, STDERR);
@@ -117,6 +117,25 @@ void	ft_cmd_not_found(t_command *cmd)
 	exit(EXIT_SUCCESS);
 }
 
+void	ft_execve(t_command *cmd)
+{
+	char	*error;
+	char	*cmd_name;
+
+	cmd_name = cmd->execve_cmd[0];
+	error = ft_strjoin(cmd_name, ": command not found\n");
+	if (execve(cmd->execve_cmd[0], cmd->execve_cmd, NULL) - 1)
+	{
+		errno = ENOENT;
+		if (errno == ENOENT)
+		{
+			ft_putstr_fd(error, STDERR);
+			free(error);
+			exit(EXIT_FAILURE);
+		}
+	}
+}
+
 void	ft_exec_commands(t_command *cmd, int *fd_out)
 {
 	t_token	*token;
@@ -124,7 +143,7 @@ void	ft_exec_commands(t_command *cmd, int *fd_out)
 	while (token)
 	{
 		if (token->type == CMD)
-			execve(cmd->execve_cmd[0], cmd->execve_cmd, NULL);
+			ft_execve(cmd);
 		else if (token->type == CMD_BUILT)
 			ft_exec_built_cmds(cmd, fd_out);
 		else if (token->type == CMD_ERR)
