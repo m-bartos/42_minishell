@@ -1,41 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_tab_remove_quotes.c                            :+:      :+:    :+:   */
+/*   cmd_struct_remove_quotes.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:44:37 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/08 16:24:31 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/12 12:45:05 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	remove_quotes(t_token *ptr_token)
+void	remove_quotes(t_token *token)
 {
-	char	*token;
-	int		len;
+	char	*token_text;
+	int		length;
 
-	token = ptr_token->text;
-	if (is_in_double_quotes(ptr_token) || is_in_single_quotes(ptr_token))
+	token_text = token->text;
+	if (is_in_double_quotes(token) || is_in_single_quotes(token))
 	{
-		len = ft_strlen(token);
-		token[len - 1] = '\0';
-		ptr_token->text = ft_strdup(&token[1]);
-		free(token);
+		length = ft_strlen(token_text);
+		token_text[length - 1] = '\0';
+		token->text = ft_strdup(&token_text[1]);
+		free(token_text);
 	}
 }
 
-void	remove_quotes_from_cmd_tab(t_cmd *ptr_cmd)
+void	remove_quotes_from_cmd_tab(t_cmd *cmd)
 {
-	t_token	*ptr_token;
+	t_token	*token;
 
-	ptr_token = ptr_cmd->first_token;
-	while (ptr_token != NULL)
+	token = cmd->first_token;
+	while (token != NULL)
 	{
-		if (!is_operator_type(ptr_token))
-			remove_quotes(ptr_token);
-		ptr_token = ptr_token->next;
+		if (!is_operator_type(token))
+			remove_quotes(token);
+		token = token->next;
 	}
 }
