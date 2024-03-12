@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/12 13:55:16 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/12 15:12:18 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <sys/wait.h>
+# include <errno.h>
 
 # define STDIN 0
 # define STDOUT 1
@@ -83,7 +84,7 @@ void	ft_delete_nodes(t_cmd_tab *cmd_table);
 
 
 // exec functions
-void	ft_exec_commands(t_cmd_tab *tab);
+void	ft_exec_input(t_cmd_tab *tab);
 
 // I/O functions
 int		ft_input_file(char *file_name);

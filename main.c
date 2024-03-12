@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:36:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/12 13:55:30 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/12 15:38:36 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	main(void)
 
 
 // Execute the commands from the table
-	ft_exec_commands(&tab);
+	ft_exec_input(&tab);
 
 	return (0);
 }

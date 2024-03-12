@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/12 14:05:54 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/12 15:37:23 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,14 +110,23 @@ void	ft_exec_built_cmds(t_command *cmd, int *fd_out)
 
 void	ft_cmd_not_found(t_command *cmd)
 {
-	char *str;
+	char	*error;
+	char	*cmd_name;
 
-	str = cmd->execve_cmd[0];
-	str = "command not found";
-	ft_putstr_fd(str, STDERR);
+	errno = ENOENT;
+	cmd_name = cmd->execve_cmd[0];
+	error = ft_strjoin(cmd_name, ": command not found");
+	if (errno == ENOENT)
+	{
+		ft_putstr_fd(error, STDERR);
+		free(error);
+		exit(EXIT_FAILURE);
+	}
+	free(error);
+	exit(EXIT_SUCCESS);
 }
 
-void	ft_run_commands(t_command *cmd, int *fd_out)
+void	ft_exec_commands(t_command *cmd, int *fd_out)
 {
 	t_token	*token;
 	token = cmd->first_token;
@@ -136,7 +145,7 @@ void	ft_run_commands(t_command *cmd, int *fd_out)
 
 // exec function
 
-void	ft_exec_commands(t_cmd_tab *tab)
+void	ft_exec_input(t_cmd_tab *tab)
 {
 	int		exit_status;
 	t_command	*cmd;
@@ -144,26 +153,17 @@ void	ft_exec_commands(t_cmd_tab *tab)
 	int	fd_out;
 	int	fd[2];
 
-	// testing inbuild
-	//int is_build = 0;
-
 	prev_in_fd = 0;
 	fd_out = STDOUT;
 	cmd = tab->first_cmd;
 	while (cmd)
 	{
-		// if (ft_strncmp(cmd->execve_cmd[0], "echo", 5) == 0)
-		// 	is_build = 1;
-		if (ft_open_files(cmd, &prev_in_fd, &fd_out) == -1)
-		{
-			cmd = cmd->next_cmd;
-			// testing
-			exit(1);
-			continue;
-		}
 		pipe(fd);
 		if (fork() == 0)
 		{
+			if (ft_open_files(cmd, &prev_in_fd, &fd_out) == -1)
+				exit(EXIT_FAILURE);
+
 			dup2(prev_in_fd, STDIN);
 			// if current command is not last and current command does not have redirections = write to fd[1]
 			if (cmd->next_cmd != NULL && (ft_has_out_redir(cmd) == 0))
@@ -171,20 +171,11 @@ void	ft_exec_commands(t_cmd_tab *tab)
 			else
 				dup2(fd_out, STDOUT);
 			close(fd[0]);
-			ft_run_commands(cmd, &fd_out);
-			// if (is_build == 1)
-			// {
-			// 	ft_putstr_fd(cmd->execve_cmd[1], STDOUT);
-			// 	close (fd_out);
-			// 	exit(0);
-			// }
-			// else
-			// 	execv(cmd->execve_cmd[0], cmd->execve_cmd);
+			ft_exec_commands(cmd, &fd_out);
 		}
 		else
 		{
 			wait(&exit_status);
-			//is_build = 0;
 			fd_out = 1;
 			close(fd[1]);
 			prev_in_fd = fd[0];
