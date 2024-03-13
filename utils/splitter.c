@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:24:52 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/03 10:32:10 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/13 10:20:25 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	count_tokens(char *line)
 		else if (line[i] == '|')
 			out_str = handle_pipe(&line[i], &i);
 		else if (line[i] == '\'' || line[i] == '\"')
-			out_str = handle_quotes(&line[i], &i, line[i]);
+			out_str = handle_word(&line[i], &i);
 		else if (is_whitespace(line[i]))
 		{
 			i++;
@@ -84,6 +84,18 @@ char	**init_arr_of_tokens(char *line)
 	return (array_of_tokens);
 }
 
+void	print_array(char **arr)
+{
+	int	i;
+
+	while (arr[i] != NULL)
+	{
+		ft_putstr_fd(arr[i], 1);
+		write(1, "\n", 1);
+		i++;
+	}
+}
+
 /**
  * Splits a given string into an array of tokens based on certain delimiters.
  *
@@ -108,12 +120,11 @@ char	**splitter(char *line)
 			array_of_tokens[j++] = handle_redirections(&line[i], &i, line[i]);
 		else if (line[i] == '|')
 			array_of_tokens[j++] = handle_pipe(&line[i], &i);
-		else if (line[i] == '\'' || line[i] == '\"')
-			array_of_tokens[j++] = handle_quotes(&line[i], &i, line[i]);
 		else if (is_whitespace(line[i]))
 			i++;
 		else
 			array_of_tokens[j++] = handle_word(&line[i], &i);
 	}
+	//print_array(array_of_tokens);
 	return (array_of_tokens);
 }

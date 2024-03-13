@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 14:47:13 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/03 10:43:10 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/13 10:23:07 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,61 +76,47 @@ char	*handle_pipe(char *str, size_t *index)
 	return (str_out);
 }
 
-/**
- * @brief Extracts quoted substrings from a string.
- * 
- * @param str The input string.
- * @param index Ptr to index tracking current pos in the string.
- * @param quotes_type The type of quotes enclosing the substring.
- * @return A ptr to the extracted substring or NULL on failure.
- */
-char	*handle_quotes(char *str, size_t *index, char quotes_type)
+size_t	count_word_length(char *str)
 {
-	size_t	size_to_malloc;
-	size_t	j;
-	char	*str_out;
+	char	quotes_type;
+	size_t	size;
+	int		inside_quotes;
 
-	size_to_malloc = 1;
-	while (str[size_to_malloc] != quotes_type && str[size_to_malloc] != '\0')
-		size_to_malloc++;
-	str_out = (char *) malloc(sizeof(char) * (size_to_malloc + 2));
-	if (!str_out)
-		return (NULL);
-	j = 0;
-	while (j < size_to_malloc + 1)
+	inside_quotes = 0;
+	size = 0;
+	while(str[size])
 	{
-		str_out[j] = str[j];
-		j++;
+		if (inside_quotes == 0 && is_quote(str[size]))
+		{
+			quotes_type = str[size];
+			inside_quotes = 1;
+		}
+		else if (inside_quotes == 1 && str[size] == quotes_type)
+			inside_quotes = 0;
+		else if (inside_quotes == 0 && is_whitespace(str[size]))
+			break ;
+		size++;
 	}
-	str_out[j] = '\0';
-	*index = *index + size_to_malloc + 1;
-	return (str_out);
+	return(size);
 }
 
-/**
- * @brief Extracts a word from a string.
- * 
- * @param str The input string.
- * @param index Ptr to index tracking current position in the string.
- * @return A ptr to the extracted word or NULL on failure.
- */
 char	*handle_word(char *str, size_t *index)
 {
-	size_t	size_to_malloc;
 	size_t	j;
 	char	*str_out;
+	size_t	size;
 
-	size_to_malloc = word_length(str);
-	str_out = (char *) malloc (sizeof(char) * (size_to_malloc + 1));
+	size = count_word_length(str);
+	str_out = (char *) malloc(sizeof(char) * (size + 1));
 	if (!str_out)
 		return (NULL);
-	*index = *index + size_to_malloc;
 	j = 0;
-	while (j < size_to_malloc)
+	while (j < size)
 	{
 		str_out[j] = str[j];
 		j++;
 	}
 	str_out[j] = '\0';
+	*index = *index + size;
 	return (str_out);
 }
