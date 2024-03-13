@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/13 10:53:49 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/13 11:37:50 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,4 +112,5 @@ t_token	*ft_create_token(char *text, t_type type);
 
 // Signal
 void	ft_ctrl_c_sig(int signal);
+void	ft_ctrl_slash_sig (int signal);
 #endif

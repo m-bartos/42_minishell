@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:36:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/13 10:51:51 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/13 21:08:32 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,20 +107,19 @@ int	main(void)
 	ft_putstr_fd("\n", 1);
 // End of test
 
-// Testing function pointers
+// Signal testing
 
-// function poiter declared
-	void	(*func) (int);
+// Ctrl + c testing
+if(signal(SIGINT, ft_ctrl_c_sig) == SIG_ERR)
+	printf("Cannot print sigint\n");
 
-// assigning test function to the function pointer
-	func = signal_handler;
-// runing the function pointer
-	(*func)(10);
+// Ctrl + \ testing
+if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+	ft_putstr_fd("Cannot printg sigquit", 1);
 
-if(signal(SIGINT, func) == SIG_ERR)
-	printf("Cannot print signal\n");
 // Execute the commands from the table
+	pause();
 	ft_exec_input(&tab);
-
+	ft_printf("After signal action - tests if the process is not really interputed.\n");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/13 10:28:19 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/13 21:08:17 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,5 @@ void	ft_exec_input(t_cmd_tab *tab)
 			ft_parent_process(&data);
 		cmd = cmd->next_cmd;
 	}
-	sleep(10);
 	ft_exit_status(&data.exit_status);
 }
