@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/12 21:56:04 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/13 10:28:19 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ void	ft_exec_built_cmds(t_command *cmd)
 		{
 			ft_putstr_fd(error, STDERR);
 			free(error);
-			exit(EXIT_EXECVE_FAILURE);
+			exit(CMD_NOT_FOUND);
 		}
 	}
 
@@ -124,7 +124,7 @@ void	ft_cmd_not_found(t_command *cmd)
 	{
 		ft_putstr_fd(error, STDERR);
 		free(error);
-		exit(EXIT_FAILURE);
+		exit(CMD_NOT_FOUND);
 	}
 	free(error);
 	exit(EXIT_SUCCESS);
@@ -144,7 +144,7 @@ void	ft_execve(t_command *cmd)
 		{
 			ft_putstr_fd(error, STDERR);
 			free(error);
-			exit(EXIT_EXECVE_FAILURE);
+			exit(CMD_NOT_FOUND);
 		}
 	}
 }
@@ -219,5 +219,6 @@ void	ft_exec_input(t_cmd_tab *tab)
 			ft_parent_process(&data);
 		cmd = cmd->next_cmd;
 	}
+	sleep(10);
 	ft_exit_status(&data.exit_status);
 }

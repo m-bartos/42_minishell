@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:36:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/12 21:58:57 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/13 10:51:51 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@
 	// char *cmd2[] = {"/usr/bin/wc", "-l", NULL};
 	// char **cmds[] = {cmd1, cmd2, NULL};
 */
+
+void	signal_handler(int signal)
+{
+	ft_printf("\nSignal handled: %d\n", signal);
+}
+
 
 int	main(void)
 {
@@ -49,8 +55,8 @@ int	main(void)
 	char *exec_cmd2[] = {"/usr/bin/wc", "-lcw", NULL};
 	ft_append_token_to_cmd_v2(&cmd2, "wc", CMD);
 	ft_append_token_to_cmd_v2(&cmd2, "-lcw", ARG);
-	ft_append_token_to_cmd_v2(&cmd2,">>", R_OUT_APP);
-	ft_append_token_to_cmd_v2(&cmd2, "output.txt", R_OUTFILE_APP);
+	// ft_append_token_to_cmd_v2(&cmd2,">>", R_OUT_APP);
+	// ft_append_token_to_cmd_v2(&cmd2, "output.txt", R_OUTFILE_APP);
 	cmd2.execve_cmd = exec_cmd2;
 
 
@@ -101,6 +107,18 @@ int	main(void)
 	ft_putstr_fd("\n", 1);
 // End of test
 
+// Testing function pointers
+
+// function poiter declared
+	void	(*func) (int);
+
+// assigning test function to the function pointer
+	func = signal_handler;
+// runing the function pointer
+	(*func)(10);
+
+if(signal(SIGINT, func) == SIG_ERR)
+	printf("Cannot print signal\n");
 // Execute the commands from the table
 	ft_exec_input(&tab);
 

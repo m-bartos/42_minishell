@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/12 21:31:36 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/13 10:53:49 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define FALSE 0
 # define TRUE 1
 
-# define EXIT_EXECVE_FAILURE 127
+# define CMD_NOT_FOUND 127
 
 // new types to categorize tokens
 typedef enum s_type
@@ -84,16 +84,6 @@ typedef struct s_exec_data
 	int	pipe_fd[2];
 }		t_exec_data;
 
-// OLD!! command_table functions
-void	ft_init_command_table(t_cmd_tab *cmd_table);
-void	ft_rotate_token(t_cmd_tab *cmd_table);
-void	ft_push_token(t_cmd_tab *cmd_table, char *token);
-void	ft_push_rotate_token(t_cmd_tab *cmd_table, char *token);
-void	ft_delete_nodes(t_cmd_tab *cmd_table);
-
-// NEW!! command table functions
-
-
 // exec functions
 void	ft_exec_input(t_cmd_tab *tab);
 
@@ -102,12 +92,12 @@ int		ft_input_file(char *file_name);
 int		ft_output_file(char *file_name);
 int		ft_append_file(char *file_name);
 
-// Redurection functions
+// Redirection functions
 void	ft_input_redirection(char *file_name, int *fd_in);
 void	ft_output_redirection(char *file_name, int *fd_out);
 void	ft_append_redirection(char *file_name, int *fd_out);
 
-// Redurection utils
+// Redirection utils
 int	ft_has_out_redir(t_command *cmd);
 
 // NEW command table ops
@@ -119,4 +109,7 @@ void	ft_append_cmd_to_tab(t_cmd_tab *cmd_table, t_command *cmd);
 void	ft_append_token_to_cmd(t_command *cmd, t_token *token);
 void	ft_append_token_to_cmd_v2(t_command *cmd, char *text, t_type type);
 t_token	*ft_create_token(char *text, t_type type);
+
+// Signal
+void	ft_ctrl_c_sig(int signal);
 #endif
