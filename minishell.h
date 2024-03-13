@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/13 10:19:10 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/13 11:33:51 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,13 @@
 
 # define FALSE 0
 # define TRUE 1
+
+typedef enum s_in_quotes
+{
+	OUT_OF_QUOTES,
+	IN_DOUBLE_QUOTES,
+	IN_SINGLE_QUOTES
+}		t_in_quotes;
 
 typedef enum s_type
 {
@@ -142,12 +149,12 @@ void	free_array(char **arr_of_str);
 
 // expander_var.c
 char	*end_of_var(char *str);
-char	*get_variable_name(char	*str);
-char	*get_expanded_var(char *str);
+char	*get_variable_name(char	*str, size_t i);
+char	*get_expanded_var(char *str, size_t i);
 
 // expander.c
-char	*malloc_new_expanded_str(char *str, char *str_expanded_variable);
-char	*get_str_with_one_expanded_var(char *str, char *expanded_var);
+char	*malloc_new_expanded_str(char *str, size_t i, char *str_expanded_variable);
+char	*get_str_with_one_expanded_var(char *str, size_t i, char *expanded_var);
 char	*expand_all_vars_in_str(char *str);
 void	expand_cmd_tab(t_cmd *ptr_cmd_tab);
 

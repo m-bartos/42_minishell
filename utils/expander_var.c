@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:41:18 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/11 10:30:17 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/13 11:42:14 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,14 @@ char	*end_of_var(char *str)
  * @return A dynamically allocated string containing the variable name,
  *         or NULL if memory allocation fails.
  */
-char	*get_variable_name(char	*str)
+char	*get_variable_name(char	*str, size_t i)
 {
 	size_t	size;
 	size_t	index;
 	char	*str_variable;
 	char	*str_out;
 
-	str_variable = ft_strchr(str, '$') + 1;
+	str_variable = &str[i + 1];
 	size = end_of_var(str_variable) - str_variable;
 	str_out = (char *) malloc(sizeof(char) * (size + 1));
 	if (!str_out)
@@ -80,12 +80,12 @@ char	*get_variable_name(char	*str)
  * @return The value of the environment variable, or NULL if the variable is
  *         not found.
  */
-char	*get_expanded_var(char *str)
+char	*get_expanded_var(char *str, size_t i)
 {
 	char	*str_variable;
 	char	*str_extended_variable;
 
-	str_variable = get_variable_name(str);
+	str_variable = get_variable_name(str, i);
 	str_extended_variable = getenv(str_variable);
 	free(str_variable);
 	return (str_extended_variable);
