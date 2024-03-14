@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/24 12:11:04 by mbartos           #+#    #+#             */
-/*   Updated: 2023/10/24 13:25:51 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/13 15:06:59 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,16 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	if (str == NULL)
 		return (NULL);
 	str_first = str;
-	while (*s1)
-		*str++ = *s1++;
-	while (*s2)
-		*str++ = *s2++;
+	if (s1 != NULL)
+	{
+		while (*s1)
+			*str++ = *s1++;
+	}
+	if (s2 != NULL)
+	{
+		while (*s2)
+			*str++ = *s2++;
+	}
 	*str = '\0';
 	return (str_first);
 }
