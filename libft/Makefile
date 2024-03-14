@@ -16,6 +16,7 @@ SOURCES =	ft_atoi.c \
 			ft_isalnum.c \
 			ft_memchr.c \
 			ft_strchr.c \
+			ft_strchrnul.c \
 			ft_strdup.c \
 			ft_strnstr.c \
 			ft_isalpha.c \
