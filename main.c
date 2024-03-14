@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/12 14:24:40 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/14 15:35:46 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ int	main (void)
 		prompt = get_prompt();
 		line = readline(prompt);
 		free(prompt);
+		check_exit(line);
 		if (*line)
 			add_history(line);
-		check_exit(line);
 		check_unclosed_quotes(line);
 		arr_of_tokens = splitter(line);
 		if (*arr_of_tokens == NULL)
