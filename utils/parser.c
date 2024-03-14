@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:20:49 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/13 12:11:54 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/14 12:39:52 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	parse_from_arr_of_tokens_to_one_cmd(t_cmd *cmd, char **arr_of_tokens)
 	expand_cmd_tab(cmd);
 	// print_cmd(ptr_cmd);
 	// printf("CMD TABLE without quotes: \n"); //just for info, delete before submitting
-	remove_quotes_from_cmd(cmd);
+	remove_quotes_in_cmd_tokens(cmd);
 	check_redirection_errors(cmd);
 	expand_heredocs(cmd);
 	

@@ -6,28 +6,97 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:44:37 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/13 12:11:54 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/14 15:17:37 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	remove_quotes(t_token *token)
+char	**remove_quotes_encaptulates_words(char **arr_of_str)
 {
-	char	*token_text;
-	int		length;
+	size_t	i;
+	char	*temp_str;
 
-	token_text = token->text;
-	if (is_in_double_quotes(token) || is_in_single_quotes(token))
+	i = 0;
+	while (arr_of_str[i])
 	{
-		length = ft_strlen(token_text);
-		token_text[length - 1] = '\0';
-		token->text = ft_strdup(&token_text[1]);
-		free(token_text);
+		if (arr_of_str[i][0] == '\"')
+		{
+			temp_str = arr_of_str[i];
+			arr_of_str[i] = ft_strtrim(arr_of_str[i], "\"");
+			free(temp_str);
+		}
+		else if (arr_of_str[i][0] == '\'')
+		{
+			temp_str = arr_of_str[i];
+			arr_of_str[i] = ft_strtrim(arr_of_str[i], "\'");
+			free(temp_str);
+		}
+		i++;
 	}
+	return (arr_of_str);
 }
 
-void	remove_quotes_from_cmd(t_cmd *cmd)
+char	*get_substr_from_word(char const *str, size_t *i)
+{
+	char	letter_to_find;
+	char	*end_of_word;
+	size_t	size;
+	char	*new_text;
+
+	letter_to_find = str[0];
+	size = 0;
+	if (letter_to_find != '\'' && letter_to_find != '\"')
+	{
+		if (ft_strchrnul(str, '\'') > ft_strchrnul(str, '\"'))
+			end_of_word = ft_strchrnul(str, '\"');
+		else
+			end_of_word = ft_strchrnul(str, '\'');
+		size = end_of_word - str;
+	}
+	else
+		size = ft_strchr(&str[1], letter_to_find) - str + 1;
+	new_text = ft_substr(str, 0, size);
+	*i = *i + size;
+	return (new_text);
+}
+
+char	**parse_token_text(char *text)
+{
+	char	**arr_of_strs;
+	size_t	i;
+	size_t	j;
+	size_t	size;
+
+	size = 200; // count size correctly
+	arr_of_strs = (char **) malloc(sizeof(char *) * size);
+	i = 0;
+	j = 0;
+	while (text[i])
+	{
+		arr_of_strs[j] = get_substr_from_word(&text[i], &i);
+		j++;
+	}
+	arr_of_strs[j] = NULL;
+	return (arr_of_strs);
+}
+
+void	remove_quotes_in_token(t_token *token)
+{
+	char	*new_token;
+	char	*temp_token_text;
+	char	**arr_of_strs;
+
+	arr_of_strs = parse_token_text(token->text);
+	arr_of_strs = remove_quotes_encaptulates_words(arr_of_strs);
+	new_token = ft_arr_to_str(arr_of_strs);
+	free_array(arr_of_strs);
+	temp_token_text = token->text;
+	token->text = new_token;
+	free(temp_token_text);
+}
+
+void	remove_quotes_in_cmd_tokens(t_cmd *cmd)
 {
 	t_token	*token;
 
@@ -35,7 +104,7 @@ void	remove_quotes_from_cmd(t_cmd *cmd)
 	while (token != NULL)
 	{
 		if (!is_operator_type(token))
-			remove_quotes(token);
+			remove_quotes_in_token(token);
 		token = token->next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/13 12:11:54 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/14 15:19:05 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,11 @@ typedef struct s_cmd_tab
 	int		size;
 }	t_cmd_tab;
 
+// array_utils.c
+int		ft_len_of_arr(char **arr);
+char	*ft_arr_to_str(char **arr_of_strs);
+void	free_array(char **arr_of_str);
+
 // cmd_path_and_execve_cmd.c
 void	expand_token_cmd_path(t_token *ptr_token);
 void	make_cmd_paths(t_cmd_tab *cmd_tab);
@@ -124,8 +129,11 @@ void	ft_delete_cmd(t_cmd *cmd_table);
 void	ft_move_token(t_cmd *cmd, t_token *ptr_token);
 
 // cmd_struct_remove_quotes.c
-void	remove_quotes(t_token *ptr_node);
-void	remove_quotes_from_cmd(t_cmd *ptr_cmd_tab);
+char	**remove_quotes_encaptulates_words(char **arr_of_str);
+char	*get_substr_from_word(char const *str, size_t *i);
+char	**parse_token_text(char *text);
+void	remove_quotes_in_token(t_token *ptr_node);
+void	remove_quotes_in_cmd_tokens(t_cmd *ptr_cmd_tab);
 
 // cmd_tab_struct_ops.c
 void	ft_init_cmd_tab(t_cmd_tab *cmd_tab);
@@ -146,7 +154,6 @@ void	ft_exec_commands(char ***cmds);
 
 // exit_free.c
 void	check_exit(char *line);
-void	free_array(char **arr_of_str);
 
 // expander_var.c
 char	*end_of_var(char *str);
