@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:44:37 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/14 15:17:37 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/14 15:31:47 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,19 +64,24 @@ char	*get_substr_from_word(char const *str, size_t *i)
 char	**parse_token_text(char *text)
 {
 	char	**arr_of_strs;
+	char	*temp_str;
 	size_t	i;
 	size_t	j;
-	size_t	size;
+	int		size;
 
-	size = 200; // count size correctly
-	arr_of_strs = (char **) malloc(sizeof(char *) * size);
+	size = 0;
+	i = 0;
+	while (text[i])
+	{
+		temp_str = get_substr_from_word(&text[i], &i);
+		free(temp_str);
+		size++;
+	}
+	arr_of_strs = (char **) malloc(sizeof(char *) * (size + 1));
 	i = 0;
 	j = 0;
 	while (text[i])
-	{
-		arr_of_strs[j] = get_substr_from_word(&text[i], &i);
-		j++;
-	}
+		arr_of_strs[j++] = get_substr_from_word(&text[i], &i);
 	arr_of_strs[j] = NULL;
 	return (arr_of_strs);
 }
