@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:36:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/13 21:08:32 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/14 12:33:17 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,15 +39,16 @@ int	main(void)
 	ft_init_cmd_table(&tab);
 
 // Third command
-	char *exe_cmd3[] = {"echo", "lorem ipsum command\n"};
+	char *exe_cmd3[] = {"echo", "lorem ipsum command"};
 	ft_append_token_to_cmd_v2(&cmd3, "echo", CMD_BUILT);
 	ft_append_token_to_cmd_v2(&cmd3, "lorem ipsum command", ARG);
+	//ft_append_token_to_cmd_v2(&cmd3, "-n", ARG);
 	cmd3.execve_cmd = exe_cmd3;
 
 // First command
 	char *exec_cmd1[] = {"/bin/cat", NULL};
-	ft_append_token_to_cmd_v2(&cmd1, "<", R_IN);
-	ft_append_token_to_cmd_v2(&cmd1, "infile.txt", R_INFILE);
+	// ft_append_token_to_cmd_v2(&cmd1, "<", R_IN);
+	// ft_append_token_to_cmd_v2(&cmd1, "infile.txt", R_INFILE);
 	ft_append_token_to_cmd_v2(&cmd1, "cat", CMD);
 	cmd1.execve_cmd = exec_cmd1;
 
@@ -61,7 +62,7 @@ int	main(void)
 
 
 // Add comands to the table
-	//ft_append_cmd_to_tab(&tab, &cmd3);
+	ft_append_cmd_to_tab(&tab, &cmd3);
 	ft_append_cmd_to_tab(&tab, &cmd1);
 	ft_append_cmd_to_tab(&tab, &cmd2);
 
@@ -115,11 +116,11 @@ if(signal(SIGINT, ft_ctrl_c_sig) == SIG_ERR)
 
 // Ctrl + \ testing
 if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
-	ft_putstr_fd("Cannot printg sigquit", 1);
+	ft_putstr_fd("Cannot print sigquit", 1);
 
 // Execute the commands from the table
-	pause();
+	//pause();
 	ft_exec_input(&tab);
-	ft_printf("After signal action - tests if the process is not really interputed.\n");
+	//ft_printf("After signal action - tests if the process is not really interputed.\n");
 	return (0);
 }

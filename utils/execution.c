@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/13 21:08:17 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/14 12:29:42 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -158,7 +158,8 @@ void	ft_exec_commands(t_command *cmd)
 		if (token->type == CMD)
 			ft_execve(cmd);
 		else if (token->type == CMD_BUILT)
-			ft_exec_built_cmds(cmd);
+			ft_echo(cmd);
+			//ft_exec_built_cmds(cmd);
 		else if (token->type == CMD_ERR)
 			ft_cmd_not_found(cmd);
 		token = token->next;
@@ -219,5 +220,5 @@ void	ft_exec_input(t_cmd_tab *tab)
 			ft_parent_process(&data);
 		cmd = cmd->next_cmd;
 	}
-	ft_exit_status(&data.exit_status);
+	//ft_exit_status(&data.exit_status);
 }

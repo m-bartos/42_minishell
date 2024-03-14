@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/13 11:37:50 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/14 12:26:07 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,13 @@ void	ft_append_token_to_cmd(t_command *cmd, t_token *token);
 void	ft_append_token_to_cmd_v2(t_command *cmd, char *text, t_type type);
 t_token	*ft_create_token(char *text, t_type type);
 
-// Signal
+// Signals
 void	ft_ctrl_c_sig(int signal);
 void	ft_ctrl_slash_sig (int signal);
+
+// Built in cmds;
+// echo
+void	ft_echo(t_command *cmd);
+int		ft_is_option(t_command *cmd);
+char	*ft_get_echo_input(t_command *cmd);
 #endif
