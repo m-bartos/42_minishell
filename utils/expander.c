@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:33:30 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/15 07:51:10 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 13:17:23 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,18 @@
  * @param expanded_var The value of the variable to be replaced.
  * @return A new string with the replaced variable, or NULL if mallocat fails.
  */
-char	*malloc_new_expanded_str(char *str, size_t i, char *str_expanded_variable)
+char	*init_new_expanded_str(char *str, size_t i, char *str_expanded_var)
 {
 	size_t	size;
 	char	*str_out;
 
 	size = &str[i] - str;
-	size = size + ft_strlen(str_expanded_variable);
+	size = size + ft_strlen(str_expanded_var);
 	size = size + ft_strchr(str, '\0') - end_of_var(&str[i + 1]);
 	str_out = (char *) malloc(sizeof(char) * (size + 1));
 	if (!str_out)
 		return (NULL);
+	str_out[size] = '\0';
 	return (str_out);
 }
 
@@ -60,7 +61,7 @@ char	*get_str_with_one_expanded_var(char *str, size_t *i)
 
 	old_i = *i;
 	expanded_var = get_expanded_var(str, i);
-	str_out = malloc_new_expanded_str(str, old_i, expanded_var);
+	str_out = init_new_expanded_str(str, old_i, expanded_var);
 	if (!str_out)
 		return (NULL);
 	index = 0;
@@ -76,7 +77,6 @@ char	*get_str_with_one_expanded_var(char *str, size_t *i)
 	j = 0;
 	while (str_rest[j] != '\0')
 		str_out[index++] = str_rest[j++];
-	str_out[index] = '\0';
 	return (str_out);
 }
 
