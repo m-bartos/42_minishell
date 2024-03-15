@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 14:47:13 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/15 08:40:30 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 12:55:30 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,27 +27,18 @@
  * @return A new string containing the redirection symbol(s),
  *         or NULL if memory allocation fails.
  */
-char	*handle_redirections(char *str, size_t *index, char redir_type)
+char	*handle_redirections(char *str, size_t *index)
 {
-	size_t	size_to_malloc;
-	size_t	j;
+	size_t	size;
+	// size_t	j;
 	char	*str_out;
 
-	if (str[1] == redir_type)
-		size_to_malloc = 2;
+	if (str[1] == str[0])
+		size = 2;
 	else
-		size_to_malloc = 1;
-	str_out = (char *) malloc(sizeof(char) * (size_to_malloc + 1));
-	if (!str_out)
-		return (NULL);
-	j = 0;
-	while (j < size_to_malloc)
-	{
-		str_out[j] = str[j];
-		j++;
-	}
-	str_out[j] = '\0';
-	*index = *index + size_to_malloc;
+		size = 1;
+	str_out = ft_substr(str, 0, size);
+	*index = *index + size;
 	return (str_out);
 }
 

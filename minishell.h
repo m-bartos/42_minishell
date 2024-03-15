@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/15 12:42:29 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 12:52:49 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -191,7 +191,7 @@ void	parse_from_arr_of_tokens_to_one_cmd(t_cmd *cmd, char **arr_of_tokens);
 void	parser(t_cmd_tab *cmd_tab, t_cmd *cmd, char **arr_of_tokens);
 
 // splitter_handlers.c
-char	*handle_redirections(char *str, size_t *index, char redir_type);
+char	*handle_redirections(char *str, size_t *index);
 char	*handle_pipe(char *str, size_t *index);
 size_t	count_word_length(char *str);
 char	*handle_word(char *str, size_t *index);

@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:24:52 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/15 12:00:08 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 12:54:22 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	count_tokens(char *line)
 	while (line[i])
 	{
 		if (line[i] == '<' || line[i] == '>')
-			out_str = handle_redirections(&line[i], &i, line[i]);
+			out_str = handle_redirections(&line[i], &i);
 		else if (line[i] == '|')
 			out_str = handle_pipe(&line[i], &i);
 		else if (is_whitespace(line[i]))
@@ -116,7 +116,7 @@ char	**splitter(char *line)
 	while (line[i])
 	{
 		if (line[i] == '<' || line[i] == '>')
-			array_of_tokens[j++] = handle_redirections(&line[i], &i, line[i]);
+			array_of_tokens[j++] = handle_redirections(&line[i], &i);
 		else if (line[i] == '|')
 			array_of_tokens[j++] = handle_pipe(&line[i], &i);
 		else if (is_whitespace(line[i]))
