@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 10:17:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/15 12:42:10 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 12:44:08 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*get_heredoc_file(char *eof, int index)
 
 	line = NULL;
 	str_index = ft_itoa(index);
-	filename = ft_strjoin(".heredoc_cmd_", str_index);
+	filename = ft_strjoin(".hd_X[Aj0J-]};!@A_cmd_", str_index);
 	free(str_index);
 	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	while (1)
