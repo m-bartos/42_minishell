@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 14:47:13 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/13 10:23:07 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 08:40:30 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ size_t	count_word_length(char *str)
 			inside_quotes = 0;
 		else if (inside_quotes == 0 && is_whitespace(str[size]))
 			break ;
+		else if (inside_quotes == 0 && is_operator(str[size]))
+			break ;
 		size++;
 	}
 	return(size);
@@ -102,21 +104,11 @@ size_t	count_word_length(char *str)
 
 char	*handle_word(char *str, size_t *index)
 {
-	size_t	j;
 	char	*str_out;
 	size_t	size;
 
 	size = count_word_length(str);
-	str_out = (char *) malloc(sizeof(char) * (size + 1));
-	if (!str_out)
-		return (NULL);
-	j = 0;
-	while (j < size)
-	{
-		str_out[j] = str[j];
-		j++;
-	}
-	str_out[j] = '\0';
+	str_out = ft_substr(str, 0, size);
 	*index = *index + size;
 	return (str_out);
 }
