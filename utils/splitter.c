@@ -6,28 +6,11 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:24:52 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/15 13:05:21 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 13:10:03 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-/* --------- SPLITTER LOGIC --------- */
-/*
-<, >, <<, >>, |, space/tab, and quotes ('', "") are being searched for:
-
-* When "<" is found, what comes next is examined. If there is another "<",
-  "<<" is taken; if not, only "<" is taken.
-* The same procedure is followed for ">" and ">>".
-* When | is found, it is taken only once.
-* Upon encountering a space/tab, it is skipped, and the index is incremented.
-* Upon finding ", the next string is immediately captured, starting 
-  from the character following ", and continues until another " is encountered
-  (ensuring the correct number of "" and '' has been verified prior).
-* The same process applies when ' is encountered.
-* When whitespace is encoutered, continue to the next character.
-* If none of above is encoutered, save the token until whitespace is found.
-*/
 
 /**
  * Counts the number of tokens in a given line.
