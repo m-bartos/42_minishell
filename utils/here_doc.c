@@ -6,11 +6,31 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 10:17:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/12 12:57:33 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 09:08:48 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+char	*expand_all_vars_in_heredoc_line(char *str)
+{
+	char	*str_old;
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '$')
+		{
+			str_old = str;
+			str = get_str_with_one_expanded_var(str, &i);
+			free(str_old);
+		}
+		else
+			i++;
+	}
+	return (str);
+}
 
 char	*get_heredoc_file(char *eof, int index)
 {
@@ -36,7 +56,7 @@ char	*get_heredoc_file(char *eof, int index)
 		old_line = line;
 		line = ft_strjoin(line, "\n");
 		free(old_line);
-		line = expand_all_vars_in_str(line);
+		line = expand_all_vars_in_heredoc_line(line);
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
