@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:24:52 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/13 10:20:25 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 08:39:44 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,6 @@ int	count_tokens(char *line)
 			out_str = handle_redirections(&line[i], &i, line[i]);
 		else if (line[i] == '|')
 			out_str = handle_pipe(&line[i], &i);
-		else if (line[i] == '\'' || line[i] == '\"')
-			out_str = handle_word(&line[i], &i);
 		else if (is_whitespace(line[i]))
 		{
 			i++;
