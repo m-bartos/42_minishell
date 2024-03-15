@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 10:17:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/15 12:44:08 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 13:14:01 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,4 @@ void	expand_heredocs(t_cmd *cmd)
 		token = token->next;
 		index++;
 	}
-	// how to unlink the files? When, where?
 }
