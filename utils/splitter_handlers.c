@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 14:47:13 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/15 12:58:01 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 12:59:09 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
  * 
  * @param str The original string.
  * @param index A pointer to the index variable.
- * @param redir_type The type of redirection symbol.
  * @return A new string containing the redirection symbol(s),
  *         or NULL if memory allocation fails.
  */
