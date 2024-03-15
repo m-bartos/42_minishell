@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 22:46:28 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/12 12:42:47 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 08:43:33 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,23 @@ void	ft_init_cmd_struct(t_cmd *cmd)
 	cmd->first_token = NULL;
 	cmd->last_token = NULL;
 	cmd->size = 0;
+}
+
+void	ft_cmdjoin(t_cmd *cmd, t_cmd *cmd_add)
+{
+	t_token	*token;
+	char	*text;
+	t_type	type;
+
+	token = cmd_add->first_token;
+	while(token)
+	{
+		text = ft_strdup(token->text);
+		type = token->type;
+		ft_push_rotate_token(cmd, text, type);
+		token = token->next;
+	}
+	ft_delete_cmd(cmd_add);
 }
 
 // rotates token from top to bottom and promotes the second to be first

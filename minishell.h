@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/15 08:11:32 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 08:43:47 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ void	fill_cmd_tab(t_cmd *ptr_cmd_tab, char **arr_of_tokens);
 
 // cmd_struct_ops
 void	ft_init_cmd_struct(t_cmd *cmd_table);
+void	ft_cmdjoin(t_cmd *cmd, t_cmd *cmd_add);
 void	ft_rotate_token(t_cmd *cmd_table);
 void	ft_push_token(t_cmd *cmd, char *token_text, t_type token_type);
 void	ft_push_rotate_token(t_cmd *cmd, char *token_text, t_type token_type);
