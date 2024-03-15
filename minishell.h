@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/14 16:35:00 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/15 20:26:45 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,11 +115,18 @@ void	ft_ctrl_c_sig(int signal);
 void	ft_ctrl_slash_sig (int signal);
 
 // Built in cmds;
+// utils
+char	*ft_find_arg(t_command *cmd);
 // echo
 void	ft_echo(t_command *cmd);
 int		ft_is_option(t_command *cmd);
 char	*ft_get_echo_input(t_command *cmd);
-
 // exit
 void	ft_exit(t_command *cmd);
+// cd
+void	ft_cd(t_command *cmd);
+void	ft_cd_no_exit(t_command *cmd);
+// pwd
+void	ft_pwd(void);
+void	ft_pwd_no_exit(void);
 #endif

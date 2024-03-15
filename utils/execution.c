@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/14 21:20:00 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/15 20:37:50 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,19 @@ void	ft_execve(t_command *cmd)
 	}
 }
 
+void ft_select_built_cmd(t_command *cmd)
+{
+	if (ft_strncmp(cmd->execve_cmd[0], "echo", 5) == 0)
+		ft_echo(cmd);
+	else if (ft_strncmp(cmd->execve_cmd[0], "pwd", 4) == 0)
+		ft_pwd();
+	else if (ft_strncmp(cmd->execve_cmd[0], "cd", 3) == 0)
+		ft_cd(cmd);
+	else if (ft_strncmp(cmd->execve_cmd[0], "exit", 5) == 0)
+		ft_exit(cmd);
+	//ft_printf("builtin func");
+}
+
 void	ft_exec_commands(t_command *cmd)
 {
 	t_token	*token;
@@ -158,7 +171,9 @@ void	ft_exec_commands(t_command *cmd)
 		if (token->type == CMD)
 			ft_execve(cmd);
 		else if (token->type == CMD_BUILT)
-			ft_echo(cmd);
+			ft_select_built_cmd(cmd);
+			//ft_pwd();
+			// ft_echo(cmd);
 			//ft_exec_built_cmds(cmd);
 		else if (token->type == CMD_ERR)
 			ft_cmd_not_found(cmd);
