@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:20:49 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/15 08:44:40 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 13:11:20 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	parser(t_cmd_tab *cmd_tab, t_cmd *cmd, char **arr_of_tokens)
 {
 	parse_from_arr_of_tokens_to_one_cmd(cmd, arr_of_tokens);
 	handle_if_last_token_is_pipe(cmd);
-	make_cmd_tab(cmd_tab, cmd);
+	make_cmd_tab_from_cmd(cmd_tab, cmd);
 	ft_delete_cmd(cmd);
 	make_cmd_paths(cmd_tab);
 	make_execve_cmds(cmd_tab);

@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/15 13:04:15 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 13:11:20 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,7 +146,7 @@ void	ft_push_rotate_cmd(t_cmd_tab *cmd_tab);
 void	ft_delete_cmds_in_cmd_tab(t_cmd_tab *cmd_tab);
 
 // cmd_tab_make.c
-void	make_cmd_tab(t_cmd_tab *cmd_tab, t_cmd *parsed_line);
+void	make_cmd_tab_from_cmd(t_cmd_tab *cmd_tab, t_cmd *parsed_line);
 
 // error_check.c
 int		is_unclosed_quotes (char *str);
