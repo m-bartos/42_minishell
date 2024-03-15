@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 10:26:48 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/12 21:17:43 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 13:06:58 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	count_cmd_length(t_cmd *cmd)
 	{
 		if (token->type == CMD || token->type == ARG)
 			length++;
-		else if (token->type == CMD_ERR)
+		else if (token->type == CMD_ERR || token->type == CMD_BUILT)
 			return (-1);
 		token = token->next;
 	}
