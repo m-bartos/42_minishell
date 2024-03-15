@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:36:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/14 12:33:17 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/15 04:11:06 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,16 +111,16 @@ int	main(void)
 // Signal testing
 
 // Ctrl + c testing
-if(signal(SIGINT, ft_ctrl_c_sig) == SIG_ERR)
-	printf("Cannot print sigint\n");
+	if(signal(SIGINT, ft_ctrl_c_sig) == SIG_ERR)
+		printf("Cannot print sigint\n");
 
-// Ctrl + \ testing
-if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
-	ft_putstr_fd("Cannot print sigquit", 1);
+	// Ctrl + \ testing
+	if (signal(SIGQUIT, SIG_IGN) == SIG_ERR)
+		ft_putstr_fd("Cannot print sigquit", 1);
 
 // Execute the commands from the table
-	//pause();
+	pause();
 	ft_exec_input(&tab);
-	//ft_printf("After signal action - tests if the process is not really interputed.\n");
+	ft_printf("After signal action - tests if the process is not really interupted.\n");
 	return (0);
 }

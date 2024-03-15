@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/14 12:49:40 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/14 16:35:00 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,5 +121,5 @@ int		ft_is_option(t_command *cmd);
 char	*ft_get_echo_input(t_command *cmd);
 
 // exit
-void	ft_exit(t_command *cmd, t_cmd_tab *tab);
+void	ft_exit(t_command *cmd);
 #endif
