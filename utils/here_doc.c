@@ -6,11 +6,31 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 10:17:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/15 09:08:48 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 12:42:10 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	unlink_heredoc_files(t_cmd_tab *cmd_tab)
+{
+	t_cmd 	*cmd;
+	t_token	*token;
+	
+	cmd = cmd_tab->first_cmd;
+	while (cmd)
+	{
+		token = cmd->first_token;
+		while (token)
+		{
+			if (token->type == R_INFILE 
+			&& ft_strncmp(token->text, ".hd_X[Aj0J-]};!@A_cmd_", 22) == 0)
+				unlink(token->text);
+			token = token->next;
+		}
+		cmd = cmd->next;
+	}
+}
 
 char	*expand_all_vars_in_heredoc_line(char *str)
 {
