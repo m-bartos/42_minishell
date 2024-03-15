@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/14 15:35:46 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 12:42:53 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	main (void)
 		free(line);
 		parser(&cmd_tab, &parsed_line, arr_of_tokens);
 		print_cmd_tab(&cmd_tab); // just to show cmd_tab
+		unlink_heredoc_files(&cmd_tab);
 		ft_delete_cmds_in_cmd_tab(&cmd_tab);
 	}
 	return (0);
