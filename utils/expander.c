@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:33:30 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/13 12:00:20 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 07:51:10 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ char	*malloc_new_expanded_str(char *str, size_t i, char *str_expanded_variable)
 	char	*str_out;
 
 	size = &str[i] - str;
-	if (str_expanded_variable != NULL)
-		size = size + ft_strlen(str_expanded_variable);
+	size = size + ft_strlen(str_expanded_variable);
 	size = size + ft_strchr(str, '\0') - end_of_var(&str[i + 1]);
 	str_out = (char *) malloc(sizeof(char) * (size + 1));
 	if (!str_out)
@@ -50,18 +49,22 @@ char	*malloc_new_expanded_str(char *str, size_t i, char *str_expanded_variable)
  * @return A new string with the variable replaced, or NULL if memory allocation
  *         fails.
  */
-char	*get_str_with_one_expanded_var(char *str, size_t i, char *expanded_var)
+char	*get_str_with_one_expanded_var(char *str, size_t *i)
 {
 	size_t	index;
+	size_t	old_i;
 	size_t	j;
 	char	*str_out;
 	char	*str_rest;
+	char	*expanded_var;
 
-	str_out = malloc_new_expanded_str(str, i, expanded_var);
+	old_i = *i;
+	expanded_var = get_expanded_var(str, i);
+	str_out = malloc_new_expanded_str(str, old_i, expanded_var);
 	if (!str_out)
 		return (NULL);
 	index = 0;
-	while (index < i)
+	while (index < old_i)
 	{
 		str_out[index] = str[index];
 		index++;
@@ -69,7 +72,7 @@ char	*get_str_with_one_expanded_var(char *str, size_t i, char *expanded_var)
 	j = 0;
 	while (expanded_var != NULL && expanded_var[j] != '\0')
 		str_out[index++] = expanded_var[j++];
-	str_rest = end_of_var(&str[i + 1]);
+	str_rest = end_of_var(&str[old_i + 1]);
 	j = 0;
 	while (str_rest[j] != '\0')
 		str_out[index++] = str_rest[j++];
@@ -120,7 +123,7 @@ t_in_quotes	in_which_quotes(char *str, size_t i)
  */
 char	*expand_all_vars_in_str(char *str)
 {
-	char	*expanded_var;
+	// char	*expanded_var;
 	char	*str_old;
 	size_t	i;
 
@@ -130,11 +133,11 @@ char	*expand_all_vars_in_str(char *str)
 		if (str[i] == '$' && in_which_quotes(str, i) != IN_SINGLE_QUOTES)
 		{
 			str_old = str;
-			expanded_var = get_expanded_var(str, i);
-			str = get_str_with_one_expanded_var(str, i, expanded_var);
+			str = get_str_with_one_expanded_var(str, &i);
 			free(str_old);
 		}
-		i++;
+		else
+			i++;
 	}
 	return (str);
 }
@@ -148,15 +151,15 @@ char	*expand_all_vars_in_str(char *str)
  * @param str The input string to expand variables in.
  * @return The string with all variables expanded.
  */
-void	expand_cmd_tab(t_cmd *ptr_cmd)
+void	expand_cmd(t_cmd *cmd)
 {
-	t_token	*ptr_token;
+	t_token	*token;
 
-	ptr_token = ptr_cmd->first_token;
-	while (ptr_token != NULL)
+	token = cmd->first_token;
+	while (token != NULL)
 	{
-		if (!is_operator_type(ptr_token))
-			ptr_token->text = expand_all_vars_in_str(ptr_token->text);
-		ptr_token = ptr_token->next;
+		if (!is_operator_type(token))
+			token->text = expand_all_vars_in_str(token->text);
+		token = token->next;
 	}
 }
