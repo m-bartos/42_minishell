@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 14:47:13 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/15 12:55:30 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 12:58:01 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 char	*handle_redirections(char *str, size_t *index)
 {
 	size_t	size;
-	// size_t	j;
 	char	*str_out;
 
 	if (str[1] == str[0])
@@ -38,6 +37,8 @@ char	*handle_redirections(char *str, size_t *index)
 	else
 		size = 1;
 	str_out = ft_substr(str, 0, size);
+	if (!str_out)
+		return (NULL);
 	*index = *index + size;
 	return (str_out);
 }
@@ -57,13 +58,13 @@ char	*handle_redirections(char *str, size_t *index)
 char	*handle_pipe(char *str, size_t *index)
 {
 	char	*str_out;
+	size_t	size;
 
-	str_out = (char *) malloc(sizeof(char) * 2);
+	size = 1;
+	str_out = ft_substr(str, 0, size);
 	if (!str_out)
 		return (NULL);
-	str_out[0] = str[0];
-	str_out[1] = '\0';
-	*index = *index + 1;
+	*index = *index + size;
 	return (str_out);
 }
 
