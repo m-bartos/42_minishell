@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:24:52 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/15 08:39:44 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 12:00:08 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void	print_array(char **arr)
 {
 	int	i;
 
+	i = 0;
 	while (arr[i] != NULL)
 	{
 		ft_putstr_fd(arr[i], 1);
