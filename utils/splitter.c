@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:24:52 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/15 13:03:54 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 13:05:21 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,5 @@ char	**splitter(char *line)
 		else
 			array_of_tokens[j++] = handle_word(&line[i], &i);
 	}
-	//print_array(array_of_tokens);
 	return (array_of_tokens);
 }
