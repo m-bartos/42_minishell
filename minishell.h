@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/15 12:52:49 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 13:02:55 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,15 +193,15 @@ void	parser(t_cmd_tab *cmd_tab, t_cmd *cmd, char **arr_of_tokens);
 // splitter_handlers.c
 char	*handle_redirections(char *str, size_t *index);
 char	*handle_pipe(char *str, size_t *index);
-size_t	count_word_length(char *str);
 char	*handle_word(char *str, size_t *index);
 
 // splitter_utils.c
 int		is_whitespace(char c);
 int		is_quote(char c);
 int		is_operator(char c);
-int		is_end_of_word(char c);
-size_t	word_length(char *str);
+size_t	count_word_length(char *str);
+// int		is_end_of_word(char c);
+// size_t	word_length(char *str);
 
 // splitter.c
 int		count_tokens(char *line);
