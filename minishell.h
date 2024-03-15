@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/14 15:19:05 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 08:11:32 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef enum s_in_quotes
 
 typedef enum s_type
 {
+	NOT_ASSIGNED = -1,
 	CMD,
 	CMD_BUILT,
 	CMD_ERR,
@@ -157,15 +158,15 @@ void	check_exit(char *line);
 
 // expander_var.c
 char	*end_of_var(char *str);
-char	*get_variable_name(char	*str, size_t i);
-char	*get_expanded_var(char *str, size_t i);
+char	*get_variable_name(char	*str, size_t *i);
+char	*get_expanded_var(char *str, size_t *i);
 
 // expander.c
 t_in_quotes	in_which_quotes(char *str, size_t i);
 char		*malloc_new_expanded_str(char *str, size_t i, char *str_expanded_variable);
-char		*get_str_with_one_expanded_var(char *str, size_t i, char *expanded_var);
+char		*get_str_with_one_expanded_var(char *str, size_t *i);
 char		*expand_all_vars_in_str(char *str);
-void		expand_cmd_tab(t_cmd *ptr_cmd_tab);
+void		expand_cmd(t_cmd *ptr_cmd_tab);
 
 // get_prompt.c
 char	*get_prompt(void);
