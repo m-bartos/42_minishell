@@ -6,13 +6,13 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 10:22:34 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/12 12:46:44 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 13:21:16 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	make_cmd_tab(t_cmd_tab *cmd_tab, t_cmd *parsed_line)
+void	make_cmd_tab_from_cmd(t_cmd_tab *cmd_tab, t_cmd *parsed_line)
 {
 	t_token	*token;
 	t_token	*temp_token;
