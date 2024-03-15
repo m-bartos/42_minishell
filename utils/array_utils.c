@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 15:17:16 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/14 15:18:39 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 13:04:02 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,4 +53,17 @@ void	free_array(char **arr_of_str)
 		index++;
 	}
 	free(arr_of_str);
+}
+
+void	print_array(char **arr)
+{
+	int	i;
+
+	i = 0;
+	while (arr[i] != NULL)
+	{
+		ft_putstr_fd(arr[i], 1);
+		write(1, "\n", 1);
+		i++;
+	}
 }

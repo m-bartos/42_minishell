@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/15 13:02:55 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 13:04:15 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,7 @@ typedef struct s_cmd_tab
 int		ft_len_of_arr(char **arr);
 char	*ft_arr_to_str(char **arr_of_strs);
 void	free_array(char **arr_of_str);
+void	print_array(char **arr);
 
 // cmd_path_and_execve_cmd.c
 void	expand_token_cmd_path(t_token *ptr_token);

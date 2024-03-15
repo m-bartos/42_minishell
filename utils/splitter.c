@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:24:52 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/15 12:54:22 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/15 13:03:54 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,19 +80,6 @@ char	**init_arr_of_tokens(char *line)
 		return (NULL);
 	array_of_tokens[count] = NULL;
 	return (array_of_tokens);
-}
-
-void	print_array(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i] != NULL)
-	{
-		ft_putstr_fd(arr[i], 1);
-		write(1, "\n", 1);
-		i++;
-	}
 }
 
 /**
