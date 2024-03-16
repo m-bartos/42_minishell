@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:01:44 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/15 20:44:04 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/16 11:41:25 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ void	ft_cd(t_command *cmd)
 			exit(1);
 		}
 	}
-	ft_pwd_no_exit();
 	exit (0);
 }
 

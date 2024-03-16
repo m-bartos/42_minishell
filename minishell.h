@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/15 20:26:45 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/16 12:16:04 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,20 @@ typedef struct s_exec_data
 	int	fd_out;
 	int	pipe_fd[2];
 }		t_exec_data;
+
+// Enviromental vars structures
+// Env node
+typedef struct s_env
+{
+	struct s_env	*next;
+	char			*value;
+}	t_env;
+// Env table
+typedef struct s_env_tab
+{
+	t_env	*top;
+	int		size;
+}	t_env_tab;
 
 // exec functions
 void	ft_exec_input(t_cmd_tab *tab);
