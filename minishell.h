@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/16 19:29:14 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/16 20:46:28 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,6 @@ void	assign_operator_types(t_cmd *ptr_cmd_tab);
 void	assign_cmds_and_args(t_cmd *ptr_cmd_tab);
 void	assign_types_to_tokens(t_cmd *ptr_cmd_tab);
 
-// cmd_struct_errors.c
-void	check_redirection_errors(t_cmd *ptr_cmd);
-
 // cmd_struct_filler_utils.c
 int		is_pipe_type(t_token *ptr_node);
 int		is_redirection_type(t_token *ptr_node);
@@ -150,7 +147,8 @@ void	ft_delete_cmds_in_cmd_tab(t_cmd_tab *cmd_tab);
 void	make_cmd_tab_from_cmd(t_cmd_tab *cmd_tab, t_cmd *parsed_line);
 
 // error_check.c
-int		is_unclosed_quotes (char *str);
+void	check_unclosed_quotes(char *line);
+void	exit_redirection_error(t_cmd *cmd, char *text);
 void	check_unclosed_quotes(char *line);
 
 // exececution.c
