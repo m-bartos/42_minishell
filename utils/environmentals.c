@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:42:36 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/16 18:12:47 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/16 22:08:16 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	ft_remove_env(t_env_list *env_list, char *var_name)
 	}
 	return (1);
 }
-// Removes node based a string
+// Removes entire string represenitng the env variable
 int	ft_remove_str(t_env_list *env_list, char *str)
 {
 	t_env	*node;
