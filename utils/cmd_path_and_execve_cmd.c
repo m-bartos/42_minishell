@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 10:26:48 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/15 13:06:58 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/16 19:41:04 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ void	expand_token_cmd_path(t_token *token)
 		return ;
 	temp_path = getenv("PATH");
 	arr_of_paths = ft_split(temp_path, ':');
+	if (arr_of_paths == NULL)
+		return ;
 	i = 0;
 	while (arr_of_paths[i] != NULL)
 	{
@@ -92,11 +94,10 @@ void	make_one_execve_cmd(t_cmd *cmd)
 
 	length = count_cmd_length(cmd);
 	if (length == -1)
-	{
-		cmd->execve_cmd = NULL;
 		return ;
-	}
-	execve_cmd = (char **) malloc(sizeof(char *) * (length + 1));
+	execve_cmd = ft_init_array(length);
+	if (execve_cmd == NULL)
+		return ;
 	token = cmd->first_token;
 	i = 0;
 	while(i < length)
@@ -105,7 +106,6 @@ void	make_one_execve_cmd(t_cmd *cmd)
 			execve_cmd[i++] = token->text;
 		token = token->next;
 	}
-	execve_cmd[i] = NULL;
 	cmd->execve_cmd = execve_cmd;
 }
 
