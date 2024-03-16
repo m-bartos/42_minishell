@@ -6,25 +6,23 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 10:26:48 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/16 19:41:04 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/16 20:23:48 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	expand_token_cmd_path(t_token *token)
+char	*get_cmd_path(t_token *token)
 {
 	char	*str_path;
 	char	*temp_path;
 	char	**arr_of_paths;
 	int		i;
 
-	if (access(token->text, X_OK) == 0)
-		return ;
 	temp_path = getenv("PATH");
 	arr_of_paths = ft_split(temp_path, ':');
 	if (arr_of_paths == NULL)
-		return ;
+		return (NULL);
 	i = 0;
 	while (arr_of_paths[i] != NULL)
 	{
@@ -34,16 +32,28 @@ void	expand_token_cmd_path(t_token *token)
 		if (access(str_path, X_OK) == 0)
 			break ;
 		free(str_path);
+		str_path = NULL;
 		i++;
 	}
-	if (arr_of_paths[i] == NULL)
+	free_array(arr_of_paths);
+	return (str_path);
+}
+
+void	expand_token_cmd_path(t_token *token)
+{
+
+	char	*cmd_path;
+
+	if (access(token->text, X_OK) == 0)
+		return ;
+	cmd_path = get_cmd_path(token);
+	if (cmd_path == NULL)
 		token->type = CMD_ERR;
 	else
 	{
 		free(token->text);
-		token->text = str_path;
+		token->text = cmd_path;
 	}
-	free_array(arr_of_paths);
 }
 
 void	make_cmd_paths(t_cmd_tab *cmd_tab)
