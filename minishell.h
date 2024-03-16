@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/16 18:57:26 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/16 19:29:14 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct s_cmd_tab
 // array_utils.c
 int		ft_len_of_arr(char **arr);
 char	*ft_arr_to_str(char **arr_of_strs);
+char	**ft_init_array(int size);
 void	free_array(char **arr_of_str);
 void	print_array(char **arr);
 
