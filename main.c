@@ -6,23 +6,16 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:36:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/15 20:45:44 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/16 14:45:53 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*
-	// char *cmd1[] = {"/bin/ls", "-la", NULL};
-	// char *cmd2[] = {"/usr/bin/wc", "-l", NULL};
-	// char **cmds[] = {cmd1, cmd2, NULL};
-*/
-
 void	signal_handler(int signal)
 {
 	ft_printf("\nSignal handled: %d\n", signal);
 }
-
 
 int	main(void)
 {
@@ -83,48 +76,8 @@ int	main(void)
 	// ft_append_cmd_to_tab(&tab, &cmd1);
 	// ft_append_cmd_to_tab(&tab, &cmd2);
 
-
-// Test print various values from the table
-	t_command	*command;
-	t_token		*token;
-	command = tab.first_cmd;
-
-	while (command != NULL)
-	{
-		token = command->first_token;
-		while (token != NULL)
-		{
-			if (token->next != NULL)
-				ft_printf("%s ", token->text);
-			else
-				ft_printf("%s", token->text);
-			token = token->next;
-		}
-		command = command->next_cmd;
-		if (command != NULL)
-			ft_printf(" | ");
-	}
-	// ft_putstr_fd("\n", 1);
-	// command = tab.first_cmd;
-	// while (command != NULL)
-	// {
-	// 	token = command->first_token;
-	// 	while (token != NULL)
-	// 	{
-	// 		if (token->next != NULL)
-	// 			ft_printf("%d ", token->type);
-	// 		else
-	// 			ft_printf("%d", token->type);
-	// 		token = token->next;
-	// 	}
-	// 	command = command->next_cmd;
-	// 	if (command != NULL)
-	// 		ft_printf(" | ");
-	// }
-
-	ft_putstr_fd("\n", 1);
-// End of test
-
+// Printing commands and types
+	ft_print_cmd()
 // Signal testing
 
 // Ctrl + c testing

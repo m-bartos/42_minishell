@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:42:36 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/16 14:36:19 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/16 14:50:05 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,10 @@ void	ft_list_env(t_env_tab *tab)
 	while (env)
 	{
 		if (env->value != NULL)
+		{
 			ft_putstr_fd(env->value, STDOUT);
+			ft_putstr_fd("\n", STDOUT);
+		}
 		env = env->next;
 	}
 }

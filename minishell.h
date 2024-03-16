@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/16 12:16:04 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/16 14:49:07 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,4 +143,17 @@ void	ft_cd_no_exit(t_command *cmd);
 // pwd
 void	ft_pwd(void);
 void	ft_pwd_no_exit(void);
+
+// Environmental functions
+void	ft_init_env_tab(t_env_tab *tab);
+void	ft_init_env(t_env *env);
+void	ft_add_env(t_env_tab *tab, char *env);
+int		ft_remove_env(t_env_tab *tab, char *env);
+void	ft_list_env(t_env_tab *tab);
+void	ft_convert_arr_to_list(t_env_tab *tab, char **envp);
+char	**ft_convert_list_to_arr(t_env_tab *tab);
+
+// Helpers to print cmds
+void	ft_print_cmd(t_cmd_tab *tab);
+void	ft_print_cmd_types(t_cmd_tab *tab);
 #endif
