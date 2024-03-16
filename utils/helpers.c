@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:49:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/12 12:55:22 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/16 19:44:59 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	print_cmd(t_cmd *cmd)
 		printf("}\n");
 		printf("-------------\n");
 	}
+	else
+		printf("Execve cmds: NULL\n");
 	token = cmd->first_token;
 	i = 0;
 	while (token != NULL)
