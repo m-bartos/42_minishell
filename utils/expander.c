@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:33:30 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/15 13:17:23 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/16 18:47:51 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,58 +50,82 @@ char	*init_new_expanded_str(char *str, size_t i, char *str_expanded_var)
  * @return A new string with the variable replaced, or NULL if memory allocation
  *         fails.
  */
+// char	*get_str_with_one_expanded_var(char *str, size_t *i)
+// {
+// 	size_t	index;
+// 	size_t	old_i;
+// 	size_t	j;
+// 	char	*str_out;
+// 	char	*str_rest;
+// 	char	*expanded_var;
+
+// 	old_i = *i;
+// 	expanded_var = get_expanded_var(str, i);
+// 	str_out = init_new_expanded_str(str, old_i, expanded_var);
+// 	if (!str_out)
+// 		return (NULL);
+// 	index = 0;
+// 	while (index < old_i)
+// 	{
+// 		str_out[index] = str[index];
+// 		index++;
+// 	}
+// 	j = 0;
+// 	while (expanded_var != NULL && expanded_var[j] != '\0')
+// 		str_out[index++] = expanded_var[j++];
+// 	str_rest = end_of_var(&str[old_i + 1]);
+// 	j = 0;
+// 	while (str_rest[j] != '\0')
+// 		str_out[index++] = str_rest[j++];
+// 	return (str_out);
+// }
+
 char	*get_str_with_one_expanded_var(char *str, size_t *i)
 {
-	size_t	index;
 	size_t	old_i;
-	size_t	j;
-	char	*str_out;
+	char	*str_begin;
+	char	*str_expanded_var;
 	char	*str_rest;
-	char	*expanded_var;
+	char	*str_out;
 
 	old_i = *i;
-	expanded_var = get_expanded_var(str, i);
-	str_out = init_new_expanded_str(str, old_i, expanded_var);
-	if (!str_out)
+	str_begin = ft_substr(str, 0, *i);
+	str_expanded_var = get_expanded_var(str, i);
+	str_out = ft_strjoin(str_begin, str_expanded_var);
+	if (str_out == NULL)
 		return (NULL);
-	index = 0;
-	while (index < old_i)
-	{
-		str_out[index] = str[index];
-		index++;
-	}
-	j = 0;
-	while (expanded_var != NULL && expanded_var[j] != '\0')
-		str_out[index++] = expanded_var[j++];
+	free(str_begin);
+	str_begin = str_out;
 	str_rest = end_of_var(&str[old_i + 1]);
-	j = 0;
-	while (str_rest[j] != '\0')
-		str_out[index++] = str_rest[j++];
+	str_out = ft_strjoin(str_begin, str_rest);
+	if (str_out == NULL)
+		return (NULL);
+	free(str_begin);
 	return (str_out);
 }
 
-t_in_quotes	in_which_quotes(char *str, size_t i)
+t_in_quotes	in_which_quotes(char *str, size_t index)
 {
 	int		search_single_q;
 	int		search_double_q;
-	size_t	index;
+	size_t	i;
 
 	search_single_q = 1;
 	search_double_q = 1;
 	if (str == NULL)
 		return (STR_ERR);
-	index = 0;
-	while (index < i)
+	i = 0;
+	while (i < index)
 	{
-		if (str[index] == '\"' && search_double_q == 1 && search_single_q == 1)
+		if (str[i] == '\"' && search_double_q == 1 && search_single_q == 1)
 			search_single_q = 0;
-		else if (str[index] == '\'' && search_double_q == 1 && search_single_q == 1)
+		else if (str[i] == '\'' && search_double_q == 1 && search_single_q == 1)
 			search_double_q = 0;
-		else if (str[index] == '\"' && search_double_q == 1 && search_single_q == 0)
+		else if (str[i] == '\"' && search_double_q == 1 && search_single_q == 0)
 			search_single_q = 1;
-		else if (str[index] == '\'' && search_double_q == 0 && search_single_q == 1)
+		else if (str[i] == '\'' && search_double_q == 0 && search_single_q == 1)
 			search_double_q = 1;
-		index++;
+		i++;
 	}
 	if (search_single_q == search_double_q)
 		return (OUT_OF_QUOTES);
