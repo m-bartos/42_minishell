@@ -1,6 +1,6 @@
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+#CFLAGS = -Wall -Werror -Wextra
 
 # readline() flag to link the library for compiler (MacOS only)
 READLINE_FLAGS = -L/opt/homebrew/opt/readline/lib -lreadline

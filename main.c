@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:36:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/16 14:52:41 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/16 17:13:25 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,27 @@ void	signal_handler(int signal)
 	ft_printf("\nSignal handled: %d\n", signal);
 }
 
-int	main(void)
+int	main(int argc, char *argv[], char *envp[])
 {
+
+// ENV Vars
+	t_env_list env_list;
+
+	ft_init_env_list(&env_list);
+	ft_convert_arr_to_list(&env_list, envp);
+
+	ft_printf("Size of ENV list is: %d\n", env_list.size);
+	ft_list_env(&env_list);
+	ft_printf("End -------------------End\n");
+	ft_add_env(&env_list, "?=0");
+	ft_list_env(&env_list);
+	ft_printf("End -------------------End\n");
+	// ft_remove_env(&env_list, "?");
+	// ft_list_env(&env_list);
+	ft_printf("%s\n", ft_get_env(&env_list, "PATH")),
+	//ft_get_env(&env_list, "?");
+	ft_printf("End -------------------End\n");
+
 // Elements declaration
 	t_command	cmd1;
 	t_command	cmd2;
@@ -78,7 +97,7 @@ int	main(void)
 
 // Printing commands and types
 	ft_print_cmd(&tab);
-	ft_print_cmd_types(&tab);
+	//ft_print_cmd_types(&tab);
 // Signal testing
 
 // Ctrl + c testing

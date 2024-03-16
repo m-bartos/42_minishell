@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:42:36 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/16 14:50:05 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/16 17:15:50 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@
 // convert array to list
 
 
-void	ft_init_env_tab(t_env_tab *tab)
+void	ft_init_env_list(t_env_list *env_list)
 {
-	tab->top = NULL;
-	tab->size = 0;
+	env_list->top = NULL;
+	env_list->size = 0;
 }
 
 void	ft_init_env(t_env *env)
@@ -37,10 +37,11 @@ void	ft_init_env(t_env *env)
 	env->value = NULL;
 }
 
-void	ft_add_env(t_env_tab *tab, char *env)
+void	ft_add_env(t_env_list *env_list, char *env)
 {
 	t_env	*node;
 
+	ft_remove_env(env_list, env);
 	node = malloc(sizeof(t_env));
 	if (!node)
 	{
@@ -49,26 +50,26 @@ void	ft_add_env(t_env_tab *tab, char *env)
 	}
 	ft_init_env(node);
 	node->value = ft_strdup(env);
-	node->next = tab->top;
-	tab->top = node;
-	tab->size++;
+	node->next = env_list->top;
+	env_list->top = node;
+	env_list->size++;
 }
 
 // Remove only value from node and set the val to NULL
-int	ft_remove_env(t_env_tab *tab, char *env)
+int	ft_remove_env(t_env_list *env_list, char *var_name)
 {
 	t_env	*node;
 
-	node = tab->top;
+	node = env_list->top;
 	while (node)
 	{
 		if (node->value != NULL)
 		{
-			if (ft_strncmp(node->value, env, ft_strlen(env) + 1) == 0)
+			if (ft_strncmp(node->value, var_name, ft_strlen(var_name)) == 0 && *(node->value + (ft_strlen(var_name))) == '=')
 			{
 				free(node->value);
 				node->value = NULL;
-				tab->size--;
+				env_list->size--;
 				return (0);
 			}
 		}
@@ -77,10 +78,38 @@ int	ft_remove_env(t_env_tab *tab, char *env)
 	return (1);
 }
 
-void	ft_list_env(t_env_tab *tab)
+// Mimics getenv() to get a value represented by var name
+// Malloc = free the returned pointer!
+char	*ft_get_env(t_env_list *env_list, char *var_name)
 {
 	t_env	*env;
-	env = tab->top;
+	char	*env_value;
+
+	env = env_list->top;
+	while (env)
+	{
+		if (env->value != NULL)
+		{
+			if (ft_strncmp(env->value, var_name, ft_strlen(var_name)) == 0 && *(env->value + (ft_strlen(var_name))) == '=')
+			{
+				env_value = env->value;
+				while(*env_value != '=')
+					env_value++;
+				env_value++;
+				env_value = ft_strdup(env_value);
+				return (env_value);
+			}
+		}
+		env = env->next;
+	}
+	return (NULL);
+}
+
+// mimics the env command without option or arguments
+void	ft_list_env(t_env_list *env_list)
+{
+	t_env	*env;
+	env = env_list->top;
 	while (env)
 	{
 		if (env->value != NULL)
@@ -93,14 +122,14 @@ void	ft_list_env(t_env_tab *tab)
 }
 
 // Adds strings from envp array passed by main function
-void	ft_convert_arr_to_list(t_env_tab *tab, char **envp)
+void	ft_convert_arr_to_list(t_env_list *env_list, char **envp)
 {
 	while (*envp)
-		ft_add_env(tab, *envp++);
+		ft_add_env(env_list, *envp++);
 		envp++;
 }
 
-char **ft_convert_list_to_arr(t_env_tab *tab)
+char **ft_convert_list_to_arr(t_env_list *tab)
 {
 	int		i;
 	char	**envp;

@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/16 14:49:07 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/16 17:13:25 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,14 +92,14 @@ typedef struct s_env
 	char			*value;
 }	t_env;
 // Env table
-typedef struct s_env_tab
+typedef struct s_env_list
 {
 	t_env	*top;
 	int		size;
-}	t_env_tab;
+}	t_env_list;
 
 // exec functions
-void	ft_exec_input(t_cmd_tab *tab);
+void	ft_exec_input(t_cmd_tab *cmd_tab);
 
 // I/O functions
 int		ft_input_file(char *file_name);
@@ -145,15 +145,16 @@ void	ft_pwd(void);
 void	ft_pwd_no_exit(void);
 
 // Environmental functions
-void	ft_init_env_tab(t_env_tab *tab);
+void	ft_init_env_list(t_env_list *env_list);
 void	ft_init_env(t_env *env);
-void	ft_add_env(t_env_tab *tab, char *env);
-int		ft_remove_env(t_env_tab *tab, char *env);
-void	ft_list_env(t_env_tab *tab);
-void	ft_convert_arr_to_list(t_env_tab *tab, char **envp);
-char	**ft_convert_list_to_arr(t_env_tab *tab);
+void	ft_add_env(t_env_list *env_list, char *env);
+int		ft_remove_env(t_env_list *env_list, char *var_name);
+void	ft_list_env(t_env_list *env_list);
+void	ft_convert_arr_to_list(t_env_list *env_list, char **envp);
+char	**ft_convert_list_to_arr(t_env_list *env_list);
+char	*ft_get_env(t_env_list *env_list, char *var_name);
 
 // Helpers to print cmds
-void	ft_print_cmd(t_cmd_tab *tab);
-void	ft_print_cmd_types(t_cmd_tab *tab);
+void	ft_print_cmd(t_cmd_tab *cmd_tab);
+void	ft_print_cmd_types(t_cmd_tab *cmd_tab);
 #endif
