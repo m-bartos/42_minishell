@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:41:18 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/16 19:07:20 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/16 19:08:37 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ char	*get_variable_name(char	*str, size_t *i)
  */
 char	*get_expanded_var(char *str, size_t *i)
 {
-	char	*str_variable;
-	char	*str_extended_variable;
+	char	*str_var_name;
+	char	*str_expanded_var;
 
-	str_variable = get_variable_name(str, i);
-	str_extended_variable = getenv(str_variable);
-	*i = *i + ft_strlen(str_extended_variable);
-	free(str_variable);
-	return (str_extended_variable);
+	str_var_name = get_variable_name(str, i);
+	str_expanded_var = getenv(str_var_name);
+	*i = *i + ft_strlen(str_expanded_var);
+	free(str_var_name);
+	return (str_expanded_var);
 }
