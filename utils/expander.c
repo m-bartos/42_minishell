@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:33:30 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/16 18:47:51 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/16 18:49:54 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,20 @@
  * @param expanded_var The value of the variable to be replaced.
  * @return A new string with the replaced variable, or NULL if mallocat fails.
  */
-char	*init_new_expanded_str(char *str, size_t i, char *str_expanded_var)
-{
-	size_t	size;
-	char	*str_out;
+// char	*init_new_expanded_str(char *str, size_t i, char *str_expanded_var)
+// {
+// 	size_t	size;
+// 	char	*str_out;
 
-	size = &str[i] - str;
-	size = size + ft_strlen(str_expanded_var);
-	size = size + ft_strchr(str, '\0') - end_of_var(&str[i + 1]);
-	str_out = (char *) malloc(sizeof(char) * (size + 1));
-	if (!str_out)
-		return (NULL);
-	str_out[size] = '\0';
-	return (str_out);
-}
+// 	size = &str[i] - str;
+// 	size = size + ft_strlen(str_expanded_var);
+// 	size = size + ft_strchr(str, '\0') - end_of_var(&str[i + 1]);
+// 	str_out = (char *) malloc(sizeof(char) * (size + 1));
+// 	if (!str_out)
+// 		return (NULL);
+// 	str_out[size] = '\0';
+// 	return (str_out);
+// }
 
 /**
  * @brief Expands a string by replacing a single variable with its value.
@@ -147,7 +147,6 @@ t_in_quotes	in_which_quotes(char *str, size_t index)
  */
 char	*expand_all_vars_in_str(char *str)
 {
-	// char	*expanded_var;
 	char	*str_old;
 	size_t	i;
 
