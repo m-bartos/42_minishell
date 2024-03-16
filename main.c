@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:36:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/16 17:13:25 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/16 18:05:16 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	main(int argc, char *argv[], char *envp[])
 
 // ENV Vars
 	t_env_list env_list;
+	char	**env_arr;
 
 	ft_init_env_list(&env_list);
 	ft_convert_arr_to_list(&env_list, envp);
@@ -30,13 +31,32 @@ int	main(int argc, char *argv[], char *envp[])
 	ft_list_env(&env_list);
 	ft_printf("End -------------------End\n");
 	ft_add_env(&env_list, "?=0");
+	ft_add_env(&env_list, "?=0");
+	ft_add_env(&env_list, "?=0");
+	ft_add_env(&env_list, "?=0");
+	ft_add_env(&env_list, "?=0");
 	ft_list_env(&env_list);
 	ft_printf("End -------------------End\n");
-	// ft_remove_env(&env_list, "?");
-	// ft_list_env(&env_list);
+	//ft_remove_env(&env_list, "?");
+	ft_add_env(&env_list, "?=0");
+	ft_list_env(&env_list);
+	ft_printf("End -------------------End\n");
 	ft_printf("%s\n", ft_get_env(&env_list, "PATH")),
 	//ft_get_env(&env_list, "?");
 	ft_printf("End -------------------End\n");
+	//ft_remove_env(&env_list, "?");
+	//ft_remove_env(&env_list, "?");
+	ft_list_env(&env_list);
+	ft_printf("Size of ENV list is: %d\n", env_list.size);
+	env_arr = ft_convert_list_to_arr(&env_list);
+	ft_printf("End -------------------End\n");
+	while(*env_arr != NULL)
+	{
+		ft_printf("%s\n", *env_arr);
+		env_arr++;
+	}
+	ft_printf("End -------------------End\n");
+
 
 // Elements declaration
 	t_command	cmd1;
