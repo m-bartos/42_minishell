@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:36:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/16 14:45:53 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/16 14:52:41 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ int	main(void)
 	// ft_append_cmd_to_tab(&tab, &cmd2);
 
 // Printing commands and types
-	ft_print_cmd()
+	ft_print_cmd(&tab);
+	ft_print_cmd_types(&tab);
 // Signal testing
 
 // Ctrl + c testing
