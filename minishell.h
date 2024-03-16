@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/15 13:15:45 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/16 18:57:26 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 
 typedef enum s_in_quotes
 {
-	STR_ERR,
+	STR_ERR = -1,
 	OUT_OF_QUOTES,
 	IN_DOUBLE_QUOTES,
 	IN_SINGLE_QUOTES
