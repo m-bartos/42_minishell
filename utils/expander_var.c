@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:41:18 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/15 07:44:53 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/16 19:07:20 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,22 +49,14 @@ char	*end_of_var(char *str)
 char	*get_variable_name(char	*str, size_t *i)
 {
 	size_t	size;
-	size_t	index;
-	char	*str_variable;
+	char	*str_start_var;
 	char	*str_out;
 
-	str_variable = &str[*i + 1];
-	size = end_of_var(str_variable) - str_variable;
-	str_out = (char *) malloc(sizeof(char) * (size + 1));
-	if (!str_out)
+	str_start_var = &str[*i + 1];
+	size = end_of_var(str_start_var) - str_start_var;
+	str_out = ft_substr(str_start_var, 0, size);
+	if (str_out == NULL)
 		return (NULL);
-	index = 0;
-	while (index < size)
-	{
-		str_out[index] = str_variable[index];
-		index++;
-	}
-	str_out[index] = '\0';
 	*i = *i - size;
 	return (str_out);
 }
