@@ -1,43 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   environmentals.c                                   :+:      :+:    :+:   */
+/*   env_var_ops.c.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:42:36 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/16 22:08:16 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/16 22:45:35 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// init
+/**
+ * @brief Removes an environment variable by name.
+ *
+ * Searches and nullifies the value of a variable by name. The node remains.
+ *
+ * @param env_list Pointer to the environment list.
+ * @param var_name Name of the variable to remove.
+ * @return 0 if found and nullified, 1 otherwise.
+ */
 
-// add
-
-// remove
-
-// read all
-
-// convert list to array of str
-
-// convert array to list
-
-
-void	ft_init_env_list(t_env_list *env_list)
-{
-	env_list->top = NULL;
-	env_list->size = 0;
-}
-
-void	ft_init_env(t_env *env)
-{
-	env->next = NULL;
-	env->value = NULL;
-}
-
-// Remove only value from node and set the val to NULL
 int	ft_remove_env(t_env_list *env_list, char *var_name)
 {
 	t_env	*node;
@@ -47,7 +31,8 @@ int	ft_remove_env(t_env_list *env_list, char *var_name)
 	{
 		if (node->value != NULL)
 		{
-			if (ft_strncmp(node->value, var_name, ft_strlen(var_name)) == 0 && *(node->value + (ft_strlen(var_name))) == '=')
+			if (ft_strncmp(node->value, var_name, ft_strlen(var_name)) == 0
+				&& *(node->value + (ft_strlen(var_name))) == '=')
 			{
 				free(node->value);
 				node->value = NULL;
@@ -59,7 +44,18 @@ int	ft_remove_env(t_env_list *env_list, char *var_name)
 	}
 	return (1);
 }
-// Removes entire string represenitng the env variable
+
+/**
+ * @brief Removes an environment variable by full string.
+ *
+ * Searches and nullifies the value of a variable by
+ * 			its full string. Node remains.
+ *
+ * @param env_list Pointer to the environment list.
+ * @param str Full string of the variable to remove.
+ * @return 0 if found and nullified, 1 otherwise.
+ */
+
 int	ft_remove_str(t_env_list *env_list, char *str)
 {
 	t_env	*node;
@@ -82,6 +78,15 @@ int	ft_remove_str(t_env_list *env_list, char *str)
 	return (1);
 }
 
+/**
+ * @brief Adds a new environment variable.
+ *
+ * Adds or updates an environment variable in the list.
+ *
+ * @param env_list Pointer to the list where the variable will be added.
+ * @param env String of the environment variable to add.
+ */
+
 void	ft_add_env(t_env_list *env_list, char *env)
 {
 	t_env	*node;
@@ -100,8 +105,17 @@ void	ft_add_env(t_env_list *env_list, char *env)
 	env_list->size++;
 }
 
-// Mimics getenv() to get a value represented by var name
-// Malloc = free the returned pointer!
+/**
+ * @brief Retrieves the value of an environment variable.
+ *
+ * Searches for a variable by name, returning its value. Caller must free
+ * the returned string.
+ *
+ * @param env_list Pointer to the environment list.
+ * @param var_name Name of the variable.
+ * @return Newly allocated string with the value, or NULL.
+ */
+
 char	*ft_get_env(t_env_list *env_list, char *var_name)
 {
 	t_env	*env;
@@ -112,10 +126,11 @@ char	*ft_get_env(t_env_list *env_list, char *var_name)
 	{
 		if (env->value != NULL)
 		{
-			if (ft_strncmp(env->value, var_name, ft_strlen(var_name)) == 0 && *(env->value + (ft_strlen(var_name))) == '=')
+			if (ft_strncmp(env->value, var_name, ft_strlen(var_name)) == 0
+				&& *(env->value + (ft_strlen(var_name))) == '=')
 			{
 				env_value = env->value;
-				while(*env_value != '=')
+				while (*env_value != '=')
 					env_value++;
 				env_value++;
 				env_value = ft_strdup(env_value);
@@ -127,10 +142,18 @@ char	*ft_get_env(t_env_list *env_list, char *var_name)
 	return (NULL);
 }
 
-// mimics the env command without option or arguments
+/**
+ * @brief Lists all environment variables.
+ *
+ * Iterates and prints each variable in the list to standard output.
+ *
+ * @param env_list Pointer to the list of environment variables.
+ */
+
 void	ft_list_env(t_env_list *env_list)
 {
 	t_env	*env;
+
 	env = env_list->top;
 	while (env)
 	{
@@ -143,7 +166,15 @@ void	ft_list_env(t_env_list *env_list)
 	}
 }
 
-// Adds strings from envp array passed by main function
+/**
+ * @brief Converts an array of strings to a list of variables.
+ *
+ * Each string representing an environment variable is added to the list.
+ *
+ * @param env_list Pointer to the environment list.
+ * @param envp Array of strings of environment variables.
+ */
+
 void	ft_convert_arr_to_list(t_env_list *env_list, char **envp)
 {
 	while (*envp)
@@ -153,14 +184,23 @@ void	ft_convert_arr_to_list(t_env_list *env_list, char **envp)
 	}
 }
 
-char **ft_convert_list_to_arr(t_env_list *env_list)
+/**
+ * @brief Converts a list of variables to an array of strings.
+ *
+ * Creates an array of strings from the list, ending with NULL.
+ *
+ * @param env_list Pointer to the environment list.
+ * @return Array of strings representing the environment variables.
+ */
+
+char	**ft_convert_list_to_arr(t_env_list *env_list)
 {
 	int		i;
 	char	**envp;
 	t_env	*env;
 
 	i = 0;
-	envp = malloc(sizeof(char *)* (env_list->size + 1));
+	envp = malloc(sizeof(char *) * (env_list->size + 1));
 	if (!envp)
 	{
 		perror("Convert list to arr: ");
