@@ -6,86 +6,13 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/16 11:41:45 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 10:00:37 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-int	ft_has_out_redir(t_command *cmd)
-{
-	t_token *token;
 
-	token = cmd->first_token;
-	while (token)
-	{
-		//ft_printf("Token: %d\n", token->type);
-		if (token->type == R_OUT || token->type == R_OUT_APP)
-			return (1);
-		token = token->next;
-	}
-	return (0);
-}
-
-void	ft_input_redirection(char *file_name, int *fd_in)
-{
-	if (access(file_name, F_OK | R_OK) == 0)
-		*fd_in = ft_input_file(file_name);
-	else
-		{
-			perror(file_name);
-			exit(EXIT_FAILURE);
-		}
-	return ;
-}
-
-void	ft_output_redirection(char *file_name, int *fd_out)
-{
-	int	temp_fd;
-
-	temp_fd = ft_output_file(file_name);
-	if (temp_fd == -1)
-	{
-		perror(file_name);
-		exit(EXIT_FAILURE);
-	}
-	else
-		*fd_out = temp_fd;
-	return ;
-}
-
-void	ft_append_redirection(char *file_name, int *fd_out)
-{
-	int	temp_fd;
-
-	temp_fd = ft_append_file(file_name);
-	if (temp_fd == -1)
-	{
-		perror(file_name);
-		exit(EXIT_FAILURE);
-	}
-	else
-		*fd_out = temp_fd;
-	return ;
-}
-
-void	ft_open_files(t_command *cmd, int *fd_in, int *fd_out)
-{
-	t_token *token;
-
-	token = cmd->first_token;
-	while (token)
-	{
-		if (token->type == R_INFILE)
-			ft_input_redirection(token->text, fd_in);
-		else if (token->type == R_OUTFILE)
-			ft_output_redirection(token->text, fd_out);
-		else if (token->type == R_OUTFILE_APP)
-			ft_append_redirection(token->text, fd_out);
-		token = token->next;
-	}
-	return ;
-}
 
 void	ft_exec_built_cmds(t_command *cmd)
 {
@@ -151,11 +78,11 @@ void	ft_execve(t_command *cmd)
 void ft_select_built_cmd(t_command *cmd)
 {
 	if (ft_strncmp(cmd->execve_cmd[0], "echo", 5) == 0)
-		ft_echo(cmd);
+		ft_echo(cmd, 1);
 	else if (ft_strncmp(cmd->execve_cmd[0], "pwd", 4) == 0)
-		ft_pwd();
+		ft_pwd(1);
 	else if (ft_strncmp(cmd->execve_cmd[0], "cd", 3) == 0)
-		ft_cd(cmd);
+		ft_cd(cmd, 1);
 	else if (ft_strncmp(cmd->execve_cmd[0], "exit", 5) == 0)
 		ft_exit(cmd);
 	//ft_printf("builtin func");
@@ -226,7 +153,7 @@ void	ft_exec_input(t_cmd_tab *tab)
 		pipe(data.pipe_fd);
 		if (fork() == 0)
 		{
-			ft_open_files(cmd, &data.fd_in, &data.fd_out);
+			ft_redirect_io(cmd, &data.fd_in, &data.fd_out);
 			ft_redir_process_io(&data, cmd);
 			ft_exec_commands(cmd);
 		}

@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 09:12:44 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 10:01:52 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,9 +110,11 @@ int		ft_append_file(char *file_name);
 void	ft_input_redirection(char *file_name, int *fd_in);
 void	ft_output_redirection(char *file_name, int *fd_out);
 void	ft_append_redirection(char *file_name, int *fd_out);
+void	ft_redirect_io(t_command *cmd, int *fd_in, int *fd_out);
 
 // Redirection utils
 int	ft_has_out_redir(t_command *cmd);
+
 
 // NEW command table ops
 void	ft_init_token(t_token *token);
