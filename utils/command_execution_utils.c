@@ -6,36 +6,78 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:47:04 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 16:20:02 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 19:23:31 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 /**
- * @brief Updates the shell's exit status environment variable.
+ * @brief Extracts the environment variable name from a string.
  *
- * Converts the exit status to a string and updates the special '?' environment
- * variable to reflect this status in the shell's environment list. This allows
- * the shell to track and provide the exit status of the last executed command.
+ * This function takes a string in the format of "KEY=VALUE" and extracts the
+ * "KEY" part, returning it as a newly allocated string. It uses '=' as the
+ * delimiter to split the string and assumes the format is correct. The caller
+ * is responsible for freeing the returned string.
  *
- * @param status Pointer to the integer holding the exit status to update.
- * @param minidata Pointer to the shell's main data structure containing the
- *                 environment list.
+ * @param str The input string containing the environment variable in the
+ *            format "KEY=VALUE".
+ * @return A newly allocated string containing the extracted environment
+ *         variable name. NULL is returned if an error occurs.
+ */
+
+char	*ft_extract_env_name(char *str)
+{
+	char	**str_arr;
+	char	**tmp_str_arr;
+	char	*temp;
+	char	*env_name;
+
+	str_arr = ft_split(str, '=');
+	tmp_str_arr = str_arr;
+	env_name = ft_strdup(str_arr[0]);
+	while (*str_arr)
+	{
+		temp = *str_arr;
+		free(temp);
+		str_arr++;
+	}
+	free(tmp_str_arr);
+	return (env_name);
+}
+
+
+/**
+ * @brief Updates the shell's exit status.
+ *
+ * This function updates the shell's exit status based on the status of the last
+ * executed command. If the command exited normally, the exit status is set to
+ * the command's exit status. Otherwise, the raw status is used.
+ *
+ * @param status Pointer to the status returned by waitpid().
+ * @param minidata Pointer to the shell's global data structure.
+ *
+ * The exit status is updated in the shell's environment variable list by
+ * creating a new environment variable or updating the existing one. The
+ * variable is named "?" and its value is set to the exit status.
  */
 
 void	ft_update_exit_status(int *status, t_mini_data *minidata)
 {
 	char	*sta;
 	char	*env;
+	char	*temp;
 	if (WIFEXITED(*status))
 		sta = ft_itoa(WEXITSTATUS(*status));
 	else
 		sta = ft_itoa(*status);
 	env = ft_strjoin("?=", sta);
+	temp = ft_extract_env_name(env);
+	ft_remove_env(minidata->env_list, temp);
 	ft_add_env(minidata->env_list, env);
 	free(sta);
 	free(env);
+	free(temp);
 }
 
 /**
