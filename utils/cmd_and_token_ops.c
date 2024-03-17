@@ -1,45 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_cmd_table_ops.c                                :+:      :+:    :+:   */
+/*   cmd_and_token_ops.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 16:57:52 by orezek            #+#    #+#             */
-/*   Updated: 2024/03/09 00:15:29 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 10:41:56 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_init_cmd_table(t_cmd_tab *cmd_tab)
-{
-	cmd_tab->first_cmd = NULL;
-	cmd_tab->last_cmd = NULL;
-	cmd_tab->size = 0;
-}
+/**
+ * @brief Adds a command to the top of the command table.
+ *
+ * Performs a push operation on the command table, adding a command to the top.
+ * This modifies the command table to follow a FIFO ordering.
+ *
+ * @param cmd_table Pointer to the command table.
+ * @param cmd Pointer to the command to add.
+ */
 
-void	ft_init_cmd(t_command *cmd)
-{
-	cmd->execve_cmd = NULL;
-	cmd->next_cmd = NULL;
-	cmd->prev_cmd = NULL;
-	cmd->first_token = NULL;
-	cmd->last_token = NULL;
-	cmd->size = 0;
-}
-
-void	ft_init_token(t_token *token)
-{
-	token->text = NULL;
-	token->type = -1;
-	token->next = NULL;
-	token->prev = NULL;
-}
-// adds cmd to the top = push operation - FIFO
 void	ft_push_cmd_to_tab(t_cmd_tab *cmd_table, t_command *cmd)
 {
-
 	if (cmd_table == NULL && cmd == NULL)
 		return ;
 	if (cmd_table->first_cmd == NULL)
@@ -59,7 +43,17 @@ void	ft_push_cmd_to_tab(t_cmd_tab *cmd_table, t_command *cmd)
 	cmd_table->size++;
 }
 
-// adds cmd to the end = enqueue operation - FILO
+/**
+ * @brief Adds a command to the end of the command table.
+ *
+ * Performs an enqueue operation on the command table,
+ * adding a command to the end.
+ * This ensures commands are executed in a FILO order.
+ *
+ * @param cmd_table Pointer to the command table.
+ * @param cmd Pointer to the command to add.
+ */
+
 void	ft_append_cmd_to_tab(t_cmd_tab *cmd_table, t_command *cmd)
 {
 	if (cmd_table == NULL && cmd == NULL)
@@ -80,27 +74,16 @@ void	ft_append_cmd_to_tab(t_cmd_tab *cmd_table, t_command *cmd)
 	}
 	cmd_table->size++;
 }
-// adds token to the end = enqueue operation - FILO
-void	ft_append_token_to_cmd(t_command *cmd, t_token *token)
-{
-	if (!cmd || !token)
-		return ;
-	if (cmd->first_token == NULL)
-	{
-		cmd->first_token = token;
-		cmd->last_token = token;
-		token->next = NULL;
-		token->prev = NULL;
-	}
-	else
-	{
-		token->prev = cmd->last_token;
-		token->next = NULL;
-		cmd->last_token->next = token;
-		cmd->last_token = token;
-	}
-	cmd->size++;
-}
+
+/**
+ * @brief Creates a new token with specified text and type.
+ *
+ * Allocates and initializes a new token with the given text and type.
+ *
+ * @param text Text for the token.
+ * @param type Type of the token.
+ * @return Pointer to the newly created token, or NULL on failure.
+ */
 
 t_token	*ft_create_token(char *text, t_type type)
 {
@@ -108,19 +91,27 @@ t_token	*ft_create_token(char *text, t_type type)
 
 	token = malloc(sizeof(t_token));
 	if (!token)
-		return NULL;
+		return (NULL);
 	ft_init_token(token);
 	token->text = text;
 	token->type = type;
 	return (token);
 }
 
+/**
+ * @brief Appends a token to a command with text and type.
+ *
+ * Adds a token to a command's token list. It creates a new token
+ * with the given text and type, then appends it to the command.
+ *
+ * @param cmd Pointer to the command.
+ * @param text Text for the new token.
+ * @param type Type of the new token.
+ */
 
-// version II append token to cmd
-// adds token to the end = enqueue operation - FILO
-void	ft_append_token_to_cmd_v2(t_command *cmd, char *text, t_type type)
+void	ft_append_token_to_cmd(t_command *cmd, char *text, t_type type)
 {
-	t_token *token;
+	t_token	*token;
 
 	token = ft_create_token(text, type);
 	if (!cmd || !token)
