@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:36:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/16 18:05:16 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 10:31:01 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,19 +76,19 @@ int	main(int argc, char *argv[], char *envp[])
 
 // Fifth command
 	char *exe_cmd5[] = {"pwd"};
-	ft_append_token_to_cmd_v2(&cmd5, "pwd", CMD_BUILT);
+	ft_append_token_to_cmd(&cmd5, "pwd", CMD_BUILT);
 	cmd5.execve_cmd = exe_cmd5;
 
 // Forth command
 	char *exe_cmd4[] = {"cd", ".."};
-	ft_append_token_to_cmd_v2(&cmd4, "cd", CMD_BUILT);
-	ft_append_token_to_cmd_v2(&cmd4, "./utils", ARG);
+	ft_append_token_to_cmd(&cmd4, "cd", CMD_BUILT);
+	ft_append_token_to_cmd(&cmd4, "./utils", ARG);
 	cmd4.execve_cmd = exe_cmd4;
 
 // Third command
 	char *exe_cmd3[] = {"echo", "lorem ipsum command"};
-	ft_append_token_to_cmd_v2(&cmd3, "echo", CMD_BUILT);
-	ft_append_token_to_cmd_v2(&cmd3, "lorem ipsum command", ARG);
+	ft_append_token_to_cmd(&cmd3, "echo", CMD_BUILT);
+	ft_append_token_to_cmd(&cmd3, "lorem ipsum command", ARG);
 	//ft_append_token_to_cmd_v2(&cmd3, "-n", ARG);
 	cmd3.execve_cmd = exe_cmd3;
 
@@ -96,13 +96,13 @@ int	main(int argc, char *argv[], char *envp[])
 	char *exec_cmd1[] = {"/bin/cat", NULL};
 	// ft_append_token_to_cmd_v2(&cmd1, "<", R_IN);
 	// ft_append_token_to_cmd_v2(&cmd1, "infile.txt", R_INFILE);
-	ft_append_token_to_cmd_v2(&cmd1, "cat", CMD);
+	ft_append_token_to_cmd(&cmd1, "cat", CMD);
 	cmd1.execve_cmd = exec_cmd1;
 
 // Second command
 	char *exec_cmd2[] = {"/usr/bin/wc", "-lcw", NULL};
-	ft_append_token_to_cmd_v2(&cmd2, "wc", CMD);
-	ft_append_token_to_cmd_v2(&cmd2, "-lcw", ARG);
+	ft_append_token_to_cmd(&cmd2, "wc", CMD);
+	ft_append_token_to_cmd(&cmd2, "-lcw", ARG);
 	// ft_append_token_to_cmd_v2(&cmd2,">>", R_OUT_APP);
 	// ft_append_token_to_cmd_v2(&cmd2, "output.txt", R_OUTFILE_APP);
 	cmd2.execve_cmd = exec_cmd2;
@@ -133,7 +133,7 @@ int	main(int argc, char *argv[], char *envp[])
 	//ft_cd_no_exit(tab.first_cmd);
 	//ft_pwd_no_exit();
 	ft_exec_input(&tab);
-	ft_pwd_no_exit();
-	//ft_printf("After signal action - tests if the process is not really interupted.\n");
+	ft_pwd(0);
+	ft_printf("After signal action - tests if the process is not really interupted.\n");
 	return (0);
 }

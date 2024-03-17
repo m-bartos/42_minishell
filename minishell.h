@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 10:31:17 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 10:57:48 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,13 @@ typedef struct s_env_list
 
 // exec functions
 void	ft_exec_input(t_cmd_tab *cmd_tab);
+void	ft_exec_commands(t_command *cmd);
+void	ft_execve(t_command *cmd);
+void	ft_select_built_cmd(t_command *cmd);
+void	ft_cmd_not_found(t_command *cmd);
+void	ft_parent_process(t_exec_data *data);
+void	ft_init_exec_data(t_exec_data *exec_data);
+void	ft_exit_status(int *status);
 
 // I/O functions
 int		ft_input_file(char *file_name);

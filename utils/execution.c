@@ -6,38 +6,24 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 10:57:07 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 11:03:50 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// test function - no longer in use
-void	ft_exec_built_cmds(t_command *cmd)
-{
-	char	*error;
-	char	*cmd_name;
+/**
+ * @brief Redirects I/O for a child process after forking.
+ *
+ * Adjusts standard input and output for the child process based on execution
+ * data. If the command is part of a pipeline and has no output redirection,
+ * stdout is redirected to a pipe. Otherwise, stdout is redirected to the
+ * specified file descriptor.
+ *
+ * @param data Pointer to the execution data containing file descriptors.
+ * @param cmd Pointer to the current command being executed.
+ */
 
-	cmd_name = cmd->execve_cmd[0];
-	error = ft_strjoin(cmd_name, ": command not found\n");
-	if (ft_strncmp(cmd->execve_cmd[0], "echo", 5) == 0)
-	{
-		ft_putstr_fd(cmd->execve_cmd[1], STDOUT);
-		exit(EXIT_SUCCESS);
-	}
-	else
-	{
-		errno = ENOENT;
-		if (errno == ENOENT)
-		{
-			ft_putstr_fd(error, STDERR);
-			free(error);
-			exit(CMD_NOT_FOUND);
-		}
-	}
-}
-
-// handles redirection of io in the child process just after fork
 void	ft_redir_process_io(t_exec_data *data, t_command *cmd)
 {
 	dup2(data->fd_in, STDIN);
@@ -48,8 +34,16 @@ void	ft_redir_process_io(t_exec_data *data, t_command *cmd)
 	close(data->pipe_fd[0]);
 }
 
+/**
+ * @brief Executes commands from a command table.
+ *
+ * Iterates through commands in a command table, creating a pipe and forking
+ * for each command. In the child process, performs I/O redirection and
+ * executes the command. The parent process waits for the child to finish.
+ *
+ * @param tab Pointer to the command table containing commands to execute.
+ */
 
-// executes commands
 void	ft_exec_input(t_cmd_tab *tab)
 {
 	t_exec_data data;
