@@ -6,14 +6,13 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 10:00:37 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 10:57:07 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-
-
+// test function - no longer in use
 void	ft_exec_built_cmds(t_command *cmd)
 {
 	char	*error;
@@ -38,91 +37,7 @@ void	ft_exec_built_cmds(t_command *cmd)
 	}
 }
 
-void	ft_cmd_not_found(t_command *cmd)
-{
-	char	*error;
-	char	*cmd_name;
-
-	errno = ENOENT;
-	cmd_name = cmd->execve_cmd[0];
-	error = ft_strjoin(cmd_name, ": command not found\n");
-	if (errno == ENOENT)
-	{
-		ft_putstr_fd(error, STDERR);
-		free(error);
-		exit(CMD_NOT_FOUND);
-	}
-	free(error);
-	exit(EXIT_SUCCESS);
-}
-
-void	ft_execve(t_command *cmd)
-{
-	char	*error;
-	char	*cmd_name;
-
-	cmd_name = cmd->execve_cmd[0];
-	error = ft_strjoin(cmd_name, ": command not found\n");
-	if (execve(cmd->execve_cmd[0], cmd->execve_cmd, NULL) - 1)
-	{
-		errno = ENOENT;
-		if (errno == ENOENT)
-		{
-			ft_putstr_fd(error, STDERR);
-			free(error);
-			exit(CMD_NOT_FOUND);
-		}
-	}
-}
-
-void ft_select_built_cmd(t_command *cmd)
-{
-	if (ft_strncmp(cmd->execve_cmd[0], "echo", 5) == 0)
-		ft_echo(cmd, 1);
-	else if (ft_strncmp(cmd->execve_cmd[0], "pwd", 4) == 0)
-		ft_pwd(1);
-	else if (ft_strncmp(cmd->execve_cmd[0], "cd", 3) == 0)
-		ft_cd(cmd, 1);
-	else if (ft_strncmp(cmd->execve_cmd[0], "exit", 5) == 0)
-		ft_exit(cmd);
-	//ft_printf("builtin func");
-}
-
-void	ft_exec_commands(t_command *cmd)
-{
-	t_token	*token;
-	token = cmd->first_token;
-	while (token)
-	{
-		if (token->type == CMD)
-			ft_execve(cmd);
-		else if (token->type == CMD_BUILT)
-			ft_select_built_cmd(cmd);
-			//ft_pwd();
-			// ft_echo(cmd);
-			//ft_exec_built_cmds(cmd);
-		else if (token->type == CMD_ERR)
-			ft_cmd_not_found(cmd);
-		token = token->next;
-	}
-}
-
-void	ft_exit_status(int *status)
-{
-	if (WIFEXITED(*status))
-	{
-		ft_putnbr_fd(WEXITSTATUS(*status), 1);
-		ft_putstr_fd("\n", 1);
-	}
-}
-// exec function
-void	ft_init_exec_data(t_exec_data *exec_data)
-{
-	exec_data->exit_status = 0;
-	exec_data->fd_in = STDIN;
-	exec_data->fd_out = STDOUT;
-}
-
+// handles redirection of io in the child process just after fork
 void	ft_redir_process_io(t_exec_data *data, t_command *cmd)
 {
 	dup2(data->fd_in, STDIN);
@@ -133,14 +48,8 @@ void	ft_redir_process_io(t_exec_data *data, t_command *cmd)
 	close(data->pipe_fd[0]);
 }
 
-void	ft_parent_process(t_exec_data *data)
-{
-	wait(&data->exit_status);
-	data->fd_out = 1;
-	close(data->pipe_fd[1]);
-	data->fd_in = data->pipe_fd[0];
-}
 
+// executes commands
 void	ft_exec_input(t_cmd_tab *tab)
 {
 	t_exec_data data;
@@ -161,5 +70,4 @@ void	ft_exec_input(t_cmd_tab *tab)
 			ft_parent_process(&data);
 		cmd = cmd->next_cmd;
 	}
-	//ft_exit_status(&data.exit_status);
 }
