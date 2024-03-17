@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 10:57:48 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 13:04:23 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,14 @@ typedef struct s_env_list
 	t_env	*top;
 	int		size;
 }	t_env_list;
+
+// Minishell state data
+typedef struct s_mini_data
+{
+	t_env_list	*env_list;
+	char		**env_arr;
+	t_exec_data *exec_data;
+} t_mini_data;
 
 // exec functions
 void	ft_exec_input(t_cmd_tab *cmd_tab);
