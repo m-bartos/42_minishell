@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 16:39:54 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 19:28:11 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ void	ft_env(t_env_list *env_list, int is_child);
 // Environmental functions
 void	ft_init_env_list(t_env_list *env_list);
 void	ft_init_env(t_env *env);
+char	*ft_extract_env_name(char *str);
 void	ft_add_env(t_env_list *env_list, char *env);
 int		ft_remove_env(t_env_list *env_list, char *var_name);
 int		ft_remove_str(t_env_list *env_list, char *str);

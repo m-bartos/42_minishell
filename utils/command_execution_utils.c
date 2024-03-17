@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:47:04 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 19:23:31 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 19:31:38 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ char	*ft_extract_env_name(char *str)
 	char	*temp;
 	char	*env_name;
 
+	env_name = NULL;
 	str_arr = ft_split(str, '=');
 	tmp_str_arr = str_arr;
 	env_name = ft_strdup(str_arr[0]);

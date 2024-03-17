@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:42:36 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/16 22:45:35 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 19:31:11 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,15 @@ int	ft_remove_str(t_env_list *env_list, char *str)
 void	ft_add_env(t_env_list *env_list, char *env)
 {
 	t_env	*node;
+	char	*env_name;
 
-	ft_remove_str(env_list, env);
+	env_name = ft_extract_env_name(env);
+	ft_remove_env(env_list, env_name);
 	node = malloc(sizeof(t_env));
 	if (!node)
 	{
 		perror("Add env:");
+		free(env_name);
 		exit(1);
 	}
 	ft_init_env(node);
@@ -103,6 +106,7 @@ void	ft_add_env(t_env_list *env_list, char *env)
 	node->next = env_list->top;
 	env_list->top = node;
 	env_list->size++;
+	free(env_name);
 }
 
 /**
