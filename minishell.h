@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 13:04:23 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 15:29:25 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ typedef struct s_cmd_tab
 
 typedef struct s_exec_data
 {
-	int	exit_status;
 	int	fd_in;
 	int	fd_out;
 	int	pipe_fd[2];
@@ -107,12 +106,12 @@ typedef struct s_mini_data
 } t_mini_data;
 
 // exec functions
-void	ft_exec_input(t_cmd_tab *cmd_tab);
+void	ft_exec_input(t_cmd_tab *cmd_tab, t_mini_data *data);
 void	ft_exec_commands(t_command *cmd);
 void	ft_execve(t_command *cmd);
 void	ft_select_built_cmd(t_command *cmd);
 void	ft_cmd_not_found(t_command *cmd);
-void	ft_parent_process(t_exec_data *data);
+void	ft_parent_process(t_exec_data *data, t_mini_data *minidata);
 void	ft_init_exec_data(t_exec_data *exec_data);
 void	ft_exit_status(int *status);
 

@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:36:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 14:53:39 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 15:47:26 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	ft_init_mini_data(t_mini_data *minidata, char *envp[])
 	minidata->env_list = env_list;
 	ft_init_env_list(minidata->env_list);
 	ft_convert_arr_to_list(minidata->env_list, envp);
-	ft_add_env(minidata->env_list, "?=0");
+	ft_add_env(minidata->env_list, "?=-99");
 	minidata->env_arr = ft_convert_list_to_arr(minidata->env_list);
 }
 
@@ -37,7 +37,7 @@ int	main(int argc, char *argv[], char *envp[])
 {
 
 //ENV Vars
-	t_mini_data	minidata;
+	t_mini_data	 minidata;
 
 	ft_init_mini_data(&minidata, envp);
 
@@ -56,19 +56,19 @@ int	main(int argc, char *argv[], char *envp[])
 	// ft_add_env(minidata.env_list, "?=0");
 	// ft_list_env(minidata.env_list);
 	// ft_printf("End -------------------End\n");
-	// ft_printf("%s\n", ft_get_env(minidata.env_list, "USER")),
+	// ft_printf("%s\n", ft_get_env(minidata.env_list, "USER"));
 	// ft_printf("End -------------------End\n");
 	// //ft_remove_env(&env_list, "?");
 	// //ft_remove_env(&env_list, "?");
 	// ft_list_env(minidata.env_list);
 	// ft_printf("Size of ENV list is: %d\n", minidata.env_list->size);
 	// ft_printf("End -------------------End\n");
-	while(*minidata.env_arr != NULL)
-	{
-		ft_printf("%s\n", *minidata.env_arr);
-		minidata.env_arr++;
-	}
-	ft_printf("End -------------------End\n");
+	// while(*minidata.env_arr != NULL)
+	// {
+	// 	ft_printf("%s\n", *minidata.env_arr);
+	// 	minidata.env_arr++;
+	// }
+	// ft_printf("End -------------------End\n");
 
 
 // Elements declaration
@@ -102,13 +102,13 @@ int	main(int argc, char *argv[], char *envp[])
 	char *exe_cmd3[] = {"echo", "lorem ipsum command"};
 	ft_append_token_to_cmd(&cmd3, "echo", CMD_BUILT);
 	ft_append_token_to_cmd(&cmd3, "lorem ipsum command", ARG);
-	//ft_append_token_to_cmd_v2(&cmd3, "-n", ARG);
+	ft_append_token_to_cmd(&cmd3, "-n", ARG);
 	cmd3.execve_cmd = exe_cmd3;
 
 // First command
 	char *exec_cmd1[] = {"/bin/cat", NULL};
-	// ft_append_token_to_cmd_v2(&cmd1, "<", R_IN);
-	// ft_append_token_to_cmd_v2(&cmd1, "infile.txt", R_INFILE);
+	// ft_append_token_to_cmd(&cmd1, "<", R_IN);
+	// ft_append_token_to_cmd(&cmd1, "infile.txt", R_INFILE);
 	ft_append_token_to_cmd(&cmd1, "cat", CMD);
 	cmd1.execve_cmd = exec_cmd1;
 
@@ -122,11 +122,11 @@ int	main(int argc, char *argv[], char *envp[])
 
 
 // Add comands to the table
-	ft_append_cmd_to_tab(&tab, &cmd4);
+	//ft_append_cmd_to_tab(&tab, &cmd4);
 	//ft_append_cmd_to_tab(&tab, &cmd5);
-	// ft_append_cmd_to_tab(&tab, &cmd3);
-	// ft_append_cmd_to_tab(&tab, &cmd1);
-	// ft_append_cmd_to_tab(&tab, &cmd2);
+	ft_append_cmd_to_tab(&tab, &cmd3);
+	ft_append_cmd_to_tab(&tab, &cmd1);
+	ft_append_cmd_to_tab(&tab, &cmd2);
 
 // Printing commands and types
 	ft_print_cmd(&tab);
@@ -145,7 +145,8 @@ int	main(int argc, char *argv[], char *envp[])
 	//pause();
 	//ft_cd_no_exit(tab.first_cmd);
 	//ft_pwd_no_exit();
-	ft_exec_input(&tab);
+	ft_exec_input(&tab, &minidata);
+	ft_printf("%s\n", ft_get_env(minidata.env_list, "?"));
 	ft_pwd(0);
 	ft_printf("After signal action - tests if the process is not really interupted.\n");
 	return (0);

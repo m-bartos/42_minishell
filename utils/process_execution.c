@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution.c                                        :+:      :+:    :+:   */
+/*   process_execution.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 11:03:50 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 15:45:49 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	ft_redir_process_io(t_exec_data *data, t_command *cmd)
  * @param tab Pointer to the command table containing commands to execute.
  */
 
-void	ft_exec_input(t_cmd_tab *tab)
+void	ft_exec_input(t_cmd_tab *tab, t_mini_data *minidata)
 {
 	t_exec_data data;
 	t_command	*cmd;
@@ -61,7 +61,7 @@ void	ft_exec_input(t_cmd_tab *tab)
 			ft_exec_commands(cmd);
 		}
 		else
-			ft_parent_process(&data);
+			ft_parent_process(&data, minidata);
 		cmd = cmd->next_cmd;
 	}
 }

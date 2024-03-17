@@ -1,16 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execution_utils.c                                  :+:      :+:    :+:   */
+/*   command_execution_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:47:04 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 10:59:22 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 15:29:08 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+/**
+ * @brief Updates the shell's exit status environment variable.
+ *
+ * Converts the exit status to a string and updates the special '?' environment
+ * variable to reflect this status in the shell's environment list. This allows
+ * the shell to track and provide the exit status of the last executed command.
+ *
+ * @param status Pointer to the integer holding the exit status to update.
+ * @param minidata Pointer to the shell's main data structure containing the
+ *                 environment list.
+ */
+
+void	ft_update_exit_status(int *status, t_mini_data *minidata)
+{
+	char	*sta;
+	char	*env;
+
+	sta = ft_itoa(*status);
+	env = ft_strjoin("?=", sta);
+	ft_add_env(minidata->env_list, env);
+	free(sta);
+	free(env);
+}
 
 /**
  * @brief Handles the parent process after forking.
@@ -23,12 +47,17 @@
  *             and file descriptor information.
  */
 
-void	ft_parent_process(t_exec_data *data)
+void	ft_parent_process(t_exec_data *data, t_mini_data *minidata)
 {
-	wait(&data->exit_status);
+	int	status;
+
+	status = -340;
+	wait(&status);
+	ft_update_exit_status(&status, minidata);
 	data->fd_out = 1;
 	close(data->pipe_fd[1]);
 	data->fd_in = data->pipe_fd[0];
+
 }
 
 /**
@@ -43,7 +72,6 @@ void	ft_parent_process(t_exec_data *data)
 
 void	ft_init_exec_data(t_exec_data *exec_data)
 {
-	exec_data->exit_status = 0;
 	exec_data->fd_in = STDIN;
 	exec_data->fd_out = STDOUT;
 }
