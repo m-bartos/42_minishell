@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:49:47 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 10:56:36 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 16:21:20 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@
  * @param cmd Pointer to the command structure to execute.
  */
 
-void	ft_exec_commands(t_command *cmd)
+void	ft_exec_commands(t_command *cmd, t_mini_data *minidata)
 {
 	t_token	*token;
 	token = cmd->first_token;
 	while (token)
 	{
 		if (token->type == CMD)
-			ft_execve(cmd);
+			ft_execve(cmd, minidata);
 		else if (token->type == CMD_BUILT)
 			ft_select_built_cmd(cmd);
 		else if (token->type == CMD_ERR)
@@ -47,20 +47,23 @@ void	ft_exec_commands(t_command *cmd)
  * @param cmd Pointer to the command containing the executable and arguments.
  */
 
-void	ft_execve(t_command *cmd)
+void	ft_execve(t_command *cmd, t_mini_data *minidata)
 {
 	char	*error;
 	char	*cmd_name;
+	char	**envars;
 
+	envars = ft_convert_list_to_arr(minidata->env_list);
 	cmd_name = cmd->execve_cmd[0];
 	error = ft_strjoin(cmd_name, ": command not found\n");
-	if (execve(cmd->execve_cmd[0], cmd->execve_cmd, NULL) - 1)
+	if (execve(cmd->execve_cmd[0], cmd->execve_cmd, envars) - 1)
 	{
 		errno = ENOENT;
 		if (errno == ENOENT)
 		{
 			ft_putstr_fd(error, STDERR);
 			free(error);
+			free(envars);
 			exit(CMD_NOT_FOUND);
 		}
 	}

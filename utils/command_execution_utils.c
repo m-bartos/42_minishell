@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:47:04 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 15:29:08 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 16:20:02 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,10 @@ void	ft_update_exit_status(int *status, t_mini_data *minidata)
 {
 	char	*sta;
 	char	*env;
-
-	sta = ft_itoa(*status);
+	if (WIFEXITED(*status))
+		sta = ft_itoa(WEXITSTATUS(*status));
+	else
+		sta = ft_itoa(*status);
 	env = ft_strjoin("?=", sta);
 	ft_add_env(minidata->env_list, env);
 	free(sta);
@@ -51,7 +53,7 @@ void	ft_parent_process(t_exec_data *data, t_mini_data *minidata)
 {
 	int	status;
 
-	status = -340;
+	status = -99;
 	wait(&status);
 	ft_update_exit_status(&status, minidata);
 	data->fd_out = 1;
@@ -91,5 +93,6 @@ void	ft_exit_status(int *status)
 	{
 		ft_putnbr_fd(WEXITSTATUS(*status), 1);
 		ft_putstr_fd("\n", 1);
+
 	}
 }

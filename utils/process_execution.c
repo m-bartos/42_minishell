@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 15:45:49 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 16:25:37 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	ft_exec_input(t_cmd_tab *tab, t_mini_data *minidata)
 		{
 			ft_redirect_io(cmd, &data.fd_in, &data.fd_out);
 			ft_redir_process_io(&data, cmd);
-			ft_exec_commands(cmd);
+			ft_exec_commands(cmd, minidata);
 		}
 		else
 			ft_parent_process(&data, minidata);
