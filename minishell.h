@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 15:53:51 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 16:39:54 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ typedef struct s_mini_data
 void	ft_exec_input(t_cmd_tab *cmd_tab, t_mini_data *data);
 void	ft_exec_commands(t_command *cmd, t_mini_data *minidata);
 void	ft_execve(t_command *cmd, t_mini_data *minidata);
-void	ft_select_built_cmd(t_command *cmd);
+void	ft_select_built_cmd(t_command *cmd, t_env_list env_list);
 void	ft_cmd_not_found(t_command *cmd);
 void	ft_parent_process(t_exec_data *data, t_mini_data *minidata);
 void	ft_init_exec_data(t_exec_data *exec_data);

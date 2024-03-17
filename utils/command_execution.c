@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:49:47 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 16:21:20 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 16:41:57 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_exec_commands(t_command *cmd, t_mini_data *minidata)
 		if (token->type == CMD)
 			ft_execve(cmd, minidata);
 		else if (token->type == CMD_BUILT)
-			ft_select_built_cmd(cmd);
+			ft_select_built_cmd(cmd, *minidata->env_list);
 		else if (token->type == CMD_ERR)
 			ft_cmd_not_found(cmd);
 		token = token->next;
@@ -79,7 +79,7 @@ void	ft_execve(t_command *cmd, t_mini_data *minidata)
  * @param cmd Pointer to the command to identify and execute the built-in command.
  */
 
-void	ft_select_built_cmd(t_command *cmd)
+void	ft_select_built_cmd(t_command *cmd, t_env_list env_list)
 {
 	if (ft_strncmp(cmd->execve_cmd[0], "echo", 5) == 0)
 		ft_echo(cmd, 1);
@@ -89,7 +89,12 @@ void	ft_select_built_cmd(t_command *cmd)
 		ft_cd(cmd, 1);
 	else if (ft_strncmp(cmd->execve_cmd[0], "exit", 5) == 0)
 		ft_exit(cmd);
-	//ft_printf("builtin func");
+	else if (ft_strncmp(cmd->execve_cmd[0], "export", 7) == 0)
+		ft_export(&env_list, cmd, 1);
+	else if (ft_strncmp(cmd->execve_cmd[0], "unset", 6) == 0)
+		ft_unset(&env_list, cmd, 1);
+	else if (ft_strncmp(cmd->execve_cmd[0], "env", 4) == 0)
+		ft_env(&env_list, 1);
 }
 
 /**
