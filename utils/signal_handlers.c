@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   signals.c                                          :+:      :+:    :+:   */
+/*   signal_handlers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:49:43 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 10:25:42 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/17 10:27:25 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@
 
 void	ft_ctrl_c_sig(int signal)
 {
-	// implement logic to load the prompt
-	// it will not be inherited to execve!
-	// it will be inherited to inbuilds - need to add the signal to each function to mimic it is a process
 	ft_printf("\nYou pressed ctrl + c and the signal was: %d\n", signal);
 	//exit(1);
 }
