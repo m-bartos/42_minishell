@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 15:17:16 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 09:27:56 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 09:29:11 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*ft_arr_to_str(char **arr_of_strs)
 	while(arr_of_strs[i])
 	{
 		temp_str = str;
-		str = ft_strjoin(str, arr_of_strs[i]);
+		str = ft_strjoin_e(str, arr_of_strs[i]);
 		free(temp_str);
 		i++;
 	}
