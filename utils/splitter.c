@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:24:52 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 10:55:39 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 11:13:00 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,11 +82,6 @@ char	**splitter(char *line)
 	size_t	j;
 
 	array_of_tokens = init_arr_of_tokens(line);
-	if(array_of_tokens == NULL)
-	{
-		perror("Minishell: ");
-		exit(EXIT_FAILURE);
-	}
 	i = 0;
 	j = 0;
 	while (line[i])
