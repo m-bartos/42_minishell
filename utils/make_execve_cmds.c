@@ -6,12 +6,19 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 10:26:48 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 09:18:30 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 13:08:23 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+
+/**
+ * @brief Count the number of command and argument tokens in a command struct.
+ *
+ * @param cmd Pointer to the command structure.
+ * @return The number of command and argument tokens, or -1 if there are errors.
+ */
 int	count_cmd_length(t_cmd *cmd)
 {
 	t_token	*token;
@@ -30,6 +37,11 @@ int	count_cmd_length(t_cmd *cmd)
 	return (length);
 }
 
+/**
+ * @brief Create the command string array for a single command structure.
+ *
+ * @param cmd Pointer to the command structure.
+ */
 void	make_one_execve_cmd(t_cmd *cmd)
 {
 	t_token	*token;
@@ -54,7 +66,12 @@ void	make_one_execve_cmd(t_cmd *cmd)
 	cmd->execve_cmd = execve_cmd;
 }
 
-void	make_execve_cmds(t_cmd_tab *cmd_tab)
+/**
+ * Create the command string arrays for all commands in the command table.
+ * 
+ * @param cmd_tab Pointer to the command table structure.
+ */
+void make_execve_cmds(t_cmd_tab *cmd_tab)
 {
 	t_cmd	*cmd;
 
