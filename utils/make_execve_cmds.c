@@ -6,11 +6,11 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 10:26:48 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 09:13:28 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 09:18:30 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "./minishell.h"
+#include "../minishell.h"
 
 int	count_cmd_length(t_cmd *cmd)
 {
