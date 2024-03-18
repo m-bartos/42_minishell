@@ -6,7 +6,7 @@ CC = cc
 READLINE_FLAGS = -L/opt/homebrew/opt/readline/lib -lreadline
 
 # Directories
-SRC_DIR = ./exec
+SRC_DIR = ./execution
 OBJ_DIR = ./obj
 LIBFT_DIR = ./libft
 

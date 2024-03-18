@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/18 11:57:27 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/18 18:08:59 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,4 +179,7 @@ char	*ft_get_env(t_env_list *env_list, char *var_name);
 // Helpers to print cmds
 void	ft_print_cmd(t_cmd_tab *cmd_tab);
 void	ft_print_cmd_types(t_cmd_tab *cmd_tab);
+
+// Minidata
+void	ft_init_mini_data(t_mini_data *minidata, char *envp[]);
 #endif
