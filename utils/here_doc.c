@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 10:17:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/15 13:14:01 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 10:15:43 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,20 @@
 
 void	unlink_heredoc_files(t_cmd_tab *cmd_tab)
 {
-	t_cmd 	*cmd;
+	t_cmd	*cmd;
 	t_token	*token;
-	
+	char	*text;
+
 	cmd = cmd_tab->first_cmd;
 	while (cmd)
 	{
 		token = cmd->first_token;
 		while (token)
 		{
-			if (token->type == R_INFILE 
-			&& ft_strncmp(token->text, ".hd_X[Aj0J-]};!@A_cmd_", 22) == 0)
-				unlink(token->text);
+			text = token->text;
+			if (token->type == R_INFILE
+				&& ft_strncmp(text, HEREDOC_FILE, ft_strlen(HEREDOC_FILE)) == 0)
+				unlink(text);
 			token = token->next;
 		}
 		cmd = cmd->next;
@@ -52,18 +54,25 @@ char	*expand_all_vars_in_heredoc_line(char *str)
 	return (str);
 }
 
-char	*get_heredoc_file(char *eof, int index)
+char	*create_and_open_heredoc_file(int index)
 {
 	char	*filename;
 	char	*str_index;
+
+	str_index = ft_itoa_e(index);
+	filename = ft_strjoin_e(HEREDOC_FILE, str_index);
+	free(str_index);
+	return (filename);
+}
+
+char	*get_heredoc_file(char *eof, int index)
+{
+	char	*filename;
 	char	*old_line;
 	char	*line;
 	int		fd;
 
-	line = NULL;
-	str_index = ft_itoa(index);
-	filename = ft_strjoin(".hd_X[Aj0J-]};!@A_cmd_", str_index);
-	free(str_index);
+	filename = create_and_open_heredoc_file(index);
 	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	while (1)
 	{
@@ -74,7 +83,7 @@ char	*get_heredoc_file(char *eof, int index)
 			break ;
 		}
 		old_line = line;
-		line = ft_strjoin(line, "\n");
+		line = ft_strjoin_e(line, "\n");
 		free(old_line);
 		line = expand_all_vars_in_heredoc_line(line);
 		write(fd, line, ft_strlen(line));
@@ -92,7 +101,7 @@ void	expand_heredocs(t_cmd *cmd)
 
 	index = 0;
 	token = cmd->first_token;
-	while(token != NULL)
+	while (token != NULL)
 	{
 		if (token->type == HERE_DOC && token->next->type == HERE_DOC_EOF)
 		{
