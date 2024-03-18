@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:37:34 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 17:17:20 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 20:01:35 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ t_type	assign_cmd_type(char *text)
 	else if (ft_strncmp(text, "unset", 6) == 0)
 		return (CMD_BUILT);
 	else if (ft_strncmp(text, "env", 4) == 0)
+		return (CMD_BUILT);
+	else if (ft_strncmp(text, "exit", 5) == 0)
 		return (CMD_BUILT);
 	else
 		return (CMD);
