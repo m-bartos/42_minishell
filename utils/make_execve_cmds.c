@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 10:26:48 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 13:08:23 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 19:57:28 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,17 @@
 int	count_cmd_length(t_cmd *cmd)
 {
 	t_token	*token;
+	t_type	type;
 	int		length;
 
 	token = cmd->first_token;
 	length = 0;
 	while(token != NULL)
 	{
-		if (token->type == CMD || token->type == ARG)
+		type = token->type;
+		if (type == CMD || type == CMD_BUILT || type == ARG)
 			length++;
-		else if (token->type == CMD_ERR || token->type == CMD_BUILT)
+		else if (type == CMD_ERR || type == CMD_BUILT)
 			return (-1);
 		token = token->next;
 	}
@@ -45,6 +47,7 @@ int	count_cmd_length(t_cmd *cmd)
 void	make_one_execve_cmd(t_cmd *cmd)
 {
 	t_token	*token;
+	t_type	type;
 	char	**execve_cmd;
 	int		length;
 	int		i;
@@ -59,7 +62,8 @@ void	make_one_execve_cmd(t_cmd *cmd)
 	i = 0;
 	while(i < length)
 	{
-		if (token->type == CMD || token->type == ARG)
+		type = token->type;
+		if (type == CMD || type == CMD_BUILT || type == ARG)
 			execve_cmd[i++] = token->text;
 		token = token->next;
 	}
