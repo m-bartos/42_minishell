@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 22:46:28 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/15 08:43:33 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 09:33:10 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_cmdjoin(t_cmd *cmd, t_cmd *cmd_add)
 	token = cmd_add->first_token;
 	while(token)
 	{
-		text = ft_strdup(token->text);
+		text = ft_strdup_e(token->text);
 		type = token->type;
 		ft_push_rotate_token(cmd, text, type);
 		token = token->next;
@@ -68,8 +68,11 @@ void	ft_push_token(t_cmd *cmd, char *token_text, t_type token_type)
 	t_token	*token;
 
 	token = malloc(sizeof(t_token));
-	if (!token)
-		return ;
+	if(token == NULL)
+	{
+		perror("Minishell: ");
+		exit(EXIT_FAILURE);
+	}
 	token->text = token_text;
 	token->next = cmd->first_token;
 	token->prev = NULL;
