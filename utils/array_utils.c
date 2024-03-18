@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 15:17:16 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/16 19:46:06 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 09:27:56 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ char	**ft_init_array(int size)
 
 	array = (char **) malloc(sizeof(char *) * (size + 1));
 	if (array == NULL)
-		return (NULL);
+	{
+		perror("Minishell: ");
+		exit(EXIT_FAILURE);
+	}
 	array[size] = NULL;
 	return (array);
 }
