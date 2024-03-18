@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:44:37 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/14 15:31:47 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 09:43:54 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ char	**remove_quotes_encaptulates_words(char **arr_of_str)
 		if (arr_of_str[i][0] == '\"')
 		{
 			temp_str = arr_of_str[i];
-			arr_of_str[i] = ft_strtrim(arr_of_str[i], "\"");
+			arr_of_str[i] = ft_strtrim_e(arr_of_str[i], "\"");
 			free(temp_str);
 		}
 		else if (arr_of_str[i][0] == '\'')
 		{
 			temp_str = arr_of_str[i];
-			arr_of_str[i] = ft_strtrim(arr_of_str[i], "\'");
+			arr_of_str[i] = ft_strtrim_e(arr_of_str[i], "\'");
 			free(temp_str);
 		}
 		i++;
@@ -56,33 +56,41 @@ char	*get_substr_from_word(char const *str, size_t *i)
 	}
 	else
 		size = ft_strchr(&str[1], letter_to_find) - str + 1;
-	new_text = ft_substr(str, 0, size);
+	new_text = ft_substr_e(str, 0, size);
 	*i = *i + size;
 	return (new_text);
 }
 
-char	**parse_token_text(char *text)
+int	count_substrs_in_word(char const *text)
 {
-	char	**arr_of_strs;
 	char	*temp_str;
 	size_t	i;
-	size_t	j;
 	int		size;
 
-	size = 0;
 	i = 0;
+	size = 0;
 	while (text[i])
 	{
 		temp_str = get_substr_from_word(&text[i], &i);
 		free(temp_str);
 		size++;
 	}
-	arr_of_strs = (char **) malloc(sizeof(char *) * (size + 1));
+	return (size);
+}
+
+char	**parse_token_text(char *text)
+{
+	char	**arr_of_strs;
+	size_t	i;
+	size_t	j;
+	int		size;
+
+	size = count_substrs_in_word(text);
+	arr_of_strs = ft_init_array(size);
 	i = 0;
 	j = 0;
 	while (text[i])
 		arr_of_strs[j++] = get_substr_from_word(&text[i], &i);
-	arr_of_strs[j] = NULL;
 	return (arr_of_strs);
 }
 
