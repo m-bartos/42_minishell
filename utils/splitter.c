@@ -6,14 +6,14 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:24:52 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 11:13:00 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 13:11:05 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 /**
- * Counts the number of tokens in a given line.
+ * @brief Counts the number of tokens in a given line.
  *
  * @param line The input line to be split into tokens.
  * @return The number of tokens found in the line.
@@ -46,7 +46,7 @@ int	count_tokens(char *line)
 }
 
 /**
- * Initializes an array of tokens for line to be split 
+ * @brief Initializes an array of tokens for line to be split 
  *  - counts tokens in string and allocates memory.
  *
  * @param line The line to be split into an array of tokens.
@@ -69,7 +69,7 @@ char	**init_arr_of_tokens(char *line)
 }
 
 /**
- * Splits a given string into an array of tokens based on certain delimiters.
+ * @brief Splits a given string into an array of tokens based on delimiters.
  *
  * @param line The input string to be split.
  * @return An array of strings, where each element represents a token
