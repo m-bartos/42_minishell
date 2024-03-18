@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:41:18 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/16 19:08:37 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 09:55:38 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*get_variable_name(char	*str, size_t *i)
 
 	str_start_var = &str[*i + 1];
 	size = end_of_var(str_start_var) - str_start_var;
-	str_out = ft_substr(str_start_var, 0, size);
+	str_out = ft_substr_e(str_start_var, 0, size);
 	if (str_out == NULL)
 		return (NULL);
 	*i = *i - size;
@@ -79,7 +79,7 @@ char	*get_expanded_var(char *str, size_t *i)
 	char	*str_expanded_var;
 
 	str_var_name = get_variable_name(str, i);
-	str_expanded_var = getenv(str_var_name);
+	str_expanded_var = getenv(str_var_name); // implement environment variables
 	*i = *i + ft_strlen(str_expanded_var);
 	free(str_var_name);
 	return (str_expanded_var);
