@@ -40,3 +40,16 @@ char	*ft_substr_e(const char *s1, unsigned int start, size_t len)
 	}
 	return (new_str);
 }
+
+char	*ft_strtrim_e(char const *s1, char const *set)
+{
+	char	*new_str;
+
+	new_str = ft_strtrim(s1, set);
+	if(new_str == NULL)
+	{
+		perror("Minishell: ");
+		exit(EXIT_FAILURE);
+	}
+	return (new_str);
+}
