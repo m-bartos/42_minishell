@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 15:17:16 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 09:29:11 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 10:48:10 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	**ft_init_array(int size)
 	return (array);
 }
 
-void	free_array(char **arr_of_str)
+void	ft_free_array(char **arr_of_str)
 {
 	int	index;
 
@@ -69,7 +69,7 @@ void	free_array(char **arr_of_str)
 	free(arr_of_str);
 }
 
-void	print_array(char **arr)
+void	ft_print_array(char **arr)
 {
 	int	i;
 

@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/18 10:29:38 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 10:48:10 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,8 @@ char	*ft_substr_e(const char *s1, unsigned int start, size_t len);
 int		ft_len_of_arr(char **arr);
 char	*ft_arr_to_str(char **arr_of_strs);
 char	**ft_init_array(int size);
-void	free_array(char **arr_of_str);
-void	print_array(char **arr);
+void	ft_free_array(char **arr_of_str);
+void	ft_print_array(char **arr);
 
 // cmd_path_and_execve_cmd.c
 void	expand_token_cmd_path(t_token *ptr_token);

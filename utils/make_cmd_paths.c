@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 09:12:15 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 10:19:04 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 10:48:04 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	*get_cmd_path(t_token *token)
 		str_path = NULL;
 		i++;
 	}
-	free_array(arr_of_paths);
+	ft_free_array(arr_of_paths);
 	return (str_path);
 }
 

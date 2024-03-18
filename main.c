@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/15 12:42:53 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 10:48:04 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	main (void)
 		if (*arr_of_tokens == NULL)
 		{
 			free(line);
-			free_array(arr_of_tokens);
+			ft_free_array(arr_of_tokens);
 			continue ;
 		}
 		free(line);

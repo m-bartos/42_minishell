@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:44:37 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 09:43:54 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 10:48:04 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ void	remove_quotes_in_token(t_token *token)
 	arr_of_strs = parse_token_text(token->text);
 	arr_of_strs = remove_quotes_encaptulates_words(arr_of_strs);
 	new_token = ft_arr_to_str(arr_of_strs);
-	free_array(arr_of_strs);
+	ft_free_array(arr_of_strs);
 	temp_token_text = token->text;
 	token->text = new_token;
 	free(temp_token_text);
