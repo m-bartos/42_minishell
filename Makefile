@@ -1,12 +1,13 @@
 # Compiler and flags
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+# CFLAGS = -Wall -Werror -Wextra
 
 # readline() flag to link the library for compiler (MacOS only)
 READLINE_FLAGS = -L/opt/homebrew/opt/readline/lib -lreadline
 
 # Directories
 SRC_DIR = ./utils
+SRC_DIR2 = ./execution
 OBJ_DIR = ./obj
 LIBFT_DIR = ./libft
 
@@ -14,7 +15,7 @@ LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 # Source and object files
-SRCS = $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/**/*.c) $(wildcard ./*.c)
+SRCS = $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR2)/*.c) $(wildcard $(SRC_DIR)/**/*.c) $(wildcard ./*.c)
 OBJS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 # Program name
