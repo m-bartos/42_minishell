@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/18 16:53:32 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 19:16:33 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <unistd.h>
+# include <sys/stat.h>
 # include <sys/wait.h>
 # include "./libft/libft.h"
-// rl_clear_history, rl_on_new_line,
-// rl_replace_line, rl_redisplay, add_history,
 # include <readline/readline.h>
-// adds rl_clear_history()
 # include <readline/history.h>
 # include <errno.h>
+# include <fcntl.h>
 
 # define RESET   "\x1B[0m"
 # define BLUE    "\x1B[34m"
@@ -36,6 +35,8 @@
 # define TRUE 1
 
 # define HEREDOC_FILE ".hd_X[Aj0J-]}1038.93'-=;';!@A_cmd_"
+
+# define CMD_NOT_FOUND 127
 
 typedef enum s_in_quotes
 {
@@ -63,7 +64,6 @@ typedef enum s_type
 	HERE_DOC_EOF
 }		t_type;
 
-// chaning declaration of *next from t_token to struct s_token due to compilation error on Mac
 typedef struct s_token
 {
 	char			*text;
@@ -71,11 +71,6 @@ typedef struct s_token
 	struct s_token	*next;
 	struct s_token	*prev;
 }		t_token;
-
-/* --- LINKED LIST EXAMPLE (non-sense command) ---
-echo	/	aaa 	/	bbb		/	|		/	<		/	file.txt	/	cat			/
-CMD	/	ARG		/	ARG		/	PIPE	/	R_IN	/	ARG			/	CMD		/
-*/
 
 typedef struct s_cmd
 {
@@ -93,6 +88,36 @@ typedef struct s_cmd_tab
 	t_cmd	*last_cmd;
 	int		size;
 }	t_cmd_tab;
+
+typedef struct s_exec_data
+{
+	int	fd_in;
+	int	fd_out;
+	int	pipe_fd[2];
+}		t_exec_data;
+
+// Enviromental vars structures
+// Env node
+typedef struct s_env
+{
+	struct s_env	*next;
+	char			*env_text;
+	char			*env_name;
+	char			*env_value;
+}	t_env;
+// Env table
+typedef struct s_env_list
+{
+	t_env	*top;
+	int		size;
+}	t_env_list;
+
+// Minishell state data
+typedef struct s_mini_data
+{
+	t_env_list	*env_list;
+	char		**env_arr;
+} t_mini_data;
 
 // libft_extended
 char	*ft_itoa_e(int n);
@@ -168,9 +193,6 @@ void	exit_redirection_error(t_cmd *cmd, char *text);
 void	check_redirection_errors(t_cmd *cmd);
 int		is_empty_line(char *line);
 
-// exececution.c
-void	ft_exec_commands(char ***cmds);
-
 // exit_free.c
 void	check_exit(char *line);
 
@@ -198,9 +220,6 @@ void	print_cmd_tab(t_cmd_tab *cmd_tab);
 void	unlink_heredoc_files(t_cmd_tab *cmd_tab);
 char	*get_heredoc_file(char *eof, int index);
 void	expand_heredocs(t_cmd *cmd);
-
-// input_output.c
-int		ft_input_file(char *file_name);
 
 // make_cmd_paths.c
 char	*get_cmd_path(t_token *token);
@@ -237,5 +256,83 @@ char	**splitter(char *line);
 
 // main.c
 
+
+// EXECUTION //
+// exec functions
+void	ft_exec_input(t_cmd_tab *cmd_tab, t_mini_data *data);
+void	ft_exec_commands(t_cmd *cmd, t_mini_data *minidata);
+void	ft_execve(t_cmd *cmd, t_mini_data *minidata);
+void	ft_select_built_cmd(t_cmd *cmd, t_env_list env_list);
+void	ft_cmd_not_found(t_cmd *cmd);
+void	ft_parent_process(t_exec_data *data, t_mini_data *minidata);
+void	ft_init_exec_data(t_exec_data *exec_data);
+void	ft_exit_status(int *status);
+
+// I/O functions
+int		ft_input_file(char *file_name);
+int		ft_output_file(char *file_name);
+int		ft_append_file(char *file_name);
+
+// Redirection functions
+void	ft_input_redirection(char *file_name, int *fd_in);
+void	ft_output_redirection(char *file_name, int *fd_out);
+void	ft_append_redirection(char *file_name, int *fd_out);
+void	ft_redirect_io(t_cmd *cmd, int *fd_in, int *fd_out);
+
+// Redirection utils
+int	ft_has_out_redir(t_cmd *cmd);
+
+
+// NEW command table ops
+void	ft_init_token(t_token *token);
+void	ft_init_cmd(t_cmd *cmd);
+void	ft_init_cmd_table(t_cmd_tab *cmd_tab);
+void	ft_push_cmd_to_tab(t_cmd_tab *cmd_table, t_cmd *cmd);
+void	ft_append_cmd_to_tab(t_cmd_tab *cmd_table, t_cmd *cmd);
+void	ft_append_token_to_cmd(t_cmd *cmd, char *text, t_type type);
+t_token	*ft_create_token(char *text, t_type type);
+
+// Signals
+void	ft_ctrl_c_sig(int signal);
+void	ft_ctrl_slash_sig (int signal);
+
+// Built in cmds;
+// utils
+char	*ft_find_arg(t_cmd *cmd);
+// echo
+void	ft_echo(t_cmd *cmd, int is_child);
+int		ft_has_option(t_cmd *cmd);
+char	*ft_get_echo_input(t_cmd *cmd);
+// exit
+void	ft_exit(t_cmd *cmd);
+// cd
+void	ft_cd(t_cmd *cmd, int is_child);
+// pwd
+void	ft_pwd(int is_child);
+// export
+void	ft_export(t_env_list *env_list, t_cmd *cmd, int is_child);
+// unset
+void	ft_unset(t_env_list *env_list, t_cmd *cmd, int is_child);
+// env
+void	ft_env(t_env_list *env_list, int is_child);
+
+// Environmental functions
+void	ft_init_env_list(t_env_list *env_list);
+void	ft_init_env(t_env *env);
+char	*ft_extract_env_name(char *str);
+void	ft_add_env(t_env_list *env_list, char *env);
+int		ft_remove_env(t_env_list *env_list, char *var_name);
+int		ft_remove_str(t_env_list *env_list, char *str);
+void	ft_list_env(t_env_list *env_list);
+void	ft_convert_arr_to_list(t_env_list *env_list, char **envp);
+char	**ft_convert_list_to_arr(t_env_list *env_list);
+char	*ft_get_env(t_env_list *env_list, char *var_name);
+
+// Helpers to print cmds
+// void	ft_print_cmd(t_cmd_tab *cmd_tab);
+void	ft_print_cmd_types(t_cmd_tab *cmd_tab);
+
+// Minidata
+void	ft_init_mini_data(t_mini_data *minidata, char *envp[]);
 
 #endif
