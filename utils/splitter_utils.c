@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:10:52 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/15 13:02:42 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 10:56:12 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,20 +58,3 @@ size_t	count_word_length(char *str)
 	}
 	return(size);
 }
-
-// int	is_end_of_word(char c)
-// {
-// 	if (is_whitespace(c) || is_quote(c) || is_operator(c) || c == '\0')
-// 		return (1);
-// 	return (0);
-// }
-
-// size_t	word_length(char *str)
-// {
-// 	size_t	count;
-
-// 	count = 0;
-// 	while (!is_end_of_word(str[count]))
-// 		count++;
-// 	return (count);
-// }
