@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/18 10:34:49 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/18 11:57:27 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,9 @@ typedef struct s_exec_data
 typedef struct s_env
 {
 	struct s_env	*next;
-	char			*value;
+	char			*env_text;
+	char			*env_name;
+	char			*env_value;
 }	t_env;
 // Env table
 typedef struct s_env_list

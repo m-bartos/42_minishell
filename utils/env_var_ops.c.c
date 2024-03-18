@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:42:36 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 19:31:11 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/18 12:28:09 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,17 @@ int	ft_remove_env(t_env_list *env_list, char *var_name)
 	node = env_list->top;
 	while (node)
 	{
-		if (node->value != NULL)
+		if (node->env_text != NULL)
 		{
-			if (ft_strncmp(node->value, var_name, ft_strlen(var_name)) == 0
-				&& *(node->value + (ft_strlen(var_name))) == '=')
+			if (ft_strncmp(node->env_text, var_name, ft_strlen(var_name)) == 0
+				&& *(node->env_text + (ft_strlen(var_name))) == '=')
 			{
-				free(node->value);
-				node->value = NULL;
+				free(node->env_text);
+				free(node->env_name);
+				free(node->env_value);
+				node->env_text = NULL;
+				node->env_name = NULL;
+				node->env_value = NULL;
 				env_list->size--;
 				return (0);
 			}
@@ -56,27 +60,27 @@ int	ft_remove_env(t_env_list *env_list, char *var_name)
  * @return 0 if found and nullified, 1 otherwise.
  */
 
-int	ft_remove_str(t_env_list *env_list, char *str)
-{
-	t_env	*node;
+// int	ft_remove_str(t_env_list *env_list, char *str)
+// {
+// 	t_env	*node;
 
-	node = env_list->top;
-	while (node)
-	{
-		if (node->value != NULL)
-		{
-			if (ft_strncmp(node->value, str, ft_strlen(str)) == 0)
-			{
-				free(node->value);
-				node->value = NULL;
-				env_list->size--;
-				return (0);
-			}
-		}
-		node = node->next;
-	}
-	return (1);
-}
+// 	node = env_list->top;
+// 	while (node)
+// 	{
+// 		if (node->value != NULL)
+// 		{
+// 			if (ft_strncmp(node->value, str, ft_strlen(str)) == 0)
+// 			{
+// 				free(node->value);
+// 				node->value = NULL;
+// 				env_list->size--;
+// 				return (0);
+// 			}
+// 		}
+// 		node = node->next;
+// 	}
+// 	return (1);
+// }
 
 /**
  * @brief Adds a new environment variable.
@@ -87,26 +91,28 @@ int	ft_remove_str(t_env_list *env_list, char *str)
  * @param env String of the environment variable to add.
  */
 
-void	ft_add_env(t_env_list *env_list, char *env)
+void	ft_add_env(t_env_list *env_list, char *env_text)
 {
 	t_env	*node;
 	char	*env_name;
+	char	**tmp_arr;
 
-	env_name = ft_extract_env_name(env);
-	ft_remove_env(env_list, env_name);
+	tmp_arr = ft_split(env_text, '=');
+	ft_remove_env(env_list, tmp_arr[0]);
+
 	node = malloc(sizeof(t_env));
 	if (!node)
 	{
 		perror("Add env:");
-		free(env_name);
 		exit(1);
 	}
 	ft_init_env(node);
-	node->value = ft_strdup(env);
+	node->env_text = ft_strdup(env_text);
+	node->env_name = tmp_arr[0];
+	node->env_value = tmp_arr[1];
 	node->next = env_list->top;
 	env_list->top = node;
 	env_list->size++;
-	free(env_name);
 }
 
 /**
@@ -128,12 +134,12 @@ char	*ft_get_env(t_env_list *env_list, char *var_name)
 	env = env_list->top;
 	while (env)
 	{
-		if (env->value != NULL)
+		if (env->env_text != NULL)
 		{
-			if (ft_strncmp(env->value, var_name, ft_strlen(var_name)) == 0
-				&& *(env->value + (ft_strlen(var_name))) == '=')
+			if (ft_strncmp(env->env_text, var_name, ft_strlen(var_name)) == 0
+				&& *(env->env_text + (ft_strlen(var_name))) == '=')
 			{
-				env_value = env->value;
+				env_value = env->env_text;
 				while (*env_value != '=')
 					env_value++;
 				env_value++;
@@ -161,9 +167,9 @@ void	ft_list_env(t_env_list *env_list)
 	env = env_list->top;
 	while (env)
 	{
-		if (env->value != NULL)
+		if (env->env_text != NULL)
 		{
-			ft_putstr_fd(env->value, STDOUT);
+			ft_putstr_fd(env->env_text, STDOUT);
 			ft_putstr_fd("\n", STDOUT);
 		}
 		env = env->next;
@@ -213,9 +219,9 @@ char	**ft_convert_list_to_arr(t_env_list *env_list)
 	env = env_list->top;
 	while (env)
 	{
-		if (env->value != NULL)
+		if (env->env_text != NULL)
 		{
-			envp[i] = env->value;
+			envp[i] = env->env_text;
 			i++;
 		}
 		env = env->next;

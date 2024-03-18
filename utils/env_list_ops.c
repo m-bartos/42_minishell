@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 22:36:12 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/16 22:37:39 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/18 11:58:39 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,7 @@ void	ft_init_env_list(t_env_list *env_list)
 void	ft_init_env(t_env *env)
 {
 	env->next = NULL;
-	env->value = NULL;
+	env->env_text = NULL;
+	env->env_name = NULL;
+	env->env_value = NULL;
 }
