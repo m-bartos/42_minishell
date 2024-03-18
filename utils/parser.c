@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:20:49 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/15 13:11:20 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 11:25:38 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	parse_from_arr_of_tokens_to_one_cmd(t_cmd *cmd, char **arr_of_tokens)
 {
 	fill_cmd_tab(cmd, arr_of_tokens);
 	free(arr_of_tokens);
+	arr_of_tokens = NULL;
 	assign_types_to_tokens(cmd);
 	expand_cmd(cmd);
 	remove_quotes_in_cmd_tokens(cmd);
@@ -40,8 +41,12 @@ void	parse_from_arr_of_tokens_to_one_cmd(t_cmd *cmd, char **arr_of_tokens)
 	expand_heredocs(cmd);
 }
 
-void	parser(t_cmd_tab *cmd_tab, t_cmd *cmd, char **arr_of_tokens)
+void	parser(t_cmd_tab *cmd_tab, t_cmd *cmd, char *line)
 {
+	char	**arr_of_tokens;
+
+	arr_of_tokens = splitter(line);
+	free(line);
 	parse_from_arr_of_tokens_to_one_cmd(cmd, arr_of_tokens);
 	handle_if_last_token_is_pipe(cmd);
 	make_cmd_tab_from_cmd(cmd_tab, cmd);

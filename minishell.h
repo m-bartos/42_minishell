@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/18 10:48:10 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 11:11:54 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -212,7 +212,7 @@ void	make_execve_cmds(t_cmd_tab *cmd_tab);
 // parser.c
 void	handle_if_last_token_is_pipe(t_cmd *cmd);
 void	parse_from_arr_of_tokens_to_one_cmd(t_cmd *cmd, char **arr_of_tokens);
-void	parser(t_cmd_tab *cmd_tab, t_cmd *cmd, char **arr_of_tokens);
+void	parser(t_cmd_tab *cmd_tab, t_cmd *cmd, char *line);
 
 // splitter_handlers.c
 char	*handle_redirections(char *str, size_t *index);
