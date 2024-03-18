@@ -6,12 +6,32 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:33:30 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 09:57:39 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 16:34:54 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * @file expander.c
+ * @brief Functions for expanding variables within strings and command tables.
+ *
+ * This file contains functions related to expanding variables within strings
+ * and command tables. It includes functionality for replacing variables marked
+ * with a '$' symbol with their corresponding values.
+ */
+
 #include "../minishell.h"
 
+/**
+ * @brief Expands a single variable within a string.
+ * 
+ * This function expands a single variable within the input string by replacing
+ * it with its corresponding value. It replaces variable with the expanded value
+ * at position of pointer i.
+ * 
+ * @param str The input string containing the variable to be expanded.
+ * @param i A pointer to the index in the string where the variable is found.
+ * @return The string with the variable expanded.
+ */
 char	*get_str_with_one_expanded_var(char *str, size_t *i)
 {
 	size_t	old_i;
@@ -32,6 +52,17 @@ char	*get_str_with_one_expanded_var(char *str, size_t *i)
 	return (str_out);
 }
 
+/**
+ * @brief Determines whether a character is within quotes in a string.
+ * 
+ * This function determines whether a character at a given index within a string
+ * is within single or double quotes. It helps identify whether variables at
+ * index position should be expanded or not.
+ * 
+ * @param str The input string to analyze.
+ * @param index The index of the character to check.
+ * @return The type of quotes surrounding the character.
+ */
 t_in_quotes	in_which_quotes(char *str, size_t index)
 {
 	int		search_single_q;
@@ -63,11 +94,12 @@ t_in_quotes	in_which_quotes(char *str, size_t index)
 }
 
 /**
- * @brief Expands all variables in a given string.
+ * @brief Expands variables within a string.
  * 
- * This function expands all variables in the input string by replacing
+ * This function expands variables within the input string by replacing
  * them with their corresponding values. It searches for variables marked
- * with a '$' symbol and replaces them with their expanded values.
+ * with a '$' symbol and replaces them with their expanded values, taking
+ * into account whether they are within single or double quotes.
  * 
  * @param str The input string to expand variables in.
  * @return The string with all variables expanded.
@@ -93,13 +125,13 @@ char	*expand_all_vars_in_str(char *str)
 }
 
 /**
- * @brief Expands variables that should be expanded in a given command table.
+ * @brief Expands variables within a command table.
  * 
- * This function expands all variables in the input command table 
- * that should be expanded by replacing them with their corresponding values.
+ * This function expands variables within the input command table by replacing 
+ * them with their corresponding values. It iterates through the tokens of
+ * the command table and expands variables found in non-operator tokens.
  * 
- * @param str The input string to expand variables in.
- * @return The string with all variables expanded.
+ * @param cmd The command table to expand variables in.
  */
 void	expand_cmd(t_cmd *cmd)
 {
