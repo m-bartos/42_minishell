@@ -1,45 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_tab_filler.c                                   :+:      :+:    :+:   */
+/*   cmd_struct_filler.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:04:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/06 09:36:01 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 17:08:12 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-// this function will not be needed
-void	print_cmd_tab(t_cmd_tab *ptr_cmd_tab)
+/**
+ * @brief Fills a command structure with tokens from an array of strings.
+ *
+ * This function populates the specified command structure with tokens obtained
+ * from the provided array of strings. It iterates through the array of tokens,
+ * adding each token to the command structure.
+ *
+ * @param cmd The command structure to fill with tokens.
+ * @param arr_of_tokens The array of strings (tokens) to add to the command.
+ */
+void	fill_cmd_tab(t_cmd *cmd, char **arr_of_tokens)
 {
-	t_node	*ptr_node;
-	int		i;
+	size_t	i;
 
-	ptr_node = ptr_cmd_tab->first_node;
 	i = 0;
-	printf("-------------\n");
-	while (ptr_node != NULL)
+	while (arr_of_tokens[i] != NULL)
 	{
-		printf("%*i. Token: |%*s|     ", 2, i, 20, ptr_node->token);
-		printf("Type: %i\n", ptr_node->type);
-		ptr_node = ptr_node->next;
+		ft_push_rotate_token(cmd, arr_of_tokens[i], NOT_ASSIGNED);
 		i++;
-	}
-	printf("-------------\n");
-}
-
-void	init_and_fill_cmd_tab(t_cmd_tab *ptr_cmd_tab, char **arr_of_tokens)
-{
-	size_t	index;
-
-	ft_init_command_table(ptr_cmd_tab);
-	index = 0;
-	while (arr_of_tokens[index])
-	{
-		ft_push_rotate_token(ptr_cmd_tab, arr_of_tokens[index]);
-		index++;
 	}
 }

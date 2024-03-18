@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_split_e.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/07 10:36:09 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/13 12:46:19 by mbartos          ###   ########.fr       */
+/*   Created: 2024/03/18 10:28:22 by mbartos           #+#    #+#             */
+/*   Updated: 2024/03/18 10:33:10 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../minishell.h"
 
-size_t	ft_strlen(const char *s)
+char	**ft_split_e(const char *s, char c)
 {
-	int	i;
+	char	**new_arr;
 
-	if (s == NULL)
-		return (0);
-	i = 0;
-	while (s[i] != 0)
-		i++;
-	return (i);
+	new_arr = ft_split(s, c);
+	if(new_arr == NULL)
+	{
+		perror("Minishell: ");
+		exit(EXIT_FAILURE);
+	}
+	return (new_arr);
 }

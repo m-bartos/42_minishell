@@ -1,25 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   exit_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/07 10:36:09 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/13 12:46:19 by mbartos          ###   ########.fr       */
+/*   Created: 2024/03/10 10:24:15 by mbartos           #+#    #+#             */
+/*   Updated: 2024/03/14 15:35:19 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../minishell.h"
 
-size_t	ft_strlen(const char *s)
+void	check_exit(char *line)
 {
-	int	i;
-
-	if (s == NULL)
-		return (0);
-	i = 0;
-	while (s[i] != 0)
-		i++;
-	return (i);
+	if (line == NULL || ft_strncmp(line, "exit", 5) == 0)
+	{
+		printf("exit\n");
+		free(line);
+		printf(RESET);
+		exit(0);
+	}
 }

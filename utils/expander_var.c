@@ -6,9 +6,19 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:41:18 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/03 12:23:44 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 16:38:49 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/**
+ * @file expander_var.c
+ * @brief Functions for expanding variables within strings.
+ *
+ * This file contains functions related to expanding variables within strings.
+ * It includes functionality for identifying variable names, retrieving their
+ * values from the environment, and replacing occurrences of variables within
+ * strings with their corresponding values.
+ */
 
 #include "../minishell.h"
 
@@ -18,7 +28,7 @@
  * This function iterates through the given string until it reaches the end of
  * a variable. The function stops when it encounters a character that is not
  * part of a variable name, such as '$', '/', ':', '^', ';', '-', '%', '&',
- * '*', '#', or '@'.
+ * '*', '#', '@', '"', '\'', '\n', or ' '.
  * 
  * @param str The string to search for the end of a variable.
  * @return A pointer to the character that marks the end of the variable in the
@@ -29,64 +39,57 @@ char	*end_of_var(char *str)
 	while (*str != '$' && *str != '\0' && *str != '/' && *str != ':'
 		&& *str != '^' && *str != ';' && *str != '-' && *str != '%'
 		&& *str != '&' && *str != '*' && *str != '#' && *str != '@'
-		&& *str != '"')
+		&& *str != '"' && *str != '\'' && *str != '\n' && *str != ' ')
 		str++;
 	return (str);
 }
 
 /**
- * @brief Retrieves the name of a variable from a string.
- *
- * This function takes a string as input and searches for a variable name
- * starting with a '$' character. It returns a dynamically allocated string
- * containing the variable name without the '$' character. The caller is
- * responsible for freeing the memory allocated for the returned string.
- *
- * @param str The input string.
- * @return A dynamically allocated string containing the variable name,
- *         or NULL if memory allocation fails.
+ * @brief Extracts the name of a variable from a string.
+ * 
+ * This function retrieves the name of a variable from the given string,
+ * starting from the specified index. It identifies the variable name until
+ * it reaches the end of the variable, using the 'end_of_var' function.
+ * 
+ * @param str The string containing the variable.
+ * @param i A pointer to the index where the variable starts.
+ * @return The name of the variable extracted from the string.
  */
-char	*get_variable_name(char	*str)
+
+char	*get_variable_name(char	*str, size_t *i)
 {
 	size_t	size;
-	size_t	index;
-	char	*str_variable;
+	char	*str_start_var;
 	char	*str_out;
 
-	str_variable = ft_strchr(str, '$') + 1;
-	size = end_of_var(str_variable) - str_variable;
-	str_out = (char *) malloc(sizeof(char) * (size + 1));
-	if (!str_out)
+	str_start_var = &str[*i + 1];
+	size = end_of_var(str_start_var) - str_start_var;
+	str_out = ft_substr_e(str_start_var, 0, size);
+	if (str_out == NULL)
 		return (NULL);
-	index = 0;
-	while (index < size)
-	{
-		str_out[index] = str_variable[index];
-		index++;
-	}
-	str_out[index] = '\0';
+	*i = *i - size;
 	return (str_out);
 }
 
 /**
- * @brief Retrieves the value of an environment variable and returns it.
- *
- * This function takes a string as input and extracts the variable name from
- * it. It then retrieves the corresponding value from the environment variables
- * and returns it. The variable name is obtained using the get_variable_name()
- * function.
- *
- * @param str The input string containing the variable name.
- * @return The value of the environment variable, or NULL if the variable is
- *         not found.
+ * @brief Retrieves the value of a variable from the environment.
+ * 
+ * This function retrieves the value of a variable with the specified name
+ * from the environment. It then returns the value to be used for variable
+ * expansion within strings.
+ * 
+ * @param str The string containing the variable name.
+ * @param i A pointer to the index where the variable starts.
+ * @return The value of the variable retrieved from the environment.
  */
-char	*get_expanded_var(char *str)
+char	*get_expanded_var(char *str, size_t *i)
 {
-	char	*str_variable;
-	char	*str_extended_variable;
+	char	*str_var_name;
+	char	*str_expanded_var;
 
-	str_variable = get_variable_name(str);
-	str_extended_variable = getenv(str_variable);
-	free(str_variable);
-	return (str_extended_variable);
+	str_var_name = get_variable_name(str, i);
+	str_expanded_var = getenv(str_var_name); // implement environment variables
+	*i = *i + ft_strlen(str_expanded_var);
+	free(str_var_name);
+	return (str_expanded_var);
 }

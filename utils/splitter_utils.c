@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:10:52 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/02 14:57:57 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 10:56:12 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,19 +33,28 @@ int	is_operator(char c)
 	return (0);
 }
 
-int	is_end_of_word(char c)
+size_t	count_word_length(char *str)
 {
-	if (is_whitespace(c) || is_quote(c) || is_operator(c) || c == '\0')
-		return (1);
-	return (0);
-}
+	char	quotes_type;
+	size_t	size;
+	int		inside_quotes;
 
-size_t	word_length(char *str)
-{
-	size_t	count;
-
-	count = 0;
-	while (!is_end_of_word(str[count]))
-		count++;
-	return (count);
+	inside_quotes = 0;
+	size = 0;
+	while(str[size])
+	{
+		if (inside_quotes == 0 && is_quote(str[size]))
+		{
+			quotes_type = str[size];
+			inside_quotes = 1;
+		}
+		else if (inside_quotes == 1 && str[size] == quotes_type)
+			inside_quotes = 0;
+		else if (inside_quotes == 0 && is_whitespace(str[size]))
+			break ;
+		else if (inside_quotes == 0 && is_operator(str[size]))
+			break ;
+		size++;
+	}
+	return(size);
 }

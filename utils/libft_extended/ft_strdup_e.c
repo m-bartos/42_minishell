@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_strdup_e.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/07 10:36:09 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/13 12:46:19 by mbartos          ###   ########.fr       */
+/*   Created: 2024/03/18 10:25:05 by mbartos           #+#    #+#             */
+/*   Updated: 2024/03/18 10:33:14 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../../minishell.h"
 
-size_t	ft_strlen(const char *s)
+char	*ft_strdup_e(const char *s1)
 {
-	int	i;
+	char	*new_str;
 
-	if (s == NULL)
-		return (0);
-	i = 0;
-	while (s[i] != 0)
-		i++;
-	return (i);
+	new_str = ft_strdup(s1);
+	if(new_str == NULL)
+	{
+		perror("Minishell: ");
+		exit(EXIT_FAILURE);
+	}
+	return (new_str);
 }

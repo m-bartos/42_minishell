@@ -6,28 +6,74 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:20:49 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/06 09:39:37 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 13:01:54 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	parser(t_cmd_tab *ptr_cmd_tab, char *line)
+/**
+ * @brief Handles the case when the last token in the command is a pipe.
+ *
+ * Reads input from the user until a non-pipe token is encountered,
+ * splits the input into tokens, and adds them to a new command structure.
+ * Joins the new command structure with the original command structure.
+ *
+ * @param cmd The command structure to handle.
+ */
+void	handle_if_last_token_is_pipe(t_cmd *cmd)
 {
-	char			**array_of_tokens;
+	char	*line_heredoc;
+	char	**arr_of_tokens;
+	t_cmd	cmd_add;
 
-	array_of_tokens = splitter(line);
-	// printf("INITIAL FILLING OF CMD TABLE: \n");
-	init_and_fill_cmd_tab(ptr_cmd_tab, array_of_tokens);
-	free(array_of_tokens);
-	// print_cmd_tab(ptr_cmd_tab);
-	// printf("TYPES ASSIGNED IN CMD TABLE: \n");
-	assign_types_to_tokens(ptr_cmd_tab);
-	// print_cmd_tab(ptr_cmd_tab);
-	// printf("CMD TABLE EXPANDED: \n");
-	expand_cmd_tab(ptr_cmd_tab);
-	// print_cmd_tab(ptr_cmd_tab);
-	// printf("CMD TABLE without quotes: \n"); //just for info, delete before submitting
-	remove_quotes_from_cmd_tab(ptr_cmd_tab);
-	// print_cmd_tab(ptr_cmd_tab); //just for info, delete before submitting
+	ft_init_cmd_struct(&cmd_add);
+	while (is_pipe_type(cmd->last_token))
+	{
+		line_heredoc = readline("> ");
+		arr_of_tokens = splitter(line_heredoc);
+		free(line_heredoc);
+		parse_from_arr_of_tokens_to_one_cmd(&cmd_add, arr_of_tokens);
+		ft_cmdjoin(cmd, &cmd_add);
+	}
+}
+
+/**
+ * @brief Parses an array of tokens into a single command structure.
+ * 
+ * @param cmd The command structure to fill with parsed data.
+ * @param arr_of_tokens The array of tokens to parse.
+ */
+void parse_from_arr_of_tokens_to_one_cmd(t_cmd *cmd, char **arr_of_tokens)
+{
+	fill_cmd_tab(cmd, arr_of_tokens);
+	free(arr_of_tokens);
+	arr_of_tokens = NULL;
+	assign_types_to_tokens(cmd);
+	expand_cmd(cmd);
+	remove_quotes_in_cmd_tokens(cmd);
+	check_redirection_errors(cmd);
+	expand_heredocs(cmd);
+}
+
+/**
+ * @brief Parses the given line and populates the command table.
+ *
+ * @param cmd_tab The command table to populate.
+ * @param line The line to parse.
+ */
+void	parser(t_cmd_tab *cmd_tab, char *line)
+{
+	char	**arr_of_tokens;
+	t_cmd	cmd;
+
+	ft_init_cmd_struct(&cmd);
+	arr_of_tokens = splitter(line);
+	free(line);
+	parse_from_arr_of_tokens_to_one_cmd(&cmd, arr_of_tokens);
+	handle_if_last_token_is_pipe(&cmd);
+	make_cmd_tab_from_cmd(cmd_tab, &cmd);
+	ft_delete_cmd(&cmd);
+	make_cmd_paths(cmd_tab);
+	make_execve_cmds(cmd_tab);
 }

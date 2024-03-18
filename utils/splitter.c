@@ -6,31 +6,14 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:24:52 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/03 10:32:10 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 13:11:05 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-/* --------- SPLITTER LOGIC --------- */
-/*
-<, >, <<, >>, |, space/tab, and quotes ('', "") are being searched for:
-
-* When "<" is found, what comes next is examined. If there is another "<",
-  "<<" is taken; if not, only "<" is taken.
-* The same procedure is followed for ">" and ">>".
-* When | is found, it is taken only once.
-* Upon encountering a space/tab, it is skipped, and the index is incremented.
-* Upon finding ", the next string is immediately captured, starting 
-  from the character following ", and continues until another " is encountered
-  (ensuring the correct number of "" and '' has been verified prior).
-* The same process applies when ' is encountered.
-* When whitespace is encoutered, continue to the next character.
-* If none of above is encoutered, save the token until whitespace is found.
-*/
-
 /**
- * Counts the number of tokens in a given line.
+ * @brief Counts the number of tokens in a given line.
  *
  * @param line The input line to be split into tokens.
  * @return The number of tokens found in the line.
@@ -46,11 +29,9 @@ int	count_tokens(char *line)
 	while (line[i])
 	{
 		if (line[i] == '<' || line[i] == '>')
-			out_str = handle_redirections(&line[i], &i, line[i]);
+			out_str = handle_redirections(&line[i], &i);
 		else if (line[i] == '|')
 			out_str = handle_pipe(&line[i], &i);
-		else if (line[i] == '\'' || line[i] == '\"')
-			out_str = handle_quotes(&line[i], &i, line[i]);
 		else if (is_whitespace(line[i]))
 		{
 			i++;
@@ -65,7 +46,7 @@ int	count_tokens(char *line)
 }
 
 /**
- * Initializes an array of tokens for line to be split 
+ * @brief Initializes an array of tokens for line to be split 
  *  - counts tokens in string and allocates memory.
  *
  * @param line The line to be split into an array of tokens.
@@ -78,14 +59,17 @@ char	**init_arr_of_tokens(char *line)
 
 	count = count_tokens(line);
 	array_of_tokens = (char **) malloc (sizeof(char *) * (count + 1));
-	if (!array_of_tokens)
-		return (NULL);
+	if(array_of_tokens == NULL)
+	{
+		perror("Minishell: ");
+		exit(EXIT_FAILURE);
+	}
 	array_of_tokens[count] = NULL;
 	return (array_of_tokens);
 }
 
 /**
- * Splits a given string into an array of tokens based on certain delimiters.
+ * @brief Splits a given string into an array of tokens based on delimiters.
  *
  * @param line The input string to be split.
  * @return An array of strings, where each element represents a token
@@ -98,18 +82,14 @@ char	**splitter(char *line)
 	size_t	j;
 
 	array_of_tokens = init_arr_of_tokens(line);
-	if (!array_of_tokens)
-		return (NULL);
 	i = 0;
 	j = 0;
 	while (line[i])
 	{
 		if (line[i] == '<' || line[i] == '>')
-			array_of_tokens[j++] = handle_redirections(&line[i], &i, line[i]);
+			array_of_tokens[j++] = handle_redirections(&line[i], &i);
 		else if (line[i] == '|')
 			array_of_tokens[j++] = handle_pipe(&line[i], &i);
-		else if (line[i] == '\'' || line[i] == '\"')
-			array_of_tokens[j++] = handle_quotes(&line[i], &i, line[i]);
 		else if (is_whitespace(line[i]))
 			i++;
 		else

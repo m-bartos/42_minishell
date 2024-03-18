@@ -14,7 +14,7 @@ LIBFT_DIR = ./libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 # Source and object files
-SRCS = $(wildcard $(SRC_DIR)/*.c) $(wildcard ./*.c)
+SRCS = $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/**/*.c) $(wildcard ./*.c)
 OBJS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 # Program name
