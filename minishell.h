@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/16 20:49:11 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 09:16:26 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,6 +184,21 @@ void	expand_heredocs(t_cmd *cmd);
 
 // input_output.c
 int		ft_input_file(char *file_name);
+
+// libft_funcs_with_exit.c
+char	*ft_strjoin_e(const char *s1, const char *s2);
+char	*ft_strdup_e(const char *s1);
+char	*ft_substr_e(const char *s1, unsigned int start, size_t len);
+
+// make_cmd_paths.c
+char	*get_cmd_path(t_token *token);
+void	expand_token_cmd_path(t_token *token);
+void	make_cmd_paths(t_cmd_tab *cmd_tab);
+
+// make_execve_cmds.c
+int		count_cmd_length(t_cmd *cmd);
+void	make_one_execve_cmd(t_cmd *cmd);
+void	make_execve_cmds(t_cmd_tab *cmd_tab);
 
 // parser.c
 void	handle_if_last_token_is_pipe(t_cmd *cmd);
