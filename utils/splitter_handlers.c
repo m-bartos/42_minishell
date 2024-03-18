@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 14:47:13 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 10:56:56 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 13:14:52 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,15 @@
 /**
  * @brief Extracts redirections (<, <<, >, >>) from a string.
  * 
- * This function takes a string, an index, and a redirection type as input.
+ * This function takes a string, an index as input.
  * It creates a new string containing the redirection symbol(s) 
  * at the beginning of the original string.
  * The size of the new string is determined based on the redirection type.
  * The index is updated to reflect the number of characters processed.
  * 
  * @param str The original string.
- * @param index A pointer to the index variable.
- * @return A new string containing the redirection symbol(s),
- *         or NULL if memory allocation fails.
+ * @param index A pointer to the current index in the string.
+ * @return A new string containing the redirection symbol(s).
  */
 char	*handle_redirections(char *str, size_t *index)
 {
@@ -44,13 +43,12 @@ char	*handle_redirections(char *str, size_t *index)
  * @brief Extracts the pipe character from a string.
  *
  * This function takes a string and an index as input and returns a new string
- * containing the pipe character at the start of string. It also increments
- * the index by 1.
+ * containing the pipe character at the start of string. The index is updated 
+ * by one to reflect the number of characters processed.
  *
  * @param str The input string.
- * @param index A pointer to the current index.
- * @return A new string containing the pipe character,
- *         or NULL if memory allocation fails.
+ * @param index A pointer to the current index in the string.
+ * @return A new string containing the pipe character.
  */
 char	*handle_pipe(char *str, size_t *index)
 {
@@ -63,6 +61,18 @@ char	*handle_pipe(char *str, size_t *index)
 	return (str_out);
 }
 
+/**
+ * @brief Handles a word in a string and returns it.
+ * 
+ * This function takes a string and an index as input. It counts the length of
+ * the word starting from the given index, creates a new string containing
+ * the word, and updates the index to the next position after the word.
+ * The newly created string is then returned.
+ * 
+ * @param str The input string.
+ * @param index A pointer to the current index in the string.
+ * @return The word extracted from the string.
+ */
 char	*handle_word(char *str, size_t *index)
 {
 	char	*str_out;
