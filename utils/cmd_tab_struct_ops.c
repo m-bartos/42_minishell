@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 16:42:04 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/12 12:54:10 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 09:51:24 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,10 @@ void	ft_push_cmd(t_cmd_tab *cmd_tab)
 
 	cmd = malloc(sizeof(t_cmd));
 	if (!cmd)
-		return ;
+	{
+		perror("Minishell: ");
+		exit(EXIT_FAILURE);
+	}
 	ft_init_cmd_struct(cmd);
 	cmd->next = cmd_tab->first_cmd;
 	cmd->prev = NULL;
