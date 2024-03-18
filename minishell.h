@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/18 11:11:54 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 11:27:44 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ char	*ft_strjoin_e(const char *s1, const char *s2);
 char	*ft_strtrim_e(char const *s1, char const *set);
 char	*ft_substr_e(const char *s1, unsigned int start, size_t len);
 
-
 // array_utils.c
 int		ft_len_of_arr(char **arr);
 char	*ft_arr_to_str(char **arr_of_strs);
@@ -164,6 +163,7 @@ void	make_cmd_tab_from_cmd(t_cmd_tab *cmd_tab, t_cmd *parsed_line);
 void	check_unclosed_quotes(char *line);
 void	exit_redirection_error(t_cmd *cmd, char *text);
 void	check_redirection_errors(t_cmd *cmd);
+int		is_empty_line(char *line);
 
 // exececution.c
 void	ft_exec_commands(char ***cmds);

@@ -6,34 +6,12 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/18 11:14:07 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 11:27:17 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "./minishell.h"
-
-int	is_empty_line(char *line)
-{
-	size_t	i;
-
-	i = 0;
-	while (line[i])
-	{
-		if (is_whitespace(line[i]))
-			i++;
-		else
-			break ;
-	}
-	if (line[i] == '\0')
-	{
-		free(line);
-		return (1);
-	}
-	else
-		return (0);
-	
-}
 
 // valgrind -s --leak-check=full --show-reachable=yes --error-limit=no --suppressions=minishell.supp --trace-children=yes --track-fds=yes ./minishell
 // echo "jojo" 'nene' > outfile.txt | < infile.txt echo "jojo" 'nene' aha "$USER" '$USER' $USER >> test.out

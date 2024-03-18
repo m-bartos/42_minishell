@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:29:43 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/16 20:44:54 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 11:27:24 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,25 @@ void	check_redirection_errors(t_cmd *cmd)
 	}
 	if (is_redirection_type(cmd->last_token))
 		exit_redirection_error(cmd, "newline");
+}
+
+int	is_empty_line(char *line)
+{
+	size_t	i;
+
+	i = 0;
+	while (line[i])
+	{
+		if (is_whitespace(line[i]))
+			i++;
+		else
+			break ;
+	}
+	if (line[i] == '\0')
+	{
+		free(line);
+		return (1);
+	}
+	else
+		return (0);
 }
