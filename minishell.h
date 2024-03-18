@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/18 09:35:03 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 10:15:26 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 
 # define FALSE 0
 # define TRUE 1
+
+# define HEREDOC_FILE ".hd_X[Aj0J-]}1038.93'-=;';!@A_cmd_"
 
 typedef enum s_in_quotes
 {
@@ -192,6 +194,7 @@ char	*ft_strjoin_e(const char *s1, const char *s2);
 char	*ft_strdup_e(const char *s1);
 char	*ft_substr_e(const char *s1, unsigned int start, size_t len);
 char	*ft_strtrim_e(char const *s1, char const *set);
+char	*ft_itoa_e(int n);
 
 // make_cmd_paths.c
 char	*get_cmd_path(t_token *token);

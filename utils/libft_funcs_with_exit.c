@@ -53,3 +53,16 @@ char	*ft_strtrim_e(char const *s1, char const *set)
 	}
 	return (new_str);
 }
+
+char	*ft_itoa_e(int n)
+{
+	char	*new_str;
+
+	new_str = *ft_itoa(n);
+	if(new_str == NULL)
+	{
+		perror("Minishell: ");
+		exit(EXIT_FAILURE);
+	}
+	return (new_str);
+}
