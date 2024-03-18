@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/18 10:15:26 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 10:29:38 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <readline/readline.h>
 // adds rl_clear_history()
 # include <readline/history.h>
+# include <errno.h>
 
 # define RESET   "\x1B[0m"
 # define BLUE    "\x1B[34m"
@@ -92,6 +93,15 @@ typedef struct s_cmd_tab
 	t_cmd	*last_cmd;
 	int		size;
 }	t_cmd_tab;
+
+// libft_extended
+char	*ft_itoa_e(int n);
+char	**ft_split_e(const char *s, char c);
+char	*ft_strdup_e(const char *s1);
+char	*ft_strjoin_e(const char *s1, const char *s2);
+char	*ft_strtrim_e(char const *s1, char const *set);
+char	*ft_substr_e(const char *s1, unsigned int start, size_t len);
+
 
 // array_utils.c
 int		ft_len_of_arr(char **arr);
@@ -188,13 +198,6 @@ void	expand_heredocs(t_cmd *cmd);
 
 // input_output.c
 int		ft_input_file(char *file_name);
-
-// libft_funcs_with_exit.c
-char	*ft_strjoin_e(const char *s1, const char *s2);
-char	*ft_strdup_e(const char *s1);
-char	*ft_substr_e(const char *s1, unsigned int start, size_t len);
-char	*ft_strtrim_e(char const *s1, char const *set);
-char	*ft_itoa_e(int n);
 
 // make_cmd_paths.c
 char	*get_cmd_path(t_token *token);
