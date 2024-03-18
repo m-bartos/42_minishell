@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 09:12:15 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 09:12:47 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 10:19:04 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ char	*get_cmd_path(t_token *token)
 	char	**arr_of_paths;
 	int		i;
 
-	temp_path = getenv("PATH");
-	arr_of_paths = ft_split(temp_path, ':');
+	temp_path = getenv("PATH"); // update with minishell environmental vars
+	arr_of_paths = ft_split_e(temp_path, ':');
 	if (arr_of_paths == NULL)
 		return (NULL);
 	i = 0;
 	while (arr_of_paths[i] != NULL)
 	{
-		temp_path = ft_strjoin(arr_of_paths[i], "/");
-		str_path = ft_strjoin(temp_path, token->text);
+		temp_path = ft_strjoin_e(arr_of_paths[i], "/");
+		str_path = ft_strjoin_e(temp_path, token->text);
 		free(temp_path);
 		if (access(str_path, X_OK) == 0)
 			break ;
