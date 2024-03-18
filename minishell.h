@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/18 09:16:26 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 09:24:35 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,8 @@ void	make_one_execve_cmd(t_cmd *cmd);
 void	make_execve_cmds(t_cmd_tab *cmd_tab);
 
 // cmd_struct_assign_types.c
+t_type	assign_file_type(t_type prev_token_type);
+t_type	assign_cmd_type(char *text);
 void	assign_operator_types(t_cmd *ptr_cmd_tab);
 void	assign_cmds_and_args(t_cmd *ptr_cmd_tab);
 void	assign_types_to_tokens(t_cmd *ptr_cmd_tab);

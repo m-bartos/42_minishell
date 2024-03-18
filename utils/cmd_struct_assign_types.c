@@ -6,11 +6,42 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:37:34 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/12 11:44:08 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 09:24:46 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+t_type	assign_file_type(t_type prev_token_type)
+{
+	if (prev_token_type == R_IN)
+		return (R_INFILE);
+	else if (prev_token_type == R_OUT)
+		return (R_OUTFILE);
+	else if (prev_token_type == R_OUT_APP)
+		return (R_OUTFILE_APP);
+	else if (prev_token_type == HERE_DOC)
+		return (HERE_DOC_EOF);
+	return (99);
+}
+
+t_type	assign_cmd_type(char *text)
+{
+	if (ft_strncmp(text, "echo", 5) == 0)
+		return (CMD_BUILT);
+	else if (ft_strncmp(text, "cd", 3) == 0)
+		return (CMD_BUILT);
+	else if (ft_strncmp(text, "pwd", 4) == 0)
+		return (CMD_BUILT);
+	else if (ft_strncmp(text, "export", 7) == 0)
+		return (CMD_BUILT);
+	else if (ft_strncmp(text, "unset", 6) == 0)
+		return (CMD_BUILT);
+	else if (ft_strncmp(text, "env", 4) == 0)
+		return (CMD_BUILT);
+	else
+		return (CMD);
+}
 
 void	assign_operator_types(t_cmd *cmd)
 {
@@ -31,37 +62,6 @@ void	assign_operator_types(t_cmd *cmd)
 			token->type = R_OUT;
 		token = token->next;
 	}
-}
-
-int	assign_file_type(int prev_token_type)
-{
-	if (prev_token_type == R_IN)
-		return (R_INFILE);
-	else if (prev_token_type == R_OUT)
-		return (R_OUTFILE);
-	else if (prev_token_type == R_OUT_APP)
-		return (R_OUTFILE_APP);
-	else if (prev_token_type == HERE_DOC)
-		return (HERE_DOC_EOF);
-	return (99);
-}
-
-int	assign_cmd_type(char *text)
-{
-	if (ft_strncmp(text, "echo", 5) == 0)
-		return (CMD_BUILT);
-	else if (ft_strncmp(text, "cd", 3) == 0)
-		return (CMD_BUILT);
-	else if (ft_strncmp(text, "pwd", 4) == 0)
-		return (CMD_BUILT);
-	else if (ft_strncmp(text, "export", 7) == 0)
-		return (CMD_BUILT);
-	else if (ft_strncmp(text, "unset", 6) == 0)
-		return (CMD_BUILT);
-	else if (ft_strncmp(text, "env", 4) == 0)
-		return (CMD_BUILT);
-	else
-		return (CMD);
 }
 
 void	assign_cmds_and_args(t_cmd *cmd)
