@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 14:47:13 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/15 13:02:34 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 10:56:56 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,7 @@ char	*handle_redirections(char *str, size_t *index)
 		size = 2;
 	else
 		size = 1;
-	str_out = ft_substr(str, 0, size);
-	if (!str_out)
-		return (NULL);
+	str_out = ft_substr_e(str, 0, size);
 	*index = *index + size;
 	return (str_out);
 }
@@ -60,9 +58,7 @@ char	*handle_pipe(char *str, size_t *index)
 	size_t	size;
 
 	size = 1;
-	str_out = ft_substr(str, 0, size);
-	if (!str_out)
-		return (NULL);
+	str_out = ft_substr_e(str, 0, size);
 	*index = *index + size;
 	return (str_out);
 }
@@ -73,7 +69,7 @@ char	*handle_word(char *str, size_t *index)
 	size_t	size;
 
 	size = count_word_length(str);
-	str_out = ft_substr(str, 0, size);
+	str_out = ft_substr_e(str, 0, size);
 	*index = *index + size;
 	return (str_out);
 }
