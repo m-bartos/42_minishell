@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 19:28:11 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/18 10:34:49 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ typedef struct s_mini_data
 {
 	t_env_list	*env_list;
 	char		**env_arr;
-	t_exec_data *exec_data;
 } t_mini_data;
 
 // exec functions
