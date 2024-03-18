@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:33:30 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/16 18:53:21 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/18 09:57:39 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,13 @@ char	*get_str_with_one_expanded_var(char *str, size_t *i)
 	char	*str_out;
 
 	old_i = *i;
-	str_begin = ft_substr(str, 0, *i);
+	str_begin = ft_substr_e(str, 0, *i);
 	str_expanded_var = get_expanded_var(str, i);
-	str_out = ft_strjoin(str_begin, str_expanded_var);
-	if (str_out == NULL)
-		return (NULL);
+	str_out = ft_strjoin_e(str_begin, str_expanded_var);
 	free(str_begin);
 	str_begin = str_out;
 	str_rest = end_of_var(&str[old_i + 1]);
-	str_out = ft_strjoin(str_begin, str_rest);
-	if (str_out == NULL)
-		return (NULL);
+	str_out = ft_strjoin_e(str_begin, str_rest);
 	free(str_begin);
 	return (str_out);
 }
@@ -78,7 +74,7 @@ t_in_quotes	in_which_quotes(char *str, size_t index)
  */
 char	*expand_all_vars_in_str(char *str)
 {
-	char	*str_old;
+	char	*temp_str;
 	size_t	i;
 
 	i = 0;
@@ -86,9 +82,9 @@ char	*expand_all_vars_in_str(char *str)
 	{
 		if (str[i] == '$' && in_which_quotes(str, i) != IN_SINGLE_QUOTES)
 		{
-			str_old = str;
+			temp_str = str;
 			str = get_str_with_one_expanded_var(str, &i);
-			free(str_old);
+			free(temp_str);
 		}
 		else
 			i++;
