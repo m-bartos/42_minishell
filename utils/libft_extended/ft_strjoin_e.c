@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 10:24:06 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 10:33:19 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 14:14:15 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ char	*ft_strjoin_e(const char *s1, const char *s2)
 	char	*new_str;
 
 	new_str = ft_strjoin(s1, s2);
-	if(new_str == NULL)
+	if (new_str == NULL)
 	{
 		perror("Minishell: ");
 		exit(EXIT_FAILURE);
