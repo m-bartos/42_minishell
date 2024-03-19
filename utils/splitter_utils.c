@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:10:52 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 10:56:12 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 14:15:01 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ size_t	count_word_length(char *str)
 
 	inside_quotes = 0;
 	size = 0;
-	while(str[size])
+	while (str[size])
 	{
 		if (inside_quotes == 0 && is_quote(str[size]))
 		{
@@ -56,5 +56,5 @@ size_t	count_word_length(char *str)
 			break ;
 		size++;
 	}
-	return(size);
+	return (size);
 }

@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:24:52 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/19 11:03:35 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 14:03:14 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	**init_tokens_arr(char *line)
 
 	count = count_tokens(line);
 	tokens_arr = (char **) malloc (sizeof(char *) * (count + 1));
-	if(tokens_arr == NULL)
+	if (tokens_arr == NULL)
 	{
 		perror("Minishell: ");
 		exit(EXIT_FAILURE);

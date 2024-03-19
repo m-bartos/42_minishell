@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_var_ops.c.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:42:36 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/18 12:28:09 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/19 13:35:39 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,14 +136,9 @@ char	*ft_get_env(t_env_list *env_list, char *var_name)
 	{
 		if (env->env_text != NULL)
 		{
-			if (ft_strncmp(env->env_text, var_name, ft_strlen(var_name)) == 0
-				&& *(env->env_text + (ft_strlen(var_name))) == '=')
+			if (ft_strncmp(env->env_name, var_name, ft_strlen(var_name) + 1) == 0)
 			{
-				env_value = env->env_text;
-				while (*env_value != '=')
-					env_value++;
-				env_value++;
-				env_value = ft_strdup(env_value);
+				env_value = ft_strdup(env->env_value);
 				return (env_value);
 			}
 		}

@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/19 09:45:36 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 13:48:02 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,11 @@ int	main (int argc, char *argv[], char *envp[])
 	line = NULL;
 	ft_init_cmd_tab(&cmd_tab);
 	ft_init_mini_data(&minidata, envp);
-	printf(BLUE);
 	while (1)
 	{
-		prompt = get_prompt();
+		ft_putstr_fd(BLUE, 1);
+		ft_putstr_fd(BLUE, 2);
+		prompt = get_prompt(&minidata);
 		line = readline(prompt);
 		free(prompt);
 		// if(signal(SIGINT, ft_ctrl_c_sig) == SIG_ERR)

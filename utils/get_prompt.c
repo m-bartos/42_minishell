@@ -6,15 +6,30 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:24:00 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 09:59:26 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 13:58:17 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
+char	*get_computer(t_env_list *env_list)
+{
+	char	*ses_manager;
+	char	*computer;
+	char	*str_start;
+	char	*str_end;
+	size_t	len;
 
-// needs to be rewritten
-char	*get_prompt(void)
+	ses_manager = ft_get_env(env_list, "SESSION_MANAGER");
+	str_start = ft_strchrnul(ses_manager, '/') + 1;
+	str_end = ft_strchrnul(ses_manager, ':');
+	len = str_end - str_start;
+	computer = ft_substr_e(str_start, 0, len);
+	free(ses_manager);
+	return (computer);
+}
+
+char	*get_user_and_computer(t_env_list *env_list)
 {
 	char	*user;
 	char	*computer;
@@ -22,22 +37,54 @@ char	*get_prompt(void)
 	char	*old_display_line;
 	char	*relative_path;
 
-	user = getenv("USER"); // use env variable
-	computer = getenv("SESSION_MANAGER"); // use env variable
-	computer = ft_strchr(computer, '/') + 1;
-	computer[6] = '\0';
+	user = ft_get_env(env_list, "USER");
+	computer = get_computer(env_list);
 	display_line = ft_strjoin_e(user, "@");
+	free(user);
 	old_display_line = display_line;
 	display_line = ft_strjoin_e(display_line, computer);
 	free(old_display_line);
+	free(computer);
 	old_display_line = display_line;
 	display_line = ft_strjoin_e(display_line, ":~");
 	free(old_display_line);
-	relative_path = getenv("PWD"); // use env variable
-	relative_path = relative_path + ft_strlen(getenv("HOME")); // use env variable
-	old_display_line = display_line;
-	display_line = ft_strjoin_e(display_line, relative_path);
-	free(old_display_line);
+	return (display_line);
+}
+
+char	*get_relative_path(t_env_list *env_list)
+{
+	char	*absolute_path;
+	char	*relative_path;
+	char	*home;
+
+	absolute_path = ft_get_env(env_list, "PWD");
+	home = ft_get_env(env_list, "HOME");
+	relative_path = absolute_path + ft_strlen(home);
+	relative_path = ft_strdup_e(relative_path);
+	free(absolute_path);
+	free(home);
+	return (relative_path);
+}
+
+char	*get_prompt(t_mini_data *minidata)
+{
+	t_env_list	*env_list;
+	char		*user_computer;
+	char		*display_line;
+	char		*old_display_line;
+	char		*relative_path;
+
+	env_list = minidata->env_list;
+	if (check_prompt_vars(env_list) == TRUE)
+	{
+		display_line = ft_strdup_e("minishell$ ");
+		return (display_line);
+	}
+	user_computer = get_user_and_computer(env_list);
+	relative_path = get_relative_path(env_list);
+	display_line = ft_strjoin_e(user_computer, relative_path);
+	free(user_computer);
+	free(relative_path);
 	old_display_line = display_line;
 	display_line = ft_strjoin_e(display_line, "$ ");
 	free(old_display_line);
