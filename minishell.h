@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/19 11:41:28 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 13:59:14 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,6 +199,10 @@ char	*expand_one_var_in_str(char *str, size_t *i, t_env_list *env_list);
 t_quote	in_which_quotes(char *str, size_t i);
 char	*expand_all_vars_in_str(char *str, t_env_list *env_list);
 void	expand_cmd(t_cmd *cmd, t_mini_data *minidata);
+
+// get_prompt_errors.c
+int		is_var_in_env_list(t_env_list *env_list, char *var_name);
+int		check_prompt_vars(t_env_list *env_list);
 
 // get_prompt.c
 char	*get_computer(t_env_list *env_list);

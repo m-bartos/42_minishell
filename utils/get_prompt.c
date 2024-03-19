@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:24:00 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/19 12:16:13 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 13:58:17 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ char	*get_computer(t_env_list *env_list)
 	size_t	len;
 
 	ses_manager = ft_get_env(env_list, "SESSION_MANAGER");
-	str_start = ft_strchr(ses_manager, '/') + 1;
-	str_end = ft_strchr(ses_manager, ':');
+	str_start = ft_strchrnul(ses_manager, '/') + 1;
+	str_end = ft_strchrnul(ses_manager, ':');
 	len = str_end - str_start;
 	computer = ft_substr_e(str_start, 0, len);
 	free(ses_manager);
@@ -66,7 +66,6 @@ char	*get_relative_path(t_env_list *env_list)
 	return (relative_path);
 }
 
-// needs to be rewritten
 char	*get_prompt(t_mini_data *minidata)
 {
 	t_env_list	*env_list;
@@ -76,6 +75,11 @@ char	*get_prompt(t_mini_data *minidata)
 	char		*relative_path;
 
 	env_list = minidata->env_list;
+	if (check_prompt_vars(env_list) == TRUE)
+	{
+		display_line = ft_strdup_e("minishell$ ");
+		return (display_line);
+	}
 	user_computer = get_user_and_computer(env_list);
 	relative_path = get_relative_path(env_list);
 	display_line = ft_strjoin_e(user_computer, relative_path);
