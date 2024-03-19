@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:33:30 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/19 10:20:55 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 10:51:49 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ char	*expand_one_var_in_str(char *str, size_t *i, t_env_list *env_list)
  * @param index The index of the character to check.
  * @return The type of quotes surrounding the character.
  */
-t_in_quotes	in_which_quotes(char *str, size_t index)
+t_quote	in_which_quotes(char *str, size_t index)
 {
 	int		search_single_q;
 	int		search_double_q;
