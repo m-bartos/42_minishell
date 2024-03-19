@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/19 10:15:11 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 10:17:25 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,13 +133,6 @@ char	*ft_arr_to_str(char **arr_of_strs);
 char	**ft_init_array(int size);
 void	ft_free_array(char **arr_of_str);
 void	ft_print_array(char **arr);
-
-// // cmd_path_and_execve_cmd.c
-// void	expand_token_cmd_path(t_token *ptr_token);
-// void	make_cmd_paths(t_cmd_tab *cmd_tab);
-// int		count_cmd_length(t_cmd *cmd);
-// void	make_one_execve_cmd(t_cmd *cmd);
-// void	make_execve_cmds(t_cmd_tab *cmd_tab);
 
 // cmd_struct_assign_types.c
 t_type	assign_file_type(t_type prev_token_type);
