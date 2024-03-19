@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/19 11:03:57 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 11:41:28 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,7 +201,10 @@ char	*expand_all_vars_in_str(char *str, t_env_list *env_list);
 void	expand_cmd(t_cmd *cmd, t_mini_data *minidata);
 
 // get_prompt.c
-char	*get_prompt(void);
+char	*get_computer(t_env_list *env_list);
+char	*get_user_and_computer(t_env_list *env_list);
+char	*get_relative_path(t_env_list *env_list);
+char	*get_prompt(t_mini_data *minidata);
 
 // helpers.c
 void	print_cmd(t_cmd *ptr_cmd_tab);
