@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:33:30 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/19 09:57:25 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 10:20:55 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ char	*expand_one_var_in_str(char *str, size_t *i, t_env_list *env_list)
 	str_expanded_var = get_expanded_var(str, i, env_list);
 	str_out = ft_strjoin_e(str_begin, str_expanded_var);
 	free(str_begin);
+	free(str_expanded_var);
 	str_begin = str_out;
 	str_rest = end_of_var(&str[old_i + 1]);
 	str_out = ft_strjoin_e(str_begin, str_rest);
