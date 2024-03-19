@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:41:18 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/19 09:50:11 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 10:59:50 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
  * This function iterates through the given string until it reaches the end of
  * a variable. The function stops when it encounters a character that is not
  * part of a variable name, such as '$', '/', ':', '^', ';', '-', '%', '&',
- * '*', '#', '@', '"', '\'', '\n', or ' '.
+ * '*', '#', '@', '"', '\'', '\n', ' ' or '.'.
  * 
  * @param str The string to search for the end of a variable.
  * @return A pointer to the character that marks the end of the variable in the
@@ -39,7 +39,8 @@ char	*end_of_var(char *str)
 	while (*str != '$' && *str != '\0' && *str != '/' && *str != ':'
 		&& *str != '^' && *str != ';' && *str != '-' && *str != '%'
 		&& *str != '&' && *str != '*' && *str != '#' && *str != '@'
-		&& *str != '"' && *str != '\'' && *str != '\n' && *str != ' ')
+		&& *str != '"' && *str != '\'' && *str != '\n' && *str != ' '
+		&& *str != '.')
 		str++;
 	return (str);
 }
