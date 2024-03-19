@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/18 19:16:33 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 10:01:57 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -199,14 +199,14 @@ void	check_exit(char *line);
 // expander_var.c
 char	*end_of_var(char *str);
 char	*get_variable_name(char	*str, size_t *i);
-char	*get_expanded_var(char *str, size_t *i);
+char	*get_expanded_var(char *str, size_t *i, t_env_list *env_list);
 
 // expander.c
+char		*expand_one_var_in_str(char *str, size_t *i, t_env_list *env_list);
 t_in_quotes	in_which_quotes(char *str, size_t i);
 char		*init_new_expanded_str(char *str, size_t i, char *str_expanded_variable);
-char		*get_str_with_one_expanded_var(char *str, size_t *i);
-char		*expand_all_vars_in_str(char *str);
-void		expand_cmd(t_cmd *ptr_cmd_tab);
+char		*expand_all_vars_in_str(char *str, t_env_list *env_list);
+void		expand_cmd(t_cmd *cmd, t_mini_data *minidata);
 
 // get_prompt.c
 char	*get_prompt(void);
@@ -218,8 +218,10 @@ void	print_cmd_tab(t_cmd_tab *cmd_tab);
 
 // here_doc.c
 void	unlink_heredoc_files(t_cmd_tab *cmd_tab);
-char	*get_heredoc_file(char *eof, int index);
-void	expand_heredocs(t_cmd *cmd);
+char	*expand_all_vars_in_heredoc_line(char *str, t_env_list *env_list);
+char	*create_and_open_heredoc_file(int index);
+char	*get_heredoc_file(char *eof, int index, t_env_list *env_list);
+void	expand_heredocs(t_cmd *cmd, t_mini_data *minidata);
 
 // make_cmd_paths.c
 char	*get_cmd_path(t_token *token);
@@ -232,9 +234,9 @@ void	make_one_execve_cmd(t_cmd *cmd);
 void	make_execve_cmds(t_cmd_tab *cmd_tab);
 
 // parser.c
-void	handle_if_last_token_is_pipe(t_cmd *cmd);
-void	parse_from_arr_of_tokens_to_one_cmd(t_cmd *cmd, char **arr_of_tokens);
-void	parser(t_cmd_tab *cmd_tab, char *line);
+void	handle_if_last_token_is_pipe(t_cmd *cmd, t_mini_data *minidata);
+void	parse_from_arr_of_tokens_to_one_cmd(t_cmd *cmd, char **arr_of_tokens, t_mini_data *minidata);
+void	parser(t_cmd_tab *cmd_tab, char *line, t_mini_data *minidata);
 
 // splitter_handlers.c
 char	*handle_redirections(char *str, size_t *index);

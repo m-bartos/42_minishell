@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/18 19:59:22 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 09:45:36 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ int	main (int argc, char *argv[], char *envp[])
 		// }
 		if (is_empty_line(line))
 			continue ;
-		//check_exit(line);
+		check_exit(line);
 		if (*line)
 			add_history(line);
 		check_unclosed_quotes(line);
-		parser(&cmd_tab, line);
+		parser(&cmd_tab, line, &minidata);
 		print_cmd_tab(&cmd_tab); // just to show cmd_tab
 		ft_exec_input(&cmd_tab, &minidata);
 		unlink_heredoc_files(&cmd_tab);

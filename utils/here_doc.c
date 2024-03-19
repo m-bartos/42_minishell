@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 10:17:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 16:27:51 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 10:01:32 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	unlink_heredoc_files(t_cmd_tab *cmd_tab)
  * @param str The line of here-doc input to expand environment variables in.
  * @return The line with expanded environment variables.
  */
-char	*expand_all_vars_in_heredoc_line(char *str)
+char	*expand_all_vars_in_heredoc_line(char *str, t_env_list *env_list)
 {
 	char	*str_old;
 	size_t	i;
@@ -75,7 +75,7 @@ char	*expand_all_vars_in_heredoc_line(char *str)
 		if (str[i] == '$')
 		{
 			str_old = str;
-			str = get_str_with_one_expanded_var(str, &i);
+			str = expand_one_var_in_str(str, &i, env_list);
 			free(str_old);
 		}
 		else
@@ -117,7 +117,7 @@ char	*create_and_open_heredoc_file(int index)
  * @param index The index used to create a unique filename for here-doc file.
  * @return The filename of the created here-doc file.
  */
-char	*get_heredoc_file(char *eof, int index)
+char	*get_heredoc_file(char *eof, int index, t_env_list *env_list)
 {
 	char	*filename;
 	char	*old_line;
@@ -137,7 +137,7 @@ char	*get_heredoc_file(char *eof, int index)
 		old_line = line;
 		line = ft_strjoin_e(line, "\n");
 		free(old_line);
-		line = expand_all_vars_in_heredoc_line(line);
+		line = expand_all_vars_in_heredoc_line(line, env_list);
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
@@ -157,11 +157,13 @@ char	*get_heredoc_file(char *eof, int index)
  *
  * @param cmd The command whose here-documents are to be expanded.
  */
-void	expand_heredocs(t_cmd *cmd)
+void	expand_heredocs(t_cmd *cmd, t_mini_data *minidata)
 {
-	t_token	*token;
-	int		index;
+	t_env_list	*env_list;
+	t_token		*token;
+	int			index;
 
+	env_list = minidata->env_list;
 	index = 0;
 	token = cmd->first_token;
 	while (token != NULL)
@@ -171,7 +173,7 @@ void	expand_heredocs(t_cmd *cmd)
 			free(token->text);
 			token->text = ft_strdup("<");
 			token->type = R_IN;
-			token->next->text = get_heredoc_file(token->next->text, index);
+			token->next->text = get_heredoc_file(token->next->text, index, env_list);
 			token->next->type = R_INFILE;
 		}
 		token = token->next;

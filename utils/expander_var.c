@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:41:18 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 16:38:49 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 09:50:11 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,13 +82,13 @@ char	*get_variable_name(char	*str, size_t *i)
  * @param i A pointer to the index where the variable starts.
  * @return The value of the variable retrieved from the environment.
  */
-char	*get_expanded_var(char *str, size_t *i)
+char	*get_expanded_var(char *str, size_t *i, t_env_list *env_list)
 {
 	char	*str_var_name;
 	char	*str_expanded_var;
 
 	str_var_name = get_variable_name(str, i);
-	str_expanded_var = getenv(str_var_name); // implement environment variables
+	str_expanded_var = ft_get_env(env_list, str_var_name);
 	*i = *i + ft_strlen(str_expanded_var);
 	free(str_var_name);
 	return (str_expanded_var);
