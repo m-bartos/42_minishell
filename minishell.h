@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/19 10:01:57 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 10:15:11 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,12 +134,12 @@ char	**ft_init_array(int size);
 void	ft_free_array(char **arr_of_str);
 void	ft_print_array(char **arr);
 
-// cmd_path_and_execve_cmd.c
-void	expand_token_cmd_path(t_token *ptr_token);
-void	make_cmd_paths(t_cmd_tab *cmd_tab);
-int		count_cmd_length(t_cmd *cmd);
-void	make_one_execve_cmd(t_cmd *cmd);
-void	make_execve_cmds(t_cmd_tab *cmd_tab);
+// // cmd_path_and_execve_cmd.c
+// void	expand_token_cmd_path(t_token *ptr_token);
+// void	make_cmd_paths(t_cmd_tab *cmd_tab);
+// int		count_cmd_length(t_cmd *cmd);
+// void	make_one_execve_cmd(t_cmd *cmd);
+// void	make_execve_cmds(t_cmd_tab *cmd_tab);
 
 // cmd_struct_assign_types.c
 t_type	assign_file_type(t_type prev_token_type);
@@ -224,9 +224,9 @@ char	*get_heredoc_file(char *eof, int index, t_env_list *env_list);
 void	expand_heredocs(t_cmd *cmd, t_mini_data *minidata);
 
 // make_cmd_paths.c
-char	*get_cmd_path(t_token *token);
-void	expand_token_cmd_path(t_token *token);
-void	make_cmd_paths(t_cmd_tab *cmd_tab);
+char	*get_cmd_path(t_token *token, t_env_list *env_list);
+void	expand_token_cmd_path(t_token *token, t_env_list *env_list);
+void	make_cmd_paths(t_cmd_tab *cmd_tab, t_mini_data *minidata);
 
 // make_execve_cmds.c
 int		count_cmd_length(t_cmd *cmd);
