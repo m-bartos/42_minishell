@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:04:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 17:08:12 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 11:02:18 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,16 @@
  * adding each token to the command structure.
  *
  * @param cmd The command structure to fill with tokens.
- * @param arr_of_tokens The array of strings (tokens) to add to the command.
+ * @param tokens_arr The array of strings (tokens) to add to the command.
  */
-void	fill_cmd_tab(t_cmd *cmd, char **arr_of_tokens)
+void	fill_cmd_tab(t_cmd *cmd, char **tokens_arr)
 {
 	size_t	i;
 
 	i = 0;
-	while (arr_of_tokens[i] != NULL)
+	while (tokens_arr[i] != NULL)
 	{
-		ft_push_rotate_token(cmd, arr_of_tokens[i], NOT_ASSIGNED);
+		ft_push_rotate_token(cmd, tokens_arr[i], NOT_ASSIGNED);
 		i++;
 	}
 }

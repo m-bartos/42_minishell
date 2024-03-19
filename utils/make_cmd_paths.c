@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 09:12:15 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 16:19:03 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 10:55:23 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,17 +31,16 @@
  * @param token The command token for which to retrieve the path.
  * @return The full path of the command if found and executable, otherwise NULL.
  */
-char	*get_cmd_path(t_token *token)
+char	*get_cmd_path(t_token *token, t_env_list *env_list)
 {
 	char	*str_path;
 	char	*temp_path;
 	char	**arr_of_paths;
 	int		i;
 
-	temp_path = getenv("PATH"); // update with minishell environmental vars
+	temp_path = ft_get_env(env_list, "PATH");
 	arr_of_paths = ft_split_e(temp_path, ':');
-	if (arr_of_paths == NULL)
-		return (NULL);
+	free(temp_path);
 	i = 0;
 	while (arr_of_paths[i] != NULL)
 	{
@@ -68,13 +67,13 @@ char	*get_cmd_path(t_token *token)
  *
  * @param token The command token to expand the path for.
  */
-void	expand_token_cmd_path(t_token *token)
+void	expand_token_cmd_path(t_token *token, t_env_list *env_list)
 {
 	char	*cmd_path;
 
 	if (access(token->text, X_OK) == 0)
 		return ;
-	cmd_path = get_cmd_path(token);
+	cmd_path = get_cmd_path(token, env_list);
 	if (cmd_path == NULL)
 		token->type = CMD_ERR;
 	else
@@ -93,11 +92,13 @@ void	expand_token_cmd_path(t_token *token)
  *
  * @param cmd_tab The command table to make command paths for.
  */
-void	make_cmd_paths(t_cmd_tab *cmd_tab)
+void	make_cmd_paths(t_cmd_tab *cmd_tab, t_mini_data *minidata)
 {
-	t_cmd	*cmd;
-	t_token	*token;
+	t_env_list	*env_list;
+	t_cmd		*cmd;
+	t_token		*token;
 
+	env_list = minidata->env_list;
 	cmd = cmd_tab->first_cmd;
 	while (cmd != NULL)
 	{
@@ -106,7 +107,7 @@ void	make_cmd_paths(t_cmd_tab *cmd_tab)
 		{
 			if (token->type == CMD)
 			{
-				expand_token_cmd_path(token);
+				expand_token_cmd_path(token, env_list);
 			}
 			token = token->next;
 		}

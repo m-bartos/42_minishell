@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:41:18 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 16:38:49 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 10:59:50 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
  * This function iterates through the given string until it reaches the end of
  * a variable. The function stops when it encounters a character that is not
  * part of a variable name, such as '$', '/', ':', '^', ';', '-', '%', '&',
- * '*', '#', '@', '"', '\'', '\n', or ' '.
+ * '*', '#', '@', '"', '\'', '\n', ' ' or '.'.
  * 
  * @param str The string to search for the end of a variable.
  * @return A pointer to the character that marks the end of the variable in the
@@ -39,7 +39,8 @@ char	*end_of_var(char *str)
 	while (*str != '$' && *str != '\0' && *str != '/' && *str != ':'
 		&& *str != '^' && *str != ';' && *str != '-' && *str != '%'
 		&& *str != '&' && *str != '*' && *str != '#' && *str != '@'
-		&& *str != '"' && *str != '\'' && *str != '\n' && *str != ' ')
+		&& *str != '"' && *str != '\'' && *str != '\n' && *str != ' '
+		&& *str != '.')
 		str++;
 	return (str);
 }
@@ -82,13 +83,13 @@ char	*get_variable_name(char	*str, size_t *i)
  * @param i A pointer to the index where the variable starts.
  * @return The value of the variable retrieved from the environment.
  */
-char	*get_expanded_var(char *str, size_t *i)
+char	*get_expanded_var(char *str, size_t *i, t_env_list *env_list)
 {
 	char	*str_var_name;
 	char	*str_expanded_var;
 
 	str_var_name = get_variable_name(str, i);
-	str_expanded_var = getenv(str_var_name); // implement environment variables
+	str_expanded_var = ft_get_env(env_list, str_var_name);
 	*i = *i + ft_strlen(str_expanded_var);
 	free(str_var_name);
 	return (str_expanded_var);

@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/18 19:16:33 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 11:03:57 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef enum s_in_quotes
 	OUT_OF_QUOTES,
 	IN_DOUBLE_QUOTES,
 	IN_SINGLE_QUOTES
-}		t_in_quotes;
+}		t_quote;
 
 typedef enum s_type
 {
@@ -127,26 +127,19 @@ char	*ft_strjoin_e(const char *s1, const char *s2);
 char	*ft_strtrim_e(char const *s1, char const *set);
 char	*ft_substr_e(const char *s1, unsigned int start, size_t len);
 
-// array_utils.c
+// ft_array_utils.c
 int		ft_len_of_arr(char **arr);
 char	*ft_arr_to_str(char **arr_of_strs);
 char	**ft_init_array(int size);
 void	ft_free_array(char **arr_of_str);
 void	ft_print_array(char **arr);
 
-// cmd_path_and_execve_cmd.c
-void	expand_token_cmd_path(t_token *ptr_token);
-void	make_cmd_paths(t_cmd_tab *cmd_tab);
-int		count_cmd_length(t_cmd *cmd);
-void	make_one_execve_cmd(t_cmd *cmd);
-void	make_execve_cmds(t_cmd_tab *cmd_tab);
-
 // cmd_struct_assign_types.c
 t_type	assign_file_type(t_type prev_token_type);
 t_type	assign_cmd_type(char *text);
-void	assign_operator_types(t_cmd *ptr_cmd_tab);
-void	assign_cmds_and_args(t_cmd *ptr_cmd_tab);
-void	assign_types_to_tokens(t_cmd *ptr_cmd_tab);
+void	assign_operator_types(t_cmd *cmd);
+void	assign_cmds_and_args(t_cmd *cmd);
+void	assign_types_to_tokens(t_cmd *cmd);
 
 // cmd_struct_filler_utils.c
 int		is_pipe_type(t_token *ptr_node);
@@ -156,7 +149,7 @@ int		is_in_single_quotes(t_token *ptr_node);
 int		is_in_double_quotes(t_token *ptr_node);
 
 // cmd_struct_filler.c
-void	fill_cmd_tab(t_cmd *ptr_cmd_tab, char **arr_of_tokens);
+void	fill_cmd_tab(t_cmd *ptr_cmd_tab, char **tokens_arr);
 
 // cmd_struct_ops
 void	ft_init_cmd_struct(t_cmd *cmd_table);
@@ -170,12 +163,15 @@ void	ft_move_token(t_cmd *cmd, t_token *ptr_token);
 // cmd_struct_remove_quotes_utils.c
 char	**remove_quotes_encaptulates_words(char **arr_of_str);
 char	*get_substr_from_word(char const *str, size_t *i);
-int		count_substrs_in_word(char const *text);
-char	**parse_token_text(char *text);
+int		count_substrs_in_word(char const *word);
+char	**parse_token_text(char *word);
 
 // cmd_struct_remove_quotes.c
-void	remove_quotes_in_token(t_token *ptr_node);
-void	remove_quotes_in_cmd_tokens(t_cmd *ptr_cmd_tab);
+void	remove_quotes_in_token(t_token *token);
+void	remove_quotes_in_cmd_tokens(t_cmd *cmd);
+
+// cmd_tab_make.c
+void	make_cmd_tab_from_cmd(t_cmd_tab *cmd_tab, t_cmd *cmd);
 
 // cmd_tab_struct_ops.c
 void	ft_init_cmd_tab(t_cmd_tab *cmd_tab);
@@ -183,9 +179,6 @@ void	ft_rotate_cmd(t_cmd_tab *cmd_tab);
 void	ft_push_cmd(t_cmd_tab *cmd_tab);
 void	ft_push_rotate_cmd(t_cmd_tab *cmd_tab);
 void	ft_delete_cmds_in_cmd_tab(t_cmd_tab *cmd_tab);
-
-// cmd_tab_make.c
-void	make_cmd_tab_from_cmd(t_cmd_tab *cmd_tab, t_cmd *parsed_line);
 
 // error_check.c
 void	check_unclosed_quotes(char *line);
@@ -199,14 +192,13 @@ void	check_exit(char *line);
 // expander_var.c
 char	*end_of_var(char *str);
 char	*get_variable_name(char	*str, size_t *i);
-char	*get_expanded_var(char *str, size_t *i);
+char	*get_expanded_var(char *str, size_t *i, t_env_list *env_list);
 
 // expander.c
-t_in_quotes	in_which_quotes(char *str, size_t i);
-char		*init_new_expanded_str(char *str, size_t i, char *str_expanded_variable);
-char		*get_str_with_one_expanded_var(char *str, size_t *i);
-char		*expand_all_vars_in_str(char *str);
-void		expand_cmd(t_cmd *ptr_cmd_tab);
+char	*expand_one_var_in_str(char *str, size_t *i, t_env_list *env_list);
+t_quote	in_which_quotes(char *str, size_t i);
+char	*expand_all_vars_in_str(char *str, t_env_list *env_list);
+void	expand_cmd(t_cmd *cmd, t_mini_data *minidata);
 
 // get_prompt.c
 char	*get_prompt(void);
@@ -218,13 +210,15 @@ void	print_cmd_tab(t_cmd_tab *cmd_tab);
 
 // here_doc.c
 void	unlink_heredoc_files(t_cmd_tab *cmd_tab);
-char	*get_heredoc_file(char *eof, int index);
-void	expand_heredocs(t_cmd *cmd);
+char	*expand_all_vars_in_heredoc_line(char *str, t_env_list *env_list);
+char	*create_and_open_heredoc_file(int i);
+char	*get_heredoc_file(char *eof, int i, t_env_list *env_list);
+void	expand_heredocs(t_cmd *cmd, t_mini_data *minidata);
 
 // make_cmd_paths.c
-char	*get_cmd_path(t_token *token);
-void	expand_token_cmd_path(t_token *token);
-void	make_cmd_paths(t_cmd_tab *cmd_tab);
+char	*get_cmd_path(t_token *token, t_env_list *env_list);
+void	expand_token_cmd_path(t_token *token, t_env_list *env_list);
+void	make_cmd_paths(t_cmd_tab *cmd_tab, t_mini_data *minidata);
 
 // make_execve_cmds.c
 int		count_cmd_length(t_cmd *cmd);
@@ -232,9 +226,9 @@ void	make_one_execve_cmd(t_cmd *cmd);
 void	make_execve_cmds(t_cmd_tab *cmd_tab);
 
 // parser.c
-void	handle_if_last_token_is_pipe(t_cmd *cmd);
-void	parse_from_arr_of_tokens_to_one_cmd(t_cmd *cmd, char **arr_of_tokens);
-void	parser(t_cmd_tab *cmd_tab, char *line);
+void	handle_if_last_token_is_pipe(t_cmd *cmd, t_mini_data *minidata);
+void	parse_to_one_cmd(t_cmd *cmd, char **tokens_arr, t_mini_data *minidata);
+void	parser(t_cmd_tab *cmd_tab, char *line, t_mini_data *minidata);
 
 // splitter_handlers.c
 char	*handle_redirections(char *str, size_t *index);
@@ -246,16 +240,11 @@ int		is_whitespace(char c);
 int		is_quote(char c);
 int		is_operator(char c);
 size_t	count_word_length(char *str);
-// int		is_end_of_word(char c);
-// size_t	word_length(char *str);
 
 // splitter.c
 int		count_tokens(char *line);
-char	**init_arr_of_tokens(char *line);
+char	**init_tokens_arr(char *line);
 char	**splitter(char *line);
-
-// main.c
-
 
 // EXECUTION //
 // exec functions
@@ -280,8 +269,7 @@ void	ft_append_redirection(char *file_name, int *fd_out);
 void	ft_redirect_io(t_cmd *cmd, int *fd_in, int *fd_out);
 
 // Redirection utils
-int	ft_has_out_redir(t_cmd *cmd);
-
+int		ft_has_out_redir(t_cmd *cmd);
 
 // NEW command table ops
 void	ft_init_token(t_token *token);
@@ -330,7 +318,7 @@ char	*ft_get_env(t_env_list *env_list, char *var_name);
 
 // Helpers to print cmds
 // void	ft_print_cmd(t_cmd_tab *cmd_tab);
-void	ft_print_cmd_types(t_cmd_tab *cmd_tab);
+// void	ft_print_cmd_types(t_cmd_tab *cmd_tab);
 
 // Minidata
 void	ft_init_mini_data(t_mini_data *minidata, char *envp[]);

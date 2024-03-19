@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:33:30 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 16:34:54 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 10:51:49 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
  * @param i A pointer to the index in the string where the variable is found.
  * @return The string with the variable expanded.
  */
-char	*get_str_with_one_expanded_var(char *str, size_t *i)
+char	*expand_one_var_in_str(char *str, size_t *i, t_env_list *env_list)
 {
 	size_t	old_i;
 	char	*str_begin;
@@ -42,9 +42,10 @@ char	*get_str_with_one_expanded_var(char *str, size_t *i)
 
 	old_i = *i;
 	str_begin = ft_substr_e(str, 0, *i);
-	str_expanded_var = get_expanded_var(str, i);
+	str_expanded_var = get_expanded_var(str, i, env_list);
 	str_out = ft_strjoin_e(str_begin, str_expanded_var);
 	free(str_begin);
+	free(str_expanded_var);
 	str_begin = str_out;
 	str_rest = end_of_var(&str[old_i + 1]);
 	str_out = ft_strjoin_e(str_begin, str_rest);
@@ -63,7 +64,7 @@ char	*get_str_with_one_expanded_var(char *str, size_t *i)
  * @param index The index of the character to check.
  * @return The type of quotes surrounding the character.
  */
-t_in_quotes	in_which_quotes(char *str, size_t index)
+t_quote	in_which_quotes(char *str, size_t index)
 {
 	int		search_single_q;
 	int		search_double_q;
@@ -104,7 +105,7 @@ t_in_quotes	in_which_quotes(char *str, size_t index)
  * @param str The input string to expand variables in.
  * @return The string with all variables expanded.
  */
-char	*expand_all_vars_in_str(char *str)
+char	*expand_all_vars_in_str(char *str, t_env_list *env_list)
 {
 	char	*temp_str;
 	size_t	i;
@@ -115,7 +116,7 @@ char	*expand_all_vars_in_str(char *str)
 		if (str[i] == '$' && in_which_quotes(str, i) != IN_SINGLE_QUOTES)
 		{
 			temp_str = str;
-			str = get_str_with_one_expanded_var(str, &i);
+			str = expand_one_var_in_str(str, &i, env_list);
 			free(temp_str);
 		}
 		else
@@ -125,23 +126,25 @@ char	*expand_all_vars_in_str(char *str)
 }
 
 /**
- * @brief Expands variables within a command table.
+ * @brief Expands variables within a command struct.
  * 
- * This function expands variables within the input command table by replacing 
+ * This function expands variables within the input command struct by replacing 
  * them with their corresponding values. It iterates through the tokens of
  * the command table and expands variables found in non-operator tokens.
  * 
  * @param cmd The command table to expand variables in.
  */
-void	expand_cmd(t_cmd *cmd)
+void	expand_cmd(t_cmd *cmd, t_mini_data *minidata)
 {
-	t_token	*token;
+	t_token		*token;
+	t_env_list	*env_list;
 
+	env_list = minidata->env_list;
 	token = cmd->first_token;
 	while (token != NULL)
 	{
 		if (!is_operator_type(token))
-			token->text = expand_all_vars_in_str(token->text);
+			token->text = expand_all_vars_in_str(token->text, env_list);
 		token = token->next;
 	}
 }
