@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/19 10:56:57 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 11:03:57 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ int		is_in_single_quotes(t_token *ptr_node);
 int		is_in_double_quotes(t_token *ptr_node);
 
 // cmd_struct_filler.c
-void	fill_cmd_tab(t_cmd *ptr_cmd_tab, char **arr_of_tokens);
+void	fill_cmd_tab(t_cmd *ptr_cmd_tab, char **tokens_arr);
 
 // cmd_struct_ops
 void	ft_init_cmd_struct(t_cmd *cmd_table);
@@ -227,7 +227,7 @@ void	make_execve_cmds(t_cmd_tab *cmd_tab);
 
 // parser.c
 void	handle_if_last_token_is_pipe(t_cmd *cmd, t_mini_data *minidata);
-void	parse_from_arr_of_tokens_to_one_cmd(t_cmd *cmd, char **arr_of_tokens, t_mini_data *minidata);
+void	parse_to_one_cmd(t_cmd *cmd, char **tokens_arr, t_mini_data *minidata);
 void	parser(t_cmd_tab *cmd_tab, char *line, t_mini_data *minidata);
 
 // splitter_handlers.c
@@ -243,7 +243,7 @@ size_t	count_word_length(char *str);
 
 // splitter.c
 int		count_tokens(char *line);
-char	**init_arr_of_tokens(char *line);
+char	**init_tokens_arr(char *line);
 char	**splitter(char *line);
 
 // EXECUTION //

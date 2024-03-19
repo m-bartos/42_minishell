@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/29 10:24:52 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 13:11:05 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 11:03:35 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,20 +52,20 @@ int	count_tokens(char *line)
  * @param line The line to be split into an array of tokens.
  * @return An array of strings containing the split tokens from the line.
  */
-char	**init_arr_of_tokens(char *line)
+char	**init_tokens_arr(char *line)
 {
 	int		count;
-	char	**array_of_tokens;
+	char	**tokens_arr;
 
 	count = count_tokens(line);
-	array_of_tokens = (char **) malloc (sizeof(char *) * (count + 1));
-	if(array_of_tokens == NULL)
+	tokens_arr = (char **) malloc (sizeof(char *) * (count + 1));
+	if(tokens_arr == NULL)
 	{
 		perror("Minishell: ");
 		exit(EXIT_FAILURE);
 	}
-	array_of_tokens[count] = NULL;
-	return (array_of_tokens);
+	tokens_arr[count] = NULL;
+	return (tokens_arr);
 }
 
 /**
@@ -77,23 +77,23 @@ char	**init_arr_of_tokens(char *line)
  */
 char	**splitter(char *line)
 {
-	char	**array_of_tokens;
+	char	**tokens_arr;
 	size_t	i;
 	size_t	j;
 
-	array_of_tokens = init_arr_of_tokens(line);
+	tokens_arr = init_tokens_arr(line);
 	i = 0;
 	j = 0;
 	while (line[i])
 	{
 		if (line[i] == '<' || line[i] == '>')
-			array_of_tokens[j++] = handle_redirections(&line[i], &i);
+			tokens_arr[j++] = handle_redirections(&line[i], &i);
 		else if (line[i] == '|')
-			array_of_tokens[j++] = handle_pipe(&line[i], &i);
+			tokens_arr[j++] = handle_pipe(&line[i], &i);
 		else if (is_whitespace(line[i]))
 			i++;
 		else
-			array_of_tokens[j++] = handle_word(&line[i], &i);
+			tokens_arr[j++] = handle_word(&line[i], &i);
 	}
-	return (array_of_tokens);
+	return (tokens_arr);
 }
