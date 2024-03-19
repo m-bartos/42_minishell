@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/19 13:59:14 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/19 14:12:20 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,8 +211,8 @@ char	*get_relative_path(t_env_list *env_list);
 char	*get_prompt(t_mini_data *minidata);
 
 // helpers.c
+void	print_execve_cmd(char	**execve_cmd);
 void	print_cmd(t_cmd *ptr_cmd_tab);
-void	ft_print_cmd(t_cmd *cmd_table);
 void	print_cmd_tab(t_cmd_tab *cmd_tab);
 
 // here_doc.c
