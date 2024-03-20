@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_execution.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:49:47 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/18 18:50:18 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/20 22:05:56 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,10 @@ void	ft_execve(t_cmd *cmd, t_mini_data *minidata)
 
 void	ft_select_built_cmd(t_cmd *cmd, t_env_list env_list)
 {
-	if (ft_strncmp(cmd->execve_cmd[0], "echo", 5) == 0)
+	char	*cmd_name;
+
+	cmd_name = cmd->execve_cmd[0];
+	if (ft_strncmp(cmd_name, "echo", ft_strlen(cmd_name) + 1) == 0)
 		ft_echo(cmd, 1);
 	else if (ft_strncmp(cmd->execve_cmd[0], "pwd", 4) == 0)
 		ft_pwd(1);
