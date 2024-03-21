@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:18:05 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/12 12:37:20 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 11:21:31 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,30 +34,6 @@ int	is_redirection_type(t_token *token)
 int	is_operator_type(t_token *token)
 {
 	if (is_pipe_type(token) || is_redirection_type(token))
-		return (1);
-	return (0);
-}
-
-int	is_in_single_quotes(t_token *token)
-{
-	char	*text;
-	int		length;
-
-	text = token->text;
-	length = ft_strlen(text);
-	if (text[0] == '\'' && text[length - 1] == '\'')
-		return (1);
-	return (0);
-}
-
-int	is_in_double_quotes(t_token *token)
-{
-	char	*text;
-	int		length;
-
-	text = token->text;
-	length = ft_strlen(text);
-	if (text[0] == '\"' && text[length - 1] == '\"')
 		return (1);
 	return (0);
 }

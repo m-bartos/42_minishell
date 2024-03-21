@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 11:15:16 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 11:21:24 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,8 +145,6 @@ void	assign_types_to_tokens(t_cmd *cmd);
 int		is_pipe_type(t_token *ptr_node);
 int		is_redirection_type(t_token *ptr_node);
 int		is_operator_type(t_token *ptr_node);
-int		is_in_single_quotes(t_token *ptr_node);
-int		is_in_double_quotes(t_token *ptr_node);
 
 // cmd_struct_filler.c
 void	fill_cmd_tab(t_cmd *ptr_cmd_tab, char **tokens_arr);
