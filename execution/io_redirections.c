@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:00:15 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 11:17:01 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/21 15:49:28 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,11 +127,23 @@ void	ft_redirect_io(t_cmd *cmd, int *fd_in, int *fd_out)
 	while (token)
 	{
 		if (token->type == R_INFILE)
+		{
+			if (*fd_in != STDIN_FILENO)
+				close(*fd_in);
 			ft_input_redirection(token->text, fd_in);
+		}
 		else if (token->type == R_OUTFILE)
+		{
+			if (*fd_out != STDOUT_FILENO)
+				close(*fd_out);
 			ft_output_redirection(token->text, fd_out);
+		}
 		else if (token->type == R_OUTFILE_APP)
+		{
+			if (*fd_out != STDOUT_FILENO)
+				close(*fd_out);
 			ft_append_redirection(token->text, fd_out);
+		}
 		token = token->next;
 	}
 	return ;

@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 09:19:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 12:54:21 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/21 14:59:14 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,20 +70,17 @@ void	ft_redir_original_io(t_cmd *cmd, int *ori_in, int *ori_out)
 	{
 		if (token->type == R_INFILE)
 		{
-			close(STDIN);
 			dup2(*ori_in, STDIN);
 			close(*ori_in);
 
 		}
 		else if (token->type == R_OUTFILE)
 		{
-			close(STDOUT);
 			dup2(*ori_out, STDOUT);
 			close(*ori_out);
 		}
 		else if (token->type == R_OUTFILE_APP)
 		{
-			close(STDOUT);
 			dup2(*ori_out, STDOUT);
 			close(*ori_out);
 		}

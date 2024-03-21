@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 11:13:22 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/21 15:40:03 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ int	main (int argc, char *argv[], char *envp[])
 	line = NULL;
 	ft_init_cmd_tab(&cmd_tab);
 	ft_init_mini_data(&minidata, envp);
+	ft_printf("%d\n", getpid());
 	while (1)
 	{
 		ft_putstr_fd(BLUE, 1);
