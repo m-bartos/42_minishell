@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 12:39:39 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/18 18:50:18 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 17:23:29 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	ft_exit_minishell(t_cmd_tab *tab)
 	if (ft_strncmp(cmd->execve_cmd[0], "exit", 5) == 0 && tab->size == 1)
 	{
 		// add cleaning function - to clean the tab or add at_exit()
+		ft_putstr_fd("exit\n", STDOUT_FILENO);
 		exit(EXIT_SUCCESS);
 	}
 }
