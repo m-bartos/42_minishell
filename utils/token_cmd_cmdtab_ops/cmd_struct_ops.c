@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 22:46:28 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 10:58:20 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 11:33:33 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
  * @brief Utility functions for handling command structures.
  */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 /**
  * @brief Initializes a command structure with default values.

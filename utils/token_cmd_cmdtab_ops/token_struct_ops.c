@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 10:50:42 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/21 11:15:44 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 11:33:46 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
  * @brief Utility functions for handling token structures.
  */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 /**
  * @brief Initializes a token structure with default values.

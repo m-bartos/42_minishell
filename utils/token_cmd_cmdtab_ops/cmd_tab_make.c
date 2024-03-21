@@ -6,11 +6,11 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 10:22:34 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/20 14:43:46 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 11:33:37 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 /**
  * @brief Constructs a command table from a command.
