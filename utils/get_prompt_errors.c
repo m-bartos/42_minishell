@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:57:57 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/19 13:58:24 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 14:28:53 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,14 +30,29 @@ int	is_var_in_env_list(t_env_list *env_list, char *var_name)
 	return (is_ok);
 }
 
+int	is_user(void)
+{
+	char	*user;
+	int		is_ok;
+
+	is_ok = TRUE;
+	user = getenv("USER");
+	if (user == NULL)
+	{
+		ft_putstr_fd("Cannot find '", 2);
+		ft_putstr_fd("USER", 2);
+		ft_putstr_fd("' variable in parent process needed for prompt!\n", 2);
+		is_ok = FALSE;
+	}
+	return (is_ok);
+}
+
 int	check_prompt_vars(t_env_list *env_list)
 {
 	int		is_error;
 
 	is_error = FALSE;
-	if (is_var_in_env_list(env_list, "USER") == FALSE)
-		is_error = TRUE;
-	if (is_var_in_env_list(env_list, "SESSION_MANAGER") == FALSE)
+	if (is_user() == FALSE)
 		is_error = TRUE;
 	if (is_var_in_env_list(env_list, "PWD") == FALSE)
 		is_error = TRUE;

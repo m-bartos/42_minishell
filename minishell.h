@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 13:53:10 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 14:29:53 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,7 @@ void	expand_cmd(t_cmd *cmd, t_mini_data *minidata);
 
 // get_prompt_errors.c
 int		is_var_in_env_list(t_env_list *env_list, char *var_name);
+int		is_user(void);
 int		check_prompt_vars(t_env_list *env_list);
 
 // get_prompt.c

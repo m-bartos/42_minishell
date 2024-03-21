@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:24:00 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/21 13:52:46 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 14:29:04 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,9 @@ char	*get_user_and_computer(t_env_list *env_list)
 	char	*old_display_line;
 	char	*relative_path;
 
-	user = ft_get_env(env_list, "USER");
+	user = getenv("USER");
 	computer = get_hostname();
 	display_line = ft_strjoin_e(user, "@");
-	free(user);
 	old_display_line = display_line;
 	display_line = ft_strjoin_e(display_line, computer);
 	free(old_display_line);
