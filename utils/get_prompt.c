@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:24:00 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/21 14:29:04 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 14:40:42 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,6 @@ char	*get_user_and_computer(t_env_list *env_list)
 	display_line = ft_strjoin_e(display_line, computer);
 	free(old_display_line);
 	free(computer);
-	old_display_line = display_line;
-	display_line = ft_strjoin_e(display_line, ":~");
-	free(old_display_line);
 	return (display_line);
 }
 
@@ -58,11 +55,22 @@ char	*get_relative_path(t_env_list *env_list)
 	char	*absolute_path;
 	char	*relative_path;
 	char	*home;
+	char	*path_start;
 
 	absolute_path = ft_get_env(env_list, "PWD");
 	home = ft_get_env(env_list, "HOME");
-	relative_path = absolute_path + ft_strlen(home);
-	relative_path = ft_strdup_e(relative_path);
+	if (ft_strlen(absolute_path) > ft_strlen(home))
+	{
+		relative_path = absolute_path + ft_strlen(home);
+		path_start = ft_strdup_e(":~");
+	}
+	else
+	{
+		relative_path = home;
+		path_start = ft_strdup_e(":");
+	}
+	relative_path = ft_strjoin_e(path_start, relative_path);
+	free(path_start);
 	free(absolute_path);
 	free(home);
 	return (relative_path);
