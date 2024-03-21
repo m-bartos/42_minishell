@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   directory_commands.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:01:44 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/18 18:50:18 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 19:41:33 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,18 @@ char	*ft_find_arg(t_cmd *cmd)
 	return (NULL);
 }
 
+void	ft_update_pwd(t_env_list *env_list)
+{
+		char	*cwd;
+		char	*env;
+
+		cwd = getcwd(NULL, 0);
+		env = ft_strjoin("PWD=", cwd);
+		ft_add_env(env_list, env);
+		free(cwd);
+		free(env);
+}
+
 /**
  * @brief Changes the current directory and handles errors.
  *
@@ -50,10 +62,10 @@ char	*ft_find_arg(t_cmd *cmd)
  *                 Exits with status 1 on failure, 0 on success if true.
  */
 
-void	ft_cd(t_cmd *cmd, int is_child)
+void	ft_cd(t_cmd *cmd, t_env_list *env_list, int is_child)
 {
-	char	*error;
-	char	*path;
+	char		*error;
+	char		*path;
 
 	path = ft_find_arg(cmd);
 	if (chdir(path) != 0)
@@ -66,13 +78,23 @@ void	ft_cd(t_cmd *cmd, int is_child)
 			free(error);
 			if (is_child)
 				exit(1);
+			else
+				ft_add_env(env_list, "?=1");
+
 		}
 		else
 		{
 			perror("cd");
 			if (is_child)
 				exit(1);
+			else
+				ft_add_env(env_list, "?=1");
 		}
+	}
+	else
+	{
+		ft_add_env(env_list, "?=0");
+		ft_update_pwd(env_list);
 	}
 	if (is_child)
 		exit(0);
@@ -89,7 +111,7 @@ void	ft_cd(t_cmd *cmd, int is_child)
  *                 Non-zero values trigger process exit after execution.
  */
 
-void	ft_pwd(int is_child)
+void	ft_pwd(t_env_list *env_list, int is_child)
 {
 	char	*cwd;
 
@@ -100,6 +122,8 @@ void	ft_pwd(int is_child)
 		free(cwd);
 		if (is_child)
 			exit(1);
+		else
+			ft_add_env(env_list, "?=1");
 	}
 	else
 	{
@@ -108,5 +132,7 @@ void	ft_pwd(int is_child)
 		free(cwd);
 		if (is_child)
 			exit(0);
+		else
+			ft_add_env(env_list, "?=0");
 	}
 }

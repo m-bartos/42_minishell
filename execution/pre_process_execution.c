@@ -6,23 +6,23 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 09:19:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 16:12:29 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/21 19:43:10 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_pre_exec_select_built_cmd(t_cmd *cmd, t_env_list *env_list)
+void	ft_pre_exec_select_built_cmd(t_cmd *cmd, t_env_list	*env_list)
 {
-	char	*cmd_name;
+	char		*cmd_name;
 
 	cmd_name = cmd->execve_cmd[0];
 	if (ft_strncmp(cmd_name, "echo", ft_strlen(cmd_name) + 1) == 0)
 		ft_echo(cmd, 0);
 	else if (ft_strncmp(cmd_name, "pwd", ft_strlen(cmd_name) + 1) == 0)
-		ft_pwd(0);
+		ft_pwd(env_list, 0);
 	else if (ft_strncmp(cmd_name, "cd", ft_strlen(cmd_name) + 1) == 0)
-		ft_cd(cmd, 0);
+		ft_cd(cmd, env_list, 0);
 	else if (ft_strncmp(cmd_name, "exit", ft_strlen(cmd_name) + 1) == 0)
 		ft_exit(cmd);
 	else if (ft_strncmp(cmd_name, "export", ft_strlen(cmd_name) + 1) == 0)

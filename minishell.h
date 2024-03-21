@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 12:47:41 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/21 19:42:32 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,9 +304,11 @@ char	*ft_get_echo_input(t_cmd *cmd);
 // exit
 void	ft_exit(t_cmd *cmd);
 // cd
-void	ft_cd(t_cmd *cmd, int is_child);
+//void	ft_cd(t_cmd *cmd, int is_child);
+void	ft_cd(t_cmd *cmd, t_env_list *env_list, int is_child);
 // pwd
-void	ft_pwd(int is_child);
+// void	ft_pwd(int is_child);
+void	ft_pwd(t_env_list *env_list, int is_child);
 // export
 void	ft_export(t_env_list *env_list, t_cmd *cmd, int is_child);
 // unset
