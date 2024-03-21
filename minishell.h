@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/20 15:18:46 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 10:51:52 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,12 +153,14 @@ void	fill_cmd_tab(t_cmd *ptr_cmd_tab, char **tokens_arr);
 
 // cmd_struct_ops
 void	ft_init_cmd_struct(t_cmd *cmd_table);
-void	ft_init_token_struct(t_token *token);
 void	ft_cmdjoin(t_cmd *cmd, t_cmd *cmd_add);
-t_token	*ft_create_new_token(char *text, t_type type);
 void	ft_append_new_token_to_cmd(t_cmd *cmd, char *text, t_type type);
 void	ft_delete_cmd(t_cmd *cmd_table);
 void	ft_move_token(t_cmd *cmd, t_token *ptr_token);
+
+// token_struct_ops.c
+void	ft_init_token_struct(t_token *token);
+t_token	*ft_create_new_token(char *text, t_type type);
 
 // cmd_struct_remove_quotes_utils.c
 char	**remove_quotes_encaptulates_words(char **arr_of_str);

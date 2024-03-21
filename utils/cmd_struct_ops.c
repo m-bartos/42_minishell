@@ -6,19 +6,21 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 22:46:28 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/20 15:18:12 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 10:58:20 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+/**
+ * @file cmd_utils.c
+ * @brief Utility functions for handling command structures.
+ */
 
 #include "../minishell.h"
 
 /**
- * @brief Initializes a command structure.
- *
- * Sets all fields of a command structure to their default values, indicating
- * an empty command.
- *
- * @param cmd Pointer to the command to initialize.
+ * @brief Initializes a command structure with default values.
+ * 
+ * @param cmd The command structure to initialize.
  */
 void	ft_init_cmd_struct(t_cmd *cmd)
 {
@@ -30,30 +32,14 @@ void	ft_init_cmd_struct(t_cmd *cmd)
 	cmd->size = 0;
 }
 
-void	ft_init_token_struct(t_token *token)
-{
-	token->text = NULL;
-	token->type = -1;
-	token->next = NULL;
-	token->prev = NULL;
-}
-
-t_token	*ft_create_new_token(char *text, t_type type)
-{
-	t_token	*token;
-
-	token = malloc(sizeof(t_token));
-	if (!token)
-	{
-		perror("minishell: ");
-		exit (EXIT_FAILURE);
-	}
-	ft_init_token_struct(token);
-	token->text = text;
-	token->type = type;
-	return (token);
-}
-
+/**
+ * @brief Joins the tokens from one command to another.
+ * 
+ * This function appends tokens from one command structure to another.
+ * 
+ * @param cmd The destination command structure.
+ * @param cmd_add The source command structure.
+ */
 void	ft_cmdjoin(t_cmd *cmd, t_cmd *cmd_add)
 {
 	t_token	*token;
@@ -71,6 +57,13 @@ void	ft_cmdjoin(t_cmd *cmd, t_cmd *cmd_add)
 	ft_delete_cmd(cmd_add);
 }
 
+/**
+ * @brief Appends a new token to a command structure.
+ * 
+ * @param cmd The command structure.
+ * @param text The text of the token.
+ * @param type The type of the token.
+ */
 void	ft_append_new_token_to_cmd(t_cmd *cmd, char *text, t_type type)
 {
 	t_token	*token;
@@ -95,6 +88,11 @@ void	ft_append_new_token_to_cmd(t_cmd *cmd, char *text, t_type type)
 	cmd->size++;
 }
 
+/**
+ * @brief Deletes a command structure and frees its memory.
+ * 
+ * @param cmd The command structure to delete.
+ */
 void	ft_delete_cmd(t_cmd *cmd)
 {
 	t_token	*current_token;
@@ -114,6 +112,12 @@ void	ft_delete_cmd(t_cmd *cmd)
 	cmd->size = 0;
 }
 
+/**
+ * @brief Moves a token to the end of a command structure.
+ * 
+ * @param cmd The command structure.
+ * @param token The token to move.
+ */
 void	ft_move_token(t_cmd *cmd, t_token *token)
 {
 	if (!cmd || !token)
