@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 11:12:22 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 11:15:16 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,7 @@ void	ft_print_array(char **arr);
 t_type	assign_file_type(t_type prev_token_type);
 t_type	assign_cmd_type(char *text);
 void	assign_operator_types(t_cmd *cmd);
-void	assign_cmd_and_arg_types(t_cmd *cmd);
+void	assign_cmd_and_arg_types(t_token *token);
 void	assign_types_to_tokens(t_cmd *cmd);
 
 // cmd_struct_filler_utils.c
