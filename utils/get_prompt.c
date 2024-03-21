@@ -6,27 +6,30 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:24:00 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/19 13:58:17 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 13:52:46 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-char	*get_computer(t_env_list *env_list)
+char	*get_hostname(void)
 {
-	char	*ses_manager;
-	char	*computer;
-	char	*str_start;
-	char	*str_end;
-	size_t	len;
+	int		fd;
+	char	*temp_hostname;
+	char	*hostname;
 
-	ses_manager = ft_get_env(env_list, "SESSION_MANAGER");
-	str_start = ft_strchrnul(ses_manager, '/') + 1;
-	str_end = ft_strchrnul(ses_manager, ':');
-	len = str_end - str_start;
-	computer = ft_substr_e(str_start, 0, len);
-	free(ses_manager);
-	return (computer);
+	fd = open(HOSTNAME_FILE, O_RDONLY);
+	if (fd == -1)
+	{
+		ft_putstr_fd("Need hostname file to construct the prompt!\n", 2);
+		perror(HOSTNAME_FILE);
+		exit(EXIT_FAILURE);
+	}
+	temp_hostname = get_next_line(fd);
+	close (fd);
+	hostname = ft_substr_e(temp_hostname, 0, ft_strlen(temp_hostname) - 1);
+	free(temp_hostname);
+	return (hostname);
 }
 
 char	*get_user_and_computer(t_env_list *env_list)
@@ -38,7 +41,7 @@ char	*get_user_and_computer(t_env_list *env_list)
 	char	*relative_path;
 
 	user = ft_get_env(env_list, "USER");
-	computer = get_computer(env_list);
+	computer = get_hostname();
 	display_line = ft_strjoin_e(user, "@");
 	free(user);
 	old_display_line = display_line;

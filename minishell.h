@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 11:21:24 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 13:53:10 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define TRUE 1
 
 # define HEREDOC_FILE ".hd_X[Aj0J-]}1038.93'-=;';!@A_cmd_"
+# define HOSTNAME_FILE "/proc/sys/kernel/hostname"
 
 # define CMD_NOT_FOUND 127
 
@@ -204,7 +205,7 @@ int		is_var_in_env_list(t_env_list *env_list, char *var_name);
 int		check_prompt_vars(t_env_list *env_list);
 
 // get_prompt.c
-char	*get_computer(t_env_list *env_list);
+char	*get_hostname();
 char	*get_user_and_computer(t_env_list *env_list);
 char	*get_relative_path(t_env_list *env_list);
 char	*get_prompt(t_mini_data *minidata);
