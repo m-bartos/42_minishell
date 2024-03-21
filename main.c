@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/20 22:47:41 by orezek           ###   ########.fr       */
+/*   Updated: 2024/03/21 11:13:22 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,58 +24,6 @@
 //1) Preexec to update exit status
 //2) Preexec to work with infile and outfile (fd0 and fd01)
 //3) Preexec to properly clean and prepare for a new input
-
-void	ft_pre_exec_select_built_cmd(t_cmd *cmd, t_env_list *env_list)
-{
-	char	*cmd_name;
-
-	cmd_name = cmd->execve_cmd[0];
-	if (ft_strncmp(cmd_name, "echo", ft_strlen(cmd_name) + 1) == 0)
-		ft_echo(cmd, 0);
-	else if (ft_strncmp(cmd_name, "pwd", ft_strlen(cmd_name) + 1) == 0)
-		ft_pwd(0);
-	else if (ft_strncmp(cmd_name, "cd", ft_strlen(cmd_name) + 1) == 0)
-		ft_cd(cmd, 0);
-	else if (ft_strncmp(cmd_name, "exit", ft_strlen(cmd_name) + 1) == 0)
-		ft_exit(cmd);
-	else if (ft_strncmp(cmd_name, "export", ft_strlen(cmd_name) + 1) == 0)
-		ft_export(env_list, cmd, 0);
-	else if (ft_strncmp(cmd_name, "unset", ft_strlen(cmd_name) + 1) == 0)
-		ft_unset(env_list, cmd, 0);
-	else if (ft_strncmp(cmd_name, "env", ft_strlen(cmd_name) + 1) == 0)
-		ft_env(env_list, 0);
-}
-
-
-int	ft_is_inbuilt(t_cmd *cmd)
-{
-	t_token	*token;
-
-	token = cmd->first_token;
-	while (token)
-	{
-		if (token->type == CMD_BUILT)
-			return (TRUE);
-		token = token->next;
-	}
-	return (FALSE);
-}
-
-int	ft_pre_exec(t_cmd_tab *tab, t_mini_data *minidata)
-{
-	t_cmd	*cmd;
-	t_env_list	*envs;
-
-	cmd = tab->first_cmd;
-	envs = minidata->env_list;
-
-	if (tab->size == 1 && ft_is_inbuilt(cmd))
-	{
-		ft_pre_exec_select_built_cmd(cmd, envs);
-		return (1);
-	}
-	return (0);
-}
 
 
 int	main (int argc, char *argv[], char *envp[])

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/19 14:12:20 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 09:47:47 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,6 +274,7 @@ void	ft_input_redirection(char *file_name, int *fd_in);
 void	ft_output_redirection(char *file_name, int *fd_out);
 void	ft_append_redirection(char *file_name, int *fd_out);
 void	ft_redirect_io(t_cmd *cmd, int *fd_in, int *fd_out);
+void	ft_redir_process_io(t_exec_data *data, t_cmd *cmd);
 
 // Redirection utils
 int		ft_has_out_redir(t_cmd *cmd);
@@ -323,6 +324,13 @@ void	ft_convert_arr_to_list(t_env_list *env_list, char **envp);
 char	**ft_convert_list_to_arr(t_env_list *env_list);
 char	*ft_get_env(t_env_list *env_list, char *var_name);
 
+// Pre-processing
+void	ft_pre_exec_select_built_cmd(t_cmd *cmd, t_env_list *env_list);
+void	ft_pre_exec_redir_process_io(t_exec_data *data, t_cmd *cmd);
+int		ft_pre_exec(t_cmd_tab *tab, t_mini_data *minidata);
+// Pre-processing utils
+int		ft_is_inbuilt(t_cmd *cmd);
+void	ft_close_io(t_cmd *cmd, int *fd_in, int *fd_out);
 // Helpers to print cmds
 // void	ft_print_cmd(t_cmd_tab *cmd_tab);
 // void	ft_print_cmd_types(t_cmd_tab *cmd_tab);
