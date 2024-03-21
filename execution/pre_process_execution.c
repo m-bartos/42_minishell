@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 09:19:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 14:59:14 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/21 16:12:29 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,20 +47,6 @@ int	ft_is_inbuilt(t_cmd *cmd)
 	return (FALSE);
 }
 
-int	ft_has_in_redir(t_cmd *cmd)
-{
-	t_token	*token;
-
-	token = cmd->first_token;
-	while (token)
-	{
-		if (token->type == R_IN)
-			return (1);
-		token = token->next;
-	}
-	return (0);
-}
-
 void	ft_redir_original_io(t_cmd *cmd, int *ori_in, int *ori_out)
 {
 	t_token	*token;
@@ -72,7 +58,6 @@ void	ft_redir_original_io(t_cmd *cmd, int *ori_in, int *ori_out)
 		{
 			dup2(*ori_in, STDIN);
 			close(*ori_in);
-
 		}
 		else if (token->type == R_OUTFILE)
 		{
@@ -105,14 +90,13 @@ void	ft_pre_exec_redir_process_io(t_exec_data *data, t_cmd *cmd)
 
 int	ft_pre_exec(t_cmd_tab *tab, t_mini_data *minidata)
 {
-	t_exec_data data;
-	t_cmd	*cmd;
+	t_exec_data	data;
+	t_cmd		*cmd;
 	t_env_list	*envs;
 
 	ft_init_exec_data(&data);
 	cmd = tab->first_cmd;
 	envs = minidata->env_list;
-
 	if (tab->size == 1 && ft_is_inbuilt(cmd))
 	{
 		ft_redirect_io(cmd, &data.fd_in, &data.fd_out);

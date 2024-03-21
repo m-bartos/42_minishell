@@ -6,35 +6,13 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:00:15 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 15:49:28 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/21 16:12:15 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-/**
- * @brief Checks if a command has output redirection.
- *
- * Iterates through command tokens to determine if there is any form of
- * output redirection (overwrite or append).
- *
- * @param cmd Pointer to the command structure.
- * @return 1 if output redirection exists, 0 otherwise.
- */
 
-int	ft_has_out_redir(t_cmd *cmd)
-{
-	t_token	*token;
-
-	token = cmd->first_token;
-	while (token)
-	{
-		if (token->type == R_OUT || token->type == R_OUT_APP)
-			return (1);
-		token = token->next;
-	}
-	return (0);
-}
 
 /**
  * @brief Sets up input redirection from a file.
