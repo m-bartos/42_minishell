@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:47:04 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 19:31:38 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/21 12:50:21 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,8 @@ void	ft_init_exec_data(t_exec_data *exec_data)
 {
 	exec_data->fd_in = STDIN;
 	exec_data->fd_out = STDOUT;
+	exec_data->ori_fd_in = dup(STDIN);
+	exec_data->ori_fd_out = dup(STDOUT);
 }
 
 /**

@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 09:47:47 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/21 12:47:41 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ typedef struct s_exec_data
 {
 	int	fd_in;
 	int	fd_out;
+	int	ori_fd_in;
+	int	ori_fd_out;
 	int	pipe_fd[2];
 }		t_exec_data;
 
@@ -327,10 +329,11 @@ char	*ft_get_env(t_env_list *env_list, char *var_name);
 // Pre-processing
 void	ft_pre_exec_select_built_cmd(t_cmd *cmd, t_env_list *env_list);
 void	ft_pre_exec_redir_process_io(t_exec_data *data, t_cmd *cmd);
+void	ft_redir_original_io(t_cmd *cmd, int *ori_in, int *ori_out);
 int		ft_pre_exec(t_cmd_tab *tab, t_mini_data *minidata);
 // Pre-processing utils
 int		ft_is_inbuilt(t_cmd *cmd);
-void	ft_close_io(t_cmd *cmd, int *fd_in, int *fd_out);
+int		ft_has_in_redir(t_cmd *cmd);
 // Helpers to print cmds
 // void	ft_print_cmd(t_cmd_tab *cmd_tab);
 // void	ft_print_cmd_types(t_cmd_tab *cmd_tab);
