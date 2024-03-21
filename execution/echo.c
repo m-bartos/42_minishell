@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:26:45 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/18 18:50:18 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 22:06:25 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,35 @@
 char	*ft_get_echo_input(t_cmd *cmd)
 {
 	t_token	*token;
+	char	*input;
+	char	*tmp;
 
-	token = cmd->first_token;
+	input = malloc(sizeof(char));
+	*input = '\0';
+	if (ft_has_option(cmd))
+	{
+		if (cmd->first_token->next->next != NULL)
+			token = cmd->first_token->next->next;
+	}
+	else
+		token = cmd->first_token;
 	while (token)
 	{
-		if (token->type == ARG && ft_strncmp(token->text, "-n", 3) != 0)
-			return (token->text);
+		if (token->type == ARG)
+		{
+			tmp = input;
+			input = ft_strjoin(input, token->text);
+			free(tmp);
+			if (token->next != NULL && token->next->type == ARG)
+			{
+				tmp = input;
+				input = ft_strjoin(input, " ");
+				free(tmp);
+			}
+		}
 		token = token->next;
 	}
-	return (NULL);
+	return (input);
 }
 
 /**
@@ -50,13 +70,10 @@ int	ft_has_option(t_cmd *cmd)
 {
 	t_token	*token;
 
-	token = cmd->first_token;
-	while (token)
-	{
-		if (token->type == ARG && ft_strncmp(token->text, "-n", 3) == 0)
-			return (TRUE);
-		token = token->next;
-	}
+	if (cmd->first_token->next != NULL)
+		token = cmd->first_token->next;
+	if (token->type == ARG && ft_strncmp(token->text, "-n", 3) == 0)
+		return (TRUE);
 	return (FALSE);
 }
 
@@ -71,18 +88,23 @@ int	ft_has_option(t_cmd *cmd)
  * @param is_child Flag indicating if the function is called in a child process.
  */
 
-void	ft_echo(t_cmd *cmd, int is_child)
+void	ft_echo(t_cmd *cmd, t_env_list *env_list, int is_child)
 {
 	char	*echo_output;
+	char	*echo_input;
 
+	echo_input = ft_get_echo_input(cmd);
 	if (ft_has_option(cmd))
-		ft_putstr_fd(ft_get_echo_input(cmd), STDOUT);
+		ft_putstr_fd(echo_input, STDOUT);
 	else
 	{
-		echo_output = ft_strjoin(ft_get_echo_input(cmd), "\n");
+		echo_output = ft_strjoin(echo_input, "\n");
 		ft_putstr_fd(echo_output, STDOUT);
 		free(echo_output);
 	}
+	free(echo_input);
 	if (is_child)
 		exit(EXIT_SUCCESS);
+	else
+		ft_add_env(env_list, "?=0");
 }

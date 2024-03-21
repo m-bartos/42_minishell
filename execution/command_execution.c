@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:49:47 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 19:42:53 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/21 22:07:51 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	ft_select_built_cmd(t_cmd *cmd, t_env_list env_list)
 
 	cmd_name = cmd->execve_cmd[0];
 	if (ft_strncmp(cmd_name, "echo", ft_strlen(cmd_name) + 1) == 0)
-		ft_echo(cmd, 1);
+		ft_echo(cmd, NULL, 1);
 	else if (ft_strncmp(cmd->execve_cmd[0], "pwd", 4) == 0)
 		ft_pwd(NULL, 1);
 	else if (ft_strncmp(cmd->execve_cmd[0], "cd", 3) == 0)
