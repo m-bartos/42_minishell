@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:33:30 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/19 10:51:49 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 11:00:27 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,12 +86,11 @@ t_quote	in_which_quotes(char *str, size_t index)
 		else if (str[i] == '\'' && search_double_q == 0 && search_single_q == 1)
 			search_double_q = 1;
 	}
-	if (search_single_q == search_double_q)
-		return (OUT_OF_QUOTES);
+	if (search_single_q > search_double_q)
+		return (IN_SINGLE_QUOTES);
 	else if (search_single_q < search_double_q)
 		return (IN_DOUBLE_QUOTES);
-	else
-		return (IN_SINGLE_QUOTES);
+	return (OUT_OF_QUOTES);
 }
 
 /**

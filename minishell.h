@@ -35,6 +35,7 @@
 # define TRUE 1
 
 # define HEREDOC_FILE ".hd_X[Aj0J-]}1038.93'-=;';!@A_cmd_"
+# define HOSTNAME_FILE "/proc/sys/kernel/hostname"
 
 # define CMD_NOT_FOUND 127
 
@@ -140,27 +141,27 @@ void	ft_print_array(char **arr);
 t_type	assign_file_type(t_type prev_token_type);
 t_type	assign_cmd_type(char *text);
 void	assign_operator_types(t_cmd *cmd);
-void	assign_cmds_and_args(t_cmd *cmd);
+void	assign_cmd_and_arg_types(t_token *token);
 void	assign_types_to_tokens(t_cmd *cmd);
 
 // cmd_struct_filler_utils.c
 int		is_pipe_type(t_token *ptr_node);
 int		is_redirection_type(t_token *ptr_node);
 int		is_operator_type(t_token *ptr_node);
-int		is_in_single_quotes(t_token *ptr_node);
-int		is_in_double_quotes(t_token *ptr_node);
 
 // cmd_struct_filler.c
 void	fill_cmd_tab(t_cmd *ptr_cmd_tab, char **tokens_arr);
 
 // cmd_struct_ops
-void	ft_init_cmd_struct(t_cmd *cmd_table);
+void	ft_init_cmd_struct(t_cmd *cmd);
 void	ft_cmdjoin(t_cmd *cmd, t_cmd *cmd_add);
-void	ft_rotate_token(t_cmd *cmd_table);
-void	ft_push_token(t_cmd *cmd, char *token_text, t_type token_type);
-void	ft_push_rotate_token(t_cmd *cmd, char *token_text, t_type token_type);
+void	ft_append_new_token_to_cmd(t_cmd *cmd, char *text, t_type type);
 void	ft_delete_cmd(t_cmd *cmd_table);
 void	ft_move_token(t_cmd *cmd, t_token *ptr_token);
+
+// token_struct_ops.c
+void	ft_init_token_struct(t_token *token);
+t_token	*ft_create_new_token(char *text, t_type type);
 
 // cmd_struct_remove_quotes_utils.c
 char	**remove_quotes_encaptulates_words(char **arr_of_str);
@@ -177,9 +178,8 @@ void	make_cmd_tab_from_cmd(t_cmd_tab *cmd_tab, t_cmd *cmd);
 
 // cmd_tab_struct_ops.c
 void	ft_init_cmd_tab(t_cmd_tab *cmd_tab);
-void	ft_rotate_cmd(t_cmd_tab *cmd_tab);
-void	ft_push_cmd(t_cmd_tab *cmd_tab);
-void	ft_push_rotate_cmd(t_cmd_tab *cmd_tab);
+t_cmd	*ft_create_cmd();
+void	ft_append_new_cmd_to_tab(t_cmd_tab *cmd_tab);
 void	ft_delete_cmds_in_cmd_tab(t_cmd_tab *cmd_tab);
 
 // error_check.c
@@ -204,10 +204,11 @@ void	expand_cmd(t_cmd *cmd, t_mini_data *minidata);
 
 // get_prompt_errors.c
 int		is_var_in_env_list(t_env_list *env_list, char *var_name);
+int		is_user(void);
 int		check_prompt_vars(t_env_list *env_list);
 
 // get_prompt.c
-char	*get_computer(t_env_list *env_list);
+char	*get_hostname();
 char	*get_user_and_computer(t_env_list *env_list);
 char	*get_relative_path(t_env_list *env_list);
 char	*get_prompt(t_mini_data *minidata);

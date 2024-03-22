@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:37:34 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 20:01:35 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 11:14:41 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,15 +119,13 @@ void	assign_operator_types(t_cmd *cmd)
  *
  * @param cmd The command structure to assign command and argument types.
  */
-void	assign_cmds_and_args(t_cmd *cmd)
+void	assign_cmd_and_arg_types(t_token *token)
 {
-	t_token	*token;
 	int		search_cmd;
 	int		search_r_file;
 
 	search_cmd = 1;
 	search_r_file = 0;
-	token = cmd->first_token;
 	while (token != NULL)
 	{
 		if (search_cmd == 1 && search_r_file == 0 && !is_operator_type(token))
@@ -162,5 +160,5 @@ void	assign_cmds_and_args(t_cmd *cmd)
 void	assign_types_to_tokens(t_cmd *cmd)
 {
 	assign_operator_types(cmd);
-	assign_cmds_and_args(cmd);
+	assign_cmd_and_arg_types(cmd->first_token);
 }

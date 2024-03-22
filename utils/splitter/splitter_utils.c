@@ -6,11 +6,11 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:10:52 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/19 14:15:01 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 11:33:18 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 int	is_whitespace(char c)
 {

@@ -6,11 +6,11 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 13:04:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/19 11:02:18 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 11:33:27 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minishell.h"
+#include "../../minishell.h"
 
 /**
  * @brief Fills a command structure with tokens from an array of strings.
@@ -29,7 +29,7 @@ void	fill_cmd_tab(t_cmd *cmd, char **tokens_arr)
 	i = 0;
 	while (tokens_arr[i] != NULL)
 	{
-		ft_push_rotate_token(cmd, tokens_arr[i], NOT_ASSIGNED);
+		ft_append_new_token_to_cmd(cmd, tokens_arr[i], NOT_ASSIGNED);
 		i++;
 	}
 }

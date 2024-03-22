@@ -1,3 +1,10 @@
+# Colours
+BOLD =	\033[1m
+GREEN =	\033[32m
+RED =	\033[31m
+BCYAN =	\033[96m
+NC =	\033[0m
+
 NAME = libft.a
 
 CC = cc
@@ -68,18 +75,20 @@ MY_OBJECTS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SOURCES))
 all:	$(NAME)
 
 $(OBJ_DIR)/%.o: %.c
-	mkdir -p $(@D)
-	$(CC) $(CFLAGS) -c $< -o $@
+	@mkdir -p $(@D)
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(NAME): $(MY_OBJECTS)
-	ar rcs $(NAME) $(MY_OBJECTS)
+	@echo "$(BOLD)$(BCYAN)[ Compiling libft... ]$(NC)"
+	@ar rcs $(NAME) $(MY_OBJECTS)
+	@echo "$(BOLD)$(GREEN)[ libft ready! ]$(NC)"
 
 clean:
-	rm -rf $(OBJ_DIR)
-	rm -f $(MY_OBJECTS)
+	@rm -rf $(OBJ_DIR)
+	@rm -f $(MY_OBJECTS)
 
 fclean: clean
-	rm -f $(NAME)
+	@rm -f $(NAME)
 
 re: fclean all
 
