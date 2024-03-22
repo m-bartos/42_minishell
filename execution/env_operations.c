@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_operations.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 21:43:53 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/18 18:50:18 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 19:57:15 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ void	ft_export(t_env_list *env_list, t_cmd *cmd, int is_child)
 	ft_add_env(env_list, arg);
 	if (is_child)
 		exit(0);
+	else
+		ft_add_env(env_list, "?=0");
 }
 
 /**
@@ -59,6 +61,8 @@ void	ft_unset(t_env_list *env_list, t_cmd *cmd, int is_child)
 	ft_remove_env(env_list, arg);
 	if (is_child)
 		exit(0);
+	else
+		ft_add_env(env_list, "?=0");
 }
 
 /**
@@ -78,4 +82,6 @@ void	ft_env(t_env_list *env_list, int is_child)
 	ft_list_env(env_list);
 	if (is_child)
 		exit(0);
+	else
+		ft_add_env(env_list, "?=0");
 }

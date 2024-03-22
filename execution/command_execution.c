@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_execution.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:49:47 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/18 18:50:18 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/22 23:11:13 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,12 +81,15 @@ void	ft_execve(t_cmd *cmd, t_mini_data *minidata)
 
 void	ft_select_built_cmd(t_cmd *cmd, t_env_list env_list)
 {
-	if (ft_strncmp(cmd->execve_cmd[0], "echo", 5) == 0)
-		ft_echo(cmd, 1);
+	char	*cmd_name;
+
+	cmd_name = cmd->execve_cmd[0];
+	if (ft_strncmp(cmd_name, "echo", ft_strlen(cmd_name) + 1) == 0)
+		ft_echo(cmd, NULL, 1);
 	else if (ft_strncmp(cmd->execve_cmd[0], "pwd", 4) == 0)
-		ft_pwd(1);
+		ft_pwd(NULL, 1);
 	else if (ft_strncmp(cmd->execve_cmd[0], "cd", 3) == 0)
-		ft_cd(cmd, 1);
+		ft_cd(cmd, NULL, 1);
 	else if (ft_strncmp(cmd->execve_cmd[0], "exit", 5) == 0)
 		ft_exit(cmd);
 	else if (ft_strncmp(cmd->execve_cmd[0], "export", 7) == 0)
@@ -112,7 +115,8 @@ void	ft_cmd_not_found(t_cmd *cmd)
 	char	*cmd_name;
 
 	errno = ENOENT;
-	cmd_name = cmd->execve_cmd[0];
+	//cmd_name = cmd->execve_cmd[0];
+	cmd_name = cmd->first_token->text;
 	error = ft_strjoin(cmd_name, ": command not found\n");
 	if (errno == ENOENT)
 	{
