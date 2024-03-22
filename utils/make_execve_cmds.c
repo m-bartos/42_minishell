@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 10:26:48 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/19 14:02:34 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/22 12:50:29 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,8 @@ int	count_cmd_length(t_cmd *cmd)
 	while (token != NULL)
 	{
 		type = token->type;
-		if (type == CMD || type == CMD_BUILT || type == ARG)
+		if (type == CMD || type == CMD_BUILT || type == CMD_ERR || type == ARG)
 			length++;
-		else if (type == CMD_ERR || type == CMD_BUILT)
-			return (-1);
 		token = token->next;
 	}
 	return (length);
@@ -62,7 +60,7 @@ void	make_one_execve_cmd(t_cmd *cmd)
 	while (i < length)
 	{
 		type = token->type;
-		if (type == CMD || type == CMD_BUILT || type == ARG)
+		if (type == CMD || type == CMD_BUILT || type == CMD_ERR || type == ARG)
 			execve_cmd[i++] = token->text;
 		token = token->next;
 	}
