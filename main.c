@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/19 13:48:02 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/21 16:14:49 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,16 @@
 
 // valgrind -s --leak-check=full --show-reachable=yes --error-limit=no --suppressions=minishell.supp --trace-children=yes --track-fds=yes ./minishell
 // echo "jojo" 'nene' > outfile.txt | < infile.txt echo "jojo" 'nene' aha "$USER" '$USER' $USER >> test.out
+
+
+// Todo
+// Implement:
+
+//1) Preexec to update exit status
+//2) Preexec to work with infile and outfile (fd0 and fd01) - done
+//3) Preexec to properly clean and prepare for a new input
+
+
 int	main (int argc, char *argv[], char *envp[])
 {
 	char		*prompt;
@@ -26,6 +36,8 @@ int	main (int argc, char *argv[], char *envp[])
 	line = NULL;
 	ft_init_cmd_tab(&cmd_tab);
 	ft_init_mini_data(&minidata, envp);
+	// Get PID to see process information
+	ft_printf("%d\n", getpid());
 	while (1)
 	{
 		ft_putstr_fd(BLUE, 1);
@@ -46,6 +58,11 @@ int	main (int argc, char *argv[], char *envp[])
 		check_unclosed_quotes(line);
 		parser(&cmd_tab, line, &minidata);
 		print_cmd_tab(&cmd_tab); // just to show cmd_tab
+		if (ft_pre_exec(&cmd_tab, &minidata))
+		{
+			ft_delete_cmds_in_cmd_tab(&cmd_tab);
+			continue;
+		}
 		ft_exec_input(&cmd_tab, &minidata);
 		unlink_heredoc_files(&cmd_tab);
 		ft_delete_cmds_in_cmd_tab(&cmd_tab);
