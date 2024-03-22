@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:49:47 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 22:07:51 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/22 23:11:13 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,7 +115,8 @@ void	ft_cmd_not_found(t_cmd *cmd)
 	char	*cmd_name;
 
 	errno = ENOENT;
-	cmd_name = cmd->execve_cmd[0];
+	//cmd_name = cmd->execve_cmd[0];
+	cmd_name = cmd->first_token->text;
 	error = ft_strjoin(cmd_name, ": command not found\n");
 	if (errno == ENOENT)
 	{
