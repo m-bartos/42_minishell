@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:41:18 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/19 10:59:50 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/23 19:49:50 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,13 @@
  */
 char	*end_of_var(char *str)
 {
+	if (*str == '?')
+		return (++str);
 	while (*str != '$' && *str != '\0' && *str != '/' && *str != ':'
 		&& *str != '^' && *str != ';' && *str != '-' && *str != '%'
 		&& *str != '&' && *str != '*' && *str != '#' && *str != '@'
 		&& *str != '"' && *str != '\'' && *str != '\n' && *str != ' '
-		&& *str != '.')
+		&& *str != '.' && *str != '?' && *str != '!')
 		str++;
 	return (str);
 }
