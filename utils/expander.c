@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:33:30 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/21 11:00:27 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/23 20:10:52 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,9 +114,14 @@ char	*expand_all_vars_in_str(char *str, t_env_list *env_list)
 	{
 		if (str[i] == '$' && in_which_quotes(str, i) != IN_SINGLE_QUOTES)
 		{
-			temp_str = str;
-			str = expand_one_var_in_str(str, &i, env_list);
-			free(temp_str);
+			if (is_whitespace(str[i + 1]) || is_quote(str[i + 1]))
+				i++;
+			else
+			{
+				temp_str = str;
+				str = expand_one_var_in_str(str, &i, env_list);
+				free(temp_str);
+			}
 		}
 		else
 			i++;

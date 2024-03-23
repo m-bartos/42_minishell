@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 16:14:49 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/23 20:29:58 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,11 @@ int	main (int argc, char *argv[], char *envp[])
 	ft_init_cmd_tab(&cmd_tab);
 	ft_init_mini_data(&minidata, envp);
 	// Get PID to see process information
-	ft_printf("%d\n", getpid());
+	// ft_printf("%d\n", getpid());
 	while (1)
 	{
-		ft_putstr_fd(BLUE, 1);
-		ft_putstr_fd(BLUE, 2);
+		// ft_putstr_fd(BLUE, 1);
+		// ft_putstr_fd(BLUE, 2);
 		prompt = get_prompt(&minidata);
 		line = readline(prompt);
 		free(prompt);
@@ -52,7 +52,7 @@ int	main (int argc, char *argv[], char *envp[])
 		// }
 		if (is_empty_line(line))
 			continue ;
-		check_exit(line);
+		// check_exit(line);
 		if (*line)
 			add_history(line);
 		check_unclosed_quotes(line);

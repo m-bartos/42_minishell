@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:29:43 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 16:42:54 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/23 20:02:53 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	check_unclosed_quotes(char *line)
  */
 void	exit_redirection_error(t_cmd *cmd, char *text)
 {
-	ft_putstr_fd("minishell: syntax error near unexpected token '", 2);
+	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 	ft_putstr_fd(text, STDERR);
 	ft_putstr_fd("'\n", STDERR);
 	ft_delete_cmd(cmd);
@@ -76,6 +76,8 @@ void	check_redirection_errors(t_cmd *cmd)
 {
 	t_token	*token;
 
+	if (is_pipe_type(cmd->first_token))
+		exit_redirection_error(cmd, cmd->first_token->text);
 	token = cmd->first_token->next;
 	while (token != NULL)
 	{
