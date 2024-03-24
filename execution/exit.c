@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 12:39:39 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 17:23:29 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/24 15:55:53 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@
  * @param tab Pointer to the command table containing all parsed commands.
  */
 
-void	ft_exit_minishell(t_cmd_tab *tab)
+void	ft_exit_minishell(t_cmd *cmd)
 {
-	t_cmd	*cmd;
+	char	*cmd_name;
 
-	cmd = tab->first_cmd;
-	if (ft_strncmp(cmd->execve_cmd[0], "exit", 5) == 0 && tab->size == 1)
+	cmd_name = cmd->execve_cmd[0];
+	if (ft_strncmp(cmd_name, "exit", ft_strlen(cmd_name) + 1) == 0)
 	{
 		// add cleaning function - to clean the tab or add at_exit()
 		ft_putstr_fd("exit\n", STDOUT_FILENO);
