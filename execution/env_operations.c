@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 21:43:53 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 19:57:15 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/24 23:35:41 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +25,55 @@
  *                  program if false and the addition is successful.
  */
 
+// value can be digit
+// key has to end with = sign
+// key cannot be digit
+
+int	ft_is_str_alpha(char *str)
+{
+	while (*str)
+	{
+		if (!ft_isalpha(*str))
+			return (0);
+		str++;
+	}
+	return (1);
+}
+
+int	is_cmd_valid_export(t_cmd *cmd)
+{
+	if (ft_strchr(cmd->execve_cmd[1], '=') == NULL)
+		return (0);
+	if (ft_atoi(cmd->execve_cmd[1]) > 0)
+		return (0);
+	// has key =
+	// is key digit
+	return (1);
+}
+
 void	ft_export(t_env_list *env_list, t_cmd *cmd, int is_child)
 {
 	char	*arg;
-
-	arg = ft_find_arg(cmd);
-	ft_add_env(env_list, arg);
-	if (is_child)
-		exit(0);
-	else
+	if (cmd->size == 2 && ft_is_str_alpha(cmd->execve_cmd[1]))
 		ft_add_env(env_list, "?=0");
+
+	else if (cmd->size == 3 && ft_is_str_alpha(cmd->execve_cmd[1]) && ft_is_str_alpha(cmd->execve_cmd[2]))
+		ft_add_env(env_list, "?=0");
+
+	else if (cmd->size == 2 && is_cmd_valid_export(cmd))
+	{
+		arg = ft_find_arg(cmd);
+		ft_add_env(env_list, arg);
+		if (is_child)
+			exit(0);
+		else
+			ft_add_env(env_list, "?=0");
+	}
+	else
+	{
+		ft_putstr_fd(" not a valid identifier\n", STDERR);
+		ft_add_env(env_list, "?=1");
+	}
 }
 
 /**
