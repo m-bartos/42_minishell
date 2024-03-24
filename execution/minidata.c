@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:08:20 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/18 18:08:32 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/24 10:04:02 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ void	ft_init_mini_data(t_mini_data *minidata, char *envp[])
 	minidata->env_list = env_list;
 	ft_init_env_list(minidata->env_list);
 	ft_convert_arr_to_list(minidata->env_list, envp);
-	ft_add_env(minidata->env_list, "?=-99");
+	ft_add_env(minidata->env_list, "?=0");
 	minidata->env_arr = ft_convert_list_to_arr(minidata->env_list);
 }
