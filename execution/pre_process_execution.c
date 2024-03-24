@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 09:19:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 22:07:35 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/24 16:23:37 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_pre_exec_select_built_cmd(t_cmd *cmd, t_env_list	*env_list)
 	else if (ft_strncmp(cmd_name, "cd", ft_strlen(cmd_name) + 1) == 0)
 		ft_cd(cmd, env_list, 0);
 	else if (ft_strncmp(cmd_name, "exit", ft_strlen(cmd_name) + 1) == 0)
-		ft_exit(cmd);
+		ft_exit_minishell(cmd, env_list);
 	else if (ft_strncmp(cmd_name, "export", ft_strlen(cmd_name) + 1) == 0)
 		ft_export(env_list, cmd, 0);
 	else if (ft_strncmp(cmd_name, "unset", ft_strlen(cmd_name) + 1) == 0)
