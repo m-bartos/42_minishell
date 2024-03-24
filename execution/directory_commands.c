@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:01:44 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/24 19:34:47 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/24 22:10:44 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,6 @@ void	ft_update_pwd(t_env_list *env_list)
 	free(env);
 }
 
-/**
- * @brief Changes the current directory and handles errors.
- *
- * Attempts to change the current working directory to the one specified in
- * the command. If the operation fails due to the target directory not being
- * found, an error message is displayed. Exits if in a child process,
- * depending on the outcome of the operation.
- *
- * @param cmd Pointer to the command structure containing the target directory.
- * @param is_child Flag indicating if the function is called in a child process.
- *                 Exits with status 1 on failure, 0 on success if true.
- */
-
 void	ft_cd_not_valid_path(t_env_list *env_list, int is_child)
 {
 	ft_putstr_fd("No such file or directory:\n", STDERR_FILENO);
@@ -81,6 +68,19 @@ void	ft_cd_valid_path(t_env_list *env_list, int is_child)
 		ft_update_pwd(env_list);
 	}
 }
+
+/**
+ * @brief Changes the current directory and handles errors.
+ *
+ * Attempts to change the current working directory to the one specified in
+ * the command. If the operation fails due to the target directory not being
+ * found, an error message is displayed. Exits if in a child process,
+ * depending on the outcome of the operation.
+ *
+ * @param cmd Pointer to the command structure containing the target directory.
+ * @param is_child Flag indicating if the function is called in a child process.
+ *                 Exits with status 1 on failure, 0 on success if true.
+ */
 
 void	ft_cd(t_cmd *cmd, t_env_list *env_list, int is_child)
 {
@@ -110,42 +110,5 @@ void	ft_cd(t_cmd *cmd, t_env_list *env_list, int is_child)
 			ft_add_env(env_list, "?=1");
 			ft_putstr_fd("cd: too many arguments\n", STDERR);
 		}
-	}
-}
-
-/**
- * @brief Prints the current working directory.
- *
- * Outputs the current working directory to standard output. If executed
- * within a child process and an error occurs, it exits with status 1.
- * On success, exits with status 0 if in a child process.
- *
- * @param is_child Indicates if the function is called within a child process.
- *                 Non-zero values trigger process exit after execution.
- */
-
-void	ft_pwd(t_env_list *env_list, int is_child)
-{
-	char	*cwd;
-
-	cwd = getcwd(NULL, 0);
-	if (!cwd)
-	{
-		perror("pwd: ");
-		free(cwd);
-		if (is_child)
-			exit(1);
-		else
-			ft_add_env(env_list, "?=1");
-	}
-	else
-	{
-		ft_putstr_fd(cwd, STDOUT);
-		ft_putstr_fd("\n", STDOUT);
-		free(cwd);
-		if (is_child)
-			exit(0);
-		else
-			ft_add_env(env_list, "?=0");
 	}
 }
