@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:01:44 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 19:41:33 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/24 19:34:47 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,14 @@ char	*ft_find_arg(t_cmd *cmd)
 
 void	ft_update_pwd(t_env_list *env_list)
 {
-		char	*cwd;
-		char	*env;
+	char	*cwd;
+	char	*env;
 
-		cwd = getcwd(NULL, 0);
-		env = ft_strjoin("PWD=", cwd);
-		ft_add_env(env_list, env);
-		free(cwd);
-		free(env);
+	cwd = getcwd(NULL, 0);
+	env = ft_strjoin("PWD=", cwd);
+	ft_add_env(env_list, env);
+	free(cwd);
+	free(env);
 }
 
 /**
@@ -62,42 +62,55 @@ void	ft_update_pwd(t_env_list *env_list)
  *                 Exits with status 1 on failure, 0 on success if true.
  */
 
-void	ft_cd(t_cmd *cmd, t_env_list *env_list, int is_child)
+void	ft_cd_not_valid_path(t_env_list *env_list, int is_child)
 {
-	char		*error;
-	char		*path;
+	ft_putstr_fd("No such file or directory:\n", STDERR_FILENO);
+	if (is_child)
+		exit(1);
+	else
+		ft_add_env(env_list, "?=1");
+}
 
-	path = ft_find_arg(cmd);
-	if (chdir(path) != 0)
-	{
-		if (errno == ENOENT)
-		{
-			error = ft_strjoin("cd: no such file or directory: ", path);
-			ft_putstr_fd(error, STDERR);
-			ft_putstr_fd("\n", STDERR);
-			free(error);
-			if (is_child)
-				exit(1);
-			else
-				ft_add_env(env_list, "?=1");
-
-		}
-		else
-		{
-			perror("cd");
-			if (is_child)
-				exit(1);
-			else
-				ft_add_env(env_list, "?=1");
-		}
-	}
+void	ft_cd_valid_path(t_env_list *env_list, int is_child)
+{
+	if (is_child)
+		exit(0);
 	else
 	{
 		ft_add_env(env_list, "?=0");
 		ft_update_pwd(env_list);
 	}
-	if (is_child)
-		exit(0);
+}
+
+void	ft_cd(t_cmd *cmd, t_env_list *env_list, int is_child)
+{
+	char	*path;
+
+	if (cmd->size == 1)
+	{
+		if (is_child)
+			exit(1);
+		else
+			ft_add_env(env_list, "?=0");
+	}
+	else if (cmd->size == 2)
+	{
+		path = ft_find_arg(cmd);
+		if (chdir(path) != 0)
+			ft_cd_not_valid_path(env_list, is_child);
+		else
+			ft_cd_valid_path(env_list, is_child);
+	}
+	else if (cmd->size > 2)
+	{
+		if (is_child)
+			exit(1);
+		else
+		{
+			ft_add_env(env_list, "?=1");
+			ft_putstr_fd("cd: too many arguments\n", STDERR);
+		}
+	}
 }
 
 /**
