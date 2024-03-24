@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/23 20:29:58 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/24 12:08:27 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,31 @@
 //2) Preexec to work with infile and outfile (fd0 and fd01) - done
 //3) Preexec to properly clean and prepare for a new input
 
+volatile sig_atomic_t sigint_received = 0; // Declaration of the flag
+
+void sigint_handler(int sig)
+{
+	write(STDOUT_FILENO, "\n", 1);
+	rl_on_new_line(); // Move to a new line
+	rl_replace_line("", 0); // Clear the current buffer
+	rl_redisplay(); // Redisplay the prompt on a new line
+	sigint_received = 1; // Signal handler sets the flag
+}
+
+void setup_signal_handling() {
+    struct sigaction sa;
+    sa.sa_handler = sigint_handler;
+    sigemptyset(&sa.sa_mask);
+    sa.sa_flags = SA_RESTART; // Ensure certain interrupted system calls are automatically restarted
+    sigaction(SIGINT, &sa, NULL);
+}
+
+void disable_ctrl_c_output() {
+    struct termios term;
+    tcgetattr(STDIN_FILENO, &term);
+    term.c_lflag &= ~(ECHOCTL);
+    tcsetattr(STDIN_FILENO, TCSANOW, &term);
+}
 
 int	main (int argc, char *argv[], char *envp[])
 {
@@ -32,6 +57,12 @@ int	main (int argc, char *argv[], char *envp[])
 	char		*line;
 	t_cmd_tab	cmd_tab;
 	t_mini_data	minidata;
+
+	// Disable ^C
+	disable_ctrl_c_output();
+    // Setup the SIGINT handler
+    setup_signal_handling();
+
 
 	line = NULL;
 	ft_init_cmd_tab(&cmd_tab);
@@ -42,14 +73,13 @@ int	main (int argc, char *argv[], char *envp[])
 	{
 		// ft_putstr_fd(BLUE, 1);
 		// ft_putstr_fd(BLUE, 2);
+		if (sigint_received)
+		{
+			sigint_received = 0; // Reset the flag
+		}
 		prompt = get_prompt(&minidata);
 		line = readline(prompt);
 		free(prompt);
-		// if(signal(SIGINT, ft_ctrl_c_sig) == SIG_ERR)
-		// {
-			// free(line);
-			// continue ;
-		// }
 		if (is_empty_line(line))
 			continue ;
 		// check_exit(line);
@@ -57,7 +87,7 @@ int	main (int argc, char *argv[], char *envp[])
 			add_history(line);
 		check_unclosed_quotes(line);
 		parser(&cmd_tab, line, &minidata);
-		print_cmd_tab(&cmd_tab); // just to show cmd_tab
+		//print_cmd_tab(&cmd_tab); // just to show cmd_tab
 		if (ft_pre_exec(&cmd_tab, &minidata))
 		{
 			ft_delete_cmds_in_cmd_tab(&cmd_tab);

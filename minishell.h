@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 22:07:15 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/24 12:03:19 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <readline/history.h>
 # include <errno.h>
 # include <fcntl.h>
+# include <termios.h>
 
 # define RESET   "\x1B[0m"
 # define BLUE    "\x1B[34m"
