@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:57:57 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/21 14:28:53 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/25 10:32:13 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	check_prompt_vars(t_env_list *env_list)
 		is_error = TRUE;
 	if (is_var_in_env_list(env_list, "PWD") == FALSE)
 		is_error = TRUE;
-	if (is_var_in_env_list(env_list, "HOME") == FALSE)
-		is_error = TRUE;
+	// if (is_var_in_env_list(env_list, "HOME") == FALSE)
+	// 	is_error = TRUE;
 	return (is_error);
 }

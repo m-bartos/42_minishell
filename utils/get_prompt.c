@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:24:00 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/21 14:45:30 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/25 10:31:44 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,19 +58,26 @@ char	*get_relative_path(t_env_list *env_list)
 	char	*path_start;
 
 	absolute_path = ft_get_env(env_list, "PWD");
+	if (absolute_path == NULL)
+		absolute_path = getcwd(NULL, 0);
 	home = ft_get_env(env_list, "HOME");
-	if (ft_strlen(absolute_path) >= ft_strlen(home))
-	{
-		relative_path = absolute_path + ft_strlen(home);
-		path_start = ft_strdup_e(":~");
-	}
+	if (home == NULL)
+		relative_path = ft_strdup(absolute_path);
 	else
 	{
-		relative_path = absolute_path;
-		path_start = ft_strdup_e(":");
+		if (ft_strlen(absolute_path) >= ft_strlen(home))
+		{
+			relative_path = absolute_path + ft_strlen(home);
+			path_start = ft_strdup_e(":~");
+		}
+		else
+		{
+			relative_path = absolute_path;
+			path_start = ft_strdup_e(":");
+		}
+		relative_path = ft_strjoin_e(path_start, relative_path);
+		free(path_start);
 	}
-	relative_path = ft_strjoin_e(path_start, relative_path);
-	free(path_start);
 	free(absolute_path);
 	free(home);
 	return (relative_path);
