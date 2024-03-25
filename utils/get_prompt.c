@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:24:00 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/21 14:45:30 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/25 11:03:19 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 char	*get_hostname(void)
 {
 	int		fd;
+	int		length;
 	char	*temp_hostname;
 	char	*hostname;
 
@@ -27,7 +28,11 @@ char	*get_hostname(void)
 	}
 	temp_hostname = get_next_line(fd);
 	close (fd);
-	hostname = ft_substr_e(temp_hostname, 0, ft_strlen(temp_hostname) - 1);
+	if (ft_strchr(temp_hostname, '.'))
+		length = ft_strchrnul (temp_hostname, '.') - temp_hostname;
+	else
+		length = ft_strlen(temp_hostname) - 1;
+	hostname = ft_substr_e(temp_hostname, 0, length);
 	free(temp_hostname);
 	return (hostname);
 }
@@ -58,19 +63,26 @@ char	*get_relative_path(t_env_list *env_list)
 	char	*path_start;
 
 	absolute_path = ft_get_env(env_list, "PWD");
+	if (absolute_path == NULL)
+		absolute_path = getcwd(NULL, 0);
 	home = ft_get_env(env_list, "HOME");
-	if (ft_strlen(absolute_path) >= ft_strlen(home))
-	{
-		relative_path = absolute_path + ft_strlen(home);
-		path_start = ft_strdup_e(":~");
-	}
+	if (home == NULL)
+		relative_path = ft_strdup(absolute_path);
 	else
 	{
-		relative_path = absolute_path;
-		path_start = ft_strdup_e(":");
+		if (ft_strlen(absolute_path) >= ft_strlen(home))
+		{
+			relative_path = absolute_path + ft_strlen(home);
+			path_start = ft_strdup_e(":~");
+		}
+		else
+		{
+			relative_path = absolute_path;
+			path_start = ft_strdup_e(":");
+		}
+		relative_path = ft_strjoin_e(path_start, relative_path);
+		free(path_start);
 	}
-	relative_path = ft_strjoin_e(path_start, relative_path);
-	free(path_start);
 	free(absolute_path);
 	free(home);
 	return (relative_path);
