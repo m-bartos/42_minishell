@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/25 14:12:15 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/25 20:42:48 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,24 +44,24 @@ void	ft_redir_process_io(t_exec_data *data, t_cmd *cmd)
  * @param tab Pointer to the command table containing commands to execute.
  */
 
-void	ft_exec_input(t_cmd_tab *tab, t_mini_data *minidata)
-{
-	t_exec_data data;
-	t_cmd	*cmd;
+// void	ft_exec_input(t_cmd_tab *tab, t_mini_data *minidata)
+// {
+// 	t_exec_data data;
+// 	t_cmd	*cmd;
 
-	ft_init_exec_data(&data);
-	cmd = tab->first_cmd;
-	while (cmd)
-	{
-		pipe(data.pipe_fd);
-		if (fork() == 0)
-		{
-			ft_redirect_io(cmd, &data.fd_in, &data.fd_out);
-			ft_redir_process_io(&data, cmd);
-			ft_exec_commands(cmd, minidata);
-		}
-		else
-			ft_parent_process(&data, minidata);
-		cmd = cmd->next;
-	}
-}
+// 	ft_init_exec_data(&data);
+// 	cmd = tab->first_cmd;
+// 	while (cmd)
+// 	{
+// 		pipe(data.pipe_fd);
+// 		if (fork() == 0)
+// 		{
+// 			ft_redirect_io(cmd, &data.fd_in, &data.fd_out);
+// 			ft_redir_process_io(&data, cmd);
+// 			ft_exec_commands(cmd, minidata);
+// 		}
+// 		else
+// 			ft_parent_process(&data, minidata);
+// 		cmd = cmd->next;
+// 	}
+// }
