@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:24:00 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/25 10:31:44 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/25 10:59:06 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 char	*get_hostname(void)
 {
 	int		fd;
+	int		lenght;
 	char	*temp_hostname;
 	char	*hostname;
 
@@ -27,7 +28,8 @@ char	*get_hostname(void)
 	}
 	temp_hostname = get_next_line(fd);
 	close (fd);
-	hostname = ft_substr_e(temp_hostname, 0, ft_strlen(temp_hostname) - 1);
+	lenght = ft_strchrnul (temp_hostname, '.') - temp_hostname + 1;
+	hostname = ft_substr_e(temp_hostname, 0, lenght - 1);
 	free(temp_hostname);
 	return (hostname);
 }
