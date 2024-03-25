@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_execution.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 09:17:13 by orezek           ###   ########.fr       */
+/*   Updated: 2024/03/25 14:12:15 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
