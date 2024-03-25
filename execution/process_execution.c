@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_execution.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 09:17:13 by orezek           ###   ########.fr       */
+/*   Updated: 2024/03/25 21:22:21 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,12 @@ void	ft_exec_input(t_cmd_tab *tab, t_mini_data *minidata)
 			ft_exec_commands(cmd, minidata);
 		}
 		else
-			ft_parent_process(&data, minidata);
+		{
+			data.fd_out = 1;
+			close(data.pipe_fd[1]);
+			data.fd_in = data.pipe_fd[0];
+		}
 		cmd = cmd->next;
 	}
+	ft_parent_process(&data, minidata);
 }
