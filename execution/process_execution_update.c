@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 13:47:51 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/25 20:39:26 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/25 20:56:56 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	pipe_fork(t_cmd *cmd, t_mini_data *minidata, t_exec_data *data)
 	}
 	if (p_id == 0)
 	{
-		close(p_fd[0]);
+		// close(p_fd[0]);
 		dup2(p_fd[1], STDOUT_FILENO);
 		ft_redirect_io(cmd, &p_fd[0], &p_fd[1]);
 		//ft_redir_process_io(data, cmd);
