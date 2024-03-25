@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/24 23:39:05 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/25 10:59:29 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int	main (int argc, char *argv[], char *envp[])
 			add_history(line);
 		check_unclosed_quotes(line);
 		parser(&cmd_tab, line, &minidata);
-		print_cmd_tab(&cmd_tab); // just to show cmd_tab
+		// print_cmd_tab(&cmd_tab); // just to show cmd_tab
 		if (ft_pre_exec(&cmd_tab, &minidata))
 		{
 			ft_delete_cmds_in_cmd_tab(&cmd_tab);
