@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_process_execution.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 09:19:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/24 16:23:37 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/27 23:33:56 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,7 @@ int	ft_pre_exec(t_cmd_tab *tab, t_mini_data *minidata)
 		ft_redir_original_io(cmd, &data.ori_fd_in, &data.ori_fd_out);
 		return (1);
 	}
+	close(data.ori_fd_in); // needs to be closed also for "exit"
+	close(data.ori_fd_out); // needs to be closed also for "exit"
 	return (0);
 }
