@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/25 10:59:29 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/28 11:49:51 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void sigint_handler(int sig)
 	write(STDOUT_FILENO, "\n", 1);
 	rl_on_new_line(); // Move to a new line
 	rl_replace_line("", 0); // Clear the current buffer
-	rl_redisplay(); // Redisplay the prompt on a new line
+	// rl_redisplay(); // Redisplay the prompt on a new line
 	sigint_received = 1; // Signal handler sets the flag
 }
 
