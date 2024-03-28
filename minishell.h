@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/27 22:05:34 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/28 14:35:31 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ typedef struct s_mini_data
 {
 	t_env_list	*env_list;
 	char		**env_arr;
+	t_cmd_tab	*cmd_tab;
 } t_mini_data;
 
 // libft_extended
@@ -191,6 +192,8 @@ int		is_empty_line(char *line);
 
 // exit_free.c
 void	check_exit(char *line);
+void	clean_minishell(t_mini_data *minidata);
+void	exit_minishell(t_mini_data *minidata, int exit_status);
 
 // expander_var.c
 char	*end_of_var(char *str);
@@ -330,6 +333,7 @@ void	ft_list_env(t_env_list *env_list);
 void	ft_convert_arr_to_list(t_env_list *env_list, char **envp);
 char	**ft_convert_list_to_arr(t_env_list *env_list);
 char	*ft_get_env(t_env_list *env_list, char *var_name);
+void	ft_remove_env_list(t_env_list *env_list);
 
 // Pre-processing
 void	ft_pre_exec_select_built_cmd(t_cmd *cmd, t_env_list *env_list);
@@ -344,6 +348,6 @@ int		ft_has_in_redir(t_cmd *cmd);
 // void	ft_print_cmd_types(t_cmd_tab *cmd_tab);
 
 // Minidata
-void	ft_init_mini_data(t_mini_data *minidata, char *envp[]);
+void	ft_init_mini_data(t_mini_data *minidata, t_cmd_tab *cmd_tab, char *envp[]);
 
 #endif

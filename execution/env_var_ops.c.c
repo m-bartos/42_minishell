@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:42:36 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/19 13:35:39 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:43:42 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,4 +223,30 @@ char	**ft_convert_list_to_arr(t_env_list *env_list)
 	}
 	envp[i] = NULL;
 	return (envp);
+}
+
+void	ft_remove_env_list(t_env_list *env_list)
+{
+	t_env	*node;
+	t_env	*next_node;
+
+	node = env_list->top;
+	while (node)
+	{
+		next_node = node->next;
+		if (node->env_text != NULL)
+		{
+			free(node->env_text);
+			free(node->env_name);
+			free(node->env_value);
+			node->env_text = NULL;
+			node->env_name = NULL;
+			node->env_value = NULL;
+			node->next = NULL;
+			env_list->size--;
+		}
+		free(node);
+		node = next_node;
+	}
+	free(env_list);
 }
