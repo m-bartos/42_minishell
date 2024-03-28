@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/28 14:08:00 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/28 14:35:31 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -192,6 +192,8 @@ int		is_empty_line(char *line);
 
 // exit_free.c
 void	check_exit(char *line);
+void	clean_minishell(t_mini_data *minidata);
+void	exit_minishell(t_mini_data *minidata, int exit_status);
 
 // expander_var.c
 char	*end_of_var(char *str);
@@ -331,6 +333,7 @@ void	ft_list_env(t_env_list *env_list);
 void	ft_convert_arr_to_list(t_env_list *env_list, char **envp);
 char	**ft_convert_list_to_arr(t_env_list *env_list);
 char	*ft_get_env(t_env_list *env_list, char *var_name);
+void	ft_remove_env_list(t_env_list *env_list);
 
 // Pre-processing
 void	ft_pre_exec_select_built_cmd(t_cmd *cmd, t_env_list *env_list);
