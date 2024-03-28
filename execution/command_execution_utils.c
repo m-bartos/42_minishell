@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_execution_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:47:04 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 12:50:21 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/28 11:11:33 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,17 +92,15 @@ void	ft_update_exit_status(int *status, t_mini_data *minidata)
  *             and file descriptor information.
  */
 
-void	ft_parent_process(t_exec_data *data, t_mini_data *minidata)
+void	ft_parent_process(t_exec_data *data, t_mini_data *minidata, pid_t pid)
 {
 	int	status;
 
 	status = -99;
-	wait(&status);
+	waitpid(pid, &status, 0);
 	ft_update_exit_status(&status, minidata);
-	data->fd_out = 1;
-	close(data->pipe_fd[1]);
-	data->fd_in = data->pipe_fd[0];
-
+	close(data->ori_fd_in);
+	close(data->ori_fd_out);
 }
 
 /**
