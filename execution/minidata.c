@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minidata.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:08:20 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/24 10:04:02 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/28 14:08:46 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_init_mini_data(t_mini_data *minidata, char *envp[])
+void	ft_init_mini_data(t_mini_data *minidata, t_cmd_tab *cmd_tab, char *envp[])
 {
 	// Free space after use!
 	// malloc env_list, and its variables
@@ -21,6 +21,7 @@ void	ft_init_mini_data(t_mini_data *minidata, char *envp[])
 	t_env_list	*env_list;
 	env_list = malloc(sizeof(t_env_list));
 
+	minidata->cmd_tab = cmd_tab;
 	minidata->env_list = env_list;
 	ft_init_env_list(minidata->env_list);
 	ft_convert_arr_to_list(minidata->env_list, envp);

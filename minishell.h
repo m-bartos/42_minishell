@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/27 22:05:34 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/28 14:08:00 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ typedef struct s_mini_data
 {
 	t_env_list	*env_list;
 	char		**env_arr;
+	t_cmd_tab	*cmd_tab;
 } t_mini_data;
 
 // libft_extended
@@ -344,6 +345,6 @@ int		ft_has_in_redir(t_cmd *cmd);
 // void	ft_print_cmd_types(t_cmd_tab *cmd_tab);
 
 // Minidata
-void	ft_init_mini_data(t_mini_data *minidata, char *envp[]);
+void	ft_init_mini_data(t_mini_data *minidata, t_cmd_tab *cmd_tab, char *envp[]);
 
 #endif
