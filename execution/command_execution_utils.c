@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:47:04 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/27 22:41:52 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/28 11:11:33 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,6 @@ void	ft_parent_process(t_exec_data *data, t_mini_data *minidata, pid_t pid)
 	status = -99;
 	waitpid(pid, &status, 0);
 	ft_update_exit_status(&status, minidata);
-	dup2(data->ori_fd_in, STDIN);
-	dup2(data->ori_fd_out, STDOUT);
 	close(data->ori_fd_in);
 	close(data->ori_fd_out);
 }

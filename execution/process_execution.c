@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/27 22:45:41 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/28 11:00:27 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,9 @@ void	ft_redir_process_io(t_exec_data *data, t_cmd *cmd)
 {
 	dup2(data->fd_in, STDIN);
 	if (cmd->next != NULL && (ft_has_out_redir(cmd) == 0))
-	{
 		dup2(data->pipe_fd[1], STDOUT);
-	}
-	else if (ft_has_out_redir(cmd) == 1)
-	{
-		dup2(data->fd_out, STDOUT);
-	}
 	else
-	{
-		dup2(data->ori_fd_out, STDOUT);
-	}
+		dup2(data->fd_out, STDOUT);
 	if(data->fd_in != STDIN)
 		close(data->fd_in);
 	if (data->fd_out != STDOUT)
@@ -80,12 +72,11 @@ void	ft_exec_input(t_cmd_tab *tab, t_mini_data *minidata)
 		}
 		else
 		{
-			if(cmd->next != NULL)
-				close(data.pipe_fd[1]);
 			if (data.fd_in != STDIN)
 				close(data.fd_in);
 			if (cmd->next != NULL)
 			{
+				close(data.pipe_fd[1]);
 				data.fd_in = data.pipe_fd[0];
 			}
 		}

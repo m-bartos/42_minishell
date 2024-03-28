@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 09:19:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/27 23:33:56 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/28 11:14:20 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,29 +49,10 @@ int	ft_is_inbuilt(t_cmd *cmd)
 
 void	ft_redir_original_io(t_cmd *cmd, int *ori_in, int *ori_out)
 {
-	t_token	*token;
-
-	token = cmd->first_token;
-	while (token)
-	{
-		if (token->type == R_INFILE)
-		{
-			dup2(*ori_in, STDIN);
-			close(*ori_in);
-		}
-		else if (token->type == R_OUTFILE)
-		{
-			dup2(*ori_out, STDOUT);
-			close(*ori_out);
-		}
-		else if (token->type == R_OUTFILE_APP)
-		{
-			dup2(*ori_out, STDOUT);
-			close(*ori_out);
-		}
-		token = token->next;
-	}
-	return ;
+	dup2(*ori_in, STDIN);
+	dup2(*ori_out, STDOUT);
+	close(*ori_in);
+	close(*ori_out);
 }
 
 void	ft_pre_exec_redir_process_io(t_exec_data *data, t_cmd *cmd)
@@ -101,11 +82,9 @@ int	ft_pre_exec(t_cmd_tab *tab, t_mini_data *minidata)
 	{
 		ft_redirect_io(cmd, &data.fd_in, &data.fd_out);
 		ft_pre_exec_redir_process_io(&data, cmd);
-		ft_pre_exec_select_built_cmd(cmd, envs);
+		ft_pre_exec_select_built_cmd(cmd, envs); //detele data->ori_fd_in and data->ori_fd_out when "exit" is the command
 		ft_redir_original_io(cmd, &data.ori_fd_in, &data.ori_fd_out);
 		return (1);
 	}
-	close(data.ori_fd_in); // needs to be closed also for "exit"
-	close(data.ori_fd_out); // needs to be closed also for "exit"
 	return (0);
 }
