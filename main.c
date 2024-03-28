@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/28 14:10:38 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/28 15:42:47 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ int	main (int argc, char *argv[], char *envp[])
 	line = NULL;
 	ft_init_cmd_tab(&cmd_tab);
 	ft_init_mini_data(&minidata, &cmd_tab, envp);
+	exit_minishell(&minidata, 0);
 	// Get PID to see process information
 	// ft_printf("%d\n", getpid());
 	while (1)
@@ -90,13 +91,11 @@ int	main (int argc, char *argv[], char *envp[])
 		// print_cmd_tab(&cmd_tab); // just to show cmd_tab
 		if (ft_pre_exec(&cmd_tab, &minidata))
 		{
-			ft_delete_cmds_in_cmd_tab(&cmd_tab);
+			clean_minishell(&minidata);
 			continue;
 		}
 		ft_exec_input(&cmd_tab, &minidata);
-		unlink_heredoc_files(&cmd_tab);
-		ft_delete_cmds_in_cmd_tab(&cmd_tab);
-		// free minidata
+		clean_minishell(&minidata);
 	}
 	return (0);
 }
