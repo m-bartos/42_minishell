@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:24:00 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/25 11:03:19 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/29 10:23:13 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_hostname(void)
 	{
 		ft_putstr_fd("Need hostname file to construct the prompt!\n", 2);
 		perror(HOSTNAME_FILE);
-		exit(EXIT_FAILURE);
+		exit_minishell(NULL, EXIT_FAILURE);
 	}
 	temp_hostname = get_next_line(fd);
 	close (fd);

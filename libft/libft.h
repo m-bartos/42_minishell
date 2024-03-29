@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:02:38 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/14 12:15:54 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/29 09:51:04 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 # endif
 
 void	ft_type_choose(char type, va_list args, int *ptr_sum);
-int	ft_printf(const char *str, ...);
+int		ft_printf(const char *str, ...);
 void	ft_putchar_c(char c, int *ptr_sum);
 void	ft_putnbr_c(int n, int *ptr_sum);
 void	ft_putunsnbr(unsigned int n, int *ptr_sum);

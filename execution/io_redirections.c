@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   io_redirections.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:00:15 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 16:12:15 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/29 10:23:52 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	ft_input_redirection(char *file_name, int *fd_in)
 	else
 	{
 		perror(file_name);
-		exit(EXIT_FAILURE);
+		exit_minishell(NULL, EXIT_FAILURE);
 	}
 	return ;
 }
@@ -54,7 +54,7 @@ void	ft_output_redirection(char *file_name, int *fd_out)
 	if (temp_fd == -1)
 	{
 		perror(file_name);
-		exit(EXIT_FAILURE);
+		exit_minishell(NULL, EXIT_FAILURE);
 	}
 	else
 		*fd_out = temp_fd;
@@ -79,7 +79,7 @@ void	ft_append_redirection(char *file_name, int *fd_out)
 	if (temp_fd == -1)
 	{
 		perror(file_name);
-		exit(EXIT_FAILURE);
+		exit_minishell(NULL, EXIT_FAILURE);
 	}
 	else
 		*fd_out = temp_fd;

@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/28 15:42:47 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/29 10:42:19 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	main (int argc, char *argv[], char *envp[])
 	ft_init_cmd_tab(&cmd_tab);
 	ft_init_mini_data(&minidata, &cmd_tab, envp);
 	exit_minishell(&minidata, 0);
+	clean_minishell(&minidata);
 	// Get PID to see process information
 	// ft_printf("%d\n", getpid());
 	while (1)
@@ -86,16 +87,18 @@ int	main (int argc, char *argv[], char *envp[])
 		// check_exit(line);
 		if (*line)
 			add_history(line);
-		check_unclosed_quotes(line);
-		parser(&cmd_tab, line, &minidata);
+		if (check_unclosed_quotes(line))
+			continue ;
+		if (parser(&cmd_tab, line, &minidata) == -1)
+			continue ;
 		// print_cmd_tab(&cmd_tab); // just to show cmd_tab
 		if (ft_pre_exec(&cmd_tab, &minidata))
 		{
-			clean_minishell(&minidata);
-			continue;
+			clean_minishell(NULL);
+			continue ;
 		}
 		ft_exec_input(&cmd_tab, &minidata);
-		clean_minishell(&minidata);
+		clean_minishell(NULL);
 	}
 	return (0);
 }

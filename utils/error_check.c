@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:29:43 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/23 20:02:53 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/29 10:34:44 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,16 @@
  * 
  * @param line The input line to check for unclosed quotes.
  */
-void	check_unclosed_quotes(char *line)
+int	check_unclosed_quotes(char *line)
 {
 	if (in_which_quotes(line, ft_strlen(line)) == IN_SINGLE_QUOTES
 		|| in_which_quotes(line, ft_strlen(line)) == IN_DOUBLE_QUOTES)
 	{
 		ft_putstr_fd("Minishell cannot handle open quotes (\", \').\n", STDERR);
 		free(line);
-		printf(RESET);
-		exit(31);
+		return (1);
 	}
+	return (0);
 }
 
 /**
@@ -53,14 +53,12 @@ void	check_unclosed_quotes(char *line)
  * @param cmd The command table being processed.
  * @param text The text of the unexpected token causing the error.
  */
-void	exit_redirection_error(t_cmd *cmd, char *text)
+void	redirection_error(t_cmd *cmd, char *text)
 {
 	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 	ft_putstr_fd(text, STDERR);
 	ft_putstr_fd("'\n", STDERR);
 	ft_delete_cmd(cmd);
-	printf(RESET);
-	exit(2);
 }
 
 /**
@@ -72,12 +70,15 @@ void	exit_redirection_error(t_cmd *cmd, char *text)
  * 
  * @param cmd The command table to check for redirection errors.
  */
-void	check_redirection_errors(t_cmd *cmd)
+int	check_redirection_errors(t_cmd *cmd)
 {
 	t_token	*token;
 
 	if (is_pipe_type(cmd->first_token))
-		exit_redirection_error(cmd, cmd->first_token->text);
+	{
+		redirection_error(cmd, cmd->first_token->text);
+		return (-1);
+	}
 	token = cmd->first_token->next;
 	while (token != NULL)
 	{
@@ -85,12 +86,17 @@ void	check_redirection_errors(t_cmd *cmd)
 				&& is_redirection_type(token->prev))
 			|| (is_pipe_type(token) && is_pipe_type(token->prev)))
 		{
-			exit_redirection_error(cmd, token->text);
+			redirection_error(cmd, token->text);
+			return (-1);
 		}
 		token = token->next;
 	}
 	if (is_redirection_type(cmd->last_token))
-		exit_redirection_error(cmd, "newline");
+	{
+		redirection_error(cmd, "newline");
+		return (-1);
+	}
+	return (0);
 }
 
 /**

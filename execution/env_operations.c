@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_operations.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 21:43:53 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/24 23:35:41 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/29 10:15:53 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	ft_export(t_env_list *env_list, t_cmd *cmd, int is_child)
 		arg = ft_find_arg(cmd);
 		ft_add_env(env_list, arg);
 		if (is_child)
-			exit(0);
+			exit_minishell(NULL, 0);
 		else
 			ft_add_env(env_list, "?=0");
 	}
@@ -99,7 +99,7 @@ void	ft_unset(t_env_list *env_list, t_cmd *cmd, int is_child)
 	arg = ft_find_arg(cmd);
 	ft_remove_env(env_list, arg);
 	if (is_child)
-		exit(0);
+		exit_minishell(NULL, 0);
 	else
 		ft_add_env(env_list, "?=0");
 }
@@ -120,7 +120,7 @@ void	ft_env(t_env_list *env_list, int is_child)
 {
 	ft_list_env(env_list);
 	if (is_child)
-		exit(0);
+		exit_minishell(NULL, 0);
 	else
 		ft_add_env(env_list, "?=0");
 }

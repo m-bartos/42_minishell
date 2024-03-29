@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/28 14:35:31 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/29 10:35:30 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,9 +185,9 @@ void	ft_append_new_cmd_to_tab(t_cmd_tab *cmd_tab);
 void	ft_delete_cmds_in_cmd_tab(t_cmd_tab *cmd_tab);
 
 // error_check.c
-void	check_unclosed_quotes(char *line);
-void	exit_redirection_error(t_cmd *cmd, char *text);
-void	check_redirection_errors(t_cmd *cmd);
+int		check_unclosed_quotes(char *line);
+void	redirection_error(t_cmd *cmd, char *text);
+int		check_redirection_errors(t_cmd *cmd);
 int		is_empty_line(char *line);
 
 // exit_free.c
@@ -241,8 +241,8 @@ void	make_execve_cmds(t_cmd_tab *cmd_tab);
 
 // parser.c
 void	handle_if_last_token_is_pipe(t_cmd *cmd, t_mini_data *minidata);
-void	parse_to_one_cmd(t_cmd *cmd, char **tokens_arr, t_mini_data *minidata);
-void	parser(t_cmd_tab *cmd_tab, char *line, t_mini_data *minidata);
+int		parse_to_one_cmd(t_cmd *cmd, char **tokens_arr, t_mini_data *minidata);
+int		parser(t_cmd_tab *cmd_tab, char *line, t_mini_data *minidata);
 
 // splitter_handlers.c
 char	*handle_redirections(char *str, size_t *index);

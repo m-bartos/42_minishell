@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 12:39:39 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/28 15:43:21 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/29 10:20:52 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void	ft_echo_cmd_size_2(t_cmd *cmd, t_env_list *env_list,
 	{
 		ft_convert_arg_number(arg, arg_number);
 		ft_putstr_fd("exit\n", STDOUT_FILENO);
-		exit((unsigned int) *arg_number);
+		exit_minishell(NULL, (unsigned int) *arg_number);
 	}
 }
 
@@ -142,5 +142,5 @@ void	ft_exit_minishell(t_cmd *cmd, t_env_list *env_list)
 void	ft_exit(t_cmd *cmd)
 {
 	if (ft_strncmp(cmd->execve_cmd[0], "exit", 5) == 0)
-		exit(EXIT_SUCCESS);
+		exit_minishell(NULL, EXIT_SUCCESS);
 }
