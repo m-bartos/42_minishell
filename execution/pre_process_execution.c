@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 09:19:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/28 11:14:20 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/29 11:08:05 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,5 +86,7 @@ int	ft_pre_exec(t_cmd_tab *tab, t_mini_data *minidata)
 		ft_redir_original_io(cmd, &data.ori_fd_in, &data.ori_fd_out);
 		return (1);
 	}
+	close(data.ori_fd_in);
+	close(data.ori_fd_out);
 	return (0);
 }
