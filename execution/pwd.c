@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pwd.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/24 22:07:41 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/24 22:08:03 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/29 10:14:07 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	ft_pwd(t_env_list *env_list, int is_child)
 		perror("pwd: ");
 		free(cwd);
 		if (is_child)
-			exit(1);
+			exit_minishell(NULL, 1);
 		else
 			ft_add_env(env_list, "?=1");
 	}
@@ -42,7 +42,7 @@ void	ft_pwd(t_env_list *env_list, int is_child)
 		ft_putstr_fd("\n", STDOUT);
 		free(cwd);
 		if (is_child)
-			exit(0);
+			exit_minishell(NULL, 0);
 		else
 			ft_add_env(env_list, "?=0");
 	}
