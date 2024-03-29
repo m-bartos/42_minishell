@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:42:36 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/28 15:43:42 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/29 11:11:06 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,7 @@ void	ft_add_env(t_env_list *env_list, char *env_text)
 	node->env_text = ft_strdup(env_text);
 	node->env_name = tmp_arr[0];
 	node->env_value = tmp_arr[1];
+	free(tmp_arr);
 	node->next = env_list->top;
 	env_list->top = node;
 	env_list->size++;
