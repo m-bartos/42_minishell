@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
+/*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 10:04:49 by mbartos           #+#    #+#             */
-/*   Updated: 2023/11/14 11:41:55 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/29 09:50:15 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,11 @@ char	*remove_line(char *buffer)
 	char	*temp;
 
 	temp = ft_strchr(buffer, '\n');
-	if (temp != NULL)
+	if (temp != NULL && temp[1] != '\0')
 	{
-		temp = ft_strjoin(temp + 1, "");
+		temp = ft_strdup(temp + 1);
+		if (!temp)
+			return (NULL);
 		free(buffer);
 		return (temp);
 	}
