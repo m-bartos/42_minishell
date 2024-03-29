@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_execution.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:49:47 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/24 10:00:27 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/29 10:19:39 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	ft_execve(t_cmd *cmd, t_mini_data *minidata)
 			ft_putstr_fd(error, STDERR);
 			free(error);
 			free(envars);
-			exit(CMD_NOT_FOUND);
+			exit_minishell(NULL, CMD_NOT_FOUND);
 		}
 	}
 }
@@ -121,8 +121,8 @@ void	ft_cmd_not_found(t_cmd *cmd)
 	{
 		ft_putstr_fd(error, STDERR);
 		free(error);
-		exit(CMD_NOT_FOUND);
+		exit_minishell(NULL, CMD_NOT_FOUND);
 	}
 	free(error);
-	exit(EXIT_SUCCESS);
+	exit_minishell(NULL, EXIT_SUCCESS);
 }
