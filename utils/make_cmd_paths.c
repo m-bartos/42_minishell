@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 09:12:15 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/19 10:55:23 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/03/29 11:26:55 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,8 @@ char	*get_cmd_path(t_token *token, t_env_list *env_list)
 	int		i;
 
 	temp_path = ft_get_env(env_list, "PATH");
+	if (temp_path == NULL)
+		return (NULL);
 	arr_of_paths = ft_split_e(temp_path, ':');
 	free(temp_path);
 	i = 0;
