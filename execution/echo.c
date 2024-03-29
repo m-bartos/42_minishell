@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:26:45 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/21 22:06:25 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/29 10:13:31 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ void	ft_echo(t_cmd *cmd, t_env_list *env_list, int is_child)
 	}
 	free(echo_input);
 	if (is_child)
-		exit(EXIT_SUCCESS);
+		exit_minishell(NULL, EXIT_SUCCESS);
 	else
 		ft_add_env(env_list, "?=0");
 }
