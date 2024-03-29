@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   directory_commands.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 14:01:44 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/24 22:10:44 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/03/29 10:19:58 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	ft_cd_not_valid_path(t_env_list *env_list, int is_child)
 {
 	ft_putstr_fd("No such file or directory:\n", STDERR_FILENO);
 	if (is_child)
-		exit(1);
+		exit_minishell(NULL, 1);
 	else
 		ft_add_env(env_list, "?=1");
 }
@@ -61,7 +61,7 @@ void	ft_cd_not_valid_path(t_env_list *env_list, int is_child)
 void	ft_cd_valid_path(t_env_list *env_list, int is_child)
 {
 	if (is_child)
-		exit(0);
+		exit_minishell(NULL, 0);
 	else
 	{
 		ft_add_env(env_list, "?=0");
@@ -89,7 +89,7 @@ void	ft_cd(t_cmd *cmd, t_env_list *env_list, int is_child)
 	if (cmd->size == 1)
 	{
 		if (is_child)
-			exit(1);
+			exit_minishell(NULL, 1);
 		else
 			ft_add_env(env_list, "?=0");
 	}
@@ -104,7 +104,7 @@ void	ft_cd(t_cmd *cmd, t_env_list *env_list, int is_child)
 	else if (cmd->size > 2)
 	{
 		if (is_child)
-			exit(1);
+			exit_minishell(NULL, 1);
 		else
 		{
 			ft_add_env(env_list, "?=1");
