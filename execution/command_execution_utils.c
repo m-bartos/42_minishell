@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_execution_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:47:04 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/28 11:11:33 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/02 22:38:03 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,10 @@ void	ft_parent_process(t_exec_data *data, t_mini_data *minidata, pid_t pid)
 
 void	ft_init_exec_data(t_exec_data *exec_data)
 {
-	exec_data->fd_in = STDIN;
-	exec_data->fd_out = STDOUT;
-	exec_data->ori_fd_in = dup(STDIN);
-	exec_data->ori_fd_out = dup(STDOUT);
+	exec_data->fd_in = STDIN_FILENO;
+	exec_data->fd_out = STDOUT_FILENO;
+	exec_data->ori_fd_in = dup(STDIN_FILENO);
+	exec_data->ori_fd_out = dup(STDOUT_FILENO);
 }
 
 /**
