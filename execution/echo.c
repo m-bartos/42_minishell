@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:26:45 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/29 10:13:31 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/08 14:46:12 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,11 @@ void	ft_echo(t_cmd *cmd, t_env_list *env_list, int is_child)
 {
 	char	*echo_output;
 	char	*echo_input;
-
+	int		fd_dev;
+	// Ignores STDIN as the command is ECHO
+	fd_dev = open("/dev/null", O_RDONLY);
+	dup2(fd_dev, STDIN_FILENO);
+	close(fd_dev);
 	echo_input = ft_get_echo_input(cmd);
 	if (ft_has_option(cmd))
 		ft_putstr_fd(echo_input, STDOUT);

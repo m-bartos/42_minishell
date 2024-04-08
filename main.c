@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/29 10:42:19 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/06 22:08:37 by orezek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	main (int argc, char *argv[], char *envp[])
 			continue ;
 		if (parser(&cmd_tab, line, &minidata) == -1)
 			continue ;
-		// print_cmd_tab(&cmd_tab); // just to show cmd_tab
+		//print_cmd_tab(&cmd_tab); // just to show cmd_tab
 		if (ft_pre_exec(&cmd_tab, &minidata))
 		{
 			clean_minishell(NULL);
