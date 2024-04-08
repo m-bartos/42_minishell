@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/08 13:49:05 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/08 15:22:47 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 
 void	ft_redir_process_io(t_exec_data *data, t_cmd *cmd)
 {
+	// fd_in can be some infile or pipe[0]
+	// closing fd_in ensures that pipe[0] is also closed
+	// if fd_in = data.pipe_fd[0] makes this happen
 	dup2(data->fd_in, STDIN_FILENO);
 	if(data->fd_in != STDIN_FILENO)
 		close(data->fd_in);
@@ -39,12 +42,32 @@ void	ft_redir_process_io(t_exec_data *data, t_cmd *cmd)
 		dup2(data->fd_out, STDOUT_FILENO);
 		if (data->fd_out != STDOUT_FILENO)
 			close(data->fd_out);
-		close(data->pipe_fd[1]);
+		// in case pipeline has both pipe and out redirection
+		if (cmd->prev != NULL)
+			close(data->pipe_fd[1]);
 	}
-//Closing 2 out of 7 open FDs
+//Closing 2 unused but opened and inherited from the parent
 	close(data->ori_fd_in);
 	close(data->ori_fd_out);
 }
+// OLD Version was closing to much!
+/*
+{
+	dup2(data->fd_in, STDIN);
+	if (cmd->next != NULL && (ft_has_out_redir(cmd) == 0))
+		dup2(data->pipe_fd[1], STDOUT);
+	else
+		dup2(data->fd_out, STDOUT);
+	if(data->fd_in != STDIN)
+		close(data->fd_in);
+	if (data->fd_out != STDOUT)
+		close(data->fd_out);
+	close(data->pipe_fd[0]);
+	close(data->pipe_fd[1]);
+	close(data->ori_fd_in);
+	close(data->ori_fd_out);
+}
+*/
 
 /**
  * @brief Executes commands from a command table.
