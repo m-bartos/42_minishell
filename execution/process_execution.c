@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_execution.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/28 11:00:27 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/08 17:58:56 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,30 @@
 
 void	ft_redir_process_io(t_exec_data *data, t_cmd *cmd)
 {
+	dup2(data->fd_in, STDIN_FILENO);
+	if(data->fd_in != STDIN_FILENO)
+		close(data->fd_in);
+	if (cmd->next != NULL && (ft_has_out_redir(cmd) == 0))
+	{
+		dup2(data->pipe_fd[1], STDOUT_FILENO);
+		close(data->pipe_fd[1]);
+	}
+	else
+	{
+		dup2(data->fd_out, STDOUT_FILENO);
+		if (data->fd_out != STDOUT_FILENO)
+			close(data->fd_out);
+		if (cmd->next != NULL)
+			close(data->pipe_fd[1]);
+	}
+	if(cmd->next != NULL)
+		close(data->pipe_fd[0]);
+	close(data->ori_fd_in);
+	close(data->ori_fd_out);
+}
+// OLD Version was closing to much!
+/*
+{
 	dup2(data->fd_in, STDIN);
 	if (cmd->next != NULL && (ft_has_out_redir(cmd) == 0))
 		dup2(data->pipe_fd[1], STDOUT);
@@ -40,6 +64,7 @@ void	ft_redir_process_io(t_exec_data *data, t_cmd *cmd)
 	close(data->ori_fd_in);
 	close(data->ori_fd_out);
 }
+*/
 
 /**
  * @brief Executes commands from a command table.
@@ -56,13 +81,14 @@ void	ft_exec_input(t_cmd_tab *tab, t_mini_data *minidata)
 	t_exec_data data;
 	t_cmd	*cmd;
 	pid_t	pid;
-
+// By now we have opened 5 file descriptors that are connected to 3 files
 	ft_init_exec_data(&data);
 	cmd = tab->first_cmd;
 	while (cmd)
 	{
 		if(cmd->next != NULL)
 			pipe(data.pipe_fd);
+// By now we have opened 7 file descriptors that are connected to 3 files and 1 pipe buffer
 		pid = fork();
 		if (pid == 0)
 		{
@@ -72,7 +98,7 @@ void	ft_exec_input(t_cmd_tab *tab, t_mini_data *minidata)
 		}
 		else
 		{
-			if (data.fd_in != STDIN)
+			if (data.fd_in != STDIN_FILENO)
 				close(data.fd_in);
 			if (cmd->next != NULL)
 			{
