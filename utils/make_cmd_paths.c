@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 09:12:15 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/29 11:26:55 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/10 16:39:02 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ void	expand_token_cmd_path(t_token *token, t_env_list *env_list)
 {
 	char	*cmd_path;
 
+	if (token->text == NULL)
+		return ;
 	if (access(token->text, X_OK) == 0)
 		return ;
 	cmd_path = get_cmd_path(token, env_list);
