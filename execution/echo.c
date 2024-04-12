@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:26:45 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/08 14:46:12 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/12 17:03:03 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,11 @@ int	ft_has_option(t_cmd *cmd)
 	t_token	*token;
 
 	if (cmd->first_token->next != NULL)
+	{
 		token = cmd->first_token->next;
-	if (token->type == ARG && ft_strncmp(token->text, "-n", 3) == 0)
-		return (TRUE);
+		if (token->type == ARG && ft_strncmp(token->text, "-n", 3) == 0)
+			return (TRUE);
+	}
 	return (FALSE);
 }
 
