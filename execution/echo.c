@@ -6,11 +6,27 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:26:45 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/12 17:40:07 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/12 18:09:18 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+/**
+ * @brief Utility function to shorten the ft_get_input function below
+*/
+void	ft_shorter_get_input(int *index, t_cmd *cmd)
+{
+	if (ft_has_option(cmd))
+	{
+		if (cmd->first_token->next->next != NULL)
+			*index = 2;
+		else
+			*index = -1;
+	}
+	else
+		*index = 1;
+}
 
 /**
  * @brief Retrieves the input for the echo command, excluding '-n' option.
@@ -30,15 +46,9 @@ char	*ft_get_echo_input(t_cmd *cmd)
 
 	input = malloc(sizeof(char));
 	*input = '\0';
-	if (ft_has_option(cmd))
-	{
-		if (cmd->first_token->next->next != NULL)
-			index = 2;
-		else
-			return (input);
-	}
-	else
-		index = 1;
+	ft_shorter_get_input(&index, cmd);
+	if (index == -1)
+		return (input);
 	while (cmd->execve_cmd[index])
 	{
 		tmp = input;
@@ -94,7 +104,7 @@ void	ft_echo(t_cmd *cmd, t_env_list *env_list, int is_child)
 	char	*echo_output;
 	char	*echo_input;
 	int		fd_dev;
-	// Ignores STDIN as the command is ECHO
+
 	fd_dev = open("/dev/null", O_RDONLY);
 	dup2(fd_dev, STDIN_FILENO);
 	close(fd_dev);
