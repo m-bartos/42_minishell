@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:26:45 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/12 17:03:03 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/12 17:40:07 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 
 char	*ft_get_echo_input(t_cmd *cmd)
 {
-	t_token	*token;
+	int		index;
 	char	*input;
 	char	*tmp;
 
@@ -33,25 +33,24 @@ char	*ft_get_echo_input(t_cmd *cmd)
 	if (ft_has_option(cmd))
 	{
 		if (cmd->first_token->next->next != NULL)
-			token = cmd->first_token->next->next;
+			index = 2;
+		else
+			return (input);
 	}
 	else
-		token = cmd->first_token;
-	while (token)
+		index = 1;
+	while (cmd->execve_cmd[index])
 	{
-		if (token->type == ARG)
+		tmp = input;
+		input = ft_strjoin(input, cmd->execve_cmd[index]);
+		free(tmp);
+		if (cmd->execve_cmd[index + 1] != NULL)
 		{
 			tmp = input;
-			input = ft_strjoin(input, token->text);
+			input = ft_strjoin(input, " ");
 			free(tmp);
-			if (token->next != NULL && token->next->type == ARG)
-			{
-				tmp = input;
-				input = ft_strjoin(input, " ");
-				free(tmp);
-			}
 		}
-		token = token->next;
+		index++;
 	}
 	return (input);
 }
