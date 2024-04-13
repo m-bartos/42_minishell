@@ -6,12 +6,11 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 21:43:53 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/13 20:25:29 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/13 20:33:05 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
 
 void	ft_exit_export(t_env_list *env_list, int is_child,
 		int exit_code, int is_ident)
@@ -66,24 +65,22 @@ void	ft_shorter_export(t_env_list *env_list, t_cmd *cmd, int is_child)
  *                  program if false and the addition is successful.
  */
 
-
 void	ft_export(t_env_list *env_list, t_cmd *cmd, int is_child)
 {
 	char	*key;
 	char	*value;
-	// export cmd not complete
+
 	if (cmd->size == 1)
 		ft_exit_export(env_list, is_child, 1, 0);
-	// export has only = symbol
-	else if (cmd->size > 1 && ft_strncmp(cmd->execve_cmd[1], "=", ft_strlen(cmd->execve_cmd[1] + 1)) == 0)
+	else if (cmd->size > 1 && ft_strncmp(cmd->execve_cmd[1],
+			"=", ft_strlen(cmd->execve_cmd[1] + 1)) == 0)
 		ft_exit_export(env_list, is_child, 1, 1);
-	// export key has only digit values
-	else if (cmd->size > 1 && !ft_is_cmd_valid_export(cmd) && ft_is_str_digit(cmd->execve_cmd[1]))
+	else if (cmd->size > 1 && !ft_is_cmd_valid_export(cmd)
+		&& ft_is_str_digit(cmd->execve_cmd[1]))
 		ft_exit_export(env_list, is_child, 1, 1);
-	// export key has first alpha char and non digit or char value
-	else if (cmd->size > 1 && !ft_is_cmd_valid_export(cmd) && !ft_is_key_valid(cmd->execve_cmd[1]))
+	else if (cmd->size > 1 && !ft_is_cmd_valid_export(cmd)
+		&& !ft_is_key_valid(cmd->execve_cmd[1]))
 		ft_exit_export(env_list, is_child, 1, 1);
-	// export does not contain = symbol
 	else if (cmd->size > 1 && !ft_is_cmd_valid_export(cmd))
 		ft_exit_export(env_list, is_child, 0, 0);
 	else if (cmd->size > 1)
