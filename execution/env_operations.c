@@ -6,20 +6,22 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 21:43:53 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/13 19:46:41 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/13 20:25:29 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
 
-void	ft_exit_export(t_env_list *env_list, int is_child, int exit_code)
+void	ft_exit_export(t_env_list *env_list, int is_child,
+		int exit_code, int is_ident)
 {
 	if (is_child)
 		exit_minishell(NULL, exit_code);
 	else
 	{
-		ft_putstr_fd(" not a valid identifier\n", STDERR);
+		if (is_ident == 1)
+			ft_putstr_fd(" not a valid identifier\n", STDERR);
 		if (exit_code == 1)
 			ft_add_env(env_list, "?=1");
 		else
@@ -28,7 +30,29 @@ void	ft_exit_export(t_env_list *env_list, int is_child, int exit_code)
 	}
 }
 
+void	ft_shorter_export(t_env_list *env_list, t_cmd *cmd, int is_child)
+{
+	char	*key;
 
+	if (ft_is_cmd_valid_export(cmd))
+	{
+		key = ft_extract_key(cmd->execve_cmd[1]);
+		if (ft_is_key_valid(key))
+		{
+			ft_add_env(env_list, cmd->execve_cmd[1]);
+			ft_add_env(env_list, "?=0");
+			free(key);
+			return ;
+		}
+		else
+		{
+			free(key);
+			ft_exit_export(env_list, is_child, 1, 1);
+		}
+	}
+	else
+		ft_exit_export(env_list, is_child, 1, 1);
+}
 /**
  * @brief Adds an environment variable to the list, exits if not child
  *        process.
@@ -49,97 +73,21 @@ void	ft_export(t_env_list *env_list, t_cmd *cmd, int is_child)
 	char	*value;
 	// export cmd not complete
 	if (cmd->size == 1)
-		if (is_child)
-			exit_minishell(NULL, 0);
-		else
-		{
-			ft_add_env(env_list, "?=0");
-			return ;
-		}
+		ft_exit_export(env_list, is_child, 1, 0);
 	// export has only = symbol
 	else if (cmd->size > 1 && ft_strncmp(cmd->execve_cmd[1], "=", ft_strlen(cmd->execve_cmd[1] + 1)) == 0)
-	{
-		if (is_child)
-			exit_minishell(NULL, 1);
-		else
-		{
-			ft_putstr_fd(" not a valid identifier\n", STDERR);
-			ft_add_env(env_list, "?=1");
-			return ;
-		}
-	}
+		ft_exit_export(env_list, is_child, 1, 1);
 	// export key has only digit values
 	else if (cmd->size > 1 && !ft_is_cmd_valid_export(cmd) && ft_is_str_digit(cmd->execve_cmd[1]))
-	{
-		if (is_child)
-			exit_minishell(NULL, 1);
-		else
-		{
-			ft_putstr_fd(" not a valid identifier\n", STDERR);
-			ft_add_env(env_list, "?=1");
-			return ;
-		}
-	}
+		ft_exit_export(env_list, is_child, 1, 1);
 	// export key has first alpha char and non digit or char value
 	else if (cmd->size > 1 && !ft_is_cmd_valid_export(cmd) && !ft_is_key_valid(cmd->execve_cmd[1]))
-	{
-		if (is_child)
-			exit_minishell(NULL, 1);
-		else
-		{
-			ft_putstr_fd(" not a valid identifier\n", STDERR);
-			ft_add_env(env_list, "?=1");
-			return ;
-		}
-	}
+		ft_exit_export(env_list, is_child, 1, 1);
 	// export does not contain = symbol
 	else if (cmd->size > 1 && !ft_is_cmd_valid_export(cmd))
-	{
-		if (is_child)
-			exit_minishell(NULL, 0);
-		else
-		{
-			ft_add_env(env_list, "?=0");
-			return ;
-		}
-	}
+		ft_exit_export(env_list, is_child, 0, 0);
 	else if (cmd->size > 1)
-	{
-		if (ft_is_cmd_valid_export(cmd))
-		{
-			key = ft_extract_key(cmd->execve_cmd[1]);
-			if (ft_is_key_valid(key))
-			{
-				ft_add_env(env_list, cmd->execve_cmd[1]);
-				ft_add_env(env_list, "?=0");
-				free(key);
-				return ;
-			}
-			else
-			{
-				free(key);
-				if (is_child)
-					exit_minishell(NULL, 1);
-				else
-				{
-					ft_putstr_fd(" not a valid identifier\n", STDERR);
-					ft_add_env(env_list, "?=1");
-					return ;
-				}
-			}
-		}
-		else
-		{
-			if (is_child)
-				exit_minishell(NULL, 0);
-			else
-			{
-				ft_putstr_fd(" not a valid identifier\n", STDERR);
-				ft_add_env(env_list, "?=1");
-				return ;
-			}
-		}
-	}
+		ft_shorter_export(env_list, cmd, is_child);
 }
 
 /**
