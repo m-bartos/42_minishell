@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/12 18:11:12 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/13 20:01:24 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -317,6 +317,14 @@ void	ft_cd(t_cmd *cmd, t_env_list *env_list, int is_child);
 void	ft_pwd(t_env_list *env_list, int is_child);
 // export
 void	ft_export(t_env_list *env_list, t_cmd *cmd, int is_child);
+// export helpers
+int		ft_is_cmd_valid_export(t_cmd *cmd);
+int		ft_is_str_alpha(char *str);
+int		ft_is_str_digit(char *str);
+int		ft_is_cmd_valid_export(t_cmd *cmd);
+int		ft_is_key_valid(char *str);
+char	*ft_extract_key(char *str);
+void	ft_exit_export(t_env_list *env_list, int is_child, int exit_code, int is_ident);
 // unset
 void	ft_unset(t_env_list *env_list, t_cmd *cmd, int is_child);
 // env
