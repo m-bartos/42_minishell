@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/13 20:01:24 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/14 22:00:00 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@
 # define HOSTNAME_FILE "/proc/sys/kernel/hostname"
 
 # define CMD_NOT_FOUND 127
+
+// Global variable for signal handling
+extern volatile sig_atomic_t sigint_received;
 
 typedef enum s_in_quotes
 {
@@ -296,8 +299,9 @@ void	ft_append_token_to_cmd(t_cmd *cmd, char *text, t_type type);
 t_token	*ft_create_token(char *text, t_type type);
 
 // Signals
-void	ft_ctrl_c_sig(int signal);
-void	ft_ctrl_slash_sig (int signal);
+void	sigint_handler(int sig);
+void	setup_signal_handling(void);
+void	disable_ctrl_c_output(void);
 
 // Built in cmds;
 // utils
