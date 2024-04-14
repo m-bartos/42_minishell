@@ -6,49 +6,35 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:49:43 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/17 10:27:25 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/14 21:59:15 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-/**
- * @brief Handles the SIGINT signal (Ctrl+C).
- *
- * This function is called when a SIGINT signal is received, typically through
- * a Ctrl+C action in the terminal. It can be used to load a new prompt or
- * perform clean-up actions. The received signal is not passed to execve,
- * but inbuilt functions will inherit this behavior, and they should handle
- * the signal accordingly.
- *
- * @note This function may exit the program or perform specific actions
- *       like clearing input or displaying a new prompt.
- *
- * @param signal The signal number received (expected to be SIGINT).
- */
 
-void	ft_ctrl_c_sig(int signal)
+volatile sig_atomic_t sigint_received = 0;
+
+void	sigint_handler(int sig)
 {
-	ft_printf("\nYou pressed ctrl + c and the signal was: %d\n", signal);
-	//exit(1);
+	write(STDOUT_FILENO, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
+	sigint_received = 1;
 }
 
-/**
- * @brief Handles the SIGQUIT signal (Ctrl+\).
- *
- * This function is intended to respond to a SIGQUIT signal, triggered by
- * pressing Ctrl+\ in the terminal. It's designed to be ignored or to perform
- * specific actions, like printing a message, as part of a custom signal
- * handling strategy.
- *
- * @note By default, this behavior is set to be ignored in the program's
- *       signal handling setup.
- *
- * @param signal The signal number received (expected to be SIGQUIT).
- */
+void	setup_signal_handling(void) {
+	struct sigaction sa;
+	sa.sa_handler = sigint_handler;
+	sigemptyset(&sa.sa_mask);
+	sa.sa_flags = SA_RESTART;
+	sigaction(SIGINT, &sa, NULL);
+}
 
-void	ft_ctrl_slash_sig(int signal)
-{
-	ft_putstr_fd("\nYou pressed ctrl + \\ and the signal was: ", 1);
-	ft_putnbr_fd(signal, 1);
+void	disable_ctrl_c_output(void) {
+	struct termios term;
+	tcgetattr(STDIN_FILENO, &term);
+	term.c_lflag &= ~(ECHOCTL);
+	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
