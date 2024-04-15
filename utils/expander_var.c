@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:41:18 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/23 19:49:50 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/15 13:42:52 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,6 @@ char	*get_variable_name(char	*str, size_t *i)
 	str_start_var = &str[*i + 1];
 	size = end_of_var(str_start_var) - str_start_var;
 	str_out = ft_substr_e(str_start_var, 0, size);
-	if (str_out == NULL)
-		return (NULL);
-	*i = *i - size;
 	return (str_out);
 }
 
