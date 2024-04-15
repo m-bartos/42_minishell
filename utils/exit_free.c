@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 10:24:15 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/29 10:26:56 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/15 10:35:40 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	check_exit(char *line)
 void	clean_minishell(t_mini_data *minidata)
 {
 	t_mini_data static	*static_minidata;
-	
+
 	if (minidata != NULL)
 	{
 		static_minidata = minidata;
