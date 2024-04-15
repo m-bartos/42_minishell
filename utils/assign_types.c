@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cmd_struct_assign_types.c                          :+:      :+:    :+:   */
+/*   assign_types.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:37:34 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/21 11:14:41 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/15 10:29:37 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,22 +128,25 @@ void	assign_cmd_and_arg_types(t_token *token)
 	search_r_file = 0;
 	while (token != NULL)
 	{
-		if (search_cmd == 1 && search_r_file == 0 && !is_operator_type(token))
+		if (token->text[0] != '\0')
 		{
-			token->type = assign_cmd_type(token->text);
-			search_cmd = 0;
+			if (search_cmd == 1 && search_r_file == 0 && !is_operator_type(token))
+			{
+				token->type = assign_cmd_type(token->text);
+				search_cmd = 0;
+			}
+			else if (is_redirection_type(token))
+				search_r_file = 1;
+			else if (search_r_file == 1 && !is_operator_type(token))
+			{
+				token->type = assign_file_type(token->prev->type);
+				search_r_file = 0;
+			}
+			else if (search_cmd == 0 && !is_operator_type(token))
+				token->type = ARG;
+			else if (is_pipe_type(token))
+				search_cmd = 1;
 		}
-		else if (is_redirection_type(token))
-			search_r_file = 1;
-		else if (search_r_file == 1 && !is_operator_type(token))
-		{
-			token->type = assign_file_type(token->prev->type);
-			search_r_file = 0;
-		}
-		else if (search_cmd == 0 && !is_operator_type(token))
-			token->type = ARG;
-		else if (is_pipe_type(token))
-			search_cmd = 1;
 		token = token->next;
 	}
 }

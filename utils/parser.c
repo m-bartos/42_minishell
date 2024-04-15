@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:20:49 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/29 10:32:38 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/15 09:59:43 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ int	parse_to_one_cmd(t_cmd *cmd, char **tokens_arr, t_mini_data *minidata)
 	fill_cmd_tab(cmd, tokens_arr);
 	free(tokens_arr);
 	tokens_arr = NULL;
-	assign_types_to_tokens(cmd);
 	expand_cmd(cmd, minidata);
+	assign_types_to_tokens(cmd);
 	remove_quotes_in_cmd_tokens(cmd);
 	if (check_redirection_errors(cmd) == -1)
 		return (-1);
