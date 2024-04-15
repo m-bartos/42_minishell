@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:49:47 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/29 10:19:39 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/15 11:31:15 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	ft_exec_commands(t_cmd *cmd, t_mini_data *minidata)
 			ft_cmd_not_found(cmd);
 		token = token->next;
 	}
+	exit_minishell(NULL, EXIT_SUCCESS);
 }
 
 /**
