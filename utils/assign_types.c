@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:37:34 by mbartos           #+#    #+#             */
-/*   Updated: 2024/04/15 10:29:37 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/15 10:57:17 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,21 @@
  * @param prev_token_type The type of the preceding token.
  * @return The type of file redirection to assign to the token.
  */
-t_type	assign_file_type(t_type prev_token_type)
+t_type	assign_file_type(t_type prev_token_type, int *search_file)
 {
+	t_type	output;
+
+	output = 99;
 	if (prev_token_type == R_IN)
-		return (R_INFILE);
+		output = R_INFILE;
 	else if (prev_token_type == R_OUT)
-		return (R_OUTFILE);
+		output = R_OUTFILE;
 	else if (prev_token_type == R_OUT_APP)
-		return (R_OUTFILE_APP);
+		output = R_OUTFILE_APP;
 	else if (prev_token_type == HERE_DOC)
-		return (HERE_DOC_EOF);
-	return (99);
+		output = HERE_DOC_EOF;
+	*search_file = 0;
+	return (output);
 }
 
 /**
@@ -58,24 +62,29 @@ t_type	assign_file_type(t_type prev_token_type)
  * @param text The text content of the token to determine its type.
  * @return The type of command to assign to the token.
  */
-t_type	assign_cmd_type(char *text)
+t_type	assign_cmd_type(char *text, int *search_cmd)
 {
+	t_type	output;
+
+	output = 99;
 	if (ft_strncmp(text, "echo", 5) == 0)
-		return (CMD_BUILT);
+		output = CMD_BUILT;
 	else if (ft_strncmp(text, "cd", 3) == 0)
-		return (CMD_BUILT);
+		output = CMD_BUILT;
 	else if (ft_strncmp(text, "pwd", 4) == 0)
-		return (CMD_BUILT);
+		output = CMD_BUILT;
 	else if (ft_strncmp(text, "export", 7) == 0)
-		return (CMD_BUILT);
+		output = CMD_BUILT;
 	else if (ft_strncmp(text, "unset", 6) == 0)
-		return (CMD_BUILT);
+		output = CMD_BUILT;
 	else if (ft_strncmp(text, "env", 4) == 0)
-		return (CMD_BUILT);
+		output = CMD_BUILT;
 	else if (ft_strncmp(text, "exit", 5) == 0)
-		return (CMD_BUILT);
+		output = CMD_BUILT;
 	else
-		return (CMD);
+		output = CMD;
+	*search_cmd = 0;
+	return (output);
 }
 
 /**
@@ -122,26 +131,20 @@ void	assign_operator_types(t_cmd *cmd)
 void	assign_cmd_and_arg_types(t_token *token)
 {
 	int		search_cmd;
-	int		search_r_file;
+	int		search_file;
 
 	search_cmd = 1;
-	search_r_file = 0;
+	search_file = 0;
 	while (token != NULL)
 	{
 		if (token->text[0] != '\0')
 		{
-			if (search_cmd == 1 && search_r_file == 0 && !is_operator_type(token))
-			{
-				token->type = assign_cmd_type(token->text);
-				search_cmd = 0;
-			}
+			if (search_cmd == 1 && search_file == 0 && !is_operator_type(token))
+				token->type = assign_cmd_type(token->text, &search_cmd);
 			else if (is_redirection_type(token))
-				search_r_file = 1;
-			else if (search_r_file == 1 && !is_operator_type(token))
-			{
-				token->type = assign_file_type(token->prev->type);
-				search_r_file = 0;
-			}
+				search_file = 1;
+			else if (search_file == 1 && !is_operator_type(token))
+				token->type = assign_file_type(token->prev->type, &search_file);
 			else if (search_cmd == 0 && !is_operator_type(token))
 				token->type = ARG;
 			else if (is_pipe_type(token))

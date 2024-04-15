@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/14 22:00:00 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/15 10:56:41 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,8 +143,8 @@ void	ft_free_array(char **arr_of_str);
 void	ft_print_array(char **arr);
 
 // cmd_struct_assign_types.c
-t_type	assign_file_type(t_type prev_token_type);
-t_type	assign_cmd_type(char *text);
+t_type	assign_file_type(t_type prev_token_type, int *search_file);
+t_type	assign_cmd_type(char *text, int *search_cmd);
 void	assign_operator_types(t_cmd *cmd);
 void	assign_cmd_and_arg_types(t_token *token);
 void	assign_types_to_tokens(t_cmd *cmd);
