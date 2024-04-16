@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/16 12:43:18 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/16 12:56:23 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -188,6 +188,7 @@ void	check_and_fill_empty_cmds_in_cmd_tab(t_cmd_tab *cmd_tab);
 void	ft_init_cmd_tab(t_cmd_tab *cmd_tab);
 t_cmd	*ft_create_cmd();
 void	ft_append_new_cmd_to_tab(t_cmd_tab *cmd_tab);
+void	ft_delete_token(t_cmd *cmd, t_token *token);
 void	ft_delete_cmds_in_cmd_tab(t_cmd_tab *cmd_tab);
 
 // error_check.c
@@ -293,14 +294,13 @@ void	ft_redir_process_io(t_exec_data *data, t_cmd *cmd);
 int		ft_has_out_redir(t_cmd *cmd);
 
 // NEW command table ops
-void	ft_init_token(t_token *token);
-void	ft_init_cmd(t_cmd *cmd);
-void	ft_init_cmd_table(t_cmd_tab *cmd_tab);
-void	ft_push_cmd_to_tab(t_cmd_tab *cmd_table, t_cmd *cmd);
-void	ft_append_cmd_to_tab(t_cmd_tab *cmd_table, t_cmd *cmd);
-void	ft_append_token_to_cmd(t_cmd *cmd, char *text, t_type type);
-t_token	*ft_create_token(char *text, t_type type);
-void	ft_delete_token(t_cmd *cmd, t_token *token);
+// void	ft_init_token(t_token *token);
+// void	ft_init_cmd(t_cmd *cmd);
+// void	ft_init_cmd_table(t_cmd_tab *cmd_tab);
+// void	ft_push_cmd_to_tab(t_cmd_tab *cmd_table, t_cmd *cmd);
+// void	ft_append_cmd_to_tab(t_cmd_tab *cmd_table, t_cmd *cmd);
+// void	ft_append_token_to_cmd(t_cmd *cmd, char *text, t_type type);
+// t_token	*ft_create_token(char *text, t_type type);
 
 // Signals
 void	sigint_handler(int sig);
