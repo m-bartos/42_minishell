@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 15:17:16 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/18 17:21:11 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/16 12:16:55 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ void	ft_free_array(char **arr_of_str)
 {
 	int	index;
 
+	if (!arr_of_str)
+		return ;
 	index = 0;
 	while (arr_of_str[index] != NULL)
 	{

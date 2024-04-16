@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:49:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/19 14:12:55 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/16 12:14:35 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ void	print_cmd(t_cmd *cmd)
 	t_token	*token;
 	int		i;
 
+	if (!cmd)
+		return ;
 	print_execve_cmd(cmd->execve_cmd);
 	token = cmd->first_token;
 	i = 0;
@@ -58,15 +60,19 @@ void	print_cmd_tab(t_cmd_tab *cmd_tab)
 	t_cmd	*cmd;
 	int		i;
 
+	if (!cmd_tab)
+		return ;
 	cmd = cmd_tab->first_cmd;
 	i = 0;
 	printf("************************************************\n");
+	printf("*******************CMD_TAB**********************\n");
+	printf("************************************************\n");
 	while (cmd != NULL)
 	{
-		printf("%*i. CMD\n", 2, i);
+		printf("%*i. CMD of size = %i\n", 2, i, cmd->size);
 		print_cmd(cmd);
 		i++;
 		cmd = cmd->next;
 	}
-	printf("************************************************\n");
+	printf("************************************************\n\n");
 }
