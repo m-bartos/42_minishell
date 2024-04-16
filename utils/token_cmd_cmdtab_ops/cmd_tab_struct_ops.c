@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 16:42:04 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/21 11:33:42 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/16 12:15:23 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_append_new_cmd_to_tab(t_cmd_tab *cmd_tab)
 	t_cmd	*cmd;
 
 	cmd = ft_create_cmd();
-	if (cmd_tab == NULL && cmd == NULL)
+	if (!cmd_tab || !cmd)
 		return ;
 	if (cmd_tab->first_cmd == NULL)
 	{
