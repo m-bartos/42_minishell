@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/16 12:56:23 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/16 13:02:01 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@
 # define CMD_NOT_FOUND 127
 
 // Global variable for signal handling
-extern volatile sig_atomic_t sigint_received;
+extern volatile sig_atomic_t	sigint_received;
 
 typedef enum s_in_quotes
 {
@@ -84,7 +84,7 @@ typedef struct s_cmd
 	struct s_cmd	*prev;
 	t_token			*first_token;
 	t_token			*last_token;
-	int		size;
+	int				size;
 }		t_cmd;
 
 typedef struct s_cmd_tab
@@ -125,7 +125,7 @@ typedef struct s_mini_data
 	t_env_list	*env_list;
 	char		**env_arr;
 	t_cmd_tab	*cmd_tab;
-} t_mini_data;
+}	t_mini_data;
 
 // libft_extended
 char	*ft_itoa_e(int n);
@@ -186,7 +186,7 @@ void	check_and_fill_empty_cmds_in_cmd_tab(t_cmd_tab *cmd_tab);
 
 // cmd_tab_struct_ops.c
 void	ft_init_cmd_tab(t_cmd_tab *cmd_tab);
-t_cmd	*ft_create_cmd();
+t_cmd	*ft_create_cmd(void);
 void	ft_append_new_cmd_to_tab(t_cmd_tab *cmd_tab);
 void	ft_delete_token(t_cmd *cmd, t_token *token);
 void	ft_delete_cmds_in_cmd_tab(t_cmd_tab *cmd_tab);
@@ -219,7 +219,7 @@ int		is_user(void);
 int		check_prompt_vars(t_env_list *env_list);
 
 // get_prompt.c
-char	*get_hostname();
+char	*get_hostname(void);
 char	*get_user_and_computer(t_env_list *env_list);
 char	*get_relative_path(t_env_list *env_list);
 char	*get_prompt(t_mini_data *minidata);
@@ -293,15 +293,6 @@ void	ft_redir_process_io(t_exec_data *data, t_cmd *cmd);
 // Redirection utils
 int		ft_has_out_redir(t_cmd *cmd);
 
-// NEW command table ops
-// void	ft_init_token(t_token *token);
-// void	ft_init_cmd(t_cmd *cmd);
-// void	ft_init_cmd_table(t_cmd_tab *cmd_tab);
-// void	ft_push_cmd_to_tab(t_cmd_tab *cmd_table, t_cmd *cmd);
-// void	ft_append_cmd_to_tab(t_cmd_tab *cmd_table, t_cmd *cmd);
-// void	ft_append_token_to_cmd(t_cmd *cmd, char *text, t_type type);
-// t_token	*ft_create_token(char *text, t_type type);
-
 // Signals
 void	sigint_handler(int sig);
 void	setup_signal_handling(void);
@@ -359,11 +350,8 @@ int		ft_pre_exec(t_cmd_tab *tab, t_mini_data *minidata);
 // Pre-processing utils
 int		ft_is_inbuilt(t_cmd *cmd);
 int		ft_has_in_redir(t_cmd *cmd);
-// Helpers to print cmds
-// void	ft_print_cmd(t_cmd_tab *cmd_tab);
-// void	ft_print_cmd_types(t_cmd_tab *cmd_tab);
 
 // Minidata
-void	ft_init_mini_data(t_mini_data *minidata, t_cmd_tab *cmd_tab, char *envp[]);
+void	ft_init_mini_data(t_mini_data *minidata, t_cmd_tab *cmd_tab, char **envp);
 
 #endif
