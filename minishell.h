@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/15 10:56:41 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/16 12:40:12 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,9 @@ void	remove_quotes_in_cmd_tokens(t_cmd *cmd);
 
 // cmd_tab_make.c
 void	make_cmd_tab_from_cmd(t_cmd_tab *cmd_tab, t_cmd *cmd);
+void	delete_empty_tokens_in_cmd_tab(t_cmd_tab *cmd_tab);
+void	delete_pipes_in_cmd_tab(t_cmd_tab *cmd_tab);
+void	check_and_fill_empty_cmds_in_cmd_tab(t_cmd_tab *cmd_tab);
 
 // cmd_tab_struct_ops.c
 void	ft_init_cmd_tab(t_cmd_tab *cmd_tab);
@@ -297,6 +300,7 @@ void	ft_push_cmd_to_tab(t_cmd_tab *cmd_table, t_cmd *cmd);
 void	ft_append_cmd_to_tab(t_cmd_tab *cmd_table, t_cmd *cmd);
 void	ft_append_token_to_cmd(t_cmd *cmd, char *text, t_type type);
 t_token	*ft_create_token(char *text, t_type type);
+void	ft_delete_token(t_cmd *cmd, t_token *token);
 
 // Signals
 void	sigint_handler(int sig);
