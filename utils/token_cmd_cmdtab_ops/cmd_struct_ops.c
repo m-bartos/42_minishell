@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 22:46:28 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/16 12:16:21 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/16 12:54:58 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,7 @@ void	ft_delete_cmd(t_cmd *cmd)
 		temp_token = NULL;
 	}
 	ft_free_array(cmd->execve_cmd);
-	ft_init_cmd(cmd);
+	ft_init_cmd_struct(cmd);
 }
 
 /**

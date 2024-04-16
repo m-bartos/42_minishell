@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/08 16:42:04 by mbartos           #+#    #+#             */
-/*   Updated: 2024/04/16 12:15:23 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/16 12:53:31 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,45 @@ void	ft_append_new_cmd_to_tab(t_cmd_tab *cmd_tab)
 		cmd_tab->last_cmd = cmd;
 	}
 	cmd_tab->size++;
+}
+
+/**
+ * @brief Deletes a token from a command.
+ *
+ * This function deletes the specified token from the given command.It updates
+ * the command's pointers accordingly and adjusts the size. Memory allocated for
+ *  the token's text and the token itself is freed.
+ *
+ * @param cmd Pointer to the command structure.
+ * @param token Pointer to the token to be deleted.
+*/
+void	ft_delete_token(t_cmd *cmd, t_token *token)
+{
+	if (!token || !cmd)
+		return ;
+	if (token->prev != NULL && token->next != NULL)
+	{
+		token->prev->next = token->next;
+		token->next->prev = token->prev;
+	}
+	else if (token->prev == NULL && token->next != NULL)
+	{
+		token->next->prev = NULL;
+		cmd->first_token = token->next;
+	}
+	else if (token->prev != NULL && token->next == NULL)
+	{
+		token->prev->next = NULL;
+		cmd->last_token = token->prev;
+	}
+	else
+	{
+		cmd->first_token = NULL;
+		cmd->last_token = NULL;
+	}
+	cmd->size--;
+	free(token->text);
+	free(token);
 }
 
 void	ft_delete_cmds_in_cmd_tab(t_cmd_tab *cmd_tab)
