@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/16 12:40:12 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/16 12:43:18 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -178,7 +178,7 @@ char	**parse_token_text(char *word);
 void	remove_quotes_in_token(t_token *token);
 void	remove_quotes_in_cmd_tokens(t_cmd *cmd);
 
-// cmd_tab_make.c
+// cmd_tab_struct_utils.c
 void	make_cmd_tab_from_cmd(t_cmd_tab *cmd_tab, t_cmd *cmd);
 void	delete_empty_tokens_in_cmd_tab(t_cmd_tab *cmd_tab);
 void	delete_pipes_in_cmd_tab(t_cmd_tab *cmd_tab);
