@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_execution.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:49:47 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/15 11:31:15 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/17 22:23:32 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,15 +115,57 @@ void	ft_cmd_not_found(t_cmd *cmd)
 	char	*error;
 	char	*cmd_name;
 
-	errno = ENOENT;
 	cmd_name = cmd->execve_cmd[0];
-	error = ft_strjoin(cmd_name, ": command not found\n");
-	if (errno == ENOENT)
+
+	if (cmd_name == NULL)
+		exit_minishell(NULL, IS_EMPTY);
+
+	if (ft_is_path(cmd_name))
 	{
+		if (ft_is_path_valid(cmd->execve_cmd[0]))
+		{
+			if (access(cmd_name, F_OK | R_OK) == 0)
+			{
+				error = ft_strjoin(cmd_name, ": Is a directory\n");
+				ft_putstr_fd(error, STDERR);
+				free(error);
+				exit_minishell(NULL, IS_DIRECTORY);
+			}
+			else
+				perror(cmd_name);
+				exit_minishell(NULL, PERMISSION_DENIED);
+		}
+		else
+		{
+			if (errno == ENOENT)
+			{
+				error = ft_strjoin(cmd_name, ": No such file or directory\n");
+				ft_putstr_fd(error, STDERR);
+				free(error);
+				exit_minishell(NULL, CMD_NOT_FOUND);
+			}
+		}
+	}
+	else
+	{
+		error = ft_strjoin(cmd_name, ": command not found\n");
 		ft_putstr_fd(error, STDERR);
 		free(error);
 		exit_minishell(NULL, CMD_NOT_FOUND);
 	}
-	free(error);
-	exit_minishell(NULL, EXIT_SUCCESS);
+
+
+	// errno = ENOENT;
+
+	// error = ft_strjoin(cmd_name, ": command not found\n");
+	// if (errno == ENOENT)
+	// {
+	// 	ft_putstr_fd(error, STDERR);
+	// 	free(error);
+	// 	exit_minishell(NULL, CMD_NOT_FOUND);
+	// }
+	// free(error);
+	// exit_minishell(NULL, EXIT_SUCCESS);
 }
+
+

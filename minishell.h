@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/16 13:02:01 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/17 22:22:38 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@
 # define HOSTNAME_FILE "/proc/sys/kernel/hostname"
 
 # define CMD_NOT_FOUND 127
+# define IS_DIRECTORY 126
+# define IS_EMPTY 0
+# define PERMISSION_DENIED 126
 
 // Global variable for signal handling
 extern volatile sig_atomic_t	sigint_received;
@@ -277,6 +280,10 @@ void	ft_cmd_not_found(t_cmd *cmd);
 void	ft_parent_process(t_exec_data *data, t_mini_data *minidata, pid_t pid);
 void	ft_init_exec_data(t_exec_data *exec_data);
 void	ft_exit_status(int *status);
+
+// error exec functions
+int	ft_is_path_valid(const char *path);
+int	ft_is_path(char *token);
 
 // I/O functions
 int		ft_input_file(char *file_name);
