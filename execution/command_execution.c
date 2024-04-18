@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:49:47 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/17 22:23:32 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/18 10:05:31 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 void	ft_exec_commands(t_cmd *cmd, t_mini_data *minidata)
 {
 	t_token	*token;
+
 	token = cmd->first_token;
 	while (token)
 	{
@@ -32,7 +33,7 @@ void	ft_exec_commands(t_cmd *cmd, t_mini_data *minidata)
 		else if (token->type == CMD_BUILT)
 			ft_select_built_cmd(cmd, *minidata->env_list);
 		else if (token->type == CMD_ERR)
-			ft_cmd_not_found(cmd);
+			ft_cmd_error(cmd);
 		token = token->next;
 	}
 	exit_minishell(NULL, EXIT_SUCCESS);
@@ -73,11 +74,13 @@ void	ft_execve(t_cmd *cmd, t_mini_data *minidata)
 /**
  * @brief Selects and executes built-in shell commands.
  *
- * Determines which built-in command to execute based on the first token of
- * the command. Supports a set of predefined built-in commands like echo, pwd,
+ * Determines which built-in command to execute based on the
+ * first token of the command. Supports a set of predefined
+ * built-in commands like echo, pwd,
  * cd, and exit.
  *
- * @param cmd Pointer to the command to identify and execute the built-in command.
+ * @param cmd Pointer to the command to identify and execute
+ * the built-in command.
  */
 
 void	ft_select_built_cmd(t_cmd *cmd, t_env_list env_list)
@@ -110,62 +113,30 @@ void	ft_select_built_cmd(t_cmd *cmd, t_env_list env_list)
  * @param cmd Pointer to the command that was not recognized.
  */
 
-void	ft_cmd_not_found(t_cmd *cmd)
+void	ft_cmd_error(t_cmd *cmd)
 {
 	char	*error;
 	char	*cmd_name;
 
 	cmd_name = cmd->execve_cmd[0];
-
 	if (cmd_name == NULL)
 		exit_minishell(NULL, IS_EMPTY);
-
 	if (ft_is_path(cmd_name))
 	{
 		if (ft_is_path_valid(cmd->execve_cmd[0]))
 		{
 			if (access(cmd_name, F_OK | R_OK) == 0)
-			{
-				error = ft_strjoin(cmd_name, ": Is a directory\n");
-				ft_putstr_fd(error, STDERR);
-				free(error);
-				exit_minishell(NULL, IS_DIRECTORY);
-			}
+				ft_error(cmd_name, ": Is a directory\n", IS_DIRECTORY);
 			else
-				perror(cmd_name);
-				exit_minishell(NULL, PERMISSION_DENIED);
+				ft_error(cmd_name, ": Permission denied\n", PERMISSION_DENIED);
 		}
 		else
 		{
 			if (errno == ENOENT)
-			{
-				error = ft_strjoin(cmd_name, ": No such file or directory\n");
-				ft_putstr_fd(error, STDERR);
-				free(error);
-				exit_minishell(NULL, CMD_NOT_FOUND);
-			}
+				ft_error(cmd_name, ": No such file or directory\n",
+					NO_FILE_OR_DIR);
 		}
 	}
 	else
-	{
-		error = ft_strjoin(cmd_name, ": command not found\n");
-		ft_putstr_fd(error, STDERR);
-		free(error);
-		exit_minishell(NULL, CMD_NOT_FOUND);
-	}
-
-
-	// errno = ENOENT;
-
-	// error = ft_strjoin(cmd_name, ": command not found\n");
-	// if (errno == ENOENT)
-	// {
-	// 	ft_putstr_fd(error, STDERR);
-	// 	free(error);
-	// 	exit_minishell(NULL, CMD_NOT_FOUND);
-	// }
-	// free(error);
-	// exit_minishell(NULL, EXIT_SUCCESS);
+		ft_error(cmd_name, ": command not found\n", CMD_NOT_FOUND);
 }
-
-

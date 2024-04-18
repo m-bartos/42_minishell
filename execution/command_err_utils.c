@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 22:16:35 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/17 22:23:09 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/18 10:03:28 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,14 @@ int	ft_is_path(char *token)
 	}
 	else
 		return (0);
+}
+
+void	ft_error(char *cmd_name, char *err_text, int err_code)
+{
+	char	*error;
+
+	error = ft_strjoin(cmd_name, err_text);
+	ft_putstr_fd(error, STDERR);
+	free(error);
+	exit_minishell(NULL, err_code);
 }

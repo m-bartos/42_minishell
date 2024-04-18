@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/17 22:22:38 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/18 10:05:31 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define HOSTNAME_FILE "/proc/sys/kernel/hostname"
 
 # define CMD_NOT_FOUND 127
+# define NO_FILE_OR_DIR 127
 # define IS_DIRECTORY 126
 # define IS_EMPTY 0
 # define PERMISSION_DENIED 126
@@ -276,14 +277,15 @@ void	ft_exec_input(t_cmd_tab *cmd_tab, t_mini_data *data);
 void	ft_exec_commands(t_cmd *cmd, t_mini_data *minidata);
 void	ft_execve(t_cmd *cmd, t_mini_data *minidata);
 void	ft_select_built_cmd(t_cmd *cmd, t_env_list env_list);
-void	ft_cmd_not_found(t_cmd *cmd);
+void	ft_cmd_error(t_cmd *cmd);
 void	ft_parent_process(t_exec_data *data, t_mini_data *minidata, pid_t pid);
 void	ft_init_exec_data(t_exec_data *exec_data);
 void	ft_exit_status(int *status);
 
 // error exec functions
-int	ft_is_path_valid(const char *path);
-int	ft_is_path(char *token);
+int		ft_is_path_valid(const char *path);
+int		ft_is_path(char *token);
+void	ft_error(char *cmd_name, char *err_text, int err_code);
 
 // I/O functions
 int		ft_input_file(char *file_name);
