@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/18 10:05:31 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/18 11:47:33 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,6 +281,9 @@ void	ft_cmd_error(t_cmd *cmd);
 void	ft_parent_process(t_exec_data *data, t_mini_data *minidata, pid_t pid);
 void	ft_init_exec_data(t_exec_data *exec_data);
 void	ft_exit_status(int *status);
+
+// exit status
+void	ft_update_exit_status(int *status, t_mini_data *minidata);
 
 // error exec functions
 int		ft_is_path_valid(const char *path);

@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/08 17:58:56 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/18 11:44:09 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,12 @@ void	ft_exec_input(t_cmd_tab *tab, t_mini_data *minidata)
 // By now we have opened 5 file descriptors that are connected to 3 files
 	ft_init_exec_data(&data);
 	cmd = tab->first_cmd;
+
+	pid_t *child_pids;       // Array to store child PIDs
+    int num_children;
+	int num_commands = tab->size;
+	child_pids = malloc(sizeof(pid_t) * num_commands);
+	num_children = 0;
 	while (cmd)
 	{
 		if(cmd->next != NULL)
@@ -98,6 +104,7 @@ void	ft_exec_input(t_cmd_tab *tab, t_mini_data *minidata)
 		}
 		else
 		{
+			child_pids[num_children++] = pid;
 			if (data.fd_in != STDIN_FILENO)
 				close(data.fd_in);
 			if (cmd->next != NULL)
@@ -108,5 +115,23 @@ void	ft_exec_input(t_cmd_tab *tab, t_mini_data *minidata)
 		}
 		cmd = cmd->next;
 	}
-	ft_parent_process(&data, minidata, pid);
+	int	status;
+
+	status = 0;
+	// waitpid(pid, &status, 0);
+	//int status;
+
+    for (int i = 0; i < num_children; i++)
+	{
+        waitpid(child_pids[i], &status, 0);
+        ft_update_exit_status(&status, minidata);
+    }
+	//ft_update_exit_status(&status, minidata);
+	close(data.ori_fd_in);
+	close(data.ori_fd_out);
+	//ft_parent_process(&data, minidata, pid);
 }
+
+		// int status;
+		// pid_t child_pid;
+		// child_pid = waitpid(-1, &status, 0);
