@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/08 17:58:56 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/18 21:48:44 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 void	ft_redir_process_io(t_exec_data *data, t_cmd *cmd)
 {
 	dup2(data->fd_in, STDIN_FILENO);
-	if(data->fd_in != STDIN_FILENO)
+	if (data->fd_in != STDIN_FILENO)
 		close(data->fd_in);
 	if (cmd->next != NULL && (ft_has_out_redir(cmd) == 0))
 	{
@@ -42,7 +42,7 @@ void	ft_redir_process_io(t_exec_data *data, t_cmd *cmd)
 		if (cmd->next != NULL)
 			close(data->pipe_fd[1]);
 	}
-	if(cmd->next != NULL)
+	if (cmd->next != NULL)
 		close(data->pipe_fd[0]);
 	close(data->ori_fd_in);
 	close(data->ori_fd_out);
@@ -66,6 +66,13 @@ void	ft_redir_process_io(t_exec_data *data, t_cmd *cmd)
 }
 */
 
+void	ft_child_process(t_exec_data *data, t_mini_data *minidata)
+{
+	ft_redirect_io(data->cmd, &data->fd_in, &data->fd_out);
+	ft_redir_process_io(data, data->cmd);
+	ft_exec_commands(data->cmd, minidata);
+}
+
 /**
  * @brief Executes commands from a command table.
  *
@@ -78,35 +85,28 @@ void	ft_redir_process_io(t_exec_data *data, t_cmd *cmd)
 
 void	ft_exec_input(t_cmd_tab *tab, t_mini_data *minidata)
 {
-	t_exec_data data;
-	t_cmd	*cmd;
-	pid_t	pid;
-// By now we have opened 5 file descriptors that are connected to 3 files
-	ft_init_exec_data(&data);
-	cmd = tab->first_cmd;
-	while (cmd)
+	t_exec_data	data;
+
+	ft_init_exec_data(&data, tab);
+	while (data.cmd)
 	{
-		if(cmd->next != NULL)
+		if (data.cmd->next != NULL)
 			pipe(data.pipe_fd);
-// By now we have opened 7 file descriptors that are connected to 3 files and 1 pipe buffer
-		pid = fork();
-		if (pid == 0)
-		{
-			ft_redirect_io(cmd, &data.fd_in, &data.fd_out);
-			ft_redir_process_io(&data, cmd);
-			ft_exec_commands(cmd, minidata);
-		}
+		data.pid = fork();
+		if (data.pid == 0)
+			ft_child_process(&data, minidata);
 		else
 		{
+			data.child_pids[data.num_children++] = data.pid;
 			if (data.fd_in != STDIN_FILENO)
 				close(data.fd_in);
-			if (cmd->next != NULL)
+			if (data.cmd->next != NULL)
 			{
 				close(data.pipe_fd[1]);
 				data.fd_in = data.pipe_fd[0];
 			}
 		}
-		cmd = cmd->next;
+		data.cmd = data.cmd->next;
 	}
-	ft_parent_process(&data, minidata, pid);
+	ft_parent_process(&data, minidata, data.pid);
 }

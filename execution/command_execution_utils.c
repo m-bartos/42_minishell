@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_execution_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:47:04 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/15 10:01:49 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/18 21:33:17 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ char	*ft_extract_env_name(char *str)
 	return (env_name);
 }
 
-
 /**
  * @brief Updates the shell's exit status.
  *
@@ -68,6 +67,7 @@ void	ft_update_exit_status(int *status, t_mini_data *minidata)
 	char	*sta;
 	char	*env;
 	char	*temp;
+
 	if (WIFEXITED(*status))
 		sta = ft_itoa(WEXITSTATUS(*status));
 	else
@@ -95,10 +95,23 @@ void	ft_update_exit_status(int *status, t_mini_data *minidata)
 void	ft_parent_process(t_exec_data *data, t_mini_data *minidata, pid_t pid)
 {
 	int	status;
+	int	i;
+	int	term_sig;
 
 	status = 0;
-	waitpid(pid, &status, 0);
-	ft_update_exit_status(&status, minidata);
+	i = 0;
+	while (i < data->num_children)
+	{
+		waitpid(data->child_pids[i], &status, 0);
+		if (WIFSIGNALED(status))
+		{
+			term_sig = WTERMSIG(status);
+			status = 128 + term_sig;
+		}
+		ft_update_exit_status(&status, minidata);
+		i++;
+	}
+	free(data->child_pids);
 	close(data->ori_fd_in);
 	close(data->ori_fd_out);
 }
@@ -113,12 +126,16 @@ void	ft_parent_process(t_exec_data *data, t_mini_data *minidata, pid_t pid)
  * @param exec_data Pointer to the execution data structure to initialize.
  */
 
-void	ft_init_exec_data(t_exec_data *exec_data)
+void	ft_init_exec_data(t_exec_data *exec_data, t_cmd_tab *tab)
 {
 	exec_data->fd_in = STDIN_FILENO;
 	exec_data->fd_out = STDOUT_FILENO;
 	exec_data->ori_fd_in = dup(STDIN_FILENO);
 	exec_data->ori_fd_out = dup(STDOUT_FILENO);
+	exec_data->num_commands = tab->size;
+	exec_data->num_children = 0;
+	exec_data->child_pids = malloc(sizeof(pid_t) * exec_data->num_commands);
+	exec_data->cmd = tab->first_cmd;
 }
 
 /**
@@ -136,6 +153,5 @@ void	ft_exit_status(int *status)
 	{
 		ft_putnbr_fd(WEXITSTATUS(*status), 1);
 		ft_putstr_fd("\n", 1);
-
 	}
 }
