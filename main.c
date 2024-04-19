@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/17 21:55:21 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/19 17:25:38 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,8 @@ int	main (int argc, char *argv[], char *envp[])
 	t_cmd_tab	cmd_tab;
 	t_mini_data	minidata;
 
-	// Disable ^C
 	disable_ctrl_c_output();
-	// Setup the SIGINT handler
 	setup_signal_handling();
-
-
 	line = NULL;
 	ft_init_cmd_tab(&cmd_tab);
 	ft_init_mini_data(&minidata, &cmd_tab, envp);
