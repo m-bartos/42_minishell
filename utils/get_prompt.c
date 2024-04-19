@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:24:00 by mbartos           #+#    #+#             */
-/*   Updated: 2024/04/15 11:04:26 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/19 22:33:54 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,9 @@ char	*get_relative_path(t_env_list *env_list)
 	char	*path_start;
 
 	absolute_path = getcwd(NULL, 0);
-	home = ft_get_env(env_list, "HOME");
+	home = getenv("HOME");
 	if (home == NULL)
-		relative_path = ft_strdup(absolute_path);
+		relative_path = ft_strjoin_e(":", absolute_path);
 	else
 	{
 		relative_path = absolute_path;
@@ -80,7 +80,6 @@ char	*get_relative_path(t_env_list *env_list)
 		free(path_start);
 	}
 	free(absolute_path);
-	free(home);
 	return (relative_path);
 }
 
