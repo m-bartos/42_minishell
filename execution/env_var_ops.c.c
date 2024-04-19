@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_var_ops.c.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:42:36 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/29 22:46:32 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/19 12:35:16 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,10 +95,19 @@ void	ft_add_env(t_env_list *env_list, char *env_text)
 {
 	t_env	*node;
 	char	*env_name;
-	char	**tmp_arr;
+	char	*env_value;
+	int		len;
 
-	tmp_arr = ft_split(env_text, '=');
-	ft_remove_env(env_list, tmp_arr[0]);
+	// tmp_arr = ft_split(env_text, '=');
+
+	len = ft_strchr(env_text, '=') - env_text;
+	env_name = ft_substr_e(env_text, 0, len);
+	// ft_putstr_fd(env_name, 1);
+	// ft_putstr_fd("\n", 1);
+	env_value = ft_strdup_e(ft_strchr(env_text, '=') + 1);
+	// ft_putstr_fd(env_value, 1);
+	// ft_putstr_fd("\n", 1);
+	ft_remove_env(env_list, env_name);
 
 	node = malloc(sizeof(t_env));
 	if (!node)
@@ -108,9 +117,8 @@ void	ft_add_env(t_env_list *env_list, char *env_text)
 	}
 	ft_init_env(node);
 	node->env_text = ft_strdup(env_text);
-	node->env_name = tmp_arr[0];
-	node->env_value = tmp_arr[1];
-	free(tmp_arr);
+	node->env_name = env_name;
+	node->env_value = env_value;
 	node->next = env_list->top;
 	env_list->top = node;
 	env_list->size++;
