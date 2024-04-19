@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 09:19:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/18 20:38:30 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/19 16:50:48 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int	ft_pre_exec(t_cmd_tab *tab, t_mini_data *minidata)
 	t_cmd		*cmd;
 	t_env_list	*envs;
 
-	ft_init_exec_data(&data, tab);
+	ft_init_exec_data(&data, NULL);
 	cmd = tab->first_cmd;
 	envs = minidata->env_list;
 	if (tab->size == 1 && ft_is_inbuilt(cmd))
