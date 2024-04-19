@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 12:39:39 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/29 10:20:52 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/19 22:41:33 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,7 +114,7 @@ void	ft_exit_minishell(t_cmd *cmd, t_env_list *env_list)
 	unsigned int		arg_number;
 
 	arg = NULL;
-	if (cmd->size == 1)
+	if (cmd == NULL || cmd->size == 1)
 	{
 		ft_putstr_fd("exit\n", STDOUT_FILENO);
 		exit_minishell(NULL, EXIT_SUCCESS);

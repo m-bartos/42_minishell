@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/19 18:51:57 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/19 22:48:35 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ int	main (int argc, char *argv[], char *envp[])
 		prompt = get_prompt(&minidata);
 		line = readline(prompt);
 		free(prompt);
+		if (line == NULL)
+			ft_exit_minishell(NULL, NULL);
 		if (is_empty_line(line))
 			continue ;
 		// check_exit(line);
@@ -52,7 +54,7 @@ int	main (int argc, char *argv[], char *envp[])
 			continue ;
 		if (parser(&cmd_tab, line, &minidata) == -1)
 			continue ;
-		//print_cmd_tab(&cmd_tab); // just to show cmd_tab
+		// print_cmd_tab(&cmd_tab); // just to show cmd_tab
 		if (ft_pre_exec(&cmd_tab, &minidata))
 		{
 			clean_minishell(NULL);
