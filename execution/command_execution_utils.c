@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:47:04 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/19 16:47:27 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/19 18:05:28 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,6 +138,13 @@ void	ft_init_exec_data(t_exec_data *exec_data, t_cmd_tab *tab)
 		exec_data->num_children = 0;
 		exec_data->child_pids = malloc(sizeof(pid_t) * exec_data->num_commands);
 		exec_data->cmd = tab->first_cmd;
+	}
+	else
+	{
+		exec_data->num_commands = 0;
+		exec_data->num_children = 0;
+		exec_data->child_pids = NULL;
+		exec_data->cmd = NULL;
 	}
 }
 
