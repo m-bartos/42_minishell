@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 09:12:15 by mbartos           #+#    #+#             */
-/*   Updated: 2024/04/19 10:42:07 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/19 11:39:53 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,20 +62,28 @@ char	*get_cmd_path(t_token *token, t_env_list *env_list)
 /**
  * @brief Expands the path of a command token.
  *
- * This function expands the path of a command token by checking if
- * the provided path is executable. If not, it attempts to retrieve the full 
- * path using the `get_cmd_path` function.
- * If successful, the token's text is updated with the full path.
+ * This function checks if the provided path in the command token is executable. 
+ * If the path is a regular file and has executable permissions, it updates
+ * the token's type to CMD. If the path is not executable or does not exist,
+ * it attempts to retrieve the full path using the `get_cmd_path` function
+ * from the specified environment list. If successful, the token's text is
+ * updated with the full path, and its type is set to CMD. If the path is 
+ * invalid or cannot be resolved, the token's type is set to CMD_ERR.
  *
- * @param token The command token to expand the path for.
+ * @param token A pointer to the command token to expand the path for.
+ * @param env_list A pointer to the environment list.
  */
 void	expand_token_cmd_path(t_token *token, t_env_list *env_list)
 {
-	char	*cmd_path;
+	char		*cmd_path;
+	struct stat	path_stat;
 
 	if (token->text == NULL)
 		return ;
-	if (access(token->text, X_OK) == 0)
+	stat(token->text, &path_stat);
+	if (S_ISREG(path_stat.st_mode) == 0)
+		token->type = CMD_ERR;
+	else if (access(token->text, F_OK | X_OK) == 0)
 	{
 		token->type = CMD;
 		return ;
@@ -85,6 +93,7 @@ void	expand_token_cmd_path(t_token *token, t_env_list *env_list)
 		token->type = CMD_ERR;
 	else
 	{
+		token->type = CMD;
 		free(token->text);
 		token->text = cmd_path;
 	}
