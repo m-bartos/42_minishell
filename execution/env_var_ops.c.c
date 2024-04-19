@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 11:42:36 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/19 12:35:16 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/19 12:50:14 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,19 +96,12 @@ void	ft_add_env(t_env_list *env_list, char *env_text)
 	t_env	*node;
 	char	*env_name;
 	char	*env_value;
-	int		len;
+	int		len_env_name;
 
-	// tmp_arr = ft_split(env_text, '=');
-
-	len = ft_strchr(env_text, '=') - env_text;
-	env_name = ft_substr_e(env_text, 0, len);
-	// ft_putstr_fd(env_name, 1);
-	// ft_putstr_fd("\n", 1);
+	len_env_name = ft_strchr(env_text, '=') - env_text;
+	env_name = ft_substr_e(env_text, 0, len_env_name);
 	env_value = ft_strdup_e(ft_strchr(env_text, '=') + 1);
-	// ft_putstr_fd(env_value, 1);
-	// ft_putstr_fd("\n", 1);
 	ft_remove_env(env_list, env_name);
-
 	node = malloc(sizeof(t_env));
 	if (!node)
 	{
@@ -176,7 +169,7 @@ void	ft_list_env(t_env_list *env_list)
 			if (ft_strncmp(env->env_name, "?", strlen(env->env_name) + 1) == 0)
 			{
 				env = env->next;
-				continue;
+				continue ;
 			}
 			else
 			{
