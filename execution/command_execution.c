@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:49:47 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/18 10:05:31 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/19 18:31:00 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ void	ft_exec_commands(t_cmd *cmd, t_mini_data *minidata)
 {
 	t_token	*token;
 
+	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, SIG_DFL);
 	token = cmd->first_token;
 	while (token)
 	{
