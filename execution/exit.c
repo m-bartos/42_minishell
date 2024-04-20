@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 12:39:39 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/19 22:41:33 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/20 10:03:54 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	ft_convert_arg_number(char *arg, unsigned int *arg_number)
  */
 
 void	ft_echo_cmd_size_2(t_cmd *cmd, t_env_list *env_list,
-		unsigned int *arg_number)
+		unsigned int *arg_number, t_exec_data *data)
 {
 	char				*arg;
 
@@ -84,6 +84,11 @@ void	ft_echo_cmd_size_2(t_cmd *cmd, t_env_list *env_list,
 	{
 		ft_convert_arg_number(arg, arg_number);
 		ft_putstr_fd("exit\n", STDOUT_FILENO);
+		if (data != NULL)
+		{
+			close(data->ori_fd_in);
+			close(data->ori_fd_out);
+		}
 		exit_minishell(NULL, (unsigned int) *arg_number);
 	}
 }
@@ -108,7 +113,7 @@ void	ft_echo_cmd_size_2(t_cmd *cmd, t_env_list *env_list,
  *       environment variable (?) to 1, indicating an error, but does not exit.
  */
 
-void	ft_exit_minishell(t_cmd *cmd, t_env_list *env_list)
+void	ft_exit_minishell(t_cmd *cmd, t_env_list *env_list, t_exec_data *data)
 {
 	char				*arg;
 	unsigned int		arg_number;
@@ -117,10 +122,15 @@ void	ft_exit_minishell(t_cmd *cmd, t_env_list *env_list)
 	if (cmd == NULL || cmd->size == 1)
 	{
 		ft_putstr_fd("exit\n", STDOUT_FILENO);
+		if (data != NULL)
+		{
+			close(data->ori_fd_in);
+			close(data->ori_fd_out);
+		}
 		exit_minishell(NULL, EXIT_SUCCESS);
 	}
 	else if (cmd->size == 2)
-		ft_echo_cmd_size_2(cmd, env_list, &arg_number);
+		ft_echo_cmd_size_2(cmd, env_list, &arg_number, data);
 	else if (cmd->size > 2)
 	{
 		ft_putstr_fd(" too many arguments\n", STDERR_FILENO);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/19 22:48:35 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/20 09:52:33 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	main (int argc, char *argv[], char *envp[])
 		line = readline(prompt);
 		free(prompt);
 		if (line == NULL)
-			ft_exit_minishell(NULL, NULL);
+			ft_exit_minishell(NULL, NULL, NULL);
 		if (is_empty_line(line))
 			continue ;
 		// check_exit(line);
