@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   io_redirections.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:00:15 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/03/29 10:23:52 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/20 10:58:14 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
-
-
 
 /**
  * @brief Sets up input redirection from a file.
@@ -97,6 +95,28 @@ void	ft_append_redirection(char *file_name, int *fd_out)
  * @param fd_out Pointer to the file descriptor for output redirection.
  */
 
+void	ft_process_redirection(t_token *token, int *fd_in, int *fd_out)
+{
+	if (token->type == R_INFILE)
+	{
+		if (*fd_in != STDIN_FILENO)
+			close(*fd_in);
+		ft_input_redirection(token->text, fd_in);
+	}
+	else if (token->type == R_OUTFILE)
+	{
+		if (*fd_out != STDOUT_FILENO)
+			close(*fd_out);
+		ft_output_redirection(token->text, fd_out);
+	}
+	else if (token->type == R_OUTFILE_APP)
+	{
+		if (*fd_out != STDOUT_FILENO)
+			close(*fd_out);
+		ft_append_redirection(token->text, fd_out);
+	}
+}
+
 void	ft_redirect_io(t_cmd *cmd, int *fd_in, int *fd_out)
 {
 	t_token	*token;
@@ -104,24 +124,7 @@ void	ft_redirect_io(t_cmd *cmd, int *fd_in, int *fd_out)
 	token = cmd->first_token;
 	while (token)
 	{
-		if (token->type == R_INFILE)
-		{
-			if (*fd_in != STDIN_FILENO)
-				close(*fd_in);
-			ft_input_redirection(token->text, fd_in);
-		}
-		else if (token->type == R_OUTFILE)
-		{
-			if (*fd_out != STDOUT_FILENO)
-				close(*fd_out);
-			ft_output_redirection(token->text, fd_out);
-		}
-		else if (token->type == R_OUTFILE_APP)
-		{
-			if (*fd_out != STDOUT_FILENO)
-				close(*fd_out);
-			ft_append_redirection(token->text, fd_out);
-		}
+		ft_process_redirection(token, fd_in, fd_out);
 		token = token->next;
 	}
 	return ;

@@ -6,13 +6,14 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 09:19:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/20 09:46:21 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/20 10:40:11 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_pre_exec_select_built_cmd(t_cmd *cmd, t_env_list	*env_list, t_exec_data *data)
+void	ft_pre_exec_select_built_cmd(t_cmd *cmd, t_env_list *env_list,
+	t_exec_data *data)
 {
 	char		*cmd_name;
 
