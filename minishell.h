@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/20 09:46:53 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/20 10:53:03 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 # define PERMISSION_DENIED 126
 
 // Global variable for signal handling
-extern volatile sig_atomic_t	sigint_received;
+extern volatile sig_atomic_t	g_sigint_received;
 
 typedef enum s_in_quotes
 {
@@ -326,10 +326,14 @@ char	*ft_get_echo_input(t_cmd *cmd);
 void	ft_exit(t_cmd *cmd);
 void	ft_exit_minishell(t_cmd *cmd, t_env_list *env_list, t_exec_data *data);
 // cd
-//void	ft_cd(t_cmd *cmd, int is_child);
 void	ft_cd(t_cmd *cmd, t_env_list *env_list, int is_child);
+// cd helpers
+void	ft_too_many_args(t_env_list *env_list, int is_child);
+void	ft_cd_valid_path(t_env_list *env_list, int is_child);
+void	ft_cd_not_valid_path(t_env_list *env_list, int is_child, char *path);
+char	*ft_find_arg(t_cmd *cmd);
+void	ft_update_pwd(t_env_list *env_list);
 // pwd
-// void	ft_pwd(int is_child);
 void	ft_pwd(t_env_list *env_list, int is_child);
 // export
 void	ft_export(t_env_list *env_list, t_cmd *cmd, int is_child);

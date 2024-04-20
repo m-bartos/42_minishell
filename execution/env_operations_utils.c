@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 19:19:29 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/13 19:20:12 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/20 10:41:29 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	ft_is_str_digit(char *str)
 	}
 	return (1);
 }
-
 
 int	ft_is_cmd_valid_export(t_cmd *cmd)
 {

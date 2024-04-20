@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/20 09:52:33 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/20 10:34:49 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,8 @@ int	main (int argc, char *argv[], char *envp[])
 	{
 		// ft_putstr_fd(BLUE, 1);
 		// ft_putstr_fd(BLUE, 2);
-		if (sigint_received)
-			sigint_received = 0;
+		if (g_sigint_received)
+			g_sigint_received = 0;
 		prompt = get_prompt(&minidata);
 		line = readline(prompt);
 		free(prompt);

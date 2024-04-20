@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 22:16:35 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/18 10:03:28 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/20 10:26:50 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 int	ft_is_path_valid(const char *path)
 {
-	struct  stat	statbuf;
+	struct stat	statbuf;
 
 	if (stat(path, &statbuf) == 0)
-		return 1;
-	return 0;
+		return (1);
+	return (0);
 }
 
 int	ft_is_path(char *token)
