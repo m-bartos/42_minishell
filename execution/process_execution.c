@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/18 21:48:44 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/20 10:11:44 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	ft_redir_process_io(t_exec_data *data, t_cmd *cmd)
 
 void	ft_child_process(t_exec_data *data, t_mini_data *minidata)
 {
+	free(data->child_pids);
 	ft_redirect_io(data->cmd, &data->fd_in, &data->fd_out);
 	ft_redir_process_io(data, data->cmd);
 	ft_exec_commands(data->cmd, minidata);
