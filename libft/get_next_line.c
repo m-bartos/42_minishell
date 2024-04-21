@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 10:04:49 by mbartos           #+#    #+#             */
-/*   Updated: 2024/04/21 19:41:35 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 19:54:08 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*file_read(char *buffer, int fd)
 		old_buffer = buffer;
 		if (old_buffer == NULL)
 			old_buffer = (char *) ft_calloc(1, sizeof(char));
-		buffer = ft_strjoin_e(old_buffer, buffer_add);
+		buffer = ft_strjoin(old_buffer, buffer_add);
 		free(old_buffer);
 	}
 	free(buffer_add);
@@ -73,7 +73,7 @@ char	*remove_line(char *buffer)
 	temp = ft_strchr(buffer, '\n');
 	if (temp != NULL && temp[1] != '\0')
 	{
-		temp = ft_strdup_e(temp + 1);
+		temp = ft_strdup(temp + 1);
 		if (!temp)
 			return (NULL);
 		free(buffer);
