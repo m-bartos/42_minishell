@@ -1,16 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit_free.c                                        :+:      :+:    :+:   */
+/*   init_free_exit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 10:24:15 by mbartos           #+#    #+#             */
-/*   Updated: 2024/04/21 20:22:06 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 20:31:41 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	init_minishell(t_minidata *minidata, t_cmd_tab *cmd_tab, char **envp)
+{
+	ft_init_cmd_tab(cmd_tab);
+	ft_init_minidata(minidata, cmd_tab, envp);
+	exit_minishell(minidata, 0);
+	clean_minishell(minidata);
+}
 
 void	clean_minishell(t_minidata *minidata)
 {

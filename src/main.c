@@ -6,19 +6,11 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 20:24:33 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 20:31:36 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	init_minishell(t_minidata *minidata, t_cmd_tab *cmd_tab, char **envp)
-{
-	ft_init_cmd_tab(cmd_tab);
-	ft_init_minidata(minidata, cmd_tab, envp);
-	exit_minishell(minidata, 0);
-	clean_minishell(minidata);
-}
 
 char	*ft_read_line(t_minidata *minidata)
 {
