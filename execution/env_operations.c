@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 21:43:53 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 20:02:56 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 20:11:01 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,9 +103,18 @@ void	ft_export(t_env_list *env_list, t_cmd *cmd, int is_child)
 void	ft_unset(t_env_list *env_list, t_cmd *cmd, int is_child)
 {
 	char	*arg;
+	t_token	*token;
 
-	arg = ft_find_arg(cmd);
-	ft_remove_env(env_list, arg);
+	token = cmd->first_token;
+	while (token != NULL)
+	{
+		if (token->type == ARG)
+		{
+			arg = token->text;
+			ft_remove_env(env_list, arg);
+		}
+		token = token->next;
+	}
 	if (is_child)
 		exit_minishell(NULL, 0);
 	else
