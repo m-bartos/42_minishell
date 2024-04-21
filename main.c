@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 13:49:42 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 14:31:38 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ char	*ft_read_line(t_minidata *minidata)
 	return (line);
 }
 
-int	main(int argc, char **argv, char **envp)
+int	main(int argc __attribute__((unused)), char **argv __attribute__((unused)),
+		char **envp)
 {
 	char		*line;
 	t_cmd_tab	cmd_tab;

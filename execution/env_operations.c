@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_operations.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 21:43:53 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/13 20:33:05 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/21 14:23:56 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,6 @@ void	ft_shorter_export(t_env_list *env_list, t_cmd *cmd, int is_child)
 
 void	ft_export(t_env_list *env_list, t_cmd *cmd, int is_child)
 {
-	char	*key;
-	char	*value;
-
 	if (cmd->size == 1)
 		ft_exit_export(env_list, is_child, 1, 0);
 	else if (cmd->size > 1 && ft_strncmp(cmd->execve_cmd[1],

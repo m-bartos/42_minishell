@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exit.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 12:39:39 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/20 10:03:54 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/21 14:25:00 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,10 +115,8 @@ void	ft_echo_cmd_size_2(t_cmd *cmd, t_env_list *env_list,
 
 void	ft_exit_minishell(t_cmd *cmd, t_env_list *env_list, t_exec_data *data)
 {
-	char				*arg;
-	unsigned int		arg_number;
+	unsigned int	arg_number;
 
-	arg = NULL;
 	if (cmd == NULL || cmd->size == 1)
 	{
 		ft_putstr_fd("exit\n", STDOUT_FILENO);

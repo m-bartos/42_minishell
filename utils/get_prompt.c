@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:24:00 by mbartos           #+#    #+#             */
-/*   Updated: 2024/04/21 13:10:45 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 14:34:23 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,12 @@ char	*get_hostname(void)
 	return (hostname);
 }
 
-char	*get_user_and_computer(t_env_list *env_list)
+char	*get_user_and_computer(void)
 {
 	char	*user;
 	char	*computer;
 	char	*display_line;
 	char	*old_display_line;
-	char	*relative_path;
 
 	user = getenv("USER");
 	computer = get_hostname();
@@ -55,7 +54,7 @@ char	*get_user_and_computer(t_env_list *env_list)
 	return (display_line);
 }
 
-char	*get_relative_path(t_env_list *env_list)
+char	*get_relative_path(void)
 {
 	char	*absolute_path;
 	char	*relative_path;
@@ -97,8 +96,8 @@ char	*get_prompt(t_minidata *minidata)
 		display_line = ft_strdup_e("minishell$ ");
 		return (display_line);
 	}
-	user_computer = get_user_and_computer(env_list);
-	relative_path = get_relative_path(env_list);
+	user_computer = get_user_and_computer();
+	relative_path = get_relative_path();
 	display_line = ft_strjoin_e(user_computer, relative_path);
 	free(user_computer);
 	free(relative_path);

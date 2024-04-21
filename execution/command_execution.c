@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:49:47 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 13:10:45 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 14:21:21 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ void	ft_select_built_cmd(t_cmd *cmd, t_env_list env_list)
 
 void	ft_cmd_error(t_cmd *cmd)
 {
-	char	*error;
 	char	*cmd_name;
 
 	cmd_name = cmd->execve_cmd[0];
