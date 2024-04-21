@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 09:19:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 13:10:45 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 14:26:13 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_is_inbuilt(t_cmd *cmd)
 	return (FALSE);
 }
 
-void	ft_redir_original_io(t_cmd *cmd, int *ori_in, int *ori_out)
+void	ft_redir_original_io(int *ori_in, int *ori_out)
 {
 	dup2(*ori_in, STDIN);
 	dup2(*ori_out, STDOUT);
@@ -84,7 +84,7 @@ int	ft_pre_exec(t_cmd_tab *tab, t_minidata *minidata)
 		ft_redirect_io(cmd, &data.fd_in, &data.fd_out);
 		ft_pre_exec_redir_process_io(&data, cmd);
 		ft_pre_exec_select_built_cmd(cmd, envs, &data);
-		ft_redir_original_io(cmd, &data.ori_fd_in, &data.ori_fd_out);
+		ft_redir_original_io(&data.ori_fd_in, &data.ori_fd_out);
 		return (1);
 	}
 	close(data.ori_fd_in);

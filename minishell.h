@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 14:22:49 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 14:26:21 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -365,7 +365,7 @@ void	ft_remove_env_list(t_env_list *env_list);
 void	ft_pre_exec_select_built_cmd(t_cmd *cmd, t_env_list	*env_list,
 			t_exec_data *data);
 void	ft_pre_exec_redir_process_io(t_exec_data *data, t_cmd *cmd);
-void	ft_redir_original_io(t_cmd *cmd, int *ori_in, int *ori_out);
+void	ft_redir_original_io(int *ori_in, int *ori_out);
 int		ft_pre_exec(t_cmd_tab *tab, t_minidata *minidata);
 // Pre-processing utils
 int		ft_is_inbuilt(t_cmd *cmd);
