@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:20:49 by mbartos           #+#    #+#             */
-/*   Updated: 2024/04/21 13:10:45 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 13:46:47 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	parser(t_cmd_tab *cmd_tab, char *line, t_minidata *minidata)
 	ft_init_cmd_struct(&cmd);
 	tokens_arr = splitter(line);
 	free(line);
+	line = NULL;
 	if (parse_to_one_cmd(&cmd, tokens_arr, minidata) == -1)
 		return (-1);
 	handle_if_last_token_is_pipe(&cmd, minidata);
