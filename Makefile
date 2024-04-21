@@ -25,7 +25,7 @@ SRCS = $(wildcard $(SRC_DIR)/*.c) $(wildcard $(SRC_DIR)/**/*.c) $(wildcard $(SRC
 OBJS = $(patsubst %.c,$(OBJ_DIR)/%.o,$(SRCS))
 
 # Headers
-HEADER = -I ./
+HEADER = -I ./include/
 
 # Program name
 NAME = minishell
