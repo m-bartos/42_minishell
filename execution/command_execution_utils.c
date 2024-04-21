@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:47:04 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 13:10:45 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 14:22:18 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	ft_update_exit_status(int *status, t_minidata *minidata)
  *             and file descriptor information.
  */
 
-void	ft_parent_process(t_exec_data *data, t_minidata *minidata, pid_t pid)
+void	ft_parent_process(t_exec_data *data, t_minidata *minidata)
 {
 	int	status;
 	int	i;
