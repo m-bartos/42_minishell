@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 13:10:53 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 13:14:07 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <termios.h>
-
-# define RESET   "\x1B[0m"
-# define BLUE    "\x1B[34m"
 
 # define STDIN 0
 # define STDOUT 1
@@ -121,6 +118,7 @@ typedef struct s_env
 	char			*env_name;
 	char			*env_value;
 }	t_env;
+
 // Env table
 typedef struct s_env_list
 {
@@ -344,7 +342,8 @@ int		ft_is_str_digit(char *str);
 int		ft_is_cmd_valid_export(t_cmd *cmd);
 int		ft_is_key_valid(char *str);
 char	*ft_extract_key(char *str);
-void	ft_exit_export(t_env_list *env_list, int is_child, int exit_code, int is_ident);
+void	ft_exit_export(t_env_list *env_list, int is_child, int exit_code,
+			int is_ident);
 // unset
 void	ft_unset(t_env_list *env_list, t_cmd *cmd, int is_child);
 // env
@@ -364,7 +363,8 @@ char	*ft_get_env(t_env_list *env_list, char *var_name);
 void	ft_remove_env_list(t_env_list *env_list);
 
 // Pre-processing
-void	ft_pre_exec_select_built_cmd(t_cmd *cmd, t_env_list	*env_list, t_exec_data *data);
+void	ft_pre_exec_select_built_cmd(t_cmd *cmd, t_env_list	*env_list,
+			t_exec_data *data);
 void	ft_pre_exec_redir_process_io(t_exec_data *data, t_cmd *cmd);
 void	ft_redir_original_io(t_cmd *cmd, int *ori_in, int *ori_out);
 int		ft_pre_exec(t_cmd_tab *tab, t_minidata *minidata);
