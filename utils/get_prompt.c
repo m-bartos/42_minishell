@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:24:00 by mbartos           #+#    #+#             */
-/*   Updated: 2024/04/21 14:20:35 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 14:34:23 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*get_hostname(void)
 	return (hostname);
 }
 
-char	*get_user_and_computer()
+char	*get_user_and_computer(void)
 {
 	char	*user;
 	char	*computer;
@@ -54,7 +54,7 @@ char	*get_user_and_computer()
 	return (display_line);
 }
 
-char	*get_relative_path()
+char	*get_relative_path(void)
 {
 	char	*absolute_path;
 	char	*relative_path;
