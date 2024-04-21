@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 19:19:29 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 19:41:23 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 20:02:35 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,19 +39,6 @@ int	ft_is_cmd_valid_export(t_cmd *cmd)
 	if (ft_strchr(cmd->execve_cmd[1], '=') == NULL)
 		return (0);
 	return (1);
-}
-
-char	*ft_extract_key(char *str)
-{
-	char	**data;
-	char	*key;
-
-	data = ft_split_e(str, '=');
-	key = ft_strdup_e(data[0]);
-	free(data[0]);
-	free(data[1]);
-	free(data);
-	return (key);
 }
 
 int	ft_is_key_valid(char *str)

@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 21:43:53 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 14:23:56 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 20:02:56 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,21 @@ void	ft_exit_export(t_env_list *env_list, int is_child,
 
 void	ft_shorter_export(t_env_list *env_list, t_cmd *cmd, int is_child)
 {
-	char	*key;
+	char	*env_name;
 
 	if (ft_is_cmd_valid_export(cmd))
 	{
-		key = ft_extract_key(cmd->execve_cmd[1]);
-		if (ft_is_key_valid(key))
+		env_name = ft_extract_env_name(cmd->execve_cmd[1]);
+		if (ft_is_key_valid(env_name))
 		{
 			ft_add_env(env_list, cmd->execve_cmd[1]);
 			ft_add_env(env_list, "?=0");
-			free(key);
+			free(env_name);
 			return ;
 		}
 		else
 		{
-			free(key);
+			free(env_name);
 			ft_exit_export(env_list, is_child, 1, 1);
 		}
 	}

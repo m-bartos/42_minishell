@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: orezek <orezek@student.42prague.com>       +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 16:47:47 by orezek           ###   ########.fr       */
+/*   Updated: 2024/04/21 20:02:41 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -341,7 +341,6 @@ int		ft_is_str_alpha(char *str);
 int		ft_is_str_digit(char *str);
 int		ft_is_cmd_valid_export(t_cmd *cmd);
 int		ft_is_key_valid(char *str);
-char	*ft_extract_key(char *str);
 void	ft_exit_export(t_env_list *env_list, int is_child, int exit_code,
 			int is_ident);
 // unset
