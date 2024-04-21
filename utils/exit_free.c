@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 10:24:15 by mbartos           #+#    #+#             */
-/*   Updated: 2024/04/21 13:22:44 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 14:18:31 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	clean_minishell(t_minidata *minidata)
 {
-	t_minidata static	*static_minidata;
+	static t_minidata	*static_minidata;
 
 	if (minidata != NULL)
 	{
@@ -27,7 +27,7 @@ void	clean_minishell(t_minidata *minidata)
 
 void	exit_minishell(t_minidata *minidata, int exit_status)
 {
-	t_minidata static	*static_minidata;
+	static t_minidata	*static_minidata;
 
 	if (minidata != NULL)
 	{
