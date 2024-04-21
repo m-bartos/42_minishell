@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:20:49 by mbartos           #+#    #+#             */
-/*   Updated: 2024/04/16 12:38:44 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 13:10:45 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  *
  * @param cmd The command structure to handle.
  */
-void	handle_if_last_token_is_pipe(t_cmd *cmd, t_mini_data *minidata)
+void	handle_if_last_token_is_pipe(t_cmd *cmd, t_minidata *minidata)
 {
 	char	*line_heredoc;
 	char	**tokens_arr;
@@ -44,7 +44,7 @@ void	handle_if_last_token_is_pipe(t_cmd *cmd, t_mini_data *minidata)
  * @param cmd The command structure to fill with parsed data.
  * @param tokens_arr The array of tokens to parse.
  */
-int	parse_to_one_cmd(t_cmd *cmd, char **tokens_arr, t_mini_data *minidata)
+int	parse_to_one_cmd(t_cmd *cmd, char **tokens_arr, t_minidata *minidata)
 {
 	fill_cmd_tab(cmd, tokens_arr);
 	free(tokens_arr);
@@ -64,7 +64,7 @@ int	parse_to_one_cmd(t_cmd *cmd, char **tokens_arr, t_mini_data *minidata)
  * @param cmd_tab The command table to populate.
  * @param line The line to parse.
  */
-int	parser(t_cmd_tab *cmd_tab, char *line, t_mini_data *minidata)
+int	parser(t_cmd_tab *cmd_tab, char *line, t_minidata *minidata)
 {
 	char	**tokens_arr;
 	t_cmd	cmd;

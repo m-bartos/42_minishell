@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_process_execution.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 09:19:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/20 10:40:11 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/21 13:10:45 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	ft_pre_exec_redir_process_io(t_exec_data *data, t_cmd *cmd)
 	}
 }
 
-int	ft_pre_exec(t_cmd_tab *tab, t_mini_data *minidata)
+int	ft_pre_exec(t_cmd_tab *tab, t_minidata *minidata)
 {
 	t_exec_data	data;
 	t_cmd		*cmd;

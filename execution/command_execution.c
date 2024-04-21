@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_execution.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:49:47 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/20 10:09:52 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/21 13:10:45 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
  * @param cmd Pointer to the command structure to execute.
  */
 
-void	ft_exec_commands(t_cmd *cmd, t_mini_data *minidata)
+void	ft_exec_commands(t_cmd *cmd, t_minidata *minidata)
 {
 	t_token	*token;
 
@@ -51,7 +51,7 @@ void	ft_exec_commands(t_cmd *cmd, t_mini_data *minidata)
  * @param cmd Pointer to the command containing the executable and arguments.
  */
 
-void	ft_execve(t_cmd *cmd, t_mini_data *minidata)
+void	ft_execve(t_cmd *cmd, t_minidata *minidata)
 {
 	char	*error;
 	char	*cmd_name;

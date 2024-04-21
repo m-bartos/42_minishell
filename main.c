@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/20 10:34:49 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/21 13:10:53 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,13 @@ int	main (int argc, char *argv[], char *envp[])
 	char		*prompt;
 	char		*line;
 	t_cmd_tab	cmd_tab;
-	t_mini_data	minidata;
+	t_minidata	minidata;
 
 	disable_ctrl_c_output();
 	setup_signal_handling();
 	line = NULL;
 	ft_init_cmd_tab(&cmd_tab);
-	ft_init_mini_data(&minidata, &cmd_tab, envp);
+	ft_init_minidata(&minidata, &cmd_tab, envp);
 	exit_minishell(&minidata, 0);
 	clean_minishell(&minidata);
 	// Get PID to see process information

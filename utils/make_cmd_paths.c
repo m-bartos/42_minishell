@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 09:12:15 by mbartos           #+#    #+#             */
-/*   Updated: 2024/04/19 23:42:32 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 13:10:45 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	expand_token_cmd_path(t_token *token, t_env_list *env_list)
  *
  * @param cmd_tab The command table to make command paths for.
  */
-void	make_cmd_paths(t_cmd_tab *cmd_tab, t_mini_data *minidata)
+void	make_cmd_paths(t_cmd_tab *cmd_tab, t_minidata *minidata)
 {
 	t_env_list	*env_list;
 	t_cmd		*cmd;

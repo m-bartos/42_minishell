@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_execution.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/20 10:11:44 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/21 13:10:45 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_redir_process_io(t_exec_data *data, t_cmd *cmd)
 }
 */
 
-void	ft_child_process(t_exec_data *data, t_mini_data *minidata)
+void	ft_child_process(t_exec_data *data, t_minidata *minidata)
 {
 	free(data->child_pids);
 	ft_redirect_io(data->cmd, &data->fd_in, &data->fd_out);
@@ -84,7 +84,7 @@ void	ft_child_process(t_exec_data *data, t_mini_data *minidata)
  * @param tab Pointer to the command table containing commands to execute.
  */
 
-void	ft_exec_input(t_cmd_tab *tab, t_mini_data *minidata)
+void	ft_exec_input(t_cmd_tab *tab, t_minidata *minidata)
 {
 	t_exec_data	data;
 
