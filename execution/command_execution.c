@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:49:47 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 14:21:21 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 19:36:23 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	ft_execve(t_cmd *cmd, t_minidata *minidata)
 
 	envars = ft_convert_list_to_arr(minidata->env_list);
 	cmd_name = cmd->execve_cmd[0];
-	error = ft_strjoin(cmd_name, ": command not found\n");
+	error = ft_strjoin_e(cmd_name, ": command not found\n");
 	if (execve(cmd->execve_cmd[0], cmd->execve_cmd, envars) - 1)
 	{
 		errno = ENOENT;

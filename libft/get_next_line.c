@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/02 10:04:49 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/29 09:50:15 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 19:37:02 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*file_read(char *buffer, int fd)
 		old_buffer = buffer;
 		if (old_buffer == NULL)
 			old_buffer = (char *) ft_calloc(1, sizeof(char));
-		buffer = ft_strjoin(old_buffer, buffer_add);
+		buffer = ft_strjoin_e(old_buffer, buffer_add);
 		free(old_buffer);
 	}
 	free(buffer_add);

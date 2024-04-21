@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   directory_commands_utils.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 10:48:30 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/20 10:50:53 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/21 19:36:41 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ void	ft_cd_not_valid_path(t_env_list *env_list, int is_child, char *path)
 	char	*error;
 
 	if (path != NULL)
-		error = ft_strjoin(path, ": No such file or directory\n");
+		error = ft_strjoin_e(path, ": No such file or directory\n");
 	else
-		error = ft_strjoin("", " No such file or directory\n");
+		error = ft_strjoin_e("", " No such file or directory\n");
 	ft_putstr_fd(error, STDERR_FILENO);
 	free(error);
 	if (is_child)
@@ -81,7 +81,7 @@ void	ft_update_pwd(t_env_list *env_list)
 	char	*env;
 
 	cwd = getcwd(NULL, 0);
-	env = ft_strjoin("PWD=", cwd);
+	env = ft_strjoin_e("PWD=", cwd);
 	ft_add_env(env_list, env);
 	free(cwd);
 	free(env);

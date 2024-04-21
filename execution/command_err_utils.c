@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_err_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 22:16:35 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/20 10:26:50 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/21 19:36:12 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ft_error(char *cmd_name, char *err_text, int err_code)
 {
 	char	*error;
 
-	error = ft_strjoin(cmd_name, err_text);
+	error = ft_strjoin_e(cmd_name, err_text);
 	ft_putstr_fd(error, STDERR);
 	free(error);
 	exit_minishell(NULL, err_code);

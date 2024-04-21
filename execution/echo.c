@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:26:45 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/12 18:09:18 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/21 19:36:56 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,12 @@ char	*ft_get_echo_input(t_cmd *cmd)
 	while (cmd->execve_cmd[index])
 	{
 		tmp = input;
-		input = ft_strjoin(input, cmd->execve_cmd[index]);
+		input = ft_strjoin_e(input, cmd->execve_cmd[index]);
 		free(tmp);
 		if (cmd->execve_cmd[index + 1] != NULL)
 		{
 			tmp = input;
-			input = ft_strjoin(input, " ");
+			input = ft_strjoin_e(input, " ");
 			free(tmp);
 		}
 		index++;
@@ -113,7 +113,7 @@ void	ft_echo(t_cmd *cmd, t_env_list *env_list, int is_child)
 		ft_putstr_fd(echo_input, STDOUT);
 	else
 	{
-		echo_output = ft_strjoin(echo_input, "\n");
+		echo_output = ft_strjoin_e(echo_input, "\n");
 		ft_putstr_fd(echo_output, STDOUT);
 		free(echo_output);
 	}
