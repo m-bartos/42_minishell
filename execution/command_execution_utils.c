@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:47:04 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 19:48:40 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 19:52:33 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@
 char	*ft_extract_env_name(char *str)
 {
 	char	**str_arr;
-	char	**tmp_str_arr;
-	char	*temp;
 	char	*env_name;
 
 	env_name = NULL;
