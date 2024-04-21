@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 09:12:15 by mbartos           #+#    #+#             */
-/*   Updated: 2024/04/21 13:10:45 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 14:07:36 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,7 @@ void	expand_token_cmd_path(t_token *token, t_env_list *env_list)
 			return ;
 	}
 	else if (access(token->text, F_OK | X_OK) == 0)
-	{
-		token->type = CMD;
 		return ;
-	}
 	cmd_path = get_cmd_path(token, env_list);
 	if (cmd_path == NULL)
 		token->type = CMD_ERR;
