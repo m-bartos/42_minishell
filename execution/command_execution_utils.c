@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:47:04 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 19:41:13 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 19:42:40 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,9 @@ void	ft_update_exit_status(int *status, t_minidata *minidata)
 	char	*temp;
 
 	if (WIFEXITED(*status))
-		sta = ft_itoa(WEXITSTATUS(*status));
+		sta = ft_itoa_e(WEXITSTATUS(*status));
 	else
-		sta = ft_itoa(*status);
+		sta = ft_itoa_e(*status);
 	env = ft_strjoin_e("?=", sta);
 	temp = ft_extract_env_name(env);
 	ft_remove_env(minidata->env_list, temp);
