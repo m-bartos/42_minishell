@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 10:17:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/04/21 13:10:45 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 19:41:40 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ void	expand_heredocs(t_cmd *cmd, t_minidata *minidata)
 		{
 			next_token_text = token->next->text;
 			free(token->text);
-			token->text = ft_strdup("<");
+			token->text = ft_strdup_e("<");
 			token->type = R_IN;
 			token->next->text = get_heredoc_file(next_token_text, i, env_list);
 			token->next->type = R_INFILE;
