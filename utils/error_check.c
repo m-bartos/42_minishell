@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:29:43 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/29 10:34:44 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 13:28:29 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,8 @@ int	is_empty_line(char *line)
 {
 	size_t	i;
 
+	if (line == NULL)
+		ft_exit_minishell(NULL, NULL, NULL);
 	i = 0;
 	while (line[i])
 	{
