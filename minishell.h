@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 14:27:18 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 14:32:34 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -226,8 +226,8 @@ int		check_prompt_vars(t_env_list *env_list);
 
 // get_prompt.c
 char	*get_hostname(void);
-char	*get_user_and_computer();
-char	*get_relative_path();
+char	*get_user_and_computer(void);
+char	*get_relative_path(void);
 char	*get_prompt(t_minidata *minidata);
 
 // helpers.c
@@ -308,7 +308,7 @@ void	ft_redir_process_io(t_exec_data *data, t_cmd *cmd);
 int		ft_has_out_redir(t_cmd *cmd);
 
 // Signals
-void	sigint_handler();
+void	sigint_handler(void);
 void	setup_signal_handling(void);
 void	disable_ctrl_c_output(void);
 
