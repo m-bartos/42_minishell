@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:47:04 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 19:36:19 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 19:38:17 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*ft_extract_env_name(char *str)
 	char	*env_name;
 
 	env_name = NULL;
-	str_arr = ft_split(str, '=');
+	str_arr = ft_split_e(str, '=');
 	tmp_str_arr = str_arr;
 	env_name = ft_strdup(str_arr[0]);
 	while (*str_arr)

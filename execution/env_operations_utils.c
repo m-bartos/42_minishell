@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   env_operations_utils.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/13 19:19:29 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/20 10:41:29 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/21 19:39:19 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*ft_extract_key(char *str)
 	char	**data;
 	char	*key;
 
-	data = ft_split(str, '=');
+	data = ft_split_e(str, '=');
 	key = ft_strdup(data[0]);
 	free(data[0]);
 	free(data[1]);
