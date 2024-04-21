@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 10:17:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/19 10:55:00 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 13:10:45 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ char	*get_heredoc_file(char *eof, int i, t_env_list *env_list)
  *
  * @param cmd The command whose here-documents are to be expanded.
  */
-void	expand_heredocs(t_cmd *cmd, t_mini_data *minidata)
+void	expand_heredocs(t_cmd *cmd, t_minidata *minidata)
 {
 	t_env_list	*env_list;
 	t_token		*token;

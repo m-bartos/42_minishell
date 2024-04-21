@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:29:43 by mbartos           #+#    #+#             */
-/*   Updated: 2024/03/29 10:34:44 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 13:44:11 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,10 +109,12 @@ int	check_redirection_errors(t_cmd *cmd)
  * @param line The input line to check for emptiness.
  * @return 1 if the line is empty, 0 otherwise.
  */
-int	is_empty_line(char *line)
+int	line_error(char *line)
 {
 	size_t	i;
 
+	if (line == NULL)
+		ft_exit_minishell(NULL, NULL, NULL);
 	i = 0;
 	while (line[i])
 	{
@@ -127,5 +129,10 @@ int	is_empty_line(char *line)
 		return (1);
 	}
 	else
+	{
+		if (*line)
+			add_history(line);
 		return (0);
+	}
+	return (0);
 }

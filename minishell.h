@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/20 10:53:03 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/21 13:37:25 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,6 @@
 # include <errno.h>
 # include <fcntl.h>
 # include <termios.h>
-
-# define RESET   "\x1B[0m"
-# define BLUE    "\x1B[34m"
 
 # define STDIN 0
 # define STDOUT 1
@@ -100,13 +97,13 @@ typedef struct s_cmd_tab
 
 typedef struct s_exec_data
 {
-	int	fd_in;
-	int	fd_out;
-	int	ori_fd_in;
-	int	ori_fd_out;
-	int	pipe_fd[2];
-	int	num_children;
-	int	num_commands;
+	int		fd_in;
+	int		fd_out;
+	int		ori_fd_in;
+	int		ori_fd_out;
+	int		pipe_fd[2];
+	int		num_children;
+	int		num_commands;
 	t_cmd	*cmd;
 	pid_t	pid;
 	pid_t	*child_pids;
@@ -121,6 +118,7 @@ typedef struct s_env
 	char			*env_name;
 	char			*env_value;
 }	t_env;
+
 // Env table
 typedef struct s_env_list
 {
@@ -134,7 +132,7 @@ typedef struct s_mini_data
 	t_env_list	*env_list;
 	char		**env_arr;
 	t_cmd_tab	*cmd_tab;
-}	t_mini_data;
+}	t_minidata;
 
 // libft_extended
 char	*ft_itoa_e(int n);
@@ -204,12 +202,11 @@ void	ft_delete_cmds_in_cmd_tab(t_cmd_tab *cmd_tab);
 int		check_unclosed_quotes(char *line);
 void	redirection_error(t_cmd *cmd, char *text);
 int		check_redirection_errors(t_cmd *cmd);
-int		is_empty_line(char *line);
+int		line_error(char *line);
 
 // exit_free.c
-void	check_exit(char *line);
-void	clean_minishell(t_mini_data *minidata);
-void	exit_minishell(t_mini_data *minidata, int exit_status);
+void	clean_minishell(t_minidata *minidata);
+void	exit_minishell(t_minidata *minidata, int exit_status);
 
 // expander_var.c
 char	*end_of_var(char *str);
@@ -220,7 +217,7 @@ char	*get_expanded_var(char *str, size_t *i, t_env_list *env_list);
 char	*expand_one_var_in_str(char *str, size_t *i, t_env_list *env_list);
 t_quote	in_which_quotes(char *str, size_t i);
 char	*expand_all_vars_in_str(char *str, t_env_list *env_list);
-void	expand_cmd(t_cmd *cmd, t_mini_data *minidata);
+void	expand_cmd(t_cmd *cmd, t_minidata *minidata);
 
 // get_prompt_errors.c
 int		is_var_in_env_list(t_env_list *env_list, char *var_name);
@@ -231,7 +228,7 @@ int		check_prompt_vars(t_env_list *env_list);
 char	*get_hostname(void);
 char	*get_user_and_computer(t_env_list *env_list);
 char	*get_relative_path(t_env_list *env_list);
-char	*get_prompt(t_mini_data *minidata);
+char	*get_prompt(t_minidata *minidata);
 
 // helpers.c
 void	print_execve_cmd(char	**execve_cmd);
@@ -243,12 +240,12 @@ void	unlink_heredoc_files(t_cmd_tab *cmd_tab);
 char	*expand_all_vars_in_heredoc_line(char *str, t_env_list *env_list);
 char	*create_and_open_heredoc_file(int i);
 char	*get_heredoc_file(char *eof, int i, t_env_list *env_list);
-void	expand_heredocs(t_cmd *cmd, t_mini_data *minidata);
+void	expand_heredocs(t_cmd *cmd, t_minidata *minidata);
 
 // make_cmd_paths.c
 char	*get_cmd_path(t_token *token, t_env_list *env_list);
 void	expand_token_cmd_path(t_token *token, t_env_list *env_list);
-void	make_cmd_paths(t_cmd_tab *cmd_tab, t_mini_data *minidata);
+void	make_cmd_paths(t_cmd_tab *cmd_tab, t_minidata *minidata);
 
 // make_execve_cmds.c
 int		count_cmd_length(t_cmd *cmd);
@@ -256,9 +253,9 @@ void	make_one_execve_cmd(t_cmd *cmd);
 void	make_execve_cmds(t_cmd_tab *cmd_tab);
 
 // parser.c
-void	handle_if_last_token_is_pipe(t_cmd *cmd, t_mini_data *minidata);
-int		parse_to_one_cmd(t_cmd *cmd, char **tokens_arr, t_mini_data *minidata);
-int		parser(t_cmd_tab *cmd_tab, char *line, t_mini_data *minidata);
+void	handle_if_last_token_is_pipe(t_cmd *cmd, t_minidata *minidata);
+int		parse_to_one_cmd(t_cmd *cmd, char **tokens_arr, t_minidata *minidata);
+int		parser(t_cmd_tab *cmd_tab, char *line, t_minidata *minidata);
 
 // splitter_handlers.c
 char	*handle_redirections(char *str, size_t *index);
@@ -278,17 +275,17 @@ char	**splitter(char *line);
 
 // EXECUTION //
 // exec functions
-void	ft_exec_input(t_cmd_tab *cmd_tab, t_mini_data *data);
-void	ft_exec_commands(t_cmd *cmd, t_mini_data *minidata);
-void	ft_execve(t_cmd *cmd, t_mini_data *minidata);
+void	ft_exec_input(t_cmd_tab *cmd_tab, t_minidata *data);
+void	ft_exec_commands(t_cmd *cmd, t_minidata *minidata);
+void	ft_execve(t_cmd *cmd, t_minidata *minidata);
 void	ft_select_built_cmd(t_cmd *cmd, t_env_list env_list);
 void	ft_cmd_error(t_cmd *cmd);
-void	ft_parent_process(t_exec_data *data, t_mini_data *minidata, pid_t pid);
+void	ft_parent_process(t_exec_data *data, t_minidata *minidata, pid_t pid);
 void	ft_init_exec_data(t_exec_data *exec_data, t_cmd_tab *tab);
 void	ft_exit_status(int *status);
 
 // exit status
-void	ft_update_exit_status(int *status, t_mini_data *minidata);
+void	ft_update_exit_status(int *status, t_minidata *minidata);
 
 // error exec functions
 int		ft_is_path_valid(const char *path);
@@ -344,7 +341,8 @@ int		ft_is_str_digit(char *str);
 int		ft_is_cmd_valid_export(t_cmd *cmd);
 int		ft_is_key_valid(char *str);
 char	*ft_extract_key(char *str);
-void	ft_exit_export(t_env_list *env_list, int is_child, int exit_code, int is_ident);
+void	ft_exit_export(t_env_list *env_list, int is_child, int exit_code,
+			int is_ident);
 // unset
 void	ft_unset(t_env_list *env_list, t_cmd *cmd, int is_child);
 // env
@@ -364,15 +362,16 @@ char	*ft_get_env(t_env_list *env_list, char *var_name);
 void	ft_remove_env_list(t_env_list *env_list);
 
 // Pre-processing
-void	ft_pre_exec_select_built_cmd(t_cmd *cmd, t_env_list	*env_list, t_exec_data *data);
+void	ft_pre_exec_select_built_cmd(t_cmd *cmd, t_env_list	*env_list,
+			t_exec_data *data);
 void	ft_pre_exec_redir_process_io(t_exec_data *data, t_cmd *cmd);
 void	ft_redir_original_io(t_cmd *cmd, int *ori_in, int *ori_out);
-int		ft_pre_exec(t_cmd_tab *tab, t_mini_data *minidata);
+int		ft_pre_exec(t_cmd_tab *tab, t_minidata *minidata);
 // Pre-processing utils
 int		ft_is_inbuilt(t_cmd *cmd);
 int		ft_has_in_redir(t_cmd *cmd);
 
 // Minidata
-void	ft_init_mini_data(t_mini_data *minidata, t_cmd_tab *cmd_tab, char **envp);
+void	ft_init_minidata(t_minidata *minidata, t_cmd_tab *cmd_tab, char **envp);
 
 #endif

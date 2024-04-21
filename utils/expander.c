@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:33:30 by mbartos           #+#    #+#             */
-/*   Updated: 2024/04/15 10:32:33 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 13:10:45 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,7 @@ char	*expand_all_vars_in_str(char *str, t_env_list *env_list)
  * 
  * @param cmd The command table to expand variables in.
  */
-void	expand_cmd(t_cmd *cmd, t_mini_data *minidata)
+void	expand_cmd(t_cmd *cmd, t_minidata *minidata)
 {
 	t_token		*token;
 	t_env_list	*env_list;

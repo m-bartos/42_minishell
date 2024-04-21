@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/06 15:24:00 by mbartos           #+#    #+#             */
-/*   Updated: 2024/04/19 22:33:54 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 13:10:45 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char	*get_relative_path(t_env_list *env_list)
 	return (relative_path);
 }
 
-char	*get_prompt(t_mini_data *minidata)
+char	*get_prompt(t_minidata *minidata)
 {
 	t_env_list	*env_list;
 	char		*user_computer;

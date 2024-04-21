@@ -6,26 +6,15 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 10:24:15 by mbartos           #+#    #+#             */
-/*   Updated: 2024/04/15 10:35:40 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/04/21 13:22:44 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	check_exit(char *line)
+void	clean_minishell(t_minidata *minidata)
 {
-	if (line == NULL || ft_strncmp(line, "exit", 5) == 0)
-	{
-		printf("exit\n");
-		free(line);
-		printf(RESET);
-		exit(0);
-	}
-}
-
-void	clean_minishell(t_mini_data *minidata)
-{
-	t_mini_data static	*static_minidata;
+	t_minidata static	*static_minidata;
 
 	if (minidata != NULL)
 	{
@@ -36,9 +25,9 @@ void	clean_minishell(t_mini_data *minidata)
 	ft_delete_cmds_in_cmd_tab(static_minidata->cmd_tab);
 }
 
-void	exit_minishell(t_mini_data *minidata, int exit_status)
+void	exit_minishell(t_minidata *minidata, int exit_status)
 {
-	t_mini_data static	*static_minidata;
+	t_minidata static	*static_minidata;
 
 	if (minidata != NULL)
 	{

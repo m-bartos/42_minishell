@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_execution_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:47:04 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/19 18:05:28 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/21 13:10:45 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*ft_extract_env_name(char *str)
  * variable is named "?" and its value is set to the exit status.
  */
 
-void	ft_update_exit_status(int *status, t_mini_data *minidata)
+void	ft_update_exit_status(int *status, t_minidata *minidata)
 {
 	char	*sta;
 	char	*env;
@@ -92,7 +92,7 @@ void	ft_update_exit_status(int *status, t_mini_data *minidata)
  *             and file descriptor information.
  */
 
-void	ft_parent_process(t_exec_data *data, t_mini_data *minidata, pid_t pid)
+void	ft_parent_process(t_exec_data *data, t_minidata *minidata, pid_t pid)
 {
 	int	status;
 	int	i;

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   minidata.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 18:08:20 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/20 10:43:03 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/04/21 13:10:53 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	ft_init_mini_data(t_mini_data *minidata, t_cmd_tab *cmd_tab,
+void	ft_init_minidata(t_minidata *minidata, t_cmd_tab *cmd_tab,
 	char *envp[])
 {
 	t_env_list	*env_list;
