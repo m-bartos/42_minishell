@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 10:17:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/04/21 20:22:21 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/13 16:37:36 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,8 +129,10 @@ char	*get_heredoc_file(char *eof, int i, t_env_list *env_list)
 	while (1)
 	{
 		line = readline("> ");
-		if (ft_strncmp(line, eof, ft_strlen(eof) + 1) == 0)
+		if (line == NULL || ft_strncmp(line, eof, ft_strlen(eof) + 1) == 0)
 		{
+			if (line == NULL)
+				ft_putstr_fd("Minishell warning: heredoc delimited by EOF\n", 1);
 			free(line);
 			break ;
 		}
