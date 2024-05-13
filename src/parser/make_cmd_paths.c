@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 09:12:15 by mbartos           #+#    #+#             */
-/*   Updated: 2024/04/21 20:22:31 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/13 15:38:25 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,15 +80,17 @@ void	expand_token_cmd_path(t_token *token, t_env_list *env_list)
 
 	if (token->text == NULL)
 		return ;
-	stat(token->text, &path_stat);
-	if (S_ISREG(path_stat.st_mode) == 0)
+	if (stat(token->text, &path_stat) == 0)
 	{
-		token->type = CMD_ERR;
-		if (token->text[0] == '.' || token->text[0] == '/')
+		if (S_ISREG(path_stat.st_mode) == 0)
+		{
+			token->type = CMD_ERR;
+			if (token->text[0] == '.' || token->text[0] == '/')
+				return ;
+		}
+		else if (access(token->text, F_OK | X_OK) == 0)
 			return ;
 	}
-	else if (access(token->text, F_OK | X_OK) == 0)
-		return ;
 	cmd_path = get_cmd_path(token, env_list);
 	if (cmd_path == NULL)
 		token->type = CMD_ERR;
