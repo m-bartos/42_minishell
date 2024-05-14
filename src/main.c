@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/05/14 16:01:39 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/14 17:36:30 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	main(int argc __attribute__((unused)), char **argv __attribute__((unused)),
 	{
 		disable_ctrl_c_output();
 		setup_signal_handling();
-		g_sigint_received = 0;
 		line = ft_read_line(&minidata);
 		if (line_error(line))
 			continue ;
@@ -52,6 +51,11 @@ int	main(int argc __attribute__((unused)), char **argv __attribute__((unused)),
 			continue ;
 		if (parser(&cmd_tab, line, &minidata) == -1)
 			continue ;
+		if (g_sigint_received == 130)
+		{
+			clean_minishell(NULL);
+			continue ;
+		}
 		if (!ft_pre_exec(&cmd_tab, &minidata))
 			ft_exec_input(&cmd_tab, &minidata);
 		clean_minishell(NULL);

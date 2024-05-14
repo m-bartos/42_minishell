@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 10:17:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/05/13 16:37:36 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/14 19:47:37 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	*expand_all_vars_in_heredoc_line(char *str, t_env_list *env_list)
  * @param index The index used to create a unique filename for here-doc file.
  * @return The filename of the created here-doc file.
  */
-char	*create_and_open_heredoc_file(int i)
+char	*create_heredoc_filename(int i)
 {
 	char	*filename;
 	char	*str_index;
@@ -117,23 +117,23 @@ char	*create_and_open_heredoc_file(int i)
  * @param index The index used to create a unique filename for here-doc file.
  * @return The filename of the created here-doc file.
  */
-char	*get_heredoc_file(char *eof, int i, t_env_list *env_list)
+void	get_heredoc_file(char *eof, char *filename, t_env_list *env_list)
 {
-	char	*filename;
 	char	*old_line;
 	char	*line;
 	int		fd;
 
-	filename = create_and_open_heredoc_file(i);
 	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	clean_cmd(NULL, fd, eof);
 	while (1)
 	{
 		line = readline("> ");
 		if (line == NULL || ft_strncmp(line, eof, ft_strlen(eof) + 1) == 0)
 		{
 			if (line == NULL)
-				ft_putstr_fd("Minishell warning: heredoc delimited by EOF\n", 1);
+				ft_putstr_fd("Minishell: heredoc delimited by EOF\n", 1);
 			free(line);
+			line = NULL;
 			break ;
 		}
 		old_line = line;
@@ -143,9 +143,42 @@ char	*get_heredoc_file(char *eof, int i, t_env_list *env_list)
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
-	close(fd);
-	free(eof);
-	return (filename);
+	// close(fd);
+	// free(eof);
+}
+
+void	fill_heredoc_file(char *eof, char *filename, t_env_list *env_list)
+{
+	int	pid;
+	int	status; 
+
+	status = 0;
+	pid = fork();
+	if (pid == 0)
+	{
+		signal(SIGINT, handle_sigint_heredoc);
+		get_heredoc_file(eof, filename, env_list);
+		clean_cmd(NULL, 0, NULL);
+		exit_minishell(NULL, 0);
+	}
+	signal(SIGINT, handle_sigint_heredoc_parent);
+	waitpid(pid, &status, 0);
+	signal(SIGINT, sigint_handler);
+}
+
+int	set_heredoc_exit_status(t_minidata *minidata)
+{
+	int	status;
+
+	status = 0;
+	if (g_sigint_received == 130)
+	{
+		signal(SIGINT, sigint_handler);
+		status = g_sigint_received;
+		ft_update_exit_status(&status, minidata);
+		return (1);
+	}
+	return (0);
 }
 
 /**
@@ -177,8 +210,12 @@ void	expand_heredocs(t_cmd *cmd, t_minidata *minidata)
 			free(token->text);
 			token->text = ft_strdup_e("<");
 			token->type = R_IN;
-			token->next->text = get_heredoc_file(next_token_text, i, env_list);
+			token->next->text = create_heredoc_filename(i);
 			token->next->type = R_INFILE;
+			fill_heredoc_file(next_token_text, token->next->text, env_list);
+			free(next_token_text);
+			if (set_heredoc_exit_status(minidata) == 1)
+				return ;
 		}
 		token = token->next;
 		i++;
