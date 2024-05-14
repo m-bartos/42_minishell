@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 20:38:38 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/14 17:04:27 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -240,8 +240,8 @@ void	print_cmd_tab(t_cmd_tab *cmd_tab);
 // here_doc.c
 void	unlink_heredoc_files(t_cmd_tab *cmd_tab);
 char	*expand_all_vars_in_heredoc_line(char *str, t_env_list *env_list);
-char	*create_and_open_heredoc_file(int i);
-char	*get_heredoc_file(char *eof, int i, t_env_list *env_list);
+char	*create_heredoc_filename(int i);
+void	get_heredoc_file(char *eof, char *filename, t_env_list *env_list);
 void	expand_heredocs(t_cmd *cmd, t_minidata *minidata);
 
 // make_cmd_paths.c
@@ -313,6 +313,8 @@ int		ft_has_out_redir(t_cmd *cmd);
 void	sigint_handler(int sig);
 void	setup_signal_handling(void);
 void	disable_ctrl_c_output(void);
+void	handle_sigint_heredoc(int sig_num);
+void	handle_sigint_heredoc_parent(int sig_num);
 
 // Built in cmds;
 // utils

@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 10:17:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/05/13 16:37:36 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/14 17:10:06 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	*expand_all_vars_in_heredoc_line(char *str, t_env_list *env_list)
  * @param index The index used to create a unique filename for here-doc file.
  * @return The filename of the created here-doc file.
  */
-char	*create_and_open_heredoc_file(int i)
+char	*create_heredoc_filename(int i)
 {
 	char	*filename;
 	char	*str_index;
@@ -117,14 +117,12 @@ char	*create_and_open_heredoc_file(int i)
  * @param index The index used to create a unique filename for here-doc file.
  * @return The filename of the created here-doc file.
  */
-char	*get_heredoc_file(char *eof, int i, t_env_list *env_list)
+void	get_heredoc_file(char *eof, char *filename, t_env_list *env_list)
 {
-	char	*filename;
 	char	*old_line;
 	char	*line;
 	int		fd;
 
-	filename = create_and_open_heredoc_file(i);
 	fd = open(filename, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	while (1)
 	{
@@ -145,7 +143,23 @@ char	*get_heredoc_file(char *eof, int i, t_env_list *env_list)
 	}
 	close(fd);
 	free(eof);
-	return (filename);
+}
+
+void	fill_heredoc_file(char *eof, char *filename, t_env_list *env_list)
+{
+	int	pid;
+	int	status;
+
+	status = 0;
+	pid = fork();
+	if (pid == 0)
+	{
+		signal(SIGINT, handle_sigint_heredoc);
+		get_heredoc_file(eof, filename, env_list);
+		exit_minishell(NULL, 0);
+	}
+	signal(SIGINT, handle_sigint_heredoc_parent);
+	waitpid(pid, &status, 0);
 }
 
 /**
@@ -177,10 +191,17 @@ void	expand_heredocs(t_cmd *cmd, t_minidata *minidata)
 			free(token->text);
 			token->text = ft_strdup_e("<");
 			token->type = R_IN;
-			token->next->text = get_heredoc_file(next_token_text, i, env_list);
+			token->next->text = create_heredoc_filename(i);
 			token->next->type = R_INFILE;
+			fill_heredoc_file(next_token_text, token->next->text, env_list);
+			if (g_sigint_received == 130)
+			{
+				signal(SIGINT, sigint_handler);
+				return ;
+			}
 		}
 		token = token->next;
 		i++;
 	}
+	signal(SIGINT, sigint_handler);
 }
