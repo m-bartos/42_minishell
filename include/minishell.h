@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/05/14 17:04:27 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/14 19:41:01 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,7 @@ int		line_error(char *line);
 void	init_minishell(t_minidata *minidata, t_cmd_tab *cmd_tab, char **envp);
 void	clean_minishell(t_minidata *minidata);
 void	exit_minishell(t_minidata *minidata, int exit_status);
+void	clean_cmd(t_cmd *cmd, int fd, char *eof);
 
 // expander_var.c
 char	*end_of_var(char *str);

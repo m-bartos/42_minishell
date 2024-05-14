@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/05/14 16:54:31 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/14 17:36:30 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,13 @@ int	main(int argc __attribute__((unused)), char **argv __attribute__((unused)),
 	char		*line;
 	t_cmd_tab	cmd_tab;
 	t_minidata	minidata;
-	int status;
 
-	status = 0;
 	init_minishell(&minidata, &cmd_tab, envp);
 	line = NULL;
 	while (1)
 	{
 		disable_ctrl_c_output();
 		setup_signal_handling();
-		g_sigint_received = 0;
 		line = ft_read_line(&minidata);
 		if (line_error(line))
 			continue ;
@@ -56,9 +53,6 @@ int	main(int argc __attribute__((unused)), char **argv __attribute__((unused)),
 			continue ;
 		if (g_sigint_received == 130)
 		{
-			status = g_sigint_received;
-			ft_update_exit_status(&status, &minidata);
-			g_sigint_received = 0;
 			clean_minishell(NULL);
 			continue ;
 		}

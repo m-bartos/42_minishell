@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:49:43 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/05/14 17:06:53 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/14 19:41:59 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,9 @@ void	handle_sigint_heredoc(int sig_num)
 {
 	if (sig_num == SIGINT)
 	{
-		write(STDOUT, "\n", 1);
+		g_sigint_received = 99;
+		write(STDOUT_FILENO, "\n", 1);
+		clean_cmd(NULL, 0, NULL);
 		exit_minishell(NULL, 130);
 	}
 }
