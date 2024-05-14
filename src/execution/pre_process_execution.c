@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_process_execution.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 09:19:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 20:21:50 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/14 17:50:28 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	ft_pre_exec(t_cmd_tab *tab, t_minidata *minidata)
 	envs = minidata->env_list;
 	if (tab->size == 1 && ft_is_inbuilt(cmd))
 	{
-		ft_redirect_io(cmd, &data.fd_in, &data.fd_out);
+		ft_pre_redirect_io(cmd, &data.fd_in, &data.fd_out);
 		ft_pre_exec_redir_process_io(&data, cmd);
 		ft_pre_exec_select_built_cmd(cmd, envs, &data);
 		ft_redir_original_io(&data.ori_fd_in, &data.ori_fd_out);
