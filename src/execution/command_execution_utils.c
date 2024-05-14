@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command_execution_utils.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 10:47:04 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 20:20:29 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/14 15:38:31 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,7 @@ void	ft_parent_process(t_exec_data *data, t_minidata *minidata)
 
 	status = 0;
 	i = 0;
+	signal(SIGINT, SIG_IGN);
 	while (i < data->num_children)
 	{
 		waitpid(data->child_pids[i], &status, 0);
