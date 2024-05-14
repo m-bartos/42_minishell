@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/05/14 15:37:45 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/05/14 16:01:39 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,18 @@ char	*ft_read_line(t_minidata *minidata)
 {
 	char	*prompt;
 	char	*line;
+	int		status;
 
+	status = 0;
 	prompt = get_prompt(minidata);
 	line = readline(prompt);
 	free(prompt);
+	if (g_sigint_received == 130)
+	{
+		status = g_sigint_received;
+		ft_update_exit_status(&status, minidata);
+		g_sigint_received = 0;
+	}
 	return (line);
 }
 
@@ -36,8 +44,7 @@ int	main(int argc __attribute__((unused)), char **argv __attribute__((unused)),
 	{
 		disable_ctrl_c_output();
 		setup_signal_handling();
-		if (g_sigint_received)
-			g_sigint_received = 0;
+		g_sigint_received = 0;
 		line = ft_read_line(&minidata);
 		if (line_error(line))
 			continue ;
