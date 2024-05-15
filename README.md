@@ -1,5 +1,7 @@
 # 42_minishell
-This project is about creating a simple shell. Our own little bash. Team project with Orezek.
+This project is about creating a simple shell. Our own little bash with limited functionalities.
+
+Team project with [Orezek](https://github.com/orezek) at 42Prague.
 
 ## What kind of features our minishell have?
 * displays prompt as a bash - with path to current directory
@@ -8,10 +10,9 @@ This project is about creating a simple shell. Our own little bash. Team project
 * execute commands as bash with argumets - `ls`, `cat`, `head`, `git` ...
 * launch executables - try launch `./minishell` in `./minishell`
 * handle environmental variables
-* woking expansion of environmental variables ($)
-* working built-ins
-* handle CTRL-C, CTRL-D, CTRL-\ like bash
-* builtins:
+* woking expansion of environmental variables ($) as bash
+* handle CTRL-C, CTRL-D, CTRL-\ as bash
+* working builtins:
 	- `echo` with option `-n`
 	- `cd` with only a relative or absolute path
 	- `pwd` with no options
@@ -20,18 +21,12 @@ This project is about creating a simple shell. Our own little bash. Team project
 	- `env` with no options or arguments
 	- `exit` with no options
 
-
-## Requirements
-
-
-* NO BONUS - Cannot handle &&, || and wildcards *
+## What our minishell cannot do?
 * Cannot handle open quotes or open double quotes
 * Cannot handle special characters such as backslash \ or semicolon ;
+* NO BONUS - Cannot handle &&, || and wildcards *
 
-## Implementation
-
-
-## How to use
+## How to run minishell
 * You have to have readline installed. If not, install it with
 ```
 sudo apt install libreadline-dev
@@ -47,8 +42,24 @@ Make
 
 ## Examples
 
-## How to debug - valgrind
-Use this prompt to check for leaks, open fds, etc.:
+## Aditional test cases
+`cat | cat` - should hang and after pressing CTRL+C should end execution and show prompt again
+`cat /dev/urandom | head -5`
+
+
+```
+/bin/ls src
+/bin/pwd hello
+/bin/date
+/usr/bin/head -n 10 Makefile
+/bin/grep # Makefile
+/usr/bin/uname -a
+/usr/bin/head Makefile
+/usr/bin/tail Makefile
+```
+
+## How to debug? Use valgrind!
+Use this prompt to check for leaks, open fds, etc. (It requires minishell.supp file in minishell root directory)
 ```
 valgrind -s --leak-check=full --show-reachable=yes --error-limit=no --suppressions=minishell.supp --trace-children=yes --track-fds=yes ./minishell
 ```
@@ -65,5 +76,5 @@ valgrind -s --leak-check=full --show-reachable=yes --error-limit=no --suppressio
 * [orezek](https://github.com/orezek) - execution, built-ins, signals, environmental variables
 
 ## Thanks and kudos
-* Thanks [LukasKuhn](https://github.com/LucasKuhn) for the [minishell tester](https://github.com/LucasKuhn/minishell_tester) 
-* Appreciate the project discussions with my fellow 42Prague students - [loudapet](https://github.com/loudapet), [andreaulicna](https://github.com/andreaulicna) - Thanks you for your insights!
+* Thanks [LukasKuhn](https://github.com/LucasKuhn) for the [minishell tester](https://github.com/LucasKuhn/minishell_tester)
+* Appreciate the project discussions, testing and hints provided by our fellow 42Prague students - [andreaulicna](https://github.com/andreaulicna), [loudapet](https://github.com/loudapet) - Thanks you for your insights!
