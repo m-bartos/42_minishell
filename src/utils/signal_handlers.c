@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/13 10:49:43 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/05/14 19:41:59 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/15 09:27:45 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ void	setup_signal_handling(void)
 	sigaction(SIGINT, &sa, NULL);
 	sa.sa_handler = SIG_IGN;
 	sigaction(SIGQUIT, &sa, NULL);
+	disable_ctrl_c_output();
 }
 
 void	disable_ctrl_c_output(void)
@@ -45,19 +46,16 @@ void	disable_ctrl_c_output(void)
 	tcsetattr(STDIN_FILENO, TCSANOW, &term);
 }
 
-void	handle_sigint_heredoc(int sig_num)
+void	handle_sigint_heredoc(int sig)
 {
-	if (sig_num == SIGINT)
-	{
-		g_sigint_received = 99;
-		write(STDOUT_FILENO, "\n", 1);
-		clean_cmd(NULL, 0, NULL);
-		exit_minishell(NULL, 130);
-	}
+	(void)sig;
+	write(STDOUT_FILENO, "\n", 1);
+	clean_cmd(NULL, 0, NULL);
+	exit_minishell(NULL, 130);
 }
 
-void	handle_sigint_heredoc_parent(int sig_num)
+void	handle_sigint_heredoc_parent(int sig)
 {
-	if (sig_num == SIGINT)
-		g_sigint_received = 130;
+	(void)sig;
+	g_sigint_received = 130;
 }
