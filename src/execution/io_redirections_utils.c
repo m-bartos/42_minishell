@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:11:22 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/05/15 10:46:02 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/05/15 11:32:29 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_has_out_redir(t_cmd *cmd)
 	return (0);
 }
 
-int	ft_check_valid_infile(t_cmd *cmd, t_env_list *envs)
+int	ft_pre_exec_check_valid_infile(t_cmd *cmd, t_env_list *envs)
 {
 	t_token	*token;
 
@@ -84,4 +84,30 @@ int	ft_check_valid_infile(t_cmd *cmd, t_env_list *envs)
 		token = token->next;
 	}
 	return (0);
+}
+
+void	ft_exec_check_valid_infile(t_exec_data *data, t_cmd *cmd)
+{
+	t_token	*token;
+
+	token = cmd->first_token;
+	while (token)
+	{
+		if (token->type == R_INFILE)
+		{
+			if (access(token->text, F_OK | R_OK) == 0)
+			{
+				token = token->next;
+				continue ;
+			}
+			else
+			{
+				perror(token->text);
+				close(data->ori_fd_in);
+				close(data->ori_fd_out);
+				exit_minishell(NULL, EXIT_FAILURE);
+			}
+		}
+		token = token->next;
+	}
 }

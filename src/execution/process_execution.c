@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   process_execution.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/02 12:35:56 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 20:21:54 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/15 11:29:40 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	ft_redir_process_io(t_exec_data *data, t_cmd *cmd)
 void	ft_child_process(t_exec_data *data, t_minidata *minidata)
 {
 	free(data->child_pids);
+	ft_exec_check_valid_infile(data, data->cmd);
 	ft_redirect_io(data->cmd, &data->fd_in, &data->fd_out);
 	ft_redir_process_io(data, data->cmd);
 	ft_exec_commands(data->cmd, minidata);
