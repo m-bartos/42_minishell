@@ -12,11 +12,17 @@ This project is about creating a simple shell. Our own little bash. Team project
 
 ## How to use
 * You have to have readline installed. If not, install it with
-```sudo apt install libreadline-dev```
+```
+sudo apt install libreadline-dev
+```
 * Make the minishell with command:
-```Make```
+```
+Make
+```
 * Run the program:
-```./minishell```
+```
+./minishell
+```
 
 ## Examples
 
