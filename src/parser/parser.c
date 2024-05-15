@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:20:49 by mbartos           #+#    #+#             */
-/*   Updated: 2024/05/14 19:56:15 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/15 10:07:34 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	parse_to_one_cmd(t_cmd *cmd, char **tokens_arr, t_minidata *minidata)
 	expand_cmd(cmd, minidata);
 	assign_types_to_tokens(cmd);
 	remove_quotes_in_cmd_tokens(cmd);
-	if (check_redirection_errors(cmd) == -1)
+	if (check_redirection_errors(cmd, minidata) == -1)
 		return (-1);
 	clean_cmd(cmd, 0, NULL);
 	expand_heredocs(cmd, minidata);
