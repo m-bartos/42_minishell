@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/05/14 19:41:01 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/15 09:15:23 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,11 +239,15 @@ void	print_cmd(t_cmd *ptr_cmd_tab);
 void	print_cmd_tab(t_cmd_tab *cmd_tab);
 
 // here_doc.c
+void	fill_heredoc_file(char *eof, char *filename, t_env_list *env_list);
+void	process_heredoc(char *eof, char *filename, t_env_list *env_list);
+void	expand_heredocs(t_cmd *cmd, t_minidata *minidata);
+
+// here_doc_utils.c
 void	unlink_heredoc_files(t_cmd_tab *cmd_tab);
 char	*expand_all_vars_in_heredoc_line(char *str, t_env_list *env_list);
 char	*create_heredoc_filename(int i);
-void	get_heredoc_file(char *eof, char *filename, t_env_list *env_list);
-void	expand_heredocs(t_cmd *cmd, t_minidata *minidata);
+int		set_heredoc_exit_status(t_minidata *minidata);
 
 // make_cmd_paths.c
 char	*get_cmd_path(t_token *token, t_env_list *env_list);
