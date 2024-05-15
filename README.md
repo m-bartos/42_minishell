@@ -11,9 +11,12 @@ This project is about creating a simple shell. Our own little bash. Team project
 
 
 ## How to use
-* You have to have readline installed. If not, install it with ```sudo apt install libreadline-dev```
-* Make the minishell with command: ```Make```
-* Run the program: ```./minishell```
+* You have to have readline installed. If not, install it with
+```sudo apt install libreadline-dev```
+* Make the minishell with command:
+```Make```
+* Run the program:
+```./minishell```
 
 ## Examples
 
@@ -31,8 +34,8 @@ valgrind -s --leak-check=full --show-reachable=yes --error-limit=no --suppressio
 - `--track-fds=yes` tracks open and closed file descriptors
 
 ## Contributors
-* m-bartos - parser - splitter, expander, heredoc; prompt construction
-* orezek - execution, built-ins, signals, environmental variables
+* [m-bartos](https://github.com/m-bartos) - parser - splitter, expander, heredoc; prompt construction
+* [orezek](https://github.com/orezek) - execution, built-ins, signals, environmental variables
 
 ## Thanks and kudos
-* Appreciate the project discussions with my fellow 42Prague students - [loudapet](github.com/loudapet), andreaulicna - Thanks you for your insights!
+* Appreciate the project discussions with my fellow 42Prague students - [loudapet](https://github.com/loudapet), [andreaulicna](https://github.com/andreaulicna) - Thanks you for your insights!
