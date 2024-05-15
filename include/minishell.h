@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
+/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/05/15 11:33:24 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/05/15 13:54:28 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,7 +235,7 @@ char	*get_prompt(t_minidata *minidata);
 
 // helpers.c
 void	print_execve_cmd(char	**execve_cmd);
-void	print_cmd(t_cmd *ptr_cmd_tab);
+void	print_cmd(t_cmd *cmd);
 void	print_cmd_tab(t_cmd_tab *cmd_tab);
 
 // here_doc.c
