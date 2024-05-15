@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/05/15 09:15:23 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/15 10:07:51 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,8 +201,8 @@ void	ft_delete_cmds_in_cmd_tab(t_cmd_tab *cmd_tab);
 
 // error_check.c
 int		check_unclosed_quotes(char *line);
-void	redirection_error(t_cmd *cmd, char *text);
-int		check_redirection_errors(t_cmd *cmd);
+void	redirection_error(t_cmd *cmd, char *text, t_minidata *minidata);
+int		check_redirection_errors(t_cmd *cmd, t_minidata *minidata);
 int		line_error(char *line);
 
 // init_free_exit.c

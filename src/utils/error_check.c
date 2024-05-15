@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/01 10:29:43 by mbartos           #+#    #+#             */
-/*   Updated: 2024/04/21 20:21:02 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/15 10:07:12 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,12 @@ int	check_unclosed_quotes(char *line)
  * @param cmd The command table being processed.
  * @param text The text of the unexpected token causing the error.
  */
-void	redirection_error(t_cmd *cmd, char *text)
+void	redirection_error(t_cmd *cmd, char *text, t_minidata *minidata)
 {
+	int	status;
+
+	status = 2;
+	ft_update_exit_status(&status, minidata);
 	ft_putstr_fd("minishell: syntax error near unexpected token `", 2);
 	ft_putstr_fd(text, STDERR);
 	ft_putstr_fd("'\n", STDERR);
@@ -70,13 +74,13 @@ void	redirection_error(t_cmd *cmd, char *text)
  * 
  * @param cmd The command table to check for redirection errors.
  */
-int	check_redirection_errors(t_cmd *cmd)
+int	check_redirection_errors(t_cmd *cmd, t_minidata *minidata)
 {
 	t_token	*token;
 
 	if (is_pipe_type(cmd->first_token))
 	{
-		redirection_error(cmd, cmd->first_token->text);
+		redirection_error(cmd, cmd->first_token->text, minidata);
 		return (-1);
 	}
 	token = cmd->first_token->next;
@@ -86,14 +90,14 @@ int	check_redirection_errors(t_cmd *cmd)
 				&& is_redirection_type(token->prev))
 			|| (is_pipe_type(token) && is_pipe_type(token->prev)))
 		{
-			redirection_error(cmd, token->text);
+			redirection_error(cmd, token->text, minidata);
 			return (-1);
 		}
 		token = token->next;
 	}
 	if (is_redirection_type(cmd->last_token))
 	{
-		redirection_error(cmd, "newline");
+		redirection_error(cmd, "newline", minidata);
 		return (-1);
 	}
 	return (0);
