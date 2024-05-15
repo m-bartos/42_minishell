@@ -6,19 +6,9 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 10:17:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/05/14 19:47:37 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/15 09:10:33 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-/**
- * @file here_doc.c
- * @brief Functions for handling here-documents in a command table.
- *
- * This file contains functions related to here-documents, a feature in 
- * shell scripting where input is passed into a command from a document 
- * specified within the script itself.
- * Functions here handle the creation, expansion, and cleanup of here-documents.
- */
 
 #include "minishell.h"
 
@@ -62,6 +52,7 @@ void	unlink_heredoc_files(t_cmd_tab *cmd_tab)
  * corresponding values.
  *
  * @param str The line of here-doc input to expand environment variables in.
+ * @param env_list: A linked list containing environment variables.
  * @return The line with expanded environment variables.
  */
 char	*expand_all_vars_in_heredoc_line(char *str, t_env_list *env_list)
@@ -107,15 +98,15 @@ char	*create_heredoc_filename(int i)
 }
 
 /**
- * @brief Get the filename and content of a here-doc file based on user input.
+ * @brief Reads user input for heredoc until EOF and writes to a file.
  *
- * This function prompts the user to input lines for a here-doc until
- * the specified end-of-file (eof) string is encountered. It creates a temporary
- * file to store the here-doc content and returns its filename.
+ * This function opens the specified file for writing, reads lines of input from
+ * the user until the EOF delimiter is encountered, expands env variables
+ * within each line, and writes the processed lines to the file.
  *
- * @param eof The end-of-file string marking the end of here-doc input.
- * @param index The index used to create a unique filename for here-doc file.
- * @return The filename of the created here-doc file.
+ * @param eof: The end-of-file heredoc delimiter string.
+ * @param filename: The filename where the heredoc content will be written.
+ * @param env_list: A linked list containing environment variables.
  */
 void	get_heredoc_file(char *eof, char *filename, t_env_list *env_list)
 {
@@ -143,14 +134,23 @@ void	get_heredoc_file(char *eof, char *filename, t_env_list *env_list)
 		write(fd, line, ft_strlen(line));
 		free(line);
 	}
-	// close(fd);
-	// free(eof);
 }
 
+/**
+ * @brief Handles the creation and population of a heredoc file.
+ *
+ * This function forks a child process to manage the heredoc input and writing
+ * to the specified file. It sets up appropriate signal handlers for both the
+ * child and parent processes, and waits for the child process to complete.
+ *
+ * @param eof: The end-of-file delimiter string for the heredoc input.
+ * @param filename: The filename where the heredoc content will be written.
+ * @param env_list: A linked list containing environment variables.
+ */
 void	fill_heredoc_file(char *eof, char *filename, t_env_list *env_list)
 {
 	int	pid;
-	int	status; 
+	int	status;
 
 	status = 0;
 	pid = fork();
@@ -166,6 +166,16 @@ void	fill_heredoc_file(char *eof, char *filename, t_env_list *env_list)
 	signal(SIGINT, sigint_handler);
 }
 
+/**
+ * @brief Updates the exit status of the shell based on heredoc termination.
+ *
+ * This function checks if a SIGINT signal was received during heredoc process
+ * and updates the shell's exit status accordingly. It restores the default
+ * signal handler and returns a 1 if the SIGINT signal was received.
+ *
+ * @param minidata: A structure containing shell-related data.
+ * @return 1 if SIGINT was received, 0 otherwise.
+ */
 int	set_heredoc_exit_status(t_minidata *minidata)
 {
 	int	status;
@@ -182,15 +192,16 @@ int	set_heredoc_exit_status(t_minidata *minidata)
 }
 
 /**
- * @brief Expands here-documents in a command struct by replacing them with file
- * input tokens.
+ * @brief Processes and expands heredoc tokens within a command.
  *
- * This function iterates through the tokens of a command, identifying pairs of
- * tokens representing here-documents and their respective end-of-file markers.
- * For each pair found, it replaces the here-doc token with an input redirection
- * token pointing to a temporary file containing the here-doc content.
+ * This function iterates through the tokens in the command. It replaces
+ * the heredoc token with a file redirection token, creates a heredoc file with
+ * the specified content, and updates the filename token with the created file's
+ * name. The function also checks and updates the shell's exit status based on 
+ * the heredoc processing outcome.
  *
- * @param cmd The command whose here-documents are to be expanded.
+ * @param cmd: A pointer to the cmd structure containing the tokens to process.
+ * @param minidata: A pointer to the structure containing shell-related data.
  */
 void	expand_heredocs(t_cmd *cmd, t_minidata *minidata)
 {
