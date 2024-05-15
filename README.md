@@ -44,10 +44,9 @@ Make
 
 ## Aditional test cases
 `cat | cat` - should hang and after pressing CTRL+C should end execution and show prompt again
-`cat /dev/urandom | head -5`
-
 
 ```
+cat /dev/urandom | head -5
 /bin/ls src
 /bin/pwd hello
 /bin/date
@@ -70,6 +69,13 @@ valgrind -s --leak-check=full --show-reachable=yes --error-limit=no --suppressio
 - `--suppressions=minishell.supp` suppresses memory leaks from in-built functions (readline and add_history)
 - `--trace-children=yes` checks memory leaks in child process too
 - `--track-fds=yes` tracks open and closed file descriptors
+
+## What we learned during coding minishell
+* Understand bash better, how it works underneath
+* Better understanding of processes, forks, wait, waitpid, exit statuses, etc.
+* Learned what signals are and how to handle them
+* Learned to use static variable within clean functions to store a pointer to a struct for later use (see for example the exit_minishell() function)
+* Become more familiar with structs and linked lists
 
 ## Contributors
 * [m-bartos](https://github.com/m-bartos) - parser - splitter, expander, heredoc; prompt construction
