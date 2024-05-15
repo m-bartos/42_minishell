@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/18 09:12:15 by mbartos           #+#    #+#             */
-/*   Updated: 2024/05/13 15:38:25 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/15 13:59:23 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	expand_token_cmd_path(t_token *token, t_env_list *env_list)
 	char		*cmd_path;
 	struct stat	path_stat;
 
-	if (token->text == NULL)
+	if (token->text == NULL || token->text[0] == '\0')
 		return ;
 	if (stat(token->text, &path_stat) == 0)
 	{
