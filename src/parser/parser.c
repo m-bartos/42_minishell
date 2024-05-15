@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 14:20:49 by mbartos           #+#    #+#             */
-/*   Updated: 2024/05/15 10:07:34 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/15 16:18:27 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,16 @@ void	handle_if_last_token_is_pipe(t_cmd *cmd, t_minidata *minidata)
 	while (is_pipe_type(cmd->last_token))
 	{
 		line_heredoc = readline("> ");
+		if (line_heredoc == NULL)
+		{
+			ft_putstr_fd("Minishell: syntax error: unexpected EOF\n", 2);
+			ft_putstr_fd("exit\n", 1);
+			clean_cmd(cmd, 0, NULL);
+			clean_cmd(NULL, 0, NULL);
+			exit_minishell(NULL, 2);
+		}
+		if (line_error(line_heredoc))
+			continue ;
 		tokens_arr = splitter(line_heredoc);
 		free(line_heredoc);
 		parse_to_one_cmd(&cmd_add, tokens_arr, minidata);
