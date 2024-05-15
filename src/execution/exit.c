@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 12:39:39 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 20:23:21 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/15 13:34:19 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ int	ft_convert_arg_number(char *arg, unsigned int *arg_number)
  * @param arg_number Pointer to store the numeric argument value.
  */
 
-void	ft_echo_cmd_size_2(t_cmd *cmd, t_env_list *env_list,
+void	ft_exit_cmd_size_2(t_cmd *cmd, t_env_list *env_list,
 		unsigned int *arg_number, t_exec_data *data)
 {
 	char				*arg;
@@ -77,8 +77,11 @@ void	ft_echo_cmd_size_2(t_cmd *cmd, t_env_list *env_list,
 	arg = cmd->execve_cmd[1];
 	if (!ft_is_arg_number(arg))
 	{
-		ft_putstr_fd(" numeric argument required\n", STDERR_FILENO);
+		ft_putstr_fd("exit\n", STDOUT_FILENO);
+		ft_putstr_fd("Minishell: exit: ", STDERR_FILENO);
+		ft_putstr_fd("numeric argument required\n", STDERR_FILENO);
 		ft_add_env(env_list, "?=2");
+		exit_minishell(NULL, 2);
 	}
 	else
 	{
@@ -128,9 +131,11 @@ void	ft_exit_minishell(t_cmd *cmd, t_env_list *env_list, t_exec_data *data)
 		exit_minishell(NULL, EXIT_SUCCESS);
 	}
 	else if (cmd->size == 2)
-		ft_echo_cmd_size_2(cmd, env_list, &arg_number, data);
+		ft_exit_cmd_size_2(cmd, env_list, &arg_number, data);
 	else if (cmd->size > 2)
 	{
+		ft_putstr_fd("exit\n", STDOUT_FILENO);
+		ft_putstr_fd("Minishell: exit: ", STDERR_FILENO);
 		ft_putstr_fd(" too many arguments\n", STDERR_FILENO);
 		ft_add_env(env_list, "?=1");
 	}
