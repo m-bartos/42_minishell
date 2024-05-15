@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 16:24:52 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/05/15 10:07:51 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/15 10:45:07 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -313,6 +313,7 @@ void	ft_redir_process_io(t_exec_data *data, t_cmd *cmd);
 
 // Redirection utils
 int		ft_has_out_redir(t_cmd *cmd);
+int		ft_check_valid_infile(t_cmd *cmd, t_env_list *envs);
 
 // Signals
 void	sigint_handler(int sig);

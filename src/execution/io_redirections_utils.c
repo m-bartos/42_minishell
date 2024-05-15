@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   io_redirections_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
+/*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:11:22 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/04/21 20:21:38 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/15 10:46:02 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,32 @@ int	ft_has_out_redir(t_cmd *cmd)
 	{
 		if (token->type == R_OUT || token->type == R_OUT_APP)
 			return (1);
+		token = token->next;
+	}
+	return (0);
+}
+
+int	ft_check_valid_infile(t_cmd *cmd, t_env_list *envs)
+{
+	t_token	*token;
+
+	token = cmd->first_token;
+	while (token)
+	{
+		if (token->type == R_INFILE)
+		{
+			if (access(token->text, F_OK | R_OK) == 0)
+			{
+				token = token->next;
+				continue ;
+			}
+			else
+			{
+				perror(token->text);
+				ft_add_env(envs, "?=1");
+				return (1);
+			}
+		}
 		token = token->next;
 	}
 	return (0);
