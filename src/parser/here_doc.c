@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/09 10:17:25 by mbartos           #+#    #+#             */
-/*   Updated: 2024/05/15 09:15:38 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/15 09:19:05 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,26 +95,24 @@ void	process_heredoc(char *eof, char *filename, t_env_list *env_list)
  */
 void	expand_heredocs(t_cmd *cmd, t_minidata *minidata)
 {
-	t_env_list	*env_list;
 	t_token		*token;
-	char		*next_token_text;
+	char		*eof;
 	int			i;
 
-	env_list = minidata->env_list;
 	i = 0;
 	token = cmd->first_token;
 	while (token != NULL)
 	{
 		if (token->type == HERE_DOC && token->next->type == HERE_DOC_EOF)
 		{
-			next_token_text = token->next->text;
+			eof = token->next->text;
 			free(token->text);
 			token->text = ft_strdup_e("<");
 			token->type = R_IN;
 			token->next->text = create_heredoc_filename(i);
 			token->next->type = R_INFILE;
-			process_heredoc(next_token_text, token->next->text, env_list);
-			free(next_token_text);
+			process_heredoc(eof, token->next->text, minidata->env_list);
+			free(eof);
 			if (set_heredoc_exit_status(minidata) == 1)
 				return ;
 		}
