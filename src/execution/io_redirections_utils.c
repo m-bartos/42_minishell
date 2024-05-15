@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 16:11:22 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/05/15 11:32:29 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/05/15 12:18:50 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,10 +102,8 @@ void	ft_exec_check_valid_infile(t_exec_data *data, t_cmd *cmd)
 			}
 			else
 			{
-				perror(token->text);
 				close(data->ori_fd_in);
 				close(data->ori_fd_out);
-				exit_minishell(NULL, EXIT_FAILURE);
 			}
 		}
 		token = token->next;
