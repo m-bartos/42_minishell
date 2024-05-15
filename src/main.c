@@ -6,7 +6,7 @@
 /*   By: mbartos <mbartos@student.42prague.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/02 14:09:57 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/05/14 17:36:30 by mbartos          ###   ########.fr       */
+/*   Updated: 2024/05/15 09:26:48 by mbartos          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ char	*ft_read_line(t_minidata *minidata)
 	int		status;
 
 	status = 0;
+	line = NULL;
 	prompt = get_prompt(minidata);
 	line = readline(prompt);
 	free(prompt);
@@ -39,10 +40,8 @@ int	main(int argc __attribute__((unused)), char **argv __attribute__((unused)),
 	t_minidata	minidata;
 
 	init_minishell(&minidata, &cmd_tab, envp);
-	line = NULL;
 	while (1)
 	{
-		disable_ctrl_c_output();
 		setup_signal_handling();
 		line = ft_read_line(&minidata);
 		if (line_error(line))
