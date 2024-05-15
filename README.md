@@ -1,11 +1,32 @@
 # 42_minishell
 This project is about creating a simple shell. Our own little bash. Team project with Orezek.
 
-## Project description
+## What kind of features our minishell have?
+* displays prompt as a bash - with path to current directory
+* working history
+* working redirections (`<`, `>`, `>>`), heredoc (`<<`), pipes (`||`)
+* execute commands as bash with argumets - `ls`, `cat`, `head`, `git` ...
+* launch executables - try launch `./minishell` in `./minishell`
+* handle environmental variables
+* woking expansion of environmental variables ($)
+* working built-ins
+* handle CTRL-C, CTRL-D, CTRL-\ like bash
+* builtins:
+** `echo` with option `-n`
+** `cd` with only a relative or absolute path
+** `pwd` with no options
+** `export` with no options
+** `unset` with no options
+** `env` with no options or arguments
+** `exit` with no options
 
 
 ## Requirements
 
+
+* NO BONUS - Cannot handle &&, || and wildcards *
+* Cannot handle open quotes or open double quotes
+* Cannot handle special characters such as backslash \ or semicolon ;
 
 ## Implementation
 
@@ -15,11 +36,11 @@ This project is about creating a simple shell. Our own little bash. Team project
 ```
 sudo apt install libreadline-dev
 ```
-* Make the minishell with command:
+* Make the minishell with command
 ```
 Make
 ```
-* Run the program:
+* Run the program
 ```
 ./minishell
 ```
@@ -44,4 +65,5 @@ valgrind -s --leak-check=full --show-reachable=yes --error-limit=no --suppressio
 * [orezek](https://github.com/orezek) - execution, built-ins, signals, environmental variables
 
 ## Thanks and kudos
+* Thanks [LukasKuhn](https://github.com/LucasKuhn) for the [minishell tester](https://github.com/LucasKuhn/minishell_tester) 
 * Appreciate the project discussions with my fellow 42Prague students - [loudapet](https://github.com/loudapet), [andreaulicna](https://github.com/andreaulicna) - Thanks you for your insights!
