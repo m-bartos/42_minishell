@@ -6,7 +6,7 @@
 /*   By: aldokezer <aldokezer@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/21 09:19:32 by aldokezer         #+#    #+#             */
-/*   Updated: 2024/05/15 10:46:16 by aldokezer        ###   ########.fr       */
+/*   Updated: 2024/05/15 11:53:44 by aldokezer        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	ft_pre_exec(t_cmd_tab *tab, t_minidata *minidata)
 	envs = minidata->env_list;
 	if (tab->size == 1 && ft_is_inbuilt(cmd))
 	{
-		if (ft_check_valid_infile(cmd, envs) == 1)
+		if (ft_pre_exec_check_valid_infile(cmd, envs) == 1)
 		{
 			close(data.ori_fd_in);
 			close(data.ori_fd_out);
